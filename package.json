@@ -25,7 +25,11 @@
     "lint": "turbo run lint",
     "typedoc": "turbo run typedoc",
     "clean": "node scripts/clean.mjs",
-    "version:set": "node scripts/set-version.mjs"
+    "version:set": "node scripts/set-version.mjs",
+    "audit": "npm audit --omit=dev",
+    "audit:all": "npm audit",
+    "audit:ci": "node scripts/check-vulnerabilities.mjs",
+    "sbom": "npx --yes @cyclonedx/cyclonedx-npm@latest --omit dev --output-format JSON --output-file sbom.json"
   },
   "devDependencies": {
     "puppeteer": "^24.0.0",

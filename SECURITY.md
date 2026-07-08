@@ -43,3 +43,38 @@ Please include, where possible:
 
 We appreciate responsible disclosure and will credit reporters in the release
 notes unless you prefer to remain anonymous.
+
+## Dependency auditing & SBOM
+
+Every push and pull request runs a **Security & SBOM** job
+([`.github/workflows/ci.yml`](.github/workflows/ci.yml)):
+
+- **Full scan (informational):** `npm audit` over the whole dependency graph,
+  including the build/dev toolchain (Angular CLI dev-server, webpack, karma,
+  esbuild, …). These do not ship to consumers and never fail the build.
+- **Gate on shipped dependencies:** `npm run audit:ci`
+  ([`scripts/check-vulnerabilities.mjs`](scripts/check-vulnerabilities.mjs))
+  audits only the **production** dependency graph — what consumers install — and
+  fails the build on any advisory that is not on the allow-list.
+- **SBOM:** a CycloneDX SBOM of the shipped dependencies (`npm run sbom`) is
+  generated and uploaded as a build artifact.
+
+Run the same checks locally:
+
+```bash
+npm run audit        # production advisories (what ships)
+npm run audit:all    # full graph, incl. dev/build tooling
+npm run audit:ci     # the CI gate
+npm run sbom         # write sbom.json (CycloneDX)
+```
+
+### Accepted advisories (allow-list)
+
+The single source of truth is
+[`.github/allowed-advisories.txt`](.github/allowed-advisories.txt) — one `GHSA`
+id per line. Only add an advisory when **no fix is available** and the risk has
+been assessed as acceptable, and document the rationale below.
+
+| Advisory | Package | Rationale | Review by |
+| -------- | ------- | --------- | --------- |
+| _(none)_ | — | Shipped dependencies currently report zero vulnerabilities. | — |

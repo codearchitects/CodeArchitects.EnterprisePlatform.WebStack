@@ -17,6 +17,9 @@ coverage/
 # per-package lockfiles (single root lockfile is the source of truth)
 */package-lock.json
 
+# generated SBOM
+sbom.json
+
 # logs & os
 *.log
 npm-debug.log*

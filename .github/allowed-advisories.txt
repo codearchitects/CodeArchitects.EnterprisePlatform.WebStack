@@ -1,0 +1,13 @@
+# Allow-list of accepted security advisories for SHIPPED (production) dependencies.
+#
+# This is the single source of truth used by scripts/check-vulnerabilities.mjs and
+# the CI "Security & SBOM" job. One GHSA id per line; `#` starts a comment.
+#
+# Only add an advisory here when there is no fix available AND the risk has been
+# assessed as acceptable. Document the rationale for each entry in SECURITY.md.
+#
+# Note: dev / build-tooling advisories (Angular CLI dev-server, webpack, karma,
+# esbuild, …) are NOT audited by the gate — they never reach consumers — so they
+# must NOT be listed here.
+#
+# (currently empty: `npm audit --omit=dev` reports 0 vulnerabilities)
