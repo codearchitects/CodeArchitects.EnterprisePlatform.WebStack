@@ -1,0 +1,11 @@
+<span [attr.tabindex]="internalOptions.tabindex" routerLink="/">HOME</span>
+@if (activity?.CurrentPayload?.stack) {
+  @for (frame of activity.CurrentPayload.stack; track frame) {
+    @if (!frame.isReturnPoint) {
+      <div class="divider">/</div>
+      <span [attr.tabindex]="internalOptions.tabindex" [routerLink]="frame | breadcrumb" (click)="actualize(frame)">
+        {{frame.label || (hasFallback && frame.action ? frame.action[0] : '') | translate}}
+      </span>
+    }
+  }
+}

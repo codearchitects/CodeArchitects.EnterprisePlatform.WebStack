@@ -1,0 +1,60 @@
+@mixin caep-theme(
+  $primary,
+  $secondary,
+  $neutral-1,
+  $neutral-2,
+  $error,
+  $warn,
+  $success
+) {
+  @each $paletteName,
+    $palette
+      in (
+        primary: $primary,
+        secondary: $secondary,
+        neutral-1: $neutral-1,
+        neutral-2: $neutral-2,
+        error: $error,
+        warn: $warn,
+        success: $success
+      )
+  {
+    @each $name, $color in $palette {
+      --caep-#{$paletteName}-#{$name}: #{$color};
+    }
+
+    --caep-#{$paletteName}: var(--caep-#{$paletteName}-100);
+    --caep-#{$paletteName}-dark: var(--caep-#{$paletteName}-50);
+  }
+}
+
+@mixin caep-add-shadow-box(
+  $apply-state,
+  $box-shadow,
+  $transition-duration: 0.3s,
+  $transition-timing-function: ease-in-out,
+  $transition-delay: 0s
+) {
+  /* Pre-render the bigger shadow, but hide it */
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    box-shadow: $box-shadow;
+    transition-duration: $transition-duration;
+    transition-timing-function: $transition-timing-function;
+    transition-delay: $transition-delay;
+    transition-property: opacity;
+    @content;
+  }
+
+  /* show the shadow, but with very few re-paints */
+  &#{$apply-state} {
+    &::after {
+      opacity: 1;
+    }
+  }
+}

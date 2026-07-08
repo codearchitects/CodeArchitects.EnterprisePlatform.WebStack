@@ -1,0 +1,220 @@
+{
+    "ca-value-changes": {
+        "prefix": "valueChanges",
+        "body": "(valueChanges)=\"$1(\\$event)\"$0"
+    },
+    "ca-button": {
+        "scope": "html",
+        "prefix": [
+            "sh-button",
+            "ca-button"
+        ],
+        "body": "<sh-button (clicked)=\"$0\" [primary]=\"true\">$1</sh-button>",
+        "description": "The Button is an Angular directive which detects user interaction and triggers a corresponding event."
+    },
+    "ca-button-group": {
+        "scope": "html",
+        "prefix": "sh-button-group",
+        "body": [
+            "<div button-group>",
+            "  <sh-button (clicked)=\"$1\">cancel</sh-button>",
+            "  <sh-button (clicked)=\"$2\" [primary]=\"true\">confirm</sh-button>",
+            "</div>"
+        ],
+        "description": "The Button Group is an attribute applied to a container that have to contains two or more Button components."
+    },
+    "ca-captions": {
+        "scope": "html",
+        "prefix": "sh-caption",
+        "body": " <sh-caption [model]=\"$1\" prop=\"$2\"></sh-caption>$0",
+        "description": "The Caption defines a simple label that does not render anything special for the user. It supports internationalization by design."
+    },
+    "ca-card": {
+        "scope": "html",
+        "prefix": "sh-card",
+        "body": [
+            "<sh-card title=\"$1\" [hasConfirmButton]=\"true\" [hasCancelButton]=\"true\" [model]=\"person\" (confirm)=\"$2\" (cancel)=\"$3\">",
+            "$2",
+            "</sh-card>$0"
+        ],
+        "description": "A card provides a flexible and extensible content container with multiple variants and options"
+    },
+    "ca-enable": {
+        "scope": "html",
+        "prefix": "enable",
+        "body": "[enable]=\"$1\"$0",
+        "description": "Specifies if the control is enabled"
+    },
+    "ca-icon": {
+        "scope": "html",
+        "prefix": "sh-icon",
+        "body": "<sh-icon name=\"${1:no-icon}\"></sh-icon>$0",
+        "description": "Framework offers a series of built-in icons ready to be used, which represent delicious symbols created for common actions and objects."
+    },
+    "ca-input": {
+        "scope": "html",
+        "prefix": [
+            "sh-",
+            "ca-"
+        ],
+        "body": "<sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${3}\" [options]=\"${3}Options\"></sh-${1}>$0"
+    },
+    "ca-input-10": {
+        "scope": "html",
+        "prefix": [
+            "sh-inputs-20",
+            "ca-form"
+        ],
+        "body": [
+            "<div input-group-v>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "  <sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"${4}\" [options]=\"${4}Options\"></sh-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|}>",
+            "</div>$0"
+        ]
+    },
+    "ca-input-checkbox": {
+        "scope": "html",
+        "prefix": "sh-checkbox",
+        "body": "<sh-checkbox [model]=\"$1\" prop=\"$2\"></sh-checkbox>$0",
+        "description": "Elements of type checkbox are rendered by default as square boxes that are checked when activated, like you might see in an official government paper form."
+    },
+    "ca-input-checkgroup": {
+        "scope": "html",
+        "prefix": "sh-checkgroup",
+        "body": "<sh-checkgroup [model]=\"$1\" prop=\"$2\" [options]=\"$4\"></sh-checkgroup>$0"
+    },
+    "ca-input-combo": {
+        "scope": "html",
+        "prefix": "sh-combo",
+        "body": "<sh-combo [model]=\"$1\" prop=\"$2\" [options]=\"$3\"></sh-combo>$0"
+    },
+    "ca-input-date": {
+        "scope": "html",
+        "prefix": "sh-date",
+        "body": "<sh-date [model]=\"$1\" prop=\"$2\"></sh-date>$0"
+    },
+    "ca-input-group-h": {
+        "scope": "html",
+        "prefix": "input-group-h",
+        "body": [
+            "<div input-group-h>",
+            "$1",
+            "</div>$0"
+        ]
+    },
+    "ca-input-group-v": {
+        "scope": "html",
+        "prefix": "input-group-v",
+        "body": [
+            "<div input-group-v>",
+            "$1",
+            "</div>$0"
+        ]
+    },
+    "ca-input-multiselect": {
+        "scope": "html",
+        "prefix": "sh-multiselect",
+        "body": "<sh-multiselect [model]=\"$1\" prop=\"$2\" [options]=\"$3\"></sh-multiselect>$0"
+    },
+    "ca-input-radio": {
+        "scope": "html",
+        "prefix": "sh-radio",
+        "body": "<sh-radio [model]=\"$1\" prop=\"$2\" [options]=\"$3\"></sh-radio>$0"
+    },
+    "ca-input-select ": {
+        "scope": "html",
+        "prefix": "sh-select ",
+        "body": "<sh-select [model]=\"$1\" prop=\"$2\" [options]=\"$3\"></sh-select>$0"
+    },
+    "ca-input-text": {
+        "scope": "html",
+        "prefix": "sh-text",
+        "body": "<sh-text [model]=\"$1\" prop=\"$2\" [options]=\"{placeholder: 'standard-input'}\"></sh-text>$0",
+        "description": "The Inputs are fields which allow for an input of data, based on a specific and predefined format"
+    },
+    "ca-input-textarea": {
+        "scope": "html",
+        "prefix": "sh-textarea",
+        "body": "<sh-textarea [model]=\"$1\" prop=\"$2\" [options]=\"{placeholder: 'standard-textarea'}\"></sh-textarea>$0",
+        "description": "The TextArea enables you to style and provide a floating label functionality to textarea elements"
+    },
+    "ca-modal": {
+        "scope": "html",
+        "prefix": "sh-modal",
+        "body": [
+            "<sh-modal *ngIf=\"$1\" [(model)]=\"$1\" title=\"modal-close-management\"",
+            "   [closeOnConfirm]=\"false\" [closeOnClickOutside]=\"true\" [hasCancelButton]=\"false\" confirmText=\"confirm\"",
+            "   (confirm)=\"${2:isConfirmed = !isConfirmed}\">",
+            "   <div body>",
+            "     $0",
+            "   </div>",
+            "</sh-modal>"
+        ]
+    },
+    "ca-options": {
+        "scope": "html",
+        "prefix": "options",
+        "body": "[options]=\"$1\"$0",
+        "description": "See properties section for options details"
+    },
+    "ca-row": {
+        "scope": "html",
+        "prefix": "row",
+        "description": "Thanks to the \"Grid-System\" it is possible to use a powerful mobile-first flexbox grid to create layouts of all shapes and sizes thanks to a twelve-column system, five predefined responsive breakpoints, SCSS variables and mixins and dozens of predefined classes.",
+        "body": [
+            "<row>",
+            "  <column [xs]=\"12\" [sm]=\"8\" [md]=\"6\" [lg]=\"4\" [xl]=\"6\">",
+            "$0",
+            "  </column>",
+            "</row>"
+        ]
+    },
+    "ca-show": {
+        "scope": "html",
+        "prefix": "show",
+        "body": "[show]=\"$1\"$0",
+        "description": "Specifies if the control is visible"
+    },
+    "ca-spinner": {
+        "scope": "html",
+        "prefix": "sh-spinner",
+        "body": "<sh-spinner *ngIf=\"isLoading\" [isOverlay]=\"true\"></sh-spinner>",
+        "description": "Object used like loader"
+    },
+    "ca-tabs": {
+        "scope": "html",
+        "prefix": "sh-tabs",
+        "body": [
+            "<sh-tabs toolbar [model]=\"$1\" (tabChange)=\"${2:currentTab = $\\$event}\"></sh-tabs>",
+            "<ng-container *ngIf=\"currentTab\">",
+            "  <ng-container [ngSwitch]=\"currentTab.id\">",
+            "    <ng-container *ngSwitchCase=\"0\">",
+            "",
+            "    </ng-container>",
+            "    <ng-container *ngSwitchCase=\"1\">",
+            "",
+            "    </ng-container>",
+            "  </ng-container>",
+            "</ng-container>",
+            "$0"
+        ]
+    }
+}

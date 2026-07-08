@@ -1,0 +1,9 @@
+@use '../../../styles/scss/utils/variables' as *;
+:host {
+  display: block;
+  background-color: $app-sidebar-background-color;
+  width: $app-sidebar-width;
+  height: 100vh;
+  padding-top: $app-sidebar-space-top;
+  border: 1px solid $app-header-color;
+}

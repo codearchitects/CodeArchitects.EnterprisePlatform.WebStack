@@ -1,0 +1,35 @@
+name: CI
+
+# Validates every pull request and pushes to the default branch by building all
+# workspace packages and running their test suites. Browser (karma) tests run
+# against the Chromium that puppeteer installs, in headless no-sandbox mode.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install (single workspace install)
+        run: npm ci
+
+      - name: Build all packages (topological order)
+        run: npm run build
+
+      - name: Test all packages
+        run: npm run test

@@ -1,0 +1,370 @@
+<!--<h2>light</h2>
+<div class="light">
+  <div class="theme-container row row-cols-2">
+    <div class="primary">Primary</div>
+    <div class="secondary">Secondary</div>
+    <div class="neutral-1">Neutral 1</div>
+    <div class="neutral-2">Neutral 2</div>
+  </div>
+  <div class="theme-container row row-cols-3">
+    <div class="error">Error</div>
+    <div class="warn">Warn</div>
+    <div class="success">Success</div>
+    <div class="error-container">Container 1</div>
+    <div class="warn-container">Container 2</div>
+    <div class="success-container">Container 3</div>
+  </div>
+
+  <app-colors-viewer class="primary"></app-colors-viewer>
+  <app-colors-viewer class="secondary"></app-colors-viewer>
+  <app-colors-viewer class="neutral-1"></app-colors-viewer>
+  <app-colors-viewer class="neutral-2"></app-colors-viewer>
+  <app-colors-viewer class="error"></app-colors-viewer>
+  <app-colors-viewer class="warn"></app-colors-viewer>
+  <app-colors-viewer class="success"></app-colors-viewer>
+</div>
+
+<h2>dark</h2>
+<div class="dark">
+  <div class="theme-container row row-cols-2">
+    <div class="primary">Primary</div>
+    <div class="secondary">Secondary</div>
+    <div class="neutral-1">Neutral 1</div>
+    <div class="neutral-2">Neutral 2</div>
+  </div>
+  <div class="theme-container row row-cols-3">
+    <div class="error">Error</div>
+    <div class="warn">Warn</div>
+    <div class="success">Success</div>
+    <div class="error-container">Container 1</div>
+    <div class="warn-container">Container 2</div>
+    <div class="success-container">Container 3</div>
+  </div>
+
+  <app-colors-viewer class="primary"></app-colors-viewer>
+  <app-colors-viewer class="secondary"></app-colors-viewer>
+  <app-colors-viewer class="neutral-1"></app-colors-viewer>
+  <app-colors-viewer class="neutral-2"></app-colors-viewer>
+  <app-colors-viewer class="error"></app-colors-viewer>
+  <app-colors-viewer class="warn"></app-colors-viewer>
+  <app-colors-viewer class="success"></app-colors-viewer>
+</div>
+
+
+<app-grid-viewer></app-grid-viewer>-->
+
+
+<div style="display: flex">
+  <caep-app-sidebar>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+    <div class="header-action circle"></div>
+  </caep-app-sidebar>
+  <div style="flex: 1">
+    <caep-app-header>
+      <div class="header-drawer side" (click)="openSideBar($event,sidebar)" tabindex="0" header-end></div>
+      <div class="header-action circle dropdown" tabindex="0" header-end>
+        <ul class="header-dropdown-content">
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+        </ul>
+      </div>
+      <div class="header-action circle notice dropdown" tabindex="0" header-end>
+        <div class="header-dropdown-content tabs">
+          <input checked="checked" id="tab1" type="radio" name="pct" />
+          <input id="tab2" type="radio" name="pct" />
+          <nav>
+            <ul>
+              <li class="tab1">
+                <label for="tab1">Lorem ipsum</label>
+              </li>
+              <li class="tab2">
+                <label for="tab2">Lorem ipsum</label>
+              </li>
+            </ul>
+          </nav>
+          <section class="tabs-content">
+            <div class="tab1">
+              <li class="header-dropdown-link">
+                <a href="#">Lorem ipsum dolor sit amet</a>
+              </li>
+              <li class="header-dropdown-link">
+                <a href="#">Lorem ipsum dolor sit amet</a>
+              </li>
+              <li class="header-dropdown-link">
+                <a href="#">Lorem ipsum dolor sit amet</a>
+              </li>
+            </div>
+            <div class="tab2">
+              <li class="header-dropdown-link">
+                <a href="#">Lorem ipsum dolor sit amet</a>
+              </li>
+              <li class="header-dropdown-link">
+                <a href="#">Lorem ipsum dolor sit amet</a>
+              </li>
+              <li class="header-dropdown-link">
+                <a href="#">Lorem ipsum dolor sit amet</a>
+              </li>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="header-action circle dropdown" tabindex="0" header-end>
+        <ul class="header-dropdown-content">
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+          <li class="header-dropdown-link"><a href="#">Lorem ipsum</a></li>
+        </ul>
+      </div>
+    </caep-app-header>
+    <div class="page-container" style="max-height: calc(100vh - 60px); overflow: auto">
+      <app-base-child [options]="baseOptions" autofocus [tooltip]="tooltip" (clicked)="handleClick()" [width]="width"
+        [height]="height" [containerClass]="containerClass"></app-base-child><br />
+      <app-base-auth-child [containerClass]="containerClass" enable="true" [show]="person"></app-base-auth-child><br />
+      @if (showBaseModelComponent) {
+        <app-base-model-child [model]="this" prop="password" [options]="{ type: 'text' }"
+          [width]="width" (valueChanges)="onValueChanges($event)" (canValueChange)="onBaseModelCanValueChange($event)"
+          (focused)="onBaseModelFocus()" (blurred)="onBaseModelBlur()" [property]="test" [show]="showBaseModelInput"
+          autofocus tooltip="Tooltip example!"></app-base-model-child>
+      }
+      <button type="button" (click)="onBaseModelClick()">BaseModel</button>
+      @for (i of numbers; track i) {
+        <div>
+          @if (showBaseInputComponent) {
+            <app-base-input-child [model]="this" [prop]="'name' + i"
+              [options]="baseInputOptions" tabindex="0" [width]="width" (canValueChange)="onBaseInputCanValueChange($event)"
+              [show]="showBaseInput" [enable]="enableBaseInput" autofocus
+              tooltip="Tooltip example!"></app-base-input-child>
+          }
+          <br />
+        </div>
+      }
+      <button type="button" (click)="onBaseInputClick()">BaseInput</button>
+
+      @for (i of numbers; track i) {
+        <div>
+          @if (showBaseFormattedComponent) {
+            <app-base-formatted-child [model]="this" [prop]="'currency' + i"
+              [options]="{ isReadonly: false, placeholder: 'Input currency', maxLength: 30, transform: 'myCurrency', transformArgs: { format: '0,0.00 $', editFormat: '00.00', allowNegative: true, maximumFractionDigits: 2 }, step: 2 }"
+              tabindex="0" [width]="width" tooltip="Tooltip example"></app-base-formatted-child>
+          }
+        </div>
+      }
+      <button type="button" (click)="onBaseFormattedClick()">BaseFormatted</button><br /><br /><br />
+
+      <!--<app-base-lookup-single-child *ngIf="showBaseLookupSingleComponent" [model]="this" prop="job" [options]="{ isReadonly: false, placeholder: 'Input job', values: jobs }" tabindex="0" [width]="width"></app-base-lookup-single-child>
+      <p>{{job ? 'Selected job is ' + job: 'No job selected' }}</p>-->
+      <!--<app-base-lookup-single-child *ngIf="showBaseLookupSingleComponent" [model]="this" prop="job" [options]="{ isReadonly: false, placeholder: 'Input job' }" tabindex="0" [width]="width">
+      <caep-option [value]="jobs[0]">Developer</caep-option>
+      <caep-option [value]="jobs[1]">System Admin</caep-option>
+      <caep-option [value]="jobs[2]">Scrum Master</caep-option>
+    </app-base-lookup-single-child>
+    <p>{{job ? 'Selected job is ' + job: 'No job selected' }}</p>-->
+      <!--<app-base-lookup-single-child *ngIf="showBaseLookupSingleComponent" [model]="this" prop="customer" [options]="{ isReadonly: false, placeholder: 'Input customer', values: customers, valuesPipe: pipeName, valuesPipeArgs: [personPipeParam] }" tabindex="0" [width]="width">
+    </app-base-lookup-single-child>
+    <p>{{customer ? 'Selected customer is ' + ( customer | person : personPipeParam ): 'No customer selected' }}</p>-->
+      @if (showBaseLookupSingleComponent) {
+        <app-base-lookup-single-child [model]="this" prop="customer"
+          [options]="{ isReadonly: false, placeholder: 'Input customer' }" tabindex="0" [width]="width">
+          @for (cust of customers; track cust) {
+            <caep-option [value]="cust">{{cust.name}} {{cust.surname}}</caep-option>
+          }
+        </app-base-lookup-single-child>
+      }
+      <p>{{customer ? 'Selected customer is ' + ( customer | person : personPipeParam ): 'No customer selected' }}</p>
+      <!--<app-base-lookup-single-child *ngIf="showBaseLookupSingleComponent" [model]="this" prop="customer" [options]="{ isReadonly: false, placeholder: 'Input customer', values: customers$, valuesPipe: pipeName, valuesPipeArgs: [personPipeParam] }" tabindex="0" [width]="width">
+    </app-base-lookup-single-child>
+    <p>{{customer ? 'Selected customer is ' + ( customer | person : personPipeParam ): 'No customer selected' }}</p>-->
+      <!--<app-base-lookup-single-child *ngIf="showBaseLookupSingleComponent" [model]="this" prop="customer" [options]="{ isReadonly: false, placeholder: 'Input customer' }" tabindex="0" [width]="width">
+      <caep-option [value]="customers[0]">{{customers[0].name}} {{customers[0].surname}}</caep-option>
+      <ng-container *ngIf="showOption"><caep-option [value]="customers[1]">{{customers[1].name}} {{customers[1].surname}}</caep-option></ng-container>
+      <caep-option [value]="customers[2]">{{customers[2].name}} {{customers[2].surname}}</caep-option>
+    </app-base-lookup-single-child>
+    <p>{{customer ? 'Selected customer is ' + ( customer | person : personPipeParam ): 'No customer selected' }}</p>-->
+      <button type="button" (click)="onBaseLookupSingleClick()">BaseLookupSingle</button><br /><br /><br />
+
+      <!--<app-base-lookup-multi-child [model]="this" prop="selectedJobs" [options]="{ isReadonly: false, placeholder: 'Input jobs', values: jobs }" tabindex="0" [width]="width"></app-base-lookup-multi-child>
+    <p>
+      {{selectedJobs?.length ? 'Selected jobs are ' : 'No job selected' }}
+      <ng-container *ngFor="let job of selectedJobs">{{ job }} </ng-container>
+    </p>-->
+      <!--<app-base-lookup-multi-child [model]="this" prop="selectedJobs" [options]="{ isReadonly: false, placeholder: 'Input jobs' }" tabindex="0" [width]="width">
+      <caep-option [value]="jobs[0]">Developer</caep-option>
+      <caep-option [value]="jobs[1]">System Admin</caep-option>
+      <caep-option [value]="jobs[2]">Scrum Master</caep-option>
+    </app-base-lookup-multi-child>
+    <p>
+      {{selectedJobs?.length ? 'Selected jobs are ' : 'No job selected' }}
+      <ng-container *ngFor="let job of selectedJobs">{{ job }} </ng-container>
+    </p>-->
+      <!--<app-base-lookup-multi-child [model]="this" prop="selectedCustomers" [options]="{ isReadonly: false, placeholder: 'Input customers', values: customers, valuesPipe: pipeName, valuesPipeArgs: [personPipeParam] }" tabindex="0" [width]="width">
+    </app-base-lookup-multi-child>
+    <p>
+      {{selectedCustomers?.length ? 'Selected customers are ' : 'No customer selected' }}
+      <ng-container *ngFor="let customer of selectedCustomers">{{ customer | person : personPipeParam }} </ng-container>
+    </p>-->
+      <app-base-lookup-multi-child [model]="this" prop="selectedCustomers"
+        [options]="{ isReadonly: false, placeholder: 'Input customers' }" tabindex="0" [width]="width">
+        @for (cust of customers; track cust) {
+          <caep-option [value]="cust">{{cust.name}} {{cust.surname}}</caep-option>
+        }
+      </app-base-lookup-multi-child>
+      <p>
+        {{selectedCustomers?.length ? 'Selected customers are ' : 'No customer selected' }}
+        @for (customer of selectedCustomers; track customer) {
+          {{ customer | person : personPipeParam }}
+        }
+      </p>
+      <!--<app-base-lookup-multi-child [model]="this" prop="selectedCustomers" [options]="{ isReadonly: false, placeholder: 'Input customers', values: customers$, valuesPipe: pipeName, valuesPipeArgs: [personPipeParam] }" tabindex="0" [width]="width">
+    </app-base-lookup-multi-child>
+    <p>
+      {{selectedCustomers?.length ? 'Selected customers are ' : 'No customer selected' }}
+      <ng-container *ngFor="let customer of selectedCustomers">{{ customer | person : personPipeParam }} </ng-container>
+    </p>-->
+      <!--<app-base-lookup-multi-child [model]="this" prop="selectedCustomers" [options]="{ isReadonly: false, placeholder: 'Input customers' }" tabindex="0" [width]="width">
+      <caep-option *ngIf="showOption" [value]="customers[0]">{{customers[0].name}} {{customers[0].surname}}</caep-option>
+      <caep-option [value]="customers[1]">{{customers[1].name}} {{customers[1].surname}}</caep-option>
+      <caep-option [value]="customers[2]">{{customers[2].name}} {{customers[2].surname}}</caep-option>
+    </app-base-lookup-multi-child>
+    <p>
+      {{selectedCustomers?.length ? 'Selected customers are ' : 'No customer selected' }}
+      <ng-container *ngFor="let customer of selectedCustomers">{{ customer | person : personPipeParam }} </ng-container>
+    </p>-->
+      <button type="button" (click)="onBaseLookupMultiClick()">BaseLookupMulti</button><br /><br /><br />
+
+      @if (showAspectComponent) {
+        <caep-form-control [model]="this" prop="aspectSelectedCustomers"
+          [options]="{ isReadonly: false, placeholder: 'Input customers' }" tabindex="0" [width]="width">
+          @if (showAspectContent) {
+            <caep-option [value]="customers[0]">{{customers[0].name}}
+              {{customers[0].surname}}</caep-option>
+          }
+          <div><caep-option [value]="customers[1]">{{customers[1].name}} {{customers[1].surname}}</caep-option></div>
+          <caep-option [value]="customers[2]">{{customers[2].name}} {{customers[2].surname}}</caep-option>
+        </caep-form-control>
+      }
+      <p>
+        {{aspectSelectedCustomers?.length ? 'Selected customers are ' : 'No customer selected' }}
+        @for (customer of aspectSelectedCustomers; track customer) {
+          {{ customer | person : personPipeParam }}
+        }
+      </p>
+      <!--<caep-mock-multiselect [model]="this" prop="aspectSelectedCustomers" [options]="{ isReadonly: false, placeholder: 'Input customers' }" tabindex="0" [width]="width">
+      <caep-option *ngIf="showAspectContent" [value]="customers[0]">{{customers[0].name}} {{customers[0].surname}}</caep-option>
+      <div><caep-option [value]="customers[1]">{{customers[1].name}} {{customers[1].surname}}</caep-option></div>
+      <caep-option [value]="customers[2]">{{customers[2].name}} {{customers[2].surname}}</caep-option>
+    </caep-mock-multiselect>
+    <p>
+      {{aspectSelectedCustomers?.length ? 'Selected customers are ' : 'No customer selected' }}
+      <ng-container *ngFor="let customer of aspectSelectedCustomers">{{ customer | person : personPipeParam }} </ng-container>
+    </p>-->
+
+      <!--<caep-form-control [model]="this" prop="aspectText" [options]="mockTextOptions" tabindex="0" [width]="width" [height]="height" (valueChanges)="onValueChanges($event)" (canValueChange)="onAspectCanValueChange($event)" 
+        [show]="showMockText" [enable]="enableMockText" autofocus [tooltip]="tooltip" (blurred)="onAspectBlur()">
+        <div test>
+          Test test
+        </div>
+        <div header *ngIf="showAspectContent">
+          Test Header
+        </div>
+        <div footer>
+          Test Footer
+        </div>
+    </caep-form-control><br/>-->
+      <!--<div *ngFor="let i of aspectNumbers">
+      <caep-form-control [model]="this" [prop]="'aspectText' + i" [options]="mockTextOptions" tabindex="0" [width]="width" [height]="height"
+        [show]="showMockText" [enable]="enableMockText" autofocus [tooltip]="tooltip">
+        <div test>
+          Test test
+        </div>
+        <div header *ngIf="showAspectContent">
+          Test Header
+        </div>
+        <div footer>
+          Test Footer
+        </div>
+        <div footer><div><p></p></div><div><caep-option [value]="customers[1]">{{customers[1].name}} {{customers[1].surname}}</caep-option></div></div>
+        <caep-option *ngIf="showAspectContent" [value]="customers[2]">{{customers[2].name}} {{customers[2].surname}}</caep-option>
+      </caep-form-control><br/>
+    </div>-->
+      <!--<caep-mock-text [model]="this" prop="aspectText" [options]="mockTextOptions" tabindex="0" [width]="width" (valueChanges)="onValueChanges($event)" (canValueChange)="onAspectCanValueChange($event)" 
+      [show]="showMockText" [enable]="enableMockText" autofocus tooltip="Tooltip example!" (blurred)="onAspectBlur()">
+      <div test>
+        Test test
+      </div>
+      <div header *ngIf="showAspectContent">
+        Test Header
+      </div>
+      <div footer>
+        Test Footer
+      </div>
+    </caep-mock-text>-->
+
+      <button type="button" (click)="onAspectClick()">Aspect</button><br /><br /><br />
+
+      <a routerLink="/componentA">Component A</a><a routerLink="/componentB">Component B</a><a
+        routerLink="/colors">Colors A</a><a routerLink="/grid">Grid</a><a routerLink="/columns">Columns</a>
+
+      <caep-form-control [model]="this" [prop]="caepProp" [options]="caepTextOptions" [show]="showCaepText"
+        [enable]="enableCaepText" autofocus (valueChanges)="onValueChanges($event)" tooltip="Tooltip example!"
+        (blurred)="onAspectBlur()">
+      </caep-form-control>
+      <section class="input-rounded">
+        <caep-text [model]="this" [prop]="caepProp" label="Lorem ipsum" [options]="caepTextOptions" (valueChanges)="onValueChanges($event)"
+          [show]="showCaepText" [enable]="enableCaepText" autofocus tooltip="Tooltip example!"
+          (blurred)="onAspectBlur()"></caep-text>
+      </section>
+
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<caep-floating-commands>
+  <div class="header-action circle"></div>
+  <div class="header-action circle"></div>
+  <div class="header-action circle"></div>
+</caep-floating-commands>
+
+<ng-template #sidebar let-service>
+  <div class="side-content">
+    <div class="side-header">
+      <div class="header-placheolder" style="border: none">
+        <div class="circle"></div>
+        <div class="subtitle">Lorem ipsum</div>
+      </div>
+    </div>
+    <li class="header-dropdown-link" (click)="service.close()">
+      <a href="#">Lorem ipsum</a>
+    </li>
+    <li class="header-dropdown-link" (click)="service.close()">
+      <a href="#">Lorem ipsum</a>
+    </li>
+    <li class="header-dropdown-link" (click)="service.close()">
+      <a href="#">Lorem ipsum</a>
+    </li>
+    <li class="header-dropdown-link" (click)="service.close()">
+      <a href="#">Lorem ipsum</a>
+    </li>
+    <li class="header-dropdown-link" (click)="service.close()">
+      <a href="#">Lorem ipsum</a>
+    </li>
+    <li class="header-dropdown-link" (click)="service.close()">
+      <a href="#">Lorem ipsum</a>
+    </li>
+  </div>
+</ng-template>
+<caep-side-panel></caep-side-panel>

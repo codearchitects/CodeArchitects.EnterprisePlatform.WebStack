@@ -1,0 +1,12 @@
+<sh-sidebar [logo]="companyLogo" [(isExpanded)]="isSidebarExpanded" [togglerIcon]="togglerIcon" [class.expanded]="isSidebarExpanded"
+  [onGetData]="onGetSidebarCommands"></sh-sidebar>
+<sh-header [logo]="appLogo" [showSearchbar]="showSearchbar" [searchBarIcon]="searchBarIcon" [applicationName]="applicationName">
+  <ng-content select="[header]"></ng-content>
+</sh-header>
+<sh-toolbar (return)="return.emit()" [showLangControl]="showLangControl" [showBreadcrumb]="showBreadcrumb"
+  [activity]="activity">
+  <ng-content select="[toolbar]"></ng-content>
+</sh-toolbar>
+<div id="container" [class.has-expanded-sidebar]="isSidebarExpanded">
+  <ng-content></ng-content>
+</div>

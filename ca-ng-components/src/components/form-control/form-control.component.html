@@ -1,0 +1,11 @@
+@if (isReady && show && model) {
+  <div component="">
+    <sh-label [model]="model" [prop]="prop" [options]="internalOptions" [enable]="enable" [show]="show"></sh-label>
+    <sh-template #controlRef [model]="model" [prop]="prop" [options]="internalOptions" [enable]="enable" [show]="show"
+    (valueChanges)="valueChanges.emit($event)"></sh-template>
+    @if (!isCaptionControl) {
+      <sh-validation-message [model]="model" [prop]="prop" [options]="internalOptions" [enable]="enable" [show]="show">
+      </sh-validation-message>
+    }
+  </div>
+}

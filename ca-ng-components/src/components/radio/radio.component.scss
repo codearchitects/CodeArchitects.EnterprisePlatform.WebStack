@@ -1,0 +1,164 @@
+@use '../../../styles/colors' as *;
+
+$radio-size: var(--radio-size, 19px);
+$radio-label-font-size: var(--radio-label-font-size, 18px);
+$radio-label-distance: var(--radio-label-distance, 10px);
+$radio-label-color: var(--radio-label-color, $sh-light-gray);
+$radio-label-vertical-align: var(--radio-label-vertical-align, top);
+$radio-label-disabled-color: var(--radio-label-disabled-color, $sh-light-gray);
+$radio-label-checked-color: var(--radio-label-checked-color, $sh-sea-black);
+$radio-ball-recess: var(--radio-ball-recess, 7px);
+$radio-ball-size: var(--radio-ball-size, 9px);
+$radio-border-size: var(--radio-border-size, 2px);
+$radio-border-style: var(--radio-border-style, solid);
+$radio-border-color: var(--radio-border-color, $sh-light-gray);
+$radio-background-color: var(--radio-background-color, transparent);
+$radio-ball-checked-background: var(--radio-ball-checked-background, var(--sh-first));
+$radio-checked-border-color: var(--radio-checked-border-color, $radio-ball-checked-background);
+$radio-disabled-opacity: var(--radio-disabled-opacity, .4);
+$radio-disabled-background-color: var(--radio-disabled-background-color, $sh-sea-black);
+$radio-disabled-border-color: var(--radio-disabled-border-color, $radio-disabled-background-color);
+$radio-ball-disabled-background-color: var(--radio-ball-disabled-background-color, $sh-white);
+$radio-checked-hover-background-color: var(--radio-checked-hover-background-color, $sh-gray);
+$radio-hover-background-color: var(--radio-hover-background-color, $sh-gray);
+$radio-hover-border-color: var(--radio-hover-border-color, $sh-sea-black);
+$radio-text-distance: var(--radio-text-distance, 6px);
+$radio-distance: var(--radio-distance, 15px);
+$radio-group-distance: var(--radio-group-distance, 5px 0);
+$radio-group-recess: var(--radio-group-recess, 5px 5px 5px 0px);
+$radio-group-border-width: var(--radio-group-border-width, 1px);
+$radio-group-border-style: var(--radio-group-border-style, solid);
+$radio-group-border-color: var(--radio-group-border-color, transparent);
+$radio-group-focus-border-image: var(--radio-group-focus-border-image, linear-gradient(to left, var(--sh-tertiary), transparent) 50 1%);
+
+:host {
+  margin: $radio-group-distance;
+  display: inline-block;
+
+  .radio-group {
+    padding: $radio-group-recess;
+    display: inline-block;
+    border-width: $radio-group-border-width;
+    border-style: $radio-group-border-style;
+    border-color: $radio-group-border-color;
+
+    &:focus {
+      outline: none;
+      border-image: $radio-group-focus-border-image;
+    }
+  }
+
+  .radio-group-item {
+    &:not(:last-of-type) {
+      margin-bottom: $radio-distance;
+
+      &[inline] {
+        margin-right: $radio-distance;
+      }
+    }
+  }
+
+  .radio {
+    position: relative;
+    width: $radio-size;
+    height: $radio-size;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-right: $radio-text-distance;
+    display: inline-block;
+
+    label {
+      display: block;
+      overflow: hidden;
+      cursor: pointer;
+      width: $radio-size;
+      height: $radio-size;
+      padding: 0;
+      border-width: $radio-border-size;
+      border-style: $radio-border-style;
+      border-color: $radio-border-color;
+      background-color: $radio-background-color;
+      transition: .3s background-color, .3s border-color;
+      border-radius: 50%;
+    }
+
+    &+span {
+      color: $radio-label-color;
+      cursor: pointer;
+      font-size: $radio-label-font-size;
+      margin-left: $radio-label-distance;
+      user-select: none;
+    }
+
+    &,
+    &+span {
+      vertical-align: $radio-label-vertical-align;
+    }
+
+    input {
+      display: none;
+      pointer-events: none;
+
+      &:checked+label {
+        margin-left: 0;
+        border-color: $radio-checked-border-color;
+
+        &:before {
+          content: "";
+          display: block;
+          width: $radio-ball-size;
+          height: $radio-ball-size;
+          position: absolute;
+          border: none;
+          background: $radio-ball-checked-background;
+          border-radius: 50%;
+          top: $radio-ball-recess;
+          left: $radio-ball-recess;
+        }
+      }
+    }
+
+    &.disabled {
+      opacity: $radio-disabled-opacity;
+      pointer-events: none;
+      cursor: not-allowed;
+
+      input {
+        &+label {
+          background-color: $radio-disabled-background-color;
+          border-color: $radio-disabled-border-color;
+
+          &:before {
+            background-color: $radio-ball-disabled-background-color
+          }
+        }
+      }
+
+      &+span {
+        color: $radio-label-disabled-color;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+    }
+
+
+    &:hover,
+    &:focus,
+    &:active {
+      input:checked+label {
+        background-color: $radio-checked-hover-background-color;
+      }
+
+      input:not(:checked)+label {
+        background-color: $radio-hover-background-color;
+        border-color: $radio-hover-border-color;
+      }
+    }
+
+    &.current:not(.disabled)+span {
+      color: $radio-label-checked-color;
+    }
+  }
+}

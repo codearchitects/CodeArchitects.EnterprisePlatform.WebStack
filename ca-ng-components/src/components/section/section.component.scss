@@ -1,0 +1,80 @@
+@use '../../../styles/colors' as *;
+
+$header-border-size: 1px;
+$button-height: 50px;
+$section-background: var(--section-background, $sh-white);
+$section-box-shadow: var(--section-box-shadow, $sh-gray 0 0 10px 0);
+$section-header-recess: var(--section-header-recess, 20px);
+$section-body-top-distance: var(--section-body-top-distance, calc(#{$section-header-recess} * 2));
+$section-body-locked-top-distance: var(--section-body-locked-top-distance, 0);
+$section-border-radius: var(--section-border-radius, 5px);
+$section-bottom-distance: var(--section-bottom-distance, 40px);
+$section-header-color: var(--section-header-color, $sh-iron-gray);
+$section-body-disabled-opacity: var(--section-body-disabled-opacity, .5);
+
+:host {
+  position: relative;
+  margin-bottom: $section-bottom-distance;
+  background: $section-background;
+  box-shadow: $section-box-shadow;
+  padding: $section-header-recess;
+  border-radius: $section-border-radius;
+  min-height: $section-header-recess;
+
+  &:not([inline]) {
+    display: block;
+  }
+
+  .section-header {
+    color: $section-header-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc($section-body-top-distance + $section-header-recess);
+    z-index: 2;
+    cursor: pointer;
+    user-select: none;
+
+    span {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: $section-header-recess;
+    }
+  }
+
+  .section-body {
+    padding-top: $section-body-top-distance;
+    position: relative;
+    opacity: 1;
+    max-height: 10000px;
+    transition: max-height .3s, padding .3s, opacity .3s;
+
+    &.collapsed {
+      max-height: 0;
+      padding: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &.content-disabled {
+      opacity: $section-body-disabled-opacity;
+      pointer-events: none;
+    }
+
+    ::ng-deep [shdropdown] {
+      position: absolute;
+    }
+  }
+
+  .locked {
+    &.section-header {
+      display: none;
+
+      &+.section-body {
+        padding-top: $section-body-locked-top-distance;
+      }
+    }
+  }
+}

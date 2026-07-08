@@ -1,0 +1,29 @@
+{
+    "caep-icon": {
+        "prefix": "caep-icon",
+        "body": "<caep-icon name=\"${1:no-icon}\"></caep-icon>$0",
+        "description": "Framework offers a series of built-in icons ready to be used, which represent delicious symbols created for common actions and objects."
+    },
+    "caep-input": {
+        "prefix": [
+            "caep-",
+            "caep-input"
+        ],
+        "body": "<caep-${1|form-control,checkbox,checkgroup,combo,date,multiselect,radio,select,text,textarea|} [model]=\"${2|model,this|}\" prop=\"$3$0\" ${4|[options]=\"options\", |}></caep-${1}>"
+    },
+    "caep-options": {
+        "prefix": "options",
+        "body": "[options]=\"$1\"$0",
+        "description": "See properties section for options details"
+    },
+    "caep-enable": {
+        "prefix": "enable",
+        "body": "[enable]=\"$1\"$0",
+        "description": "Specifies if the control is enabled"
+    },
+    "caep-show": {
+        "prefix": "show",
+        "body": "[show]=\"$1\"$0",
+        "description": "Specifies if the control is visible"
+    }
+}

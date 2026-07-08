@@ -1,0 +1,12 @@
+@if (show) {
+  <button #controlRef [attr.type]="internalOptions.type" [attr.tabindex]="internalOptions.tabindex"
+    [id]="internalOptions.id" [disabled]="!enable" [class]="containerClass" [class.primary]="primary"
+    [class.transparent]="transparent" [class.negative]="negative" [class.outline]="outline"
+    [attr.autofocus]="internalOptions.autofocus || null" translate [ngStyle]="{ 'width':width, 'height': height }"
+    (click)="onClick($event)">
+    @if (icon) {
+      <sh-icon [name]="icon"></sh-icon>
+    }
+    <ng-content></ng-content>
+  </button>
+}

@@ -1,0 +1,18 @@
+@if (show && formControl) {
+  <div [class]="containerClass" relative>
+    <input #controlRef type="text" [id]="internalOptions.id" [formControl]="formControl" [class]="inputClass"
+      autocomplete="off" (focusin)="onFocusIn($event)" (focusout)="onFocusOut($event)" (keydown)="onKeyDown($event)"
+      [attr.tabindex]="internalOptions.tabindex" [attr.autofocus]="internalOptions.autofocus || null"
+      [style.minWidth]="width" [style.maxWidth]="width" [style.height]="height" [attr.maxlength]="internalOptions.maxLength || null"
+      [attr.readonly]="internalOptions.isReadonly ? true : null"
+      placeholder="{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}"
+      [class.floating-placeholder]="placeholder && !formControl?.value" [class.with-icon]="!!icon"
+      [class.sh-populated]="!!formControl.value">
+    @if (placeholder) {
+      <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
+    }
+    @if (icon) {
+      <sh-icon vertical-centered [name]="icon"></sh-icon>
+    }
+  </div>
+}

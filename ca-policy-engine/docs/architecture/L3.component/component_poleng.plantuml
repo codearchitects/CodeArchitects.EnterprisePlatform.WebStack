@@ -1,0 +1,40 @@
+@startuml Component1 Component Diagram
+!include ./../../C4.puml
+
+allow_mixing
+title Component-diagram Policy Engine
+
+Boundary(engine, "Policy Engine"){
+    Component(polengcomponent, "Policy Engine", "Typescript")
+    Component(busiexe, "Business Rule Executor", "Typescript")
+    Component(handlers, "Policy Handlers", "Function-Type Pairs")
+    Component(context, "Data Context", "Typescript Object")
+    Component(claims, "Claims", "Typescript Object (Type-Value Pairs)")
+    Component(policies, "Policies", "Defines type of handler, conditions (claim-based) and (eventually) business expression")
+}
+
+System_Ext(ss, "Software System")
+
+Person(expert, "Business Domain Expert")
+Person(manager, "Policy Expert")
+
+''' Person-based relationships
+Rel(expert, policies, "Defines Business Rules")
+Rel(manager,policies, "Manages")
+
+''' System-based relationships
+Rel(ss, polengcomponent, "Queries")
+Rel(ss, claims, "Defines")
+Rel(ss, context, "Defines")
+
+''' Container-based relationships
+
+''' Component-based relationships
+Rel(polengcomponent, handlers, "Uses")
+Rel(context, polengcomponent, "Injected")
+Rel(claims, polengcomponent, "Injected")
+Rel(policies, polengcomponent, "Injected")
+Rel(handlers, busiexe, "Uses")
+Rel(busiexe, context, "Asserts/Retracts")
+
+@enduml

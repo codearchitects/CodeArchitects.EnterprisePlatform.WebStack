@@ -1,0 +1,42 @@
+@use "../../../styles/input" as *;
+
+$timer-font-family: var(--timer-font-family, RobotoLight);
+$timer-color: var(--timer-color, $input-color);
+$timer-player-font-size: var(--timer-player-font-size, 25px);
+$timer-player-width: var(--timer-player-width, calc(#{$timer-player-font-size} * 6));
+$player-btn-v-recess: 5px;
+$player-btn-h-recess: 10px;
+$player-btn-offset: 1px;
+
+:host {
+  display: inline-block;
+  text-align: center;
+  font-size: $input-font-size;
+  font-family: $timer-font-family;
+  countdown {
+    color: $timer-color;
+  }
+  .player {
+    width: $timer-player-width;
+    ::ng-deep sh-button {
+      button {
+        font-size: $timer-player-font-size;
+        padding: $player-btn-v-recess $player-btn-h-recess;
+      }
+
+      &.stop,
+      &.pause {
+        button {
+          padding-bottom: $player-btn-v-recess + $player-btn-offset;
+          padding-top: calc($player-btn-v-recess/2) - $player-btn-offset;
+          padding-right: calc($player-btn-h-recess/3);
+          padding-left: calc($player-btn-h-recess/3);
+        }
+      }
+
+      &.restart button {
+        padding-right: $player-btn-h-recess + $player-btn-offset;
+      }
+    }
+  }
+}

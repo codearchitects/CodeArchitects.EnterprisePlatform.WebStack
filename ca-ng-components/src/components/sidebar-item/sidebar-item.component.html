@@ -1,0 +1,31 @@
+@if (show) {
+  <div class="command" [class.expanded]="isExpanded" [class.disabled]="!enable"
+    title="{{model.title | translate}}">
+    <ng-template #commandTemplate>
+      <div class="command-icon">
+        <sh-icon full-centered [name]="model.icon"></sh-icon>
+      </div>
+      <div class="command-caption">{{model.title | translate}}</div>
+    </ng-template>
+    @if (model.routerLink) {
+      <div [routerLink]="model.routerLink" routerLinkActive="active">
+        <ng-container *ngTemplateOutlet="commandTemplate"></ng-container>
+      </div>
+    } @else {
+      <div routerLinkActive="active" [class.parent]="model.children?.length">
+        <ng-container *ngTemplateOutlet="commandTemplate"></ng-container>
+        @if (model.children?.length) {
+          <div class="children-overlay" (click)="toggleChildren.emit()">
+          </div>
+          <div hidden class="children" [class.expanded-children]="areChildrenShown">
+            @for (child of model.children; track child.id) {
+              <div class="child" [routerLink]="child.routerLink" routerLinkActive="active">
+                <sh-sidebar-item [model]="child" [resource]="child.resource"></sh-sidebar-item>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

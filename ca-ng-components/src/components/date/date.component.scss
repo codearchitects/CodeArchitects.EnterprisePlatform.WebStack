@@ -1,0 +1,312 @@
+@use "../../../styles/colors" as *;
+@use "../../../styles/input" as *;
+
+$picker-input-text-focus-background-color: var(--date-picker-input-text-focus-background-color, var(--sh-first));
+$picker-input-text-focus-color: var(--date-picker-input-text-focus-color, $sh-white);
+$picker-input-text-width: var(--date-picker-input-text-width, 80%);
+$picker-cell-size: var(--date-picker-cell-size, 36px);
+$picker-height: var(--date-picker-height, 327px);
+$picker-width: var(--date-picker-width, 266px);
+$picker-shadow: var(--date-picker-shadow, 0px 0px 10px 2px $sh-quick-silver);
+$picker-borders: 2px solid $sh-white;
+$picker-month-cell-font-size: var(--date-picker-month-cell-font-size, 14px);
+$picker-cell-font-family: var(--date-picker-cell-font-family, RobotoLight);
+$picker-month-cell-color: var(--date-picker-month-cell-color, $sh-purple-grape);
+$picker-selection-color: var(--date-picker-selection-color, var(--sh-septenary));
+$picker-cells-border-color: var(--date-picker-cells-border-color, $sh-light-aluminium);
+$picker-month-cell-hover-border-color: var(--date-picker-month-cell-hover-border-color, $picker-selection-color);
+$picker-cell-selected-background-color: var(--date-picker-cell-selected-background-color, $picker-selection-color);
+$picker-cell-selected-color: var(--date-picker-cell-selected-color, $sh-white);
+$picker-cell-selected-border-radius: var(--date-picker-cell-selected-border-radius, 5px);
+$picker-header-color: var(--date-picker-header-color, $picker-selection-color);
+$picker-header-font-family: var(--date-picker-header-font-family, RobotoBold);
+$picker-header-font-size: var(--date-picker-header-font-size, $picker-month-cell-font-size);
+$picker-weekday-cell-background-color: var(--date-picker-weekday-cell-background-color, var(--sh-quaternary));
+$picker-weekday-cell-border-color: var(--date-picker-weekday-cell-border-color, $picker-cells-border-color);
+$picker-weekday-cell-border-size: var(--date-picker-weekday-cell-border-size, 2px);
+$picker-cell-font-size: var(--date-picker-cell-font-size, 18px);
+$picker-current-day-cell-font-family: var(--date-picker-current-day-cell-font-family, RobotoBold);
+$picker-current-day-cell-border: var(--date-picker-current-day-cell-border, none);
+$picker-current-month-day-cell-background-color: var(--date-picker-current-month-day-cell-background-color, $sh-white);
+$picker-sibling-month-day-cell-background-color: var(--date-picker-sibling-month-day-cell-background-color, $sh-ghost-white);
+$picker-sunday-cell-background-color: $sh-mist;
+$picker-sunday-cell-color: $sh-red-passion;
+$picker-cell-focus-border-size: var(--date-picker-cell-focus-border-size, 2px);
+$picker-month-cell-focus-border-radius: var(--date-picker-month-cell-focus-border-radius, 2px);
+$picker-cell-focus-box-shadow: var(--date-picker-cell-focus-box-shadow, inset 0px 0px 0px $picker-cell-focus-border-size $picker-selection-color);
+$picker-month-cell-background-color: var(--date-picker-month-cell-background-color, $picker-weekday-cell-background-color);
+$picker-year-change-button-color: $sh-pale-blue;
+$picker-cells-border-size: var(--date-picker-cells-border-size, 2px);
+$picker-today-footer-padding: var(--date-picker-today-footer-padding, 2px 4px);
+$picker-today-footer-recess: var(--date-picker-today-footer-recess, 0);
+$picker-today-footer-background-color: var(--date-picker-today-footer-background-color, $picker-sibling-month-day-cell-background-color);
+$picker-today-footer-width: var(--date-picker-today-footer-width, 100%);
+$picker-header-focus-color: var(--date-picker-header-focus-color, $picker-weekday-cell-background-color);
+$picker-top-recess: var(--date-picker-top-recess, 20px);
+$picker-left-recess: var(--date-picker-left-recess, -9px);
+$picker-border-radius: var(--date-picker-border-radius, 0);
+$picker-border: var(--date-picker-border, none);
+$picker-header-arrows-color: var(--date-picker-header-arrows-color, $picker-header-color);
+
+@mixin headerAndFooterStyle {
+  font-family: $picker-header-font-family;
+  font-size: $picker-header-font-size;
+  text-transform: uppercase;
+  color: $picker-header-color;
+}
+
+:host {
+  & > div {
+    display: inline-block;
+
+    * {
+      user-select: none;
+    }
+
+    .input {
+      @include input();
+
+      .text-input {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: $picker-input-text-width;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+        outline: none;
+
+        span {
+          &:focus {
+            background: $picker-input-text-focus-background-color;
+            color: $picker-input-text-focus-color;
+            outline: none;
+          }
+        }
+        .meridian {
+          @extend span;
+          padding-left: 0.46vh;
+        }
+      }
+
+      &:focus {
+        .text-input {
+          background: $picker-input-text-focus-background-color;
+          color: $picker-input-text-focus-color;
+        }
+      }
+    }
+
+    ::ng-deep {
+      .sh-date-picker {
+        position: fixed;
+        margin-top: $picker-top-recess;
+        margin-left: $picker-left-recess;
+        z-index: 9999;
+
+        .ngxmdpicon {
+          font-family: ngx-mydatepicker !important;
+        }
+
+        .icon-ngxmydptoday,
+        .myDpHeaderbtncell {
+          display: none;
+        }
+
+        & > .myDpSelector {
+          background: $sh-white;
+          border-radius: $picker-border-radius;
+          width: $picker-width !important;
+          height: $picker-height !important;
+          border: $picker-border;
+          box-shadow: $picker-shadow;
+
+          & > table {
+            border-left: $picker-borders;
+            border-right: $picker-borders;
+
+            &.myDpCalTable {
+              border-bottom: $picker-borders;
+            }
+          }
+
+          .myDpMonthYearSelBar {
+            .myDpIconLeftArrow,
+            .myDpIconRightArrow {
+              color: $picker-header-arrows-color;
+            }
+
+            .myDpMonthLabel,
+            .myDpYearLabel {
+              @include headerAndFooterStyle;
+            }
+
+            .myDpHeaderBtn:focus,
+            .myDpHeaderBtn:hover {
+              color: $picker-header-focus-color;
+            }
+          }
+
+          .myDpFooterBar {
+            .myDpFooterBtn {
+              @include headerAndFooterStyle;
+              background-color: $picker-today-footer-background-color;
+              line-height: 0.4em;
+              border: $picker-cells-border-size solid $picker-cells-border-color;
+              width: $picker-today-footer-width;
+              padding: $picker-today-footer-padding;
+              margin: $picker-today-footer-recess;
+            }
+
+            .myDpHeaderBtn {
+              cursor: pointer;
+
+              &:focus,
+              &:hover {
+                box-shadow: $picker-cell-focus-box-shadow;
+              }
+            }
+          }
+
+          .myDpCalTable {
+            .myDpWeekDayTitle {
+              width: $picker-cell-size;
+              height: $picker-cell-size;
+              font-family: $picker-cell-font-family;
+              text-transform: uppercase;
+              background-color: $picker-weekday-cell-background-color !important;
+              border: $picker-weekday-cell-border-size solid $picker-weekday-cell-border-color;
+            }
+          }
+
+          .myDpDaycell {
+            padding: 0;
+            outline: none !important;
+            border-radius: 0 !important;
+
+            border: $picker-cells-border-size solid $picker-cells-border-color;
+            & > span {
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+              font-size: $picker-cell-font-size;
+              font-family: $picker-cell-font-family;
+
+              &.myDpMarkCurrDay {
+                font-family: $picker-current-day-cell-font-family;
+                text-decoration: none;
+                border: $picker-current-day-cell-border;
+              }
+            }
+
+            &.myDpCurrMonth,
+            .myDpCurrMonth {
+              background: $picker-current-month-day-cell-background-color;
+            }
+
+            &.myDpNextMonth,
+            .myDpNextMonth,
+            &.myDpPrevMonth,
+            .myDpPrevMonth {
+              background: $picker-sibling-month-day-cell-background-color;
+            }
+
+            &.myDpHighlight {
+              color: $picker-sunday-cell-color;
+            }
+
+            &:focus,
+            &:hover {
+              box-shadow: $picker-cell-focus-box-shadow;
+            }
+          }
+
+          .myDpSelectedDay,
+          .myDpSelectedMonth,
+          .myDpSelectedYear {
+            background-color: $picker-cell-selected-background-color !important;
+            color: $picker-cell-selected-color !important;
+            border-radius: $picker-cell-selected-border-radius !important;
+            outline: none;
+
+            &.myDpHighlight {
+              color: $picker-cell-selected-color;
+            }
+
+            & > .myDpMonthValue,
+            & > .myDpYearValue {
+              background-color: transparent;
+            }
+          }
+
+          .myDpMonthTable,
+          .myDpMonthcell,
+          .myDpYearTable,
+          .myDpYearcell,
+          .myDpYearchangebtncell {
+            background-color: $picker-month-cell-background-color;
+          }
+
+          .myDpYearchangebtn {
+            background-color: $picker-month-cell-background-color !important;
+            color: $picker-year-change-button-color;
+
+            &:hover,
+            &:focus {
+              opacity: 0.5;
+            }
+          }
+
+          .myDpMonthcell,
+          .myDpYearcell {
+            color: $picker-month-cell-color;
+            font-size: $picker-month-cell-font-size;
+            text-transform: uppercase;
+            position: relative;
+
+            & > .myDpMonthNbr {
+              display: none;
+            }
+
+            & > .myDpMonthValue,
+            & > .myDpYearValue {
+              font-family: $picker-cell-font-family;
+
+              &.myDpMarkCurrMonth,
+              &.myDpMarkCurrYear {
+                font-family: $picker-current-day-cell-font-family;
+                text-decoration: none;
+              }
+            }
+
+            &:after {
+              border: calc(#{$picker-cells-border-size} - 1px) solid $picker-cells-border-color;
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              content: "";
+            }
+
+            &:focus,
+            &:hover {
+              &:after {
+                border-width: $picker-cell-focus-border-size;
+                border-color: $picker-month-cell-hover-border-color;
+                border-radius: $picker-month-cell-focus-border-radius !important;
+              }
+            }
+          }
+
+          &:after,
+          &:before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,133 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/common' as *;
+@use '../../../styles/mixins' as *;
+
+$sidebar-item-caption-font-size: var(--sidebar-item-caption-font-size, 15px);
+$children-icon-recess: 15px;
+$sidebar-item-icon-font-size: var(--sidebar-item-icon-font-size, calc(#{$sidebar-collapsed-width} * 0.5));
+$sidebar-item-caption-recess: var(--sidebar-item-caption-recess, 10px);
+$sidebar-item-active-marker-width: var(--sidebar-item-active-marker-width, 7px);
+$sidebar-item-active-marker-background: var(--sidebar-item-active-marker-background, var(--sh-tertiary));
+$sidebar-item-color: var(--sidebar-item-color, $sh-light-gray);
+$sidebar-item-active-color: var(--sidebar-item-active-color, $sh-white);
+$sidebar-item-active-background-color: var(--sidebar-item-active-background-color, var(--sh-first));
+$sidebar-child-item-active-background-color: var(--sidebar-child-item-active-background-color, $sh-granite);
+$sidebar-child-item-active-color: var(--sidebar-child-item-active-color, $sh-smoke-gray);
+$sidebar-child-item-icon-active-background-color: var(--sidebar-child-item-icon-active-background-color, $sh-gray);
+
+:host {
+
+  &,
+  * {
+    outline: none;
+    user-select: none;
+  }
+
+  .command {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    min-height: $sidebar-item-height;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    color: $sidebar-item-color;
+    outline: none;
+
+    &>.active {
+      color: $sidebar-item-active-color;
+
+      &,
+      &>.command-icon {
+        background-color: $sidebar-item-active-background-color !important;
+      }
+    }
+
+    .command-icon {
+      position: relative;
+      width: $sidebar-collapsed-width;
+      height: $sidebar-collapsed-width;
+      font-size: $sidebar-item-icon-font-size;
+    }
+
+    .command-caption {
+      position: absolute;
+      top: calc(#{$sidebar-collapsed-width} * 0.5 - #{$sidebar-item-caption-recess});
+      left: calc(#{$sidebar-collapsed-width} + #{$sidebar-item-caption-recess});
+      font-size: $sidebar-item-caption-font-size;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &:not(.expanded) {
+      .command-caption {
+        opacity: 0;
+        transition: .1s opacity;
+        opacity: 0;
+      }
+    }
+
+    &.expanded {
+      .command-caption {
+        opacity: 1;
+        transition: 2.5s opacity;
+      }
+    }
+
+    .parent {
+      .children-overlay {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: $sidebar-item-height;
+
+        sh-icon {
+          position: absolute;
+          pointer-events: none;
+          right: $children-icon-recess;
+        }
+      }
+
+      .children {
+        position: relative;
+        width: 100%;
+        height: auto;
+
+        &.expanded-children {
+          display: block;
+        }
+
+        .child {
+          position: relative;
+          font-size: $sidebar-item-caption-font-size;
+
+          ::ng-deep sh-sidebar-item {
+            .active {
+              background-color: $sidebar-child-item-active-background-color !important;
+              color: $sidebar-child-item-active-color !important;
+
+              .command-icon {
+                background-color: $sidebar-child-item-icon-active-background-color !important;
+              }
+
+              &:after {
+                content: '';
+                position: absolute;
+                right: 0;
+                width: $sidebar-item-active-marker-width;
+                height: $sidebar-item-height;
+                background: $sidebar-item-active-marker-background;
+                top: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

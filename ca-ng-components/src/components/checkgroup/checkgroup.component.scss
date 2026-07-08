@@ -1,0 +1,11 @@
+@use '../checkbox/checkbox.component.scss';
+
+$checkbox-distance: var(--checkgroup-checkbox-distance, 15px);
+
+.checkgroup>div {
+  margin-bottom: $checkbox-distance;
+
+  &[inline] {
+    margin-right: $checkbox-distance;
+  }
+}

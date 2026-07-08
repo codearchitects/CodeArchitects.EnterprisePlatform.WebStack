@@ -1,0 +1,8 @@
+@use '../../../styles/input' as *;
+
+div {
+
+  input {
+    @include input();
+  }
+}

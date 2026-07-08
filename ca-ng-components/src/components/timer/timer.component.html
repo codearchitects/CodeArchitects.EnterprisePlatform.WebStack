@@ -1,0 +1,41 @@
+@if (show) {
+  <div>
+    <countdown #cd [config]="{
+        leftTime: leftTime,
+        notify: 0,
+        demand: !internalOptions.autoplay,
+        format: internalOptions.format,
+        prettyText: internalOptions.transform,
+        timezone: internalOptions.timezone
+      }" (event)="handleEvent($event)">
+    </countdown>
+  </div>
+  @if (countdown && internalOptions.showPlayer) {
+    <div class="player">
+      @if (canRestart) {
+        <sh-button [primary]="true" [enable]="enable" class="restart" title="{{'restart' | translate}}"
+          (clicked)="restart()">↺</sh-button>
+      }
+      @if (canPause) {
+        <sh-button [primary]="true" [enable]="enable" class="pause" title="{{'pause' | translate}}"
+          (clicked)="pause()">⏸
+        </sh-button>
+      }
+      @if (canStart) {
+        <sh-button [primary]="true" [enable]="enable" class="start" title="{{'start' | translate}}"
+          (clicked)="start()">▶
+        </sh-button>
+      }
+      @if (canResume) {
+        <sh-button [primary]="true" [enable]="enable" class="resume" title="{{'resume' | translate}}"
+          (clicked)="resume()">▶
+        </sh-button>
+      }
+      @if (canStop) {
+        <sh-button [primary]="true" [enable]="enable" class="stop" title="{{'stop' | translate}}"
+          (clicked)="stop()">⏹︎
+        </sh-button>
+      }
+    </div>
+  }
+}

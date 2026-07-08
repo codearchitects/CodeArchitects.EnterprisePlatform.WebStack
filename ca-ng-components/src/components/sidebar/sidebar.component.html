@@ -1,0 +1,21 @@
+<div>
+  <div class="toggler" (click)="isExpandedChange.emit(isExpanded = !isExpanded)">
+    <sh-icon full-centered [name]="togglerIcon"></sh-icon>
+  </div>
+  <div class="logo-container" [class.expanded]="isExpanded">
+    @if (logo) {
+      <div class="logo" full-centered>
+        <img src="assets/{{logo}}">
+      </div>
+    }
+  </div>
+  <div id="sidebar" [class.expanded]="isExpanded">
+    @if (commands) {
+      @for (command of commands; track command.id) {
+        <sh-sidebar-item [model]="command" [resource]="command.resource"
+          [isExpanded]="isExpanded" [areChildrenShown]="command.id === expandedCommandId"
+          (toggleChildren)="toggle(command.id)"></sh-sidebar-item>
+      }
+    }
+  </div>
+</div>

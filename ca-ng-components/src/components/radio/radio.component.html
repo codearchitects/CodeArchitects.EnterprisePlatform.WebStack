@@ -1,0 +1,19 @@
+@if (show && formControl) {
+  <div #controlRef [id]="internalOptions.id" [class]="containerClass" [class.radio-group]="true"
+    [attr.autofocus]="internalOptions.autofocus || null" [attr.tabindex]="internalOptions.tabindex"
+    (keydown)="onKey($event)">
+    @for (value of values; track value.id) {
+      <div class="radio-group-item" [attr.inline]="internalOptions.isInline ? true : null">
+        <div class="radio" [class.current]="value.ref === formControl.value"
+          [class.disabled]="formControl.disabled || !enable">
+          <input [formControl]="formControl" [value]="value.ref" type="radio" [attr.id]="value.id" name="{{groupName}}"
+            [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
+          <label [attr.for]="value.id" [attr.untouchable]="internalOptions.isReadonly || null"></label>
+        </div>
+        @if (value.label) {
+          <span [attr.for]="value.id" translate (click)="toggle(value)">{{value.label?.key ? (value.label | i18n) : (value.label | translate)}}</span>
+        }
+      </div>
+    }
+  </div>
+}

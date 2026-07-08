@@ -1,0 +1,25 @@
+@if (show && formControl) {
+  <div [class]="containerClass">
+    <input
+      #controlRef
+      [attr.autofocus]="autofocus || null"
+      [attr.type]="options.type"
+      [id]="id"
+      [formControl]="formControl"
+      [class]="options.inputClass"
+      placeholder="{{ options.placeholder }}"
+      autocomplete="off"
+      [attr.tabindex]="tabindex"
+      [style.minWidth]="width"
+      [style.maxWidth]="width"
+      [style.height]="height"
+      [attr.maxlength]="options.maxLength || null"
+      [attr.readonly]="options.isReadonly ? true : null"
+    />
+    <ng-content select="[header]"></ng-content>
+    <hr />
+    <ng-content select="[footer]"></ng-content>
+    <hr />
+    <ng-content></ng-content>
+  </div>
+}

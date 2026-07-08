@@ -1,0 +1,9 @@
+@if (show) {
+  <div class="sh-progress-bar" role="progressbar" #controlRef [class.disabled]="!enable">
+    <div class="sh-progress-bar-fill" [class.is-indeterminate]="isIndeterminate"
+      [ngStyle]="{'transform':'scaleX('+ (value | progressBarPercent:min:max) +')'}"></div>
+  </div>
+}
+@if (showLabel && !isIndeterminate ) {
+  <span class="label" [class.incoherent]="value > max">{{(value | progressBarPercent:min:max) | percent:internalOptions.format}}</span>
+}

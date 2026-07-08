@@ -1,0 +1,70 @@
+$media-xs: 576px;
+$media-sm: 768px;
+$media-md: 992px;
+$media-lg: 1200px;
+$media-xl: 1690px;
+$break-distance: var(--column-break-distance, 20px);
+$column-bottom-margin: var(--column-bottom-margin, 50px);
+
+@mixin break-config($max-width) {
+  @media (max-width: $max-width - 1) {
+    margin-bottom: $break-distance;
+  }
+}
+
+@mixin hide-config($min-width, $max-width) {
+  @media (min-width: $min-width) and (max-width: $max-width - 1) {
+    display: none !important;
+  }
+}
+
+:host {
+  margin-bottom: $column-bottom-margin;
+  &.break-xs {
+    @include break-config($media-xs);
+  }
+
+  &.break-sm {
+    @include break-config($media-sm);
+  }
+
+  &.break-md {
+    @include break-config($media-md);
+  }
+
+  &.break-lg {
+    @include break-config($media-lg);
+  }
+
+  &.break-xl {
+    @include break-config($media-xl);
+  }
+
+  &.break-all {
+    margin-bottom: $break-distance;
+  }
+
+  &.hide-xs {
+    @include hide-config(0, $media-xs);
+  }
+
+  &.hide-sm {
+    @include hide-config($media-xs, $media-sm);
+  }
+
+  &.hide-md {
+    @include hide-config($media-sm, $media-md);
+  }
+
+  &.hide-lg {
+    @include hide-config($media-md, $media-lg);
+  }
+
+  &.hide-xl {
+    @include hide-config($media-lg, $media-xl);
+  }
+
+  &.hide-all {
+    display: none !important;
+  }
+}

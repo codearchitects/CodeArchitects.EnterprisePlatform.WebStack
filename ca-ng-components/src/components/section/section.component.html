@@ -1,0 +1,9 @@
+@if (show) {
+  <div class="section-header" [class.locked]="!(isCollapsible && title)" [class.body-collapsed]="collapsed"
+    title="{{title | translate}}" (click)="toggle()">
+    <span>{{title | translate}}</span>
+  </div>
+  <div class="section-body" title="" [class.collapsed]="collapsed" [class.content-disabled]="!enable">
+    <ng-content></ng-content>
+  </div>
+}

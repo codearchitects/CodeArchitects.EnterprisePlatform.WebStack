@@ -1,0 +1,121 @@
+@use '../../../styles/colors' as *;
+
+$spinner-default-size: var(--spinner-default-size, 50px);
+$spinner-overlay-size: var(--spinner-overlay-size, calc(#{$spinner-default-size} * 2));
+$spinner-inline-size: var(--spinner-inline-size, calc(#{$spinner-default-size} * 0.5));
+$spinner-inline-horizontal-distance: var(--spinner-inline-horizontal-distance, 10px);
+$spinner-animation-stroke-1: var(--spinner-animation-stroke-1, var(--sh-first));
+$spinner-animation-stroke-2: var(--spinner-animation-stroke-2, var(--sh-quinary));
+$spinner-animation-stroke-3: var(--spinner-animation-stroke-3, var(--sh-secondary));
+$spinner-animation-stroke-4: var(--spinner-animation-stroke-4, var(--sh-tertiary));
+$spinner-overlay-background-color: var(--spinner-overlay-background-color, $sh-overlay); 
+
+:host {
+  .spinner {
+    position: relative;
+
+    &.inline-spinner {
+      display: inline-block;
+      width: $spinner-inline-size;
+      vertical-align: middle;
+      margin: 0 $spinner-inline-horizontal-distance;
+    }
+
+    &:not(.inline-spinner) {
+      margin: 0 auto;
+      width: $spinner-default-size;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      padding-top: 100%;
+    }
+
+    svg {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      animation: rotate 2s linear infinite;
+      transform-origin: center center;
+
+      .path {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+        animation-name: dash, color;
+        animation-duration: 1.5s, 6s;
+        animation-timing-function: ease-in-out, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        stroke-linecap: round;
+      }
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+      }
+
+      50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+      }
+
+      100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+      }
+    }
+
+    @keyframes color {
+
+      100%,
+      0% {
+        stroke: $spinner-animation-stroke-1;
+      }
+
+      20%,
+      60% {
+        stroke: $spinner-animation-stroke-2;
+      }
+
+      40% {
+        stroke: $spinner-animation-stroke-3;
+      }
+
+      80%,
+      90% {
+        stroke: $spinner-animation-stroke-4;
+      }
+    }
+  }
+
+  &.spinner-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9999999999;
+    background-color: $spinner-overlay-background-color;
+
+    .spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      width: $spinner-overlay-size;
+    }
+  }
+}

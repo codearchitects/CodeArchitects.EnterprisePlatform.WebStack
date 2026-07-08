@@ -1,0 +1,129 @@
+@use '../../../styles/input' as *;
+@use '../../../styles/functions' as *;
+@use '../../../styles/colors' as *;
+
+$thumb-color: v($sh-pale-blue, $sh-azure);
+$maxWidth: v(maxWidth, 27.78vh);
+$inputWidth: v(inputWidth, 90%);
+$thumbSize: v(thumbSize, 1.39vh);
+$trackHeight: v(trackHeight, 0.37vh);
+$topPosition: v(topPosition, -0.51vh);
+$scaleDim: v(scaleDim, 1.3);
+
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: $maxWidth;
+  margin-top: $input-top-distance;
+
+  &:focus-within {
+    input {
+      &::-webkit-slider-thumb {
+        transform: scale($scaleDim);
+      }
+
+      &::-moz-range-thumb {
+        transform: scale($scaleDim);
+      }
+
+      &::-ms-thumb {
+        transform: scale($scaleDim);
+      }
+    }
+  }
+
+  input {
+    @include input();
+    width: $inputWidth;
+    padding-left: 0;
+    padding-right: 0;
+    border: none;
+
+    &::-webkit-slider-runnable-track {
+      border: none;
+    }
+
+    &::-webkit-slider-thumb {
+      cursor: pointer;
+      top: $topPosition;
+      width: $thumbSize;
+      height: $thumbSize;
+      border-radius: 50%;
+      transition: all .2s ease;
+      user-select: none;
+      z-index: 2;
+    }
+
+    &::-webkit-slider-thumb:active {
+      transform: scale($scaleDim);
+    }
+
+    &::-moz-focus-outer {
+      border: none;
+    }
+
+    &::-moz-range-track {
+      height: $trackHeight;
+      border: none;
+      background: #bebebe;
+    }
+
+    &::-moz-range-thumb {
+      cursor: pointer;
+      width: $thumbSize;
+      height: $thumbSize;
+      border-radius: 50%;
+      border-color: $thumb-color;
+      transition: all .2s ease;
+      user-select: none;
+      z-index: 2;
+      background: $thumb-color;
+    }
+
+    &::-moz-range-thumb:active {
+      transform: scale($scaleDim);
+    }
+
+    &::-moz-range-progress {
+      background: $thumb-color;
+    }
+
+    &::-ms-track {
+      height: $trackHeight;
+      border: none;
+      color: transparent;
+      background: $sh-wood-gray;
+    }
+
+    &::-ms-thumb {
+      cursor: pointer;
+      --thumbSize: 15px;
+      width: $thumbSize;
+      height: $thumbSize;
+      border-radius: 50%;
+      border-color: $sh-azure;
+      transition: all .2s ease;
+      user-select: none;
+      z-index: 2;
+      background: $sh-azure;
+      color: $sh-azure;
+    }
+
+    &::-ms-thumb:active {
+      transform: scale($scaleDim);
+    }
+
+    &::-ms-fill-lower {
+      background: $sh-azure;
+    }
+
+    &::-ms-fill-upper {
+      background: $sh-wood-gray;
+    }
+  }
+}
+
+.value {
+  color: rgb(100, 100, 100);
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@ca-webstack/monorepo",
+  "version": "21.0.0",
+  "private": true,
+  "description": "CodeArchitects Enterprise Platform WebStack - monorepo",
+  "license": "Apache-2.0",
+  "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
+  "homepage": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/issues"
+  },
+  "workspaces": [
+    "ca-*",
+    "caep-*"
+  ],
+  "scripts": {
+    "setup": "npm install",
+    "build": "turbo run build",
+    "build.watch": "turbo watch build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typedoc": "turbo run typedoc",
+    "clean": "node scripts/clean.mjs",
+    "version:set": "node scripts/set-version.mjs"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.0.0",
+    "turbo": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@10.9.8"
+}

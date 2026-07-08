@@ -1,0 +1,133 @@
+@use "./utils/functions" as *;
+
+$primary: v(caep-primary);
+$primary-dark: v(caep-primary-dark);
+$primary-text: v(caep-primary-text);
+
+$secondary: v(caep-secondary);
+$secondary-dark: v(caep-secondary-dark);
+$secondary-text: v(caep-secondary-text);
+
+$neutral-1: v(caep-neutral-1);
+$neutral-1-dark: v(caep-neutral-1-dark);
+$neutral-1-text: v(caep-neutral-1-text);
+
+$neutral-2: v(caep-neutral-2);
+$neutral-2-dark: v(caep-neutral-2-dark);
+$neutral-2-text: v(caep-neutral-2-text);
+
+$warn: v(caep-warn);
+$warn-text: v(caep-warn-text);
+$warn-light: v(caep-warn-light);
+$warn-light-text: v(caep-warn-light-text);
+
+$error: v(caep-error);
+$error-text: v(caep-error-text);
+$error-light: v(caep-error-light);
+$error-light-text: v(caep-error-light-text);
+
+
+$success: v(caep-success);
+$success-text: v(caep-success-text);
+$success-light: v(caep-success-light);
+$success-light-text: v(caep-success-light-text);
+
+$primary-0: v(caep-primary-0);
+$primary-10: v(caep-primary-10);
+$primary-20: v(caep-primary-20);
+$primary-30: v(caep-primary-30);
+$primary-40: v(caep-primary-40);
+$primary-50: v(caep-primary-50);
+$primary-60: v(caep-primary-60);
+$primary-70: v(caep-primary-70);
+$primary-80: v(caep-primary-80);
+$primary-90: v(caep-primary-90);
+$primary-100: v(caep-primary-100);
+$primary-light: v(caep-primary-light);
+$primary-0-contrast: v(caep-primary-0-contrast);
+$primary-10-contrast: v(caep-primary-10-contrast);
+$primary-20-contrast: v(caep-primary-20-contrast);
+$primary-30-contrast: v(caep-primary-30-contrast);
+$primary-40-contrast: v(caep-primary-40-contrast);
+$primary-50-contrast: v(caep-primary-50-contrast);
+$primary-60-contrast: v(caep-primary-60-contrast);
+$primary-70-contrast: v(caep-primary-70-contrast);
+$primary-80-contrast: v(caep-primary-80-contrast);
+$primary-90-contrast: v(caep-primary-90-contrast);
+$primary-100-contrast: v(caep-primary-100-contrast);
+$primary-light-contrast: v(caep-primary-light-contrast);
+
+$secondary-0: v(caep-secondary-0);
+$secondary-10: v(caep-secondary-10);
+$secondary-20: v(caep-secondary-20);
+$secondary-30: v(caep-secondary-30);
+$secondary-40: v(caep-secondary-40);
+$secondary-50: v(caep-secondary-50);
+$secondary-60: v(caep-secondary-60);
+$secondary-70: v(caep-secondary-70);
+$secondary-80: v(caep-secondary-80);
+$secondary-90: v(caep-secondary-90);
+$secondary-100: v(caep-secondary-100);
+$secondary-light: v(caep-secondary-light);
+$secondary-0-contrast: v(caep-secondary-0-contrast);
+$secondary-10-contrast: v(caep-secondary-10-contrast);
+$secondary-20-contrast: v(caep-secondary-20-contrast);
+$secondary-30-contrast: v(caep-secondary-30-contrast);
+$secondary-40-contrast: v(caep-secondary-40-contrast);
+$secondary-50-contrast: v(caep-secondary-50-contrast);
+$secondary-60-contrast: v(caep-secondary-60-contrast);
+$secondary-70-contrast: v(caep-secondary-70-contrast);
+$secondary-80-contrast: v(caep-secondary-80-contrast);
+$secondary-90-contrast: v(caep-secondary-90-contrast);
+$secondary-100-contrast: v(caep-secondary-100-contrast);
+$secondary-light-contrast: v(caep-secondary-light-contrast);
+
+$neutral-1-0: v(caep-neutral-1-0);
+$neutral-1-10: v(caep-neutral-1-10);
+$neutral-1-20: v(caep-neutral-1-20);
+$neutral-1-30: v(caep-neutral-1-30);
+$neutral-1-40: v(caep-neutral-1-40);
+$neutral-1-50: v(caep-neutral-1-50);
+$neutral-1-60: v(caep-neutral-1-60);
+$neutral-1-70: v(caep-neutral-1-70);
+$neutral-1-80: v(caep-neutral-1-80);
+$neutral-1-90: v(caep-neutral-1-90);
+$neutral-1-100: v(caep-neutral-1-100);
+$neutral-1-light: v(caep-neutral-1-light);
+$neutral-1-0-contrast: v(caep-neutral-1-0-contrast);
+$neutral-1-10-contrast: v(caep-neutral-1-10-contrast);
+$neutral-1-20-contrast: v(caep-neutral-1-20-contrast);
+$neutral-1-30-contrast: v(caep-neutral-1-30-contrast);
+$neutral-1-40-contrast: v(caep-neutral-1-40-contrast);
+$neutral-1-50-contrast: v(caep-neutral-1-50-contrast);
+$neutral-1-60-contrast: v(caep-neutral-1-60-contrast);
+$neutral-1-70-contrast: v(caep-neutral-1-70-contrast);
+$neutral-1-80-contrast: v(caep-neutral-1-80-contrast);
+$neutral-1-90-contrast: v(caep-neutral-1-90-contrast);
+$neutral-1-100-contrast: v(caep-neutral-1-100-contrast);
+$neutral-1-light-contrast: v(caep-neutral-1-light-contrast);
+
+$neutral-2-0: v(caep-neutral-2-0);
+$neutral-2-10: v(caep-neutral-2-10);
+$neutral-2-20: v(caep-neutral-2-20);
+$neutral-2-30: v(caep-neutral-2-30);
+$neutral-2-40: v(caep-neutral-2-40);
+$neutral-2-50: v(caep-neutral-2-50);
+$neutral-2-60: v(caep-neutral-2-60);
+$neutral-2-70: v(caep-neutral-2-70);
+$neutral-2-80: v(caep-neutral-2-80);
+$neutral-2-90: v(caep-neutral-2-90);
+$neutral-2-100: v(caep-neutral-2-100);
+$neutral-2-light: v(caep-neutral-2-light);
+$neutral-2-0-contrast: v(caep-neutral-2-0-contrast);
+$neutral-2-10-contrast: v(caep-neutral-2-10-contrast);
+$neutral-2-20-contrast: v(caep-neutral-2-20-contrast);
+$neutral-2-30-contrast: v(caep-neutral-2-30-contrast);
+$neutral-2-40-contrast: v(caep-neutral-2-40-contrast);
+$neutral-2-50-contrast: v(caep-neutral-2-50-contrast);
+$neutral-2-60-contrast: v(caep-neutral-2-60-contrast);
+$neutral-2-70-contrast: v(caep-neutral-2-70-contrast);
+$neutral-2-80-contrast: v(caep-neutral-2-80-contrast);
+$neutral-2-90-contrast: v(caep-neutral-2-90-contrast);
+$neutral-2-100-contrast: v(caep-neutral-2-100-contrast);
+$neutral-2-light-contrast: v(caep-neutral-2-light-contrast);

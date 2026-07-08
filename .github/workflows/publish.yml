@@ -1,0 +1,71 @@
+name: Publish packages
+
+# Publishes every workspace package to npm at a single shared version, with
+# internal dependencies pinned to that same version.
+#
+# Triggers:
+#   - a published GitHub Release  -> version taken from the tag (e.g. v21.1.0 -> 21.1.0)
+#   - manual dispatch             -> version + dist-tag provided as inputs
+#
+# Requires repository secret NPM_TOKEN (an npm automation token with publish rights).
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g. 21.1.0)"
+        required: true
+        type: string
+      dist_tag:
+        description: "npm dist-tag"
+        required: false
+        default: "latest"
+        type: string
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+
+      - name: Resolve version and dist-tag
+        id: meta
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+            echo "dist_tag=latest" >> "$GITHUB_OUTPUT"
+          else
+            VERSION="${{ inputs.version }}"
+            echo "dist_tag=${{ inputs.dist_tag }}" >> "$GITHUB_OUTPUT"
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Publishing version $VERSION"
+
+      - name: Install (single workspace install)
+        run: npm ci
+
+      - name: Set shared version and pin internal deps
+        run: node scripts/set-version.mjs "${{ steps.meta.outputs.version }}"
+
+      - name: Build all packages (topological order)
+        run: npm run build
+
+      - name: Publish to npm
+        run: node scripts/publish.mjs --access public --tag "${{ steps.meta.outputs.dist_tag }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,25 @@
+@startuml CA-Policy-Engine Container Diagram
+!include ./../../C4.puml
+
+title Container-diagram CA-Policy-Engine
+
+Container_Boundary(poleng, "CA-Policy-Engine"){
+    Container(engine, "Policy Engine", "It keeps, handles and executes the policies")
+}
+
+System_Ext(ss, "Software System")
+
+Person(expert, "Business Domain Expert")
+Person(manager, "Policy Expert")
+
+''' Person-based relationships
+Rel(expert,engine, "Defines Business Rules")
+Rel(manager,engine, "Manages")
+
+''' System-based relationships
+Rel(ss, engine, "Queries")
+Rel(engine, ss, "Authorizes/Acts")
+
+''' Container-based relationships
+
+@enduml

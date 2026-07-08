@@ -1,0 +1,31 @@
+<div class="modal-overlay">
+  <div class="modal" tabindex="0" #controlRef
+    (keyup.esc)="onCancel(); $event.preventDefault(); $event.stopPropagation()" [style.minWidth]="width"
+    [style.maxWidth]="width" (clickOutside)="onClickOutside()">
+    <div class="modal-header">
+      @if (icon) {
+        <sh-icon class="modal-header-icon" [name]="icon"></sh-icon>
+      }
+      {{title | translate}}
+      <ng-content select="[header]"></ng-content>
+    </div>
+    <div class="modal-body">
+      {{body | translate}}
+      <ng-content select="[body]"></ng-content>
+    </div>
+    <div class="modal-footer">
+      <div #footer>
+        <ng-content select="[footer]"></ng-content>
+      </div>
+      @if (footer?.children?.length === 0) {
+        @if (hasCancelButton) {
+          <sh-button (clicked)="onCancel()">{{cancelText}}</sh-button>
+        }
+        @if (hasConfirmButton) {
+          <sh-button [primary]="true" [enable]="!formGroup?.invalid" (clicked)="onConfirm()">
+          {{confirmText}}</sh-button>
+        }
+      }
+    </div>
+  </div>
+</div>

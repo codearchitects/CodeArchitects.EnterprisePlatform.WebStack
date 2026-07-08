@@ -1,0 +1,54 @@
+@startuml Sequence-diagram UC_01.1
+
+!include ./../C4.puml
+
+
+title Sequence-diagram UC_01 Query (resource + selectors) for Authorization Policies
+
+
+actor User
+boundary "User" as User
+
+box "policy-engine" #LightGrey
+boundary "Policy Engine" as PolicyEngine
+end box
+
+box "core" #LightSteelBlue
+control "IPolicyHandler" as IPolicyHandler
+end box
+
+
+activate User
+User -> PolicyEngine++: observePolicies(resource, selectors...)
+activate PolicyEngine 
+PolicyEngine -> PolicyEngine++: runPolicyHandler(resource, selectors, claims, policies)
+PolicyEngine -> PolicyEngine++: filter_policies_by(resource)
+return resourcePolicies
+loop foreach selector
+    PolicyEngine -> PolicyEngine++: runPolicy(selector, claims, resourcePolicies)
+    PolicyEngine -> PolicyEngine++: filter_policies_by(selector)
+    return selectedPolicies
+    loop foreach policy
+        PolicyEngine -> PolicyEngine: checkCondition(policy.condition, claims)
+        alt  false condition
+            PolicyEngine -> PolicyEngine++: not authorized
+            return false
+        else true condition
+            PolicyEngine -> PolicyEngine++: getPolicyHandler(policy.type)
+            PolicyEngine -> IPolicyHandler++: handler.handler.apply(this, [policy, claims, this.context])
+            activate IPolicyHandler
+            IPolicyHandler -> PolicyEngine++: checkCondition(policy.condition, claims)
+            return condition outcome
+            return condition outcome
+            deactivate IPolicyHandler
+        end
+        return selector outome 
+    end
+    return selector outcome
+end
+return selector outcome
+deactivate PolicyEngine 
+return selector outcome
+deactivate User
+
+@enduml

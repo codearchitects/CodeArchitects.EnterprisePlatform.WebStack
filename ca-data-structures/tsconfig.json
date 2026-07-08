@@ -1,0 +1,49 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "strictPropertyInitialization": false,
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "noEmitHelpers": true,
+    "noEmitOnError": true,
+    "noLib": false,
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "strictNullChecks": false,
+    "stripInternal": true,
+    "target": "ES2022",
+    "types": [
+      "core-js",
+      "node",
+      "jest"
+    ],
+    "typeRoots": [      "node_modules/@types",
+      "node_modules",
+      "../node_modules/@types",
+      "../node_modules"
+    ]
+  },
+  "exclude": [
+    ".tmp",
+    "dist",
+    "node_modules",
+    "tests",
+    "**/**.spec.ts"
+  ]
+}

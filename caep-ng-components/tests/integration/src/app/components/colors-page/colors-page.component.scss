@@ -1,0 +1,153 @@
+@use "../../../../../../styles" as *;
+
+.theme-container {
+    font-size: 36px;
+    font-family: "MyriadPro-Regular", sans-serif;
+    .primary {
+      background-color: $primary;
+      color: $primary-text;
+    }
+    .secondary {
+      background-color: $secondary;
+      color: $secondary-text;
+    }
+    .neutral-1 {
+      background-color: $neutral-1;
+      color: $neutral-1-text;
+    }
+    .neutral-2 {
+      background-color: $neutral-2;
+      color: $neutral-2-text;
+    }
+    .error {
+      background-color: $error;
+      color: $error-text;
+    }
+    .warn {
+      background-color: $warn;
+      color: $warn-text;
+    }
+    .success {
+      background-color: $success;
+      color: $success-text;
+    }
+    .error-container {
+      background-color: $error-light;
+      color: $warn-light-text;
+    }
+    .warn-container {
+      background-color: $warn-light;
+      color: $warn-light-text;
+    }
+    .success-container {
+      background-color: $success-light;
+      color: $warn-light-text;
+    }
+  }
+  
+  .primary {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep .caep-color[brightness="#{$var}"] {
+        background-color: var(#{"--caep-primary-" + $var});
+        color: var(#{"--caep-primary-" + $var + "-contrast"});
+      }
+    }
+  }
+  .secondary {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep [brightness="#{$var}"] {
+        background-color: var(#{"--caep-secondary-" + $var});
+        color: var(#{"--caep-secondary-" + $var + "-contrast"});
+      }
+    }
+  }
+  
+  .neutral-1 {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep [brightness="#{$var}"] {
+        background-color: var(#{"--caep-neutral-1-" + $var});
+        color: var(#{"--caep-neutral-1-" + $var + "-contrast"});
+      }
+    }
+  }
+  .neutral-2 {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep [brightness="#{$var}"] {
+        background-color: var(#{"--caep-neutral-2-" + $var});
+        color: var(#{"--caep-neutral-2-" + $var + "-contrast"});
+      }
+    }
+  }
+  .error {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep [brightness="#{$var}"] {
+        background-color: var(#{"--caep-error-" + $var});
+        color: var(#{"--caep-error-" + $var + "-contrast"});
+      }
+    }
+  }
+  .warn {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep [brightness="#{$var}"] {
+        background-color: var(#{"--caep-warn-" + $var});
+        color: var(#{"--caep-warn-" + $var + "-contrast"});
+      }
+    }
+  }
+  .success {
+    @each $var in (0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, light) {
+      ::ng-deep [brightness="#{$var}"] {
+        background-color: var(#{"--caep-success-" + $var});
+        color: var(#{"--caep-success-" + $var + "-contrast"});
+      }
+    }
+  }
+  
+  .light {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    $primary-palette: caep-palette(#2fa3cc, #fff, #000);
+    $secondary-palette: caep-palette(#1f6d99, #fff, #000);
+    $neutral-1-palette: caep-palette(#e6e6e6, #fff, #000);
+    $neutral-2-palette: caep-palette(#b3b3b3, #fff, #000);
+    $error-palette: caep-palette(#e53935, #fff, #000);
+    $warn-palette: caep-palette(#e8af52, #fff, #000);
+    $success-palette: caep-palette(#76c647, #fff, #000);
+  
+    @include caep-theme(
+      $primary-palette,
+      $secondary-palette,
+      $neutral-1-palette,
+      $neutral-2-palette,
+      $error-palette,
+      $warn-palette,
+      $success-palette
+    );
+  }
+  
+  .dark {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border: solid 2px #4d4d4d;
+    border-radius: 8px;
+    $primary-palette: caep-palette(#287f99, #fff, #000);
+    $secondary-palette: caep-palette(#2a5866, #fff, #000);
+    $neutral-1-palette: caep-palette(#1a1a1a, #fff, #000);
+    $neutral-2-palette: caep-palette(#4d4d4d, #fff, #000);
+    $error-palette: caep-palette(#ed5151, #fff, #000);
+    $warn-palette: caep-palette(#eab96c, #fff, #000);
+    $success-palette: caep-palette(#91c172, #fff, #000);
+  
+    @include caep-theme(
+      $primary-palette,
+      $secondary-palette,
+      $neutral-1-palette,
+      $neutral-2-palette,
+      $error-palette,
+      $warn-palette,
+      $success-palette
+    );
+  }
+  

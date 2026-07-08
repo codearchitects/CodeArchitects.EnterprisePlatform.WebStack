@@ -1,0 +1,212 @@
+@use "colors" as *;
+@use "functions" as *;
+
+$input-recess: v(input-recess, 10px);
+$input-font-size: v(input-font-size, 18px);
+$input-border: v(input-border, 1px solid $sh-wood-gray);
+$input-border-top: var(--input-border-top, none);
+$input-border-left: var(--input-border-left, none);
+$input-border-right: var(--input-border-right, none);
+$input-border-radius: v(input-border-radius, 5px);
+$placeholder-transition-speed: v(placeholder-transition-speed, 0.3s);
+$label-font-size: v(label-font-size, 14px);
+$icon-font-size: v(icon-font-size, 14px);
+$input-with-icon-ellipsis: v(input-with-icon-ellipsis, 20px);
+$icon-recess: v(icon-recess, 3px);
+$input-top-distance: v(input-top-distance, 0px);
+$input-min-width: v(input-min-width, 205px);
+$input-min-height: v(input-min-height, 22px);
+$label-offset: var(--label-offset, 0px);
+$input-background: var(--input-background, transparent);
+$input-font-family: var(--input-font-family, RobotoLight);
+$input-disabled-opacity: var(--input-disabled-opacity, 0.5);
+$input-disabled-border-bottom-style: var(--input-disabled-border-bottom-style, dashed);
+$input-hover-border-color: var(--input-hover-border-color, $sh-light-gray);
+$input-invalid-border-color: var(--input-invalid-border-color, $sh-red);
+$input-invalid-hover-border-color: var(--input-invalid-hover-border-color, $sh-flash-red);
+$select-results-background: var(--select-results-background, $sh-ghost-white);
+$select-results-border: var(--select-results-border, none);
+$select-results-recess: var(--select-results-recess, 0);
+
+// TODO: utilizzare le variabili per i colori :
+$input-color: v(input-color, $sh-iron-gray);
+$input-readonly-color: var(--input-readonly-color, $sh-light-gray);
+$input-hover-color: var(--input-hover-color, $sh-sea-black);
+$label-color: var(--label-color, $sh-light-gray);
+$label-invalid-color: var(--label-invalid-color, $sh-red);
+$label-invalid-hover-color: var(--label-invalid-hover-color, $sh-flash-red);
+$select-result-color: var(--select-result-color, $sh-light-gray);
+$select-result-hover-color: var(--select-result-hover-color, $sh-sea-black);
+$select-result-selected-color: var(--select-result-selected-color, var(--sh-first));
+
+@mixin input($input-label-offset: $label-offset) {
+  border: $input-border;
+  border-top: $input-border-top;
+  border-left: $input-border-left;
+  border-right: $input-border-right;
+  border-radius: $input-border-radius;
+  font-size: $input-font-size;
+  padding: $input-recess;
+  background: $input-background;
+  outline: none;
+  font-family: $input-font-family;
+  color: $input-color;
+  min-width: $input-min-width;
+  min-height: $input-min-height;
+
+  &:read-only {
+    color: $input-readonly-color;
+  }
+
+  &:disabled,
+  &.disabled {
+    border-bottom-style: $input-disabled-border-bottom-style;
+    opacity: $input-disabled-opacity;
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $input-hover-color;
+    border-color: $input-hover-border-color;
+  }
+
+  &+label {
+    color: $label-color;
+    position: absolute;
+    box-sizing: content-box;
+    width: 94%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    transition: top $placeholder-transition-speed, font-size $placeholder-transition-speed;
+    top: calc(-1 * calc(#{$input-recess} + #{$input-label-offset}));
+    font-size: $label-font-size;
+    left: $input-recess;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &.ng-invalid,
+  &.invalid {
+    &.ng-touched {
+      border-color: $input-invalid-border-color;
+
+      &,
+      &+label {
+        color: $label-invalid-color;
+      }
+
+      &:hover,
+      &:focus {
+        border-color: $input-invalid-hover-border-color !important;
+
+        &,
+        &+label {
+          color: $label-invalid-hover-color !important;
+        }
+      }
+    }
+  }
+
+  &.floating-placeholder {
+    &::placeholder {
+      color: transparent;
+    }
+
+    &+label {
+      top: calc(#{$input-recess} + #{$input-label-offset});
+      left: $input-recess;
+      font-size: $input-font-size;
+    }
+
+    &:focus+label:not(.no-float-on-empty) {
+      top: calc(-1 * calc(#{$input-recess} + #{$input-label-offset}));
+      font-size: $label-font-size;
+      left: $input-recess;
+    }
+  }
+
+  &.with-icon {
+    padding-right: $input-with-icon-ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &~label {
+      width: 87%;
+    }
+
+    &~sh-icon {
+      right: $icon-recess;
+      font-size: $icon-font-size;
+    }
+  }
+}
+
+@mixin select() {
+  position: relative;
+  display: inline-block;
+
+  .results {
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 999999;
+    background: $select-results-background;
+    border: $select-results-border;
+    border-bottom-left-radius: $input-border-radius;
+    border-bottom-right-radius: $input-border-radius;
+    font-size: calc(#{$input-font-size} - 2px);
+
+    &,
+    li {
+      border-bottom: $input-border;
+      user-select: none;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: $select-results-recess;
+      overflow: hidden;
+
+      li {
+        height: auto;
+        padding: $input-recess;
+        cursor: pointer;
+        color: $select-result-color;
+
+        &>* {
+          text-decoration: none !important;
+        }
+
+        &:hover,
+        &.current-item {
+          color: $select-result-hover-color;
+        }
+
+        &.selected {
+          color: $select-result-selected-color;
+        }
+      }
+    }
+  }
+
+  input,
+  .input {
+    @include input();
+
+    &.opened {
+      border-radius: 0;
+    }
+
+    &.disabled,
+    &:disabled {
+      &~[shDropdown] {
+        display: none !important;
+      }
+    }
+  }
+}

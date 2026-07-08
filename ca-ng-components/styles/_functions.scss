@@ -1,0 +1,7 @@
+@function v($var, $default: null) {
+  @if ($default) {
+    @return var(--#{$var}, #{$default});
+  } @else {
+    @return var(--#{$var});
+  }
+}

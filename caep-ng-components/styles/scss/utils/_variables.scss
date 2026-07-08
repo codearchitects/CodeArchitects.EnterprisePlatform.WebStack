@@ -1,0 +1,32 @@
+// #region app-header
+$app-header-height: var(--app-header-height, 60px);
+$app-header-background-color: var(
+  --app-header-background-color,
+  var(--primary, #6a81b9)
+);
+$app-header-active-background-color: var(
+  --app-header-active-background-color,
+  var(--primary, #5868a9)
+);
+$app-header-color: var(--app-header-color, var(--primary-contrast,  white));
+// #endregion
+
+// #region app-sidebar
+$app-sidebar-width: var(--app-sidebar-width, 60px);
+$app-sidebar-space-top: var(--app-sidebar-space-top, 120px);
+$app-sidebar-background-color: var(
+  --app-sidebar-background-color,
+  var(--primary, #6a81b9)
+);
+$app-sidebar-color: var(--app-sidebar-color, var(--primary-contrast, white));
+// #endregion
+
+// #region caep-floating-commands
+$caep-floating-commands-width: var(--caep-floating-commands-width, 60px);
+$caep-floating-commands-drag-handle-width: var(--caep-floating-commands-drag-handle-width, 20px);
+$caep-floating-commands-background-color: var(
+  --caep-floating-commands-background-color,
+  var(--primary, #41608C)
+);
+$caep-floating-commands-color: var(--caep-floating-commands-color, var(--primary-contrast, white));
+// #endregion

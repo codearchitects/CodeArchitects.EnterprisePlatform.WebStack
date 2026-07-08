@@ -1,0 +1,47 @@
+@use '../../../styles/scss/utils/variables' as *;
+:host {
+  min-height: $app-header-height;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  background-color: $app-header-background-color;
+  .header {
+    padding: 0;
+  }
+  .header-inner-space {
+    padding: 0;
+  }
+  .header-inner-start {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .header-inner-end {
+    padding: 0;
+    justify-content: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+  }
+}
+.search-placeholder {
+  border: 1px solid $app-header-color;
+  width: 100%;
+  height: $app-header-height;
+  background: linear-gradient(
+      to top left,
+      transparent 0%,
+      transparent calc(50% - 0.8px),
+      $app-header-color 50%,
+      transparent calc(50% + 0.8px),
+      transparent 100%
+    ),
+    linear-gradient(
+      to top right,
+      transparent 0%,
+      transparent calc(50% - 0.8px),
+      $app-header-color 50%,
+      transparent calc(50% + 0.8px),
+      transparent 100%
+    );
+}

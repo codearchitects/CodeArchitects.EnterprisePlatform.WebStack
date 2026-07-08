@@ -1,0 +1,18 @@
+# CODEOWNERS
+#
+# These owners are requested for review automatically when someone opens a
+# pull request that modifies matching files. Order matters: the last matching
+# pattern takes precedence.
+#
+# Tip: to use a whole team instead of an individual, replace @gmasci-ca with a
+# team slug such as @codearchitects/webstack-maintainers (the team must exist
+# in the org and have write access to this repo).
+
+# Default owners for everything in the repo
+*       @gmasci-ca
+
+# Build / release tooling and CI
+/scripts/                 @gmasci-ca
+/.github/                 @gmasci-ca
+/turbo.json               @gmasci-ca
+/package.json             @gmasci-ca

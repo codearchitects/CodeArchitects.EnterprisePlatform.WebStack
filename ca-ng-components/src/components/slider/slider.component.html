@@ -1,0 +1,18 @@
+@if (show && formControl) {
+  <div [class]="containerClass" relative>
+    <input #controlRef [attr.autofocus]="internalOptions.autofocus || null" type="range" [id]="internalOptions.id"
+      [formControl]="formControl" [class]="inputClass" autocomplete="off" [attr.tabindex]="internalOptions.tabindex"
+      [style.width]="width" [style.height]="height" [attr.min]="internalOptions.min || null"
+      [attr.max]="internalOptions.max || null" [attr.step]="internalOptions.step || null" [class.with-icon]="!!icon"
+      [attr.readonly]="internalOptions.isReadonly ? true : null">
+    @if (placeholder) {
+      <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder) : (placeholder | translate)}}</label>
+    }
+    @if (icon) {
+      <sh-icon vertical-centered [name]="icon"></sh-icon>
+    }
+    @if (internalOptions.showValue) {
+      <span class="value">{{controlRef.value}}</span>
+    }
+  </div>
+}

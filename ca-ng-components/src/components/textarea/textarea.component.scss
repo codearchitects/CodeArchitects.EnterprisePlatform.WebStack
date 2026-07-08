@@ -1,0 +1,13 @@
+@use "../../../styles/input" as *;
+@use "../../../styles/functions" as *;
+
+$textarea-input-label-offset: v(textarea-input-label-offset, 5px);
+div {
+  margin-top: $input-top-distance;
+
+  textarea {
+    @include input($textarea-input-label-offset);
+    border-top: $input-border;
+    margin-top: calc(#{$input-recess} / 2);
+  }
+}

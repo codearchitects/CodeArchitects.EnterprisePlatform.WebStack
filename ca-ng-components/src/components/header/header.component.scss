@@ -1,0 +1,50 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/common' as *;
+
+$header-logo-height: var(--header-logo-height, 30px);
+$header-background: var(--header-background, $sh-lush-black);
+$header-leeway-left-recess: var(--header-leeway-left-recess, $bar-recess);
+$header-content-right-recess: var(--header-content-right-recess, $bar-recess);
+
+@media (max-width: $bars-width-breakpoint) {
+  sh-sidebar-search {
+    display: none;
+  }
+}
+
+:host {
+  position: fixed;
+  top: 0;
+  left: $sidebar-collapsed-width;
+  right: 0;
+  height: $header-height;
+  background: $header-background;
+  transition: $bars-transition-speed left;
+  z-index: 999;
+
+  .leeway {
+    float: left;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: $header-leeway-left-recess;
+
+    .logo {
+      height: $header-logo-height;
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+
+  .content {
+    float: right;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: $header-content-right-recess;
+  }
+}

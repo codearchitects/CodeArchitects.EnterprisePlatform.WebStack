@@ -1,0 +1,17 @@
+@if (model?.length) {
+  <div class="tabs" [class.left-aligned]="isLeftAligned">
+    @for (tab of model; track tab) {
+      @if (!tab.isHidden) {
+        <div class="tab" [attr.id]="tab.id" [class.current]="tab.isCurrent" [class.disabled]="tab.isDisabled"
+          (click)="select(tab)" (keyup.enter)="!tab.isDisabled && select(tab)" tabindex="0">
+          <span class="tab-title">{{tab.title | translate}}</span>
+        </div>
+      }
+    }
+  </div>
+}
+@if (template && current) {
+  <div class="tab-content" [class.absolute-content]="hasAbsoluteContent">
+    <ng-container *ngTemplateOutlet="template; context: templateContext"></ng-container>
+  </div>
+}

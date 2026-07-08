@@ -1,0 +1,88 @@
+@use "../../../styles/colors" as *;
+@use "../../../styles/functions" as *;
+
+$progress-bar-height: v(progress-bar-height, 4px);
+$progress-bar-width: v(progress-bar-width, 100%);
+$progress-bar-label-left-recess: v(progress-bar-label-left-recess, 4px);
+$sh-progress-background: v(sh-progress-background, var(--sh-quaternary));
+$sh-progress-bar-fill-color: v(sh-progress-bar-fill-color, var(--sh-first));
+$incoherent-color: v(incoherent-color, $sh-red);
+
+
+$is-indeterminate-translate-step-1: v(is-indeterminate-translate-step-1, cubic-bezier(0.15, 0, 0.515058, 0.409685));
+$is-indeterminate-translate-step-2: v(is-indeterminate-translate-step-2, cubic-bezier(0.31033, 0.284058, 0.8, 0.733712));
+$is-indeterminate-translate-step-3: v(is-indeterminate-translate-step-3, cubic-bezier(0.4, 0.627035, 0.6, 0.902026));
+
+:host {
+  display: flex;
+  align-items: center;
+
+  .sh-progress-bar {
+    display: block;
+    height: $progress-bar-height;
+    overflow: hidden;
+    position: relative;
+    transition: opacity 250ms linear;
+    width: $progress-bar-width;
+    background-color: $sh-progress-background;
+
+    .sh-progress-bar-fill {
+      height: 100%;
+      animation: none;
+      transform-origin: top left;
+      transition: transform 250ms ease;
+      background: $sh-progress-bar-fill-color;
+
+      &.is-indeterminate {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        transform-origin: top left;
+        transition: none;
+        animation: progress-bar-indeterminate-animation 2000ms infinite linear;
+        left: -54.888891%;
+      }
+
+    }
+
+    &.disabled {
+      filter: grayscale(1);
+
+      .sh-progress-bar-fill {
+        display: none;
+      }
+    }
+  }
+
+  .label {
+    margin-left: $progress-bar-label-left-recess;
+    &.incoherent{
+      color: $incoherent-color;
+    }
+  }
+}
+
+
+
+// Animations for is-indeterminate.
+@keyframes progress-bar-indeterminate-animation {
+  0% {
+    animation-timing-function: $is-indeterminate-translate-step-1;
+    transform: translateX(0) scaleX(0.08);
+  }
+
+  25% {
+    animation-timing-function: $is-indeterminate-translate-step-2;
+
+    transform: translateX(37.651913%) scaleX(0.457104);
+  }
+
+  48.35% {
+    animation-timing-function: $is-indeterminate-translate-step-3;
+    transform: translateX(84.386165%) scaleX(0.72796);
+  }
+
+  100% {
+    transform: translateX(160.277782%) scaleX(0.08);
+  }
+}

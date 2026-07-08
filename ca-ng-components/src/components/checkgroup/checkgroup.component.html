@@ -1,0 +1,18 @@
+@if (show && formControl) {
+  <div [id]="internalOptions.id" [class]="containerClass" [class.checkgroup]="true"
+    [attr.autofocus]="internalOptions.autofocus || null" #controlRef>
+    @for (value of values; track value.id) {
+      <div [attr.inline]="internalOptions.isInline ? true : null">
+        <div class="checkbox" [attr.tabindex]="internalOptions.tabindex" (keydown)="onKey(value.id,$event)"
+          [class.disabled]="formControl.disabled || !enable" [class.checked]="!!value.formControl.value">
+          <input [formControl]="value.formControl" type="checkbox" [attr.id]="value.id"
+            [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
+          <label (click)="toggle(value.id)"></label>
+        </div>
+        @if (value.label) {
+          <span [attr.for]="value.id" (click)="toggle(value.id)" translate>{{value.label?.key ? (value.label | i18n) : (value.label | translate)}}</span>
+        }
+      </div>
+    }
+    </div>
+  }

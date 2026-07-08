@@ -1,0 +1,22 @@
+@startuml CA-Policy-Engine System Context
+!include ./../../C4.puml
+
+title System-context Diagram
+
+
+System(poleng, "CA-Policy-Engine", "Policy and Business Rule Management System.")
+
+System_Ext(ss, "Software System")
+
+Person(expert, "Business Domain Expert")
+Person(manager, "Policy Expert")
+
+''' Person-based relationships
+Rel(expert,poleng, "Defines Business Rules")
+Rel(manager,poleng, "Manages")
+
+''' System-based relationships
+Rel(ss, poleng, "Queries")
+Rel(poleng, ss, "Authorizes/Acts")
+
+@enduml

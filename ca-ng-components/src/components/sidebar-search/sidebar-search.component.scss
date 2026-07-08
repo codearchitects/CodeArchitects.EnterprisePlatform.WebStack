@@ -1,0 +1,63 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/common' as *;
+
+$sidebar-search-color: var(--sidebar-search-color, $sh-metallic-gray);
+$sidebar-search-font-size: var(--sidebar-search-font-size, 16px);
+$sidebar-search-icon-distance: var(--sidebar-search-icon-distance, 25px);
+$sidebar-search-icon-color: var(--sidebar-search-icon-color, $sidebar-search-color);
+$sidebar-search-border: var(--sidebar-search-border, none);
+$sidebar-search-results-background: var(--sidebar-search-results-background, $sh-lush-black);
+$sidebar-search-results-scrollbar-track-color: var(--sidebar-search-results-scrollbar-track-color, transparent);
+$sidebar-search-result-border-bottom-color: var(--sidebar-search-result-border-bottom-color, $sh-light-gray);
+$sidebar-search-current-result-color: var(--sidebar-search-current-result-color, $sh-silver);
+$sidebar-search-selected-result-color: var(--sidebar-search-selected-result-color, $sh-white);
+
+:host {
+  sh-icon {
+    color: $sidebar-search-icon-color;
+    top: 50%;
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  ::ng-deep sh-combo {
+    input {
+      border: $sidebar-search-border !important;
+      padding-right: 0 !important;
+      color: $sidebar-search-color !important;
+      vertical-align: top;
+      padding-left: $sidebar-search-icon-distance !important;
+      font-size: $sidebar-search-font-size !important;
+
+      &::placeholder {
+        color: $sidebar-search-color !important;
+      }
+    }
+
+    .results {
+      background: $sidebar-search-results-background !important;
+
+      &::-webkit-scrollbar {
+        background: $sidebar-search-results-scrollbar-track-color;
+      }
+
+      li {
+        border-bottom-color: $sidebar-search-result-border-bottom-color !important;
+
+        &.current-item {
+          color: $sidebar-search-current-result-color !important;
+        }
+
+        &.selected {
+          color: $sidebar-search-selected-result-color !important;
+        }
+      }
+    }
+
+    label[for],
+    sh-icon {
+      display: none;
+    }
+  }
+}

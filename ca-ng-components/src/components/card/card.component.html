@@ -1,0 +1,44 @@
+@if (isReady) {
+  <sh-form [model]="model" [parent]="parent" [prop]="prop">
+    <div class="card" title="{{title | translate}}" [style.width]="width" [style.height]="height"
+      [id]="internalOptions.id">
+      <div class="card-toolbar">
+        <div class="title" translate>{{title}}</div>
+        <ng-content select="[toolbar]"></ng-content>
+        <div class="commands">
+          <ng-content select="[command]"></ng-content>
+          @for (command of commands; track command) {
+            @if (command.isShown) {
+              <sh-icon pointer name="{{command.icon}}" [class.disabled]="!command.isEnabled"
+                (click)="command.isEnabled && command.handler(command)" title="{{command.name | translate}}">
+              </sh-icon>
+            }
+          }
+          <sh-commands-bar [family]="commandsFamily">
+            <ng-template #commandsTemplate let-command="$implicit">
+              @if (command.visible !== false) {
+                <sh-icon pointer name="{{command.iconClassName}}"
+                  [class.disabled]="command.enabled === false"
+                  (click)="command.enabled !== false && command.handler(command)"
+                  title="{{(command.caption || command.label) | translate}}">
+                </sh-icon>
+              }
+            </ng-template>
+          </sh-commands-bar>
+        </div>
+      </div>
+      <div class="card-body" title="" [class.indented]="hasIndentedContent" [attr.scrollable]="isScrollable || null">
+        <ng-content></ng-content>
+      </div>
+      <div class="card-footer">
+        @if (hasCancelButton) {
+          <sh-button (clicked)="cancel.emit()">{{cancelText}}</sh-button>
+        }
+        <ng-content select="[footer]"></ng-content>
+        @if (hasConfirmButton) {
+          <sh-button [primary]="true" [enable]="isValid" (clicked)="confirm.emit()">{{confirmText}}</sh-button>
+        }
+      </div>
+    </div>
+  </sh-form>
+}

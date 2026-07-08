@@ -1,0 +1,63 @@
+@startuml Sequence-diagram UC_01.1
+
+!include ./../C4.puml
+
+
+title Sequence-diagram UC_02 Query (resource + selectors) for Business Policies
+
+
+actor User
+boundary "User" as User
+
+box "policy-engine" #LightGrey
+boundary "Policy Engine" as PolicyEngine
+end box
+
+box "core" #LightSteelBlue
+control "IPolicyHandler" as IPolicyHandler
+end box
+
+box "business-policy" #LightYellow
+control "business engine functionalities" as BusinessEngine
+end box
+
+activate User
+User -> PolicyEngine: observePolicies(resource, selectors...)
+activate PolicyEngine 
+PolicyEngine -> PolicyEngine++: runPolicyHandler(resource, selectors, claims, policies)
+PolicyEngine -> PolicyEngine++: filter_policies_by(resource)
+return resourcePolicies
+loop foreach selector
+    PolicyEngine -> PolicyEngine++: runPolicy(selector, claims, resourcePolicies)
+    PolicyEngine -> PolicyEngine++: filter_policies_by(selector)
+    return selectedPolicies
+    loop foreach policy
+        PolicyEngine -> PolicyEngine: checkCondition(policy.condition, claims)
+        alt  false condition
+            PolicyEngine -> PolicyEngine: not authorized
+        else true condition
+            PolicyEngine -> PolicyEngine: getPolicyHandler(policy.type)
+            PolicyEngine -> IPolicyHandler: handler.handler.apply(this, [policy, claims, this.context])
+            activate IPolicyHandler
+            IPolicyHandler -> BusinessEngine++: runBusinessPolicy(policy, context)
+            alt business info is array
+                loop foreach business rule
+                BusinessEngine -> BusinessEngine++: runSingleBusinessPolicy(policy.policyInfo, context)
+                return business rule outcome    
+                end
+            else business info is not array
+                BusinessEngine -> BusinessEngine++: runSingleBusinessPolicy(policy.policyInfo, context)
+                return business rule outcome  
+            end
+            return business outcome
+            return business outcome
+            deactivate IPolicyHandler
+        end
+        return selector outome 
+    end
+    return selector outcome
+end
+deactivate PolicyEngine 
+deactivate User
+
+@enduml

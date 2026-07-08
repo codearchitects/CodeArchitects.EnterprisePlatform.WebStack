@@ -1,0 +1,24 @@
+@if (show && formControl) {
+  <div [class]="containerClass" relative>
+    <input #controlRef type="text" [mask]="internalOptions.mask" [prefix]="internalOptions.prefix"
+      [specialCharacters]="internalOptions.specialCharacters" [suffix]="internalOptions.suffix"
+      [dropSpecialCharacters]="internalOptions.dropSpecialCharacters" [showMaskTyped]="internalOptions.showMaskTyped"
+      [allowNegativeNumbers]="internalOptions.allowNegativeNumbers"
+      [placeHolderCharacter]="internalOptions.placeHolderCharacter" [clearIfNotMatch]="internalOptions.clearIfNotMatch"
+      [attr.autofocus]="internalOptions.autofocus || null" [id]="internalOptions.id"
+      [class]="inputClass" placeholder="{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}"
+      autocomplete="off" [attr.tabindex]="internalOptions.tabindex" [style.minWidth]="width" [style.maxWidth]="width" [style.height]="height"
+      [attr.maxlength]="internalOptions.maxLength || null" [class.with-icon]="!!icon"
+      [attr.readonly]="internalOptions.isReadonly ? true : null"
+      [class.floating-placeholder]="placeholder && !formControl?.value" [class.sh-populated]="!!formControl.value"
+      [formControl]="formControl" [leadZeroDateTime]="internalOptions.leadZeroDateTime"
+      [hiddenInput]="internalOptions.hiddenInput" />
+    @if (placeholder) {
+      <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder |
+      translate)}}</label>
+    }
+    @if (icon) {
+      <sh-icon vertical-centered [name]="icon"></sh-icon>
+    }
+  </div>
+}

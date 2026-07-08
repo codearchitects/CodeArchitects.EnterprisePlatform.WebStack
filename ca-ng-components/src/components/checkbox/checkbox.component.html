@@ -1,0 +1,12 @@
+@if (formControl && show) {
+  <div class="checkbox" [class.disabled]="formControl.disabled || !enable"
+    [attr.tabindex]="internalOptions.tabindex" #controlRef [attr.autofocus]="internalOptions.autofocus || null"
+    (keydown)="onKey($event)" [class.checked]="!!formControl.value" pointer (click)="toggle()">
+    <input [formControl]="formControl" type="checkbox" [attr.id]="internalOptions.id"
+      [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
+    <label [attr.for]="internalOptions.id" untouchable></label>
+  </div>
+}
+@if (internalOptions.label && show) {
+  <span translate (click)="toggle()">{{internalOptions.label?.key ? (internalOptions.label | i18n) : (internalOptions.label | translate)}}</span>
+}

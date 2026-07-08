@@ -1,0 +1,92 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/common' as *;
+
+$toolbar-background: var(--toolbar-background, var(--sh-first));
+$toolbar-leeway-left-recess: var(--toolbar-leeway-left-recess, $bar-recess);
+$toolbar-back-button-font-size: var(--toolbar-back-button-font-size, 20px);
+$toolbar-back-button-left-recess: var(--toolbar-back-button-left-recess, 8px);
+$toolbar-content-right-recess: var(--toolbar-content-right-recess, $bar-recess);
+$toolbar-lang-control-width: var(--toolbar-lang-control-width, 55px);
+$toolbar-lang-control-color: var(--toolbar-lang-control-color, $sh-white);
+$toolbar-lang-control-results-background: var(--toolbar-lang-control-results-background, $toolbar-background);
+$toolbar-lang-control-result-color: var(--toolbar-lang-control-result-color, color-opacity($sh-white, .5));
+$toolbar-lang-control-current-result-color: var(--toolbar-lang-control-current-result-color, color-opacity($sh-white, .7));
+$toolbar-lang-control-selected-result-color: var(--toolbar-lang-control-selected-result-color, $sh-white);
+
+@media (max-width: $bars-width-breakpoint) {
+  sh-breadcrumb {
+    display: none;
+  }
+}
+
+:host {
+  position: fixed;
+  top: $header-height;
+  left: $sidebar-collapsed-width;
+  right: 0;
+  height: $toolbar-height;
+  background: $toolbar-background;
+  transition: $bars-transition-speed left;
+  z-index: 998;
+
+  .leeway {
+    float: left;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: $toolbar-leeway-left-recess;
+
+    ::ng-deep.back-button {
+
+      button {
+        padding-left: $toolbar-back-button-left-recess;
+      }
+
+      i:before {
+        font-size: $toolbar-back-button-font-size;
+        vertical-align: text-top;
+      }
+    }
+  }
+
+  .content {
+    float: right;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-right: $toolbar-content-right-recess;
+
+    ::ng-deep.lang-control {
+      .select-container {
+        width: $toolbar-lang-control-width;
+      }
+
+      sh-icon,
+      .input {
+        color: $toolbar-lang-control-color !important;
+      }
+
+      .input {
+        border: none;
+      }
+
+      .results {
+        background: $toolbar-lang-control-results-background !important;
+
+        .result {
+          color: $toolbar-lang-control-result-color !important;
+
+          &.current-item {
+            color: $toolbar-lang-control-current-result-color !important;
+          }
+
+          &.selected {
+            color: $toolbar-lang-control-selected-result-color !important;
+          }
+        }
+      }
+    }
+  }
+}

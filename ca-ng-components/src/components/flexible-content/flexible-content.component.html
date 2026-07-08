@@ -1,0 +1,22 @@
+<div flex-stretched>
+  <div grow=1 class="zones">
+    @if (text) {
+      <div class="zone text-zone">
+        {{text}}
+      </div>
+    }
+    <div class="zone left-zone">
+      <ng-content select="[left-zone]"></ng-content>
+    </div>
+  </div>
+  <div grow=2 class="zones">
+    <div class="zone center-zone">
+      <ng-content select="[center-zone]"></ng-content>
+    </div>
+  </div>
+  <div grow=1 class="zones">
+    <div class="zone right-zone">
+      <ng-content select="[right-zone]"></ng-content>
+    </div>
+  </div>
+</div>

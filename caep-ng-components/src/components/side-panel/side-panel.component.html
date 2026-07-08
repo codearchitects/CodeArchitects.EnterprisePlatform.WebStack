@@ -1,0 +1,4 @@
+@if (isOpen$ | async) {
+  <ng-container *ngTemplateOutlet="template; context: { $implicit: this }"></ng-container>
+  <button class="side-panel-close" (click)="close()"></button>
+}

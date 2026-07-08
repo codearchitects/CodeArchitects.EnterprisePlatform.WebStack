@@ -1,0 +1,19 @@
+@if (show) {
+  <div class="command" (click)="handle()" [class.disabled]="!enable">
+    @if (command.routerLink) {
+      <div class="routed-command" [routerLink]="command.routerLink">
+        <ng-container *ngTemplateOutlet="commandDescriptor"></ng-container>
+      </div>
+    } @else {
+      <ng-container *ngTemplateOutlet="commandDescriptor"></ng-container>
+    }
+    <ng-template #commandDescriptor>
+      @if (command.icon) {
+        <sh-icon [name]="command.icon"></sh-icon>
+      }
+      <div translate>
+        {{command?.name}}
+      </div>
+    </ng-template>
+  </div>
+}

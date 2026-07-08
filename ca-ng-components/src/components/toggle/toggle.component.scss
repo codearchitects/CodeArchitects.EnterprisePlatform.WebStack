@@ -1,0 +1,144 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/common' as *;
+@use '../../../styles/attributes';
+
+$toggle-width: var(--toggle-width, 44px);
+$toggle-height: var(--toggle-height, 24px);
+$toggle-border-width: var(--toggle-border-width, 3px);
+$toggle-border-style: var(--toggle-border-style, solid);
+$toggle-border-color: var(--toggle-border-color, $sh-matrix-gray);
+$toggle-focused-offset: 6px;
+$toggle-border-radius: var(--toggle-border-radius, 30px);
+$toggle-ball-size: var(--toggle-ball-size, 14px);
+$toggle-ball-background: var(--toggle-ball-background, $toggle-border-color);
+$toggle-checked-border-color: var(--toggle-checked-border-color, var(--sh-first));
+$toggle-ball-checked-background: var(--toggle-ball-checked-background, $toggle-checked-border-color);
+$toggle-disabled-opacity: var(--toggle-disabled-opacity, .4);
+$toggle-disabled-background-color: var(--toggle-disabled-background-color, $sh-silver);
+$toggle-ball-disabled-background: var(--toggle-ball-disabled-background, $sh-quick-silver);
+$toggle-label-disabled-color: var(--toggle-label-disabled-color, $sh-quick-silver);
+$toggle-hover-background-color: var(--toggle-hover-background-color, $sh-granite);
+$toggle-checked-hover-background-color: var(--toggle-checked-hover-background-color, var(--sh-secondary));
+$toggle-on-right-distance: var(--toggle-on-right-distance, 5px);
+$toggle-off-right-distance: var(--toggle-off-right-distance, 20px);
+$toggle-label-font-size: var(--toggle-label-font-size, 18px);
+$toggle-label-color: var(--toggle-label-color, $sh-light-gray);
+$toggle-label-distance: var(--toggle-label-distance, 10px);
+$toggle-recess: var(--toggle-recess, 10px);
+
+.toggle {
+  position: relative;
+  width: $toggle-width;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: $toggle-recess;
+  display: inline-block;
+  vertical-align: middle;
+
+  &,
+  * {
+    outline: none;
+  }
+
+  label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    width: $toggle-width;
+    height: $toggle-height;
+    padding: 0;
+    border-radius: $toggle-border-radius;
+    border-width: $toggle-border-width;
+    border-style: $toggle-border-style;
+    border-color: $toggle-border-color;
+    transition: .3s background-color;
+
+    &:before {
+      content: "";
+      @extend [vertical-centered];
+      display: block;
+      width: $toggle-ball-size;
+      height: $toggle-ball-size;
+      border-radius: $toggle-border-radius;
+      transition: .3s right;
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked+label {
+      margin-left: 0;
+      border-color: $toggle-checked-border-color;
+
+      &:before {
+        right: $toggle-on-right-distance;
+        background: $toggle-ball-checked-background;
+      }
+    }
+
+    &:not(:checked)+label {
+      border-color: $toggle-border-color;
+
+      &:before {
+        right: $toggle-off-right-distance;
+        background: $toggle-ball-background;
+      }
+    }
+  }
+
+  &.readonly {
+
+    &,
+    &+span {
+      pointer-events: none;
+    }
+  }
+
+  &.disabled {
+    opacity: $toggle-disabled-opacity;
+    pointer-events: none;
+    cursor: not-allowed;
+
+    input {
+      &+label {
+        background-color: $toggle-disabled-background-color;
+        border-color: $toggle-disabled-background-color;
+
+        &:before {
+          background: $toggle-ball-disabled-background;
+        }
+      }
+    }
+
+    &+span {
+      color: $toggle-label-disabled-color;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+
+
+  &:hover,
+  &:focus,
+  &:active {
+    input:checked+label {
+      background-color: $toggle-checked-hover-background-color;
+    }
+
+    input:not(:checked)+label {
+      background-color: $toggle-hover-background-color;
+    }
+  }
+
+  &+span {
+    color: $toggle-label-color;
+    cursor: pointer;
+    font-size: $toggle-label-font-size;
+    margin-left: $toggle-label-distance;
+    user-select: none;
+    vertical-align: middle;
+  }
+}

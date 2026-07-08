@@ -1,0 +1,6 @@
+@use '../../../styles/input' as *;
+
+.multiselect-container {
+  @include select();
+  cursor: pointer;
+}

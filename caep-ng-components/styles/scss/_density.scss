@@ -1,0 +1,32 @@
+@use "./utils/functions" as *;
+
+/// Definisce il valore minimo della dal quale verranno poi ricavate tutte le dimensioni
+/// @example 0.437vh @example 200mm; @example 0.20cm
+$space-unit: v(space-unit, 4px);
+
+$component-density: v(component-density, 0);
+$component-density-interval: v(component-density-interval, $space-unit);
+
+/// Restituisce il valore in base alla configurazione della densità @param $component-density e alla scala di densità @param $component-density indicate.
+@function get-density-value($value) {
+  @return calc(
+    #{$value} + calc(#{$component-density-interval} * (#{$component-density}))
+  );
+}
+
+//TODO: utilizzare solo queste variabili per definire le dimensioni nei compoenti
+
+$space-xxxxxs: v(space-xxxxxs, calc(0.5 * #{$space-unit}));
+$space-xxxxs: v(space-xxxxs, calc(1 * #{$space-unit}));
+$space-xxxs: v(space-xxxs, calc(2 * #{$space-unit}));
+$space-xxs: v(space-xxs, calc(4 * #{$space-unit}));
+$space-xs: v(space-xs, calc(5 * #{$space-unit}));
+$space-s: v(space-s, calc(6 * #{$space-unit}));
+$space-sm: v(space-sm, calc(8 * #{$space-unit}));
+$space-md: v(space-md, calc(10 * #{$space-unit}));
+$space-lg: v(space-lg, calc(12 * #{$space-unit}));
+$space-xl: v(space-xl, calc(14 * #{$space-unit}));
+$space-xxl: v(space-xxl, calc(16 * #{$space-unit}));
+$space-xxxl: v(space-xxxl, calc(18 * #{$space-unit}));
+$space-xxxxl: v(space-xxxxl, calc(20 * #{$space-unit}));
+$space-xxxxxl: v(space-xxxxxl, calc(22 * #{$space-unit}));

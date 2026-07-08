@@ -1,0 +1,14 @@
+@if (internalOptions.showValidationMessage && control?.touched) {
+  <div>
+    @for (error of errors; track error) {
+      <p>{{ error | errorMessage:internalOptions.messages:control:model:prop | i18n }}</p>
+    }
+    @if (!errors?.length && warnings?.length) {
+      @for (warning of warnings; track warning) {
+        <p class="warning">
+          {{ warning | warningMessage:internalOptions.messages:control:model:prop | i18n }}
+        </p>
+      }
+    }
+  </div>
+}

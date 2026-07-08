@@ -1,0 +1,50 @@
+@use '../../../styles/colors' as *;
+
+$stack-item-max-width: var(--breadcrumb-item-max-width, 200px);
+$stack-item-recess: var(--breadcrumb-item-recess, 2px 6px);
+$stack-item-border-bottom: var(--breadcrumb-item-border-bottom, 1px solid transparent);
+$stack-item-color: var(--breadcrumb-item-color, color-opacity($sh-white, .7));
+$stack-item-focus-color: var(--breadcrumb-item-focus-color, color-opacity($sh-white, .8));
+$stack-item-active-color: var(--breadcrumb-item-active-color, $sh-white);
+$stack-item-divider-color: var(--breadcrumb-item-divider-color, color-opacity($sh-white, .8));
+
+span {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: $stack-item-color;
+  border-bottom: $stack-item-border-bottom;
+  padding: $stack-item-recess;
+  max-width: $stack-item-max-width;
+
+  &:not(:last-of-type) {
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      color: $stack-item-focus-color;
+    }
+
+    &:active {
+      color: $stack-item-active-color;
+    }
+
+  }
+
+  &:first-of-type {
+    padding-left: 0;
+  }
+
+  &:last-of-type {
+    pointer-events: none;
+    color: $stack-item-active-color;
+  }
+}
+
+.divider {
+  display: inline;
+  color: $stack-item-divider-color;
+}

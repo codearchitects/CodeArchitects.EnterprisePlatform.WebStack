@@ -1,0 +1,36 @@
+@if (isReady && show && model) {
+  <div component="">
+    <!--<caep-label [model]="model" [prop]="prop" [options]="options" [enable]="enable" [show]="show"></caep-label>-->
+    <caep-template
+      #controlRef
+      [model]="model"
+      [prop]="prop"
+      [options]="options"
+      [enable]="enable"
+      [show]="show"
+      [id]="id"
+      [tabindex]="tabindex"
+      [autofocus]="autofocus"
+      [label]="label"
+      [width]="width"
+      [height]="height"
+      [containerClass]="containerClass"
+      [tooltip]="tooltip"
+      [resource]="resource"
+      [selectors]="selectors"
+      (valueChanges)="valueChanges.emit($event)"
+      (canValueChange)="onCanValueChange($event)"
+      (keypressed)="keypressed.emit($event)"
+      (keydowned)="keydowned.emit($event)"
+      (keyupped)="keyupped.emit($event)"
+      (clicked)="clicked.emit($event)"
+      (dblclicked)="dblclicked.emit($event)"
+      (focused)="focused.emit($event)"
+      (blurred)="blurred.emit($event)"
+      (mousemoved)="mousemoved.emit($event)"
+    >
+      <ng-content></ng-content>
+    </caep-template>
+    <!--<caep-validation-message *ngIf="!isCaptionControl" [model]="model" [prop]="prop" [options]="options" [enable]="enable" [show]="show"></caep-validation-message>-->
+  </div>
+}

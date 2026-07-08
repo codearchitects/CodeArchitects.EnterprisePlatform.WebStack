@@ -1,0 +1,47 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Cake Build
+tools
+build/tools
+build/v1/tools
+build-dist/
+output/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+.tmp
+coverage
+
+# NPM
+node_modules
+
+# NYC
+.nyc_output
+
+# Yarn
+yarn-error.log
+
+# Generated documentation
+typedocs

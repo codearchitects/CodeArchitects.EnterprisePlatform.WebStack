@@ -1,0 +1,26 @@
+@use '@angular/cdk/overlay-prebuilt';
+@forward 'attributes';
+@forward 'toast';
+@forward 'fonts';
+@forward 'icons';
+@forward 'mixins';
+@use 'mixins' as *;
+@forward 'colors';
+@use 'colors' as *;
+@forward 'common';
+@use 'common' as *;
+@forward 'context-menu';
+
+@include scrollbar($scrollbar-size, $scrollbar-thumb-color, $scrollbar-thumb-hover-color, $scrollbar-thumb-active-color, $scrollbar-track-color);
+
+:root {
+    --sh-first: #{$sh-azure};
+    --sh-secondary: #{$sh-pale-cyan};
+    --sh-tertiary: #{$sh-sky};
+    --sh-quaternary: #{$sh-clean-glass};
+    --sh-quinary: #{$sh-stripe-blue};
+    --sh-senary: #{$sh-beautiful-blue};
+    --sh-septenary: #{$sh-spring-sky};
+    --sh-octonary: #{$sh-electric-blue};
+    --sh-nonary: #{$sh-dark-blue};
+}

@@ -1,0 +1,11 @@
+@if (formControl && show) {
+  <div #controlRef class="toggle" [class.disabled]="!formControl.valid || !enable"
+    [class.readonly]="internalOptions.isReadonly" [attr.tabindex]="internalOptions.tabindex"
+    [attr.autofocus]="internalOptions.autofocus || null" (keydown)="onKey($event)" pointer (click)="toggle()">
+    <input [formControl]="formControl" type="checkbox" untouchable [attr.id]="internalOptions.id">
+    <label [attr.for]="internalOptions.id" untouchable></label>
+  </div>
+}
+@if (internalOptions.label && show) {
+  <span (click)="toggle()" translate>{{internalOptions.label?.key ? (internalOptions.label | i18n) : (internalOptions.label | translate)}}</span>
+}

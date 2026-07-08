@@ -1,0 +1,25 @@
+@use '../../../styles/scss/utils/variables' as *;
+:host {
+  position: absolute;
+  top: $app-header-height;
+  right: 0;
+  z-index: 10;
+}
+
+.side-panel-close {
+  position: fixed;
+  z-index: 10;
+  background-color: transparent;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $app-header-color;
+  outline: none;
+  &::before {
+    content: '╳';
+    font-size: 14px;
+    color: $app-header-color;
+  }
+}

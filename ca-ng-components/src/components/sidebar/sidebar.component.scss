@@ -1,0 +1,145 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/common' as *;
+@use '../../../styles/mixins' as *;
+
+$toggler-height: $bars-height;
+$sidebar-background-color: var(--sidebar-background-color, $sh-lush-black);
+$sidebar-logo-width: var(--sidebar-logo-width, 130px);
+$sidebar-logo-height: var(--sidebar-logo-height, 45px);
+$sidebar-logo-container-background: var(--sidebar-logo-container-background, $sh-midnight-gray);
+$sidebar-toggler-background-color: var(--sidebar-toggler-background-color, $sh-medium-black);
+$sidebar-toggler-icon-color: var(--sidebar-toggler-icon-color, $sh-smoke-gray);
+$sidebar-toggler-icon-font-size: var(--sidebar-toggler-icon-font-size, 35px);
+$sidebar-odd-item-background-color: var(--sidebar-odd-item-background-color, $sh-sea-black);
+$sidebar-odd-item-icon-background-color: var(--sidebar-odd-item-icon-background-color, $sh-lush-black);
+$sidebar-even-item-background-color: var(--sidebar-even-item-background-color, $sh-submarine-gray);
+$sidebar-even-item-icon-background-color: var(--sidebar-even-item-icon-background-color, $sh-spade-black);
+$sidebar-child-odd-item-background-color: var(--sidebar-child-odd-item-background-color, $sh-gray);
+$sidebar-child-odd-item-icon-background-color: var(--sidebar-child-odd-item-icon-background-color, $sh-cool-gray);
+$sidebar-child-even-item-background-color: var(--sidebar-child-even-item-background-color, $sh-cool-gray);
+$sidebar-child-even-item-icon-background-color: var(--sidebar-child-even-item-icon-background-color, $sh-sand-gray);
+$sidebar-scrollbar-size: var(--sidebar-scrollbar-size, 7px);
+$sidebar-scrollbar-track-color: var(--sidebar-scrollbar-track-color, $sh-sand-gray);
+$sidebar-scrollbar-thumb-color: var(--sidebar-scrollbar-thumb-color, color-opacity($sh-sea-black, .3));
+$sidebar-scrollbar-thumb-hover-color: var(--sidebar-scrollbar-thumb-hover-color, color-opacity($sh-sea-black, .5));
+$sidebar-scrollbar-thumb-active-color: var(--sidebar-scrollbar-thumb-active-color, color-opacity($sh-sea-black, .7));
+
+:host {
+
+
+  &.expanded {
+    @include scrollbar($sidebar-scrollbar-size, $sidebar-scrollbar-thumb-color, $sidebar-scrollbar-thumb-hover-color, $sidebar-scrollbar-thumb-active-color, $sidebar-scrollbar-track-color);
+  }
+
+  &:not(.expanded) {
+    @include scrollbar(0, transparent, transparent, transparent, transparent);
+  }
+
+  &,
+  * {
+    outline: none;
+    user-select: none;
+  }
+
+  .toggler {
+    position: fixed;
+    background-color: $sidebar-toggler-background-color;
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    height: $toggler-height;
+    width: $sidebar-collapsed-width;
+    z-index: 1;
+
+    sh-icon {
+      font-size: $sidebar-toggler-icon-font-size;
+      color: $sidebar-toggler-icon-color;
+    }
+  }
+
+  .logo-container {
+    height: $toggler-height;
+    position: fixed;
+    top: 0;
+    left: $sidebar-collapsed-width;
+    background: $sidebar-logo-container-background;
+    z-index: 999;
+    transition: $bars-transition-speed width;
+    overflow: hidden;
+
+    &.expanded {
+      width: $brand-width;
+    }
+
+    &:not(.expanded) {
+      width: 0;
+    }
+
+    .logo {
+      width: $sidebar-logo-width;
+      height: $sidebar-logo-height;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  #sidebar {
+    position: fixed;
+    left: 0;
+    top: $bars-height;
+    bottom: 0;
+    background-color: $sidebar-background-color;
+    transition: $bars-transition-speed width;
+    z-index: 999;
+    outline: none;
+    overflow-y: auto;
+
+    &.expanded {
+      width: $sidebar-expanded-width;
+    }
+
+    &:not(.expanded) {
+      width: $sidebar-collapsed-width;
+    }
+
+    &::ng-deep sh-sidebar-item {
+      &:nth-of-type(odd)>.command>div {
+        background-color: $sidebar-odd-item-background-color;
+
+        &>.command-icon {
+          background-color: $sidebar-odd-item-icon-background-color;
+        }
+      }
+
+      &:nth-of-type(even)>.command>div {
+        background-color: $sidebar-even-item-background-color;
+
+        &>.command-icon {
+          background-color: $sidebar-even-item-icon-background-color;
+        }
+      }
+
+      .child {
+        &:nth-of-type(odd)>sh-sidebar-item>.command>div {
+          background-color: $sidebar-child-odd-item-background-color;
+
+          &>.command-icon {
+            background-color: $sidebar-child-odd-item-icon-background-color;
+          }
+        }
+
+        &:nth-of-type(even)>sh-sidebar-item>.command>div {
+          background-color: $sidebar-child-even-item-background-color;
+
+          &>.command-icon {
+            background-color: $sidebar-child-even-item-icon-background-color;
+          }
+        }
+      }
+    }
+  }
+}

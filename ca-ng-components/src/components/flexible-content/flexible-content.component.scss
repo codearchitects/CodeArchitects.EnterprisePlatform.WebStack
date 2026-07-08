@@ -1,0 +1,59 @@
+$zone-horizontal-recess: var(--flexible-content-zone-left-recess, 26px);
+$text-zone-size: var(--flexible-content-text-zone-size, 150px);
+$text-zone-font-size: var(--flexible-content-text-zone-font-size, 19px);
+
+:host {
+  height: inherit;
+
+  div {
+    height: inherit;
+  }
+
+  .zones {
+    display: table;
+
+    .zone {
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: $zone-horizontal-recess;
+      white-space: nowrap;
+
+      &.left-zone {
+        text-align: left;
+      }
+
+      &.center-zone {
+        text-align: center;
+      }
+
+      &.right-zone {
+        text-align: right;
+      }
+
+      &.text-zone {
+        width: $text-zone-size;
+        font-size: $text-zone-font-size;
+      }
+    }
+  }
+}
+
+@mixin cross-flex() {
+  .zones {
+    display: flex !important;
+    align-items: center;
+
+    .zone {
+      height: auto !important;
+      flex: 1;
+    }
+  }
+}
+
+@-moz-document url-prefix() {
+  @include cross-flex();
+}
+
+@supports (-ms-ime-align: auto) {
+  @include cross-flex();
+}

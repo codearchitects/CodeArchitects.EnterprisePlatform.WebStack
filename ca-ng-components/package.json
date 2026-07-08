@@ -1,0 +1,157 @@
+{
+  "name": "@ca-webstack/ng-components",
+  "version": "21.0.0",
+  "description": "Angular components.",
+  "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
+  "license": "Apache-2.0",
+  "ngPackageExports": {
+    "./styles/attributes": {
+      "sass": "./styles/_attributes.scss"
+    },
+    "./styles/colors": {
+      "sass": "./styles/_colors.scss"
+    },
+    "./styles/common": {
+      "sass": "./styles/_common.scss"
+    },
+    "./styles/fonts": {
+      "sass": "./styles/_fonts.scss"
+    },
+    "./styles/functions": {
+      "sass": "./styles/_functions.scss"
+    },
+    "./styles/grid-system": {
+      "sass": "./styles/_grid-system.scss"
+    },
+    "./styles/icons": {
+      "sass": "./styles/_icons.scss"
+    },
+    "./styles/input": {
+      "sass": "./styles/_input.scss"
+    },
+    "./styles/mixins": {
+      "sass": "./styles/_mixins.scss"
+    },
+    "./styles/toast": {
+      "sass": "./styles/_toast.scss"
+    },
+    "./styles/*": {
+      "sass": "./styles/*.scss"
+    }
+  },
+  "peerDependencies": {
+    "@angular-architects/module-federation": "21.2.1",
+    "@ca-webstack/data-structures": "21.0.0",
+    "@ca-webstack/ng-aspects": "21.0.0",
+    "@ca-webstack/ng-command-dispatcher": "21.0.0",
+    "@ca-webstack/ng-i18n": "21.0.0",
+    "@ca-webstack/ng-policy-engine": "21.0.0",
+    "@ca-webstack/policy-engine": "21.0.0",
+    "@ca-webstack/reflection": "21.0.0",
+    "@caep/event-manager": "21.0.0",
+    "@caep/ng-event-manager": "21.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@perfectmemory/ngx-contextmenu": "^21.0.1",
+    "@nodro7/angular-mydatepicker": "~20.0.0",
+    "angular2-uuid": "^1.1.1",
+    "core-js": "^3.41.0",
+    "dompurify": "^3.3.1",
+    "jquery": "^3.3.1",
+    "lodash-es": "^4.17.23",
+    "ng-click-outside": "^9.0.0",
+    "ngx-countdown": "21.0.0",
+    "ngx-mask": "~20.0.3",
+    "ngx-toastr": "^19.1.0",
+    "numeral": "^2.0.6",
+    "rxjs": "~7.8.1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "vm": "^0.1.0"
+  },
+  "devDependencies": {
+    "@angular-architects/module-federation": "21.2.1",
+    "@angular-devkit/build-angular": "~21.2.0",
+    "@angular-eslint/builder": "~21.2.0",
+    "@angular-eslint/eslint-plugin": "~21.2.0",
+    "@angular-eslint/eslint-plugin-template": "~21.2.0",
+    "@angular-eslint/schematics": "~21.2.0",
+    "@angular-eslint/template-parser": "~21.2.0",
+    "@angular/animations": "~21.2.0",
+    "@angular/cdk": "~21.2.0",
+    "@angular/cli": "~21.2.0",
+    "@angular/common": "~21.2.0",
+    "@angular/compiler": "~21.2.0",
+    "@angular/compiler-cli": "~21.2.0",
+    "@angular/core": "~21.2.0",
+    "@angular/forms": "~21.2.0",
+    "@angular/language-service": "~21.2.0",
+    "@angular/platform-browser": "~21.2.0",
+    "@angular/platform-browser-dynamic": "~21.2.0",
+    "@angular/router": "~21.2.0",
+    "@ca-webstack/data-structures": "21.0.0",
+    "@ca-webstack/ng-aspects": "21.0.0",
+    "@ca-webstack/ng-command-dispatcher": "21.0.0",
+    "@ca-webstack/ng-i18n": "21.0.0",
+    "@ca-webstack/ng-policy-engine": "21.0.0",
+    "@ca-webstack/policy-engine": "21.0.0",
+    "@ca-webstack/reflection": "21.0.0",
+    "@caep/event-manager": "21.0.0",
+    "@caep/ng-event-manager": "21.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@perfectmemory/ngx-contextmenu": "^21.0.1",
+    "@types/core-js": "^2.5.8",
+    "@types/jasmine": "~5.1.0",
+    "@types/jasminewd2": "^2.0.6",
+    "@types/jquery": "^3.3.29",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^22.19.3",
+    "@types/numeral": "^0.0.25",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "@nodro7/angular-mydatepicker": "~20.0.0",
+    "angular2-uuid": "^1.1.1",
+    "core-js": "^3.41.0",
+    "dompurify": "^3.3.1",
+    "eslint": "^9.32.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsdoc": "^61.5.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "jasmine-core": "~5.13.0",
+    "jasmine-spec-reporter": "~7.0.0",
+    "jquery": "^3.3.1",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "^2.1.0",
+    "lodash-es": "^4.17.23",
+    "ng-click-outside": "^9.0.0",
+    "ng-packagr": "~21.2.0",
+    "ngx-countdown": "21.0.0",
+    "ngx-mask": "~20.0.3",
+    "ngx-toastr": "^19.1.0",
+    "numeral": "^2.0.6",
+    "rxjs": "~7.8.1",
+    "ts-node": "^8.0.2",
+    "typedoc": "^0.28.15",
+    "typescript": "5.9.3",
+    "zone.js": "~0.16.0"
+  },
+  "scripts": {
+    "clean": "npm run clean.artifacts && npm run clean.node_modules",
+    "clean.artifacts": "node rimraf.js dist .tmp typedocs",
+    "clean.node_modules": "node rimraf.js node_modules",
+    "setup": "npm install --loglevel=error",
+    "build": "ng build",
+    "postbuild": "node ../scripts/merge-pkg-exports.mjs",
+    "build.watch": "ng build --watch",
+    "test": "npm run test.unit",
+    "test.unit": "ng test --watch=false",
+    "test.unit.watch": "ng test",
+    "typedoc": "npm run clean.artifacts && typedoc public_api.ts --out typedocs --theme default --exclude node_modules --readme none",
+    "lint": "ng lint"
+  },
+  "module": "dist/fesm2022/ca-webstack-ng-components.mjs",
+  "typings": "dist/types/ca-webstack-ng-components.d.ts"
+}

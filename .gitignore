@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build artifacts
+dist/
+build-dist/
+.tmp/
+typedocs/
+coverage/
+
+# turborepo
+.turbo/
+
+# angular build cache
+.angular/
+
+# per-package lockfiles (single root lockfile is the source of truth)
+*/package-lock.json
+
+# logs & os
+*.log
+npm-debug.log*
+.DS_Store

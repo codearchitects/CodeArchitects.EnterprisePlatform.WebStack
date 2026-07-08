@@ -1,0 +1,19 @@
+<div class="leeway">
+  @if (showBackButton) {
+    <sh-button class="back-button" icon="back" title="{{'back' | translate}}" [negative]="true"
+      [enable]="activity?.CurrentPayload?.stack.length > 1" (clicked)="return.emit()">
+    </sh-button>
+  }
+  @if (showBreadcrumb) {
+    <sh-breadcrumb [activity]="activity"></sh-breadcrumb>
+  }
+</div>
+<div class="content">
+  <ng-content></ng-content>
+  @if (showLangControl && currentLang) {
+    <sh-select class="lang-control" title="{{'change-language' | translate}}"
+      [model]="this" prop="currentLang" (valueChanges)="onLangChanges($event)"
+      [options]="{values: langs, valuesPipe: upperCasePipe}">
+    </sh-select>
+  }
+</div>

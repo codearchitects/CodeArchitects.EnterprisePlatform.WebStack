@@ -1,0 +1,5 @@
+$row-bottom-margin: var(--row-bottom-margin, 5px);
+
+:host {
+  margin-bottom: $row-bottom-margin;
+}
