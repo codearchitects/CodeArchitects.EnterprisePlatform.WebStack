@@ -1,6 +1,6 @@
 {
   "name": "@caep/ng-event-manager",
-  "version": "21.0.0",
+  "version": "0.0.0",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
   "license": "Apache-2.0",
   "scripts": {
@@ -18,7 +18,7 @@
   "peerDependencies": {
     "@angular/common": "~21.2.0",
     "@angular/core": "~21.2.0",
-    "@caep/event-manager": "21.0.0",
+    "@caep/event-manager": "*",
     "rxjs": "~7.8.1"
   },
   "dependencies": {
@@ -41,7 +41,7 @@
     "@angular-eslint/eslint-plugin-template": "~21.2.0",
     "@angular-eslint/schematics": "~21.2.0",
     "@angular-eslint/template-parser": "~21.2.0",
-    "@caep/event-manager": "21.0.0",
+    "@caep/event-manager": "*",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.50.0",
     "@typescript-eslint/parser": "^8.50.0",

@@ -8,8 +8,6 @@ All packages in the monorepo share a single version.
 
 ## [Unreleased]
 
-## [21.0.0]
-
 ### Added
 
 - Initial public open-source release of the CodeArchitects Enterprise Platform

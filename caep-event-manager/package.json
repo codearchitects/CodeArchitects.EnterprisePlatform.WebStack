@@ -1,6 +1,6 @@
 {
   "name": "@caep/event-manager",
-  "version": "21.0.0",
+  "version": "0.0.0",
   "description": "Event-manager utilities.",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
   "license": "Apache-2.0",
@@ -97,6 +97,5 @@
       "webpack.prod.js"
     ]
   },
-  "main": "dist/bundles/@caep/event-manager.umd.js",
-  "types": "dist/types/public_api.d.ts"
+  "main": "dist/bundles/@caep/event-manager.umd.js"
 }

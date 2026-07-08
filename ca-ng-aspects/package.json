@@ -1,12 +1,12 @@
 {
   "name": "@ca-webstack/ng-aspects",
-  "version": "21.0.0",
+  "version": "0.0.0",
   "description": "Aspects utilities.",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
   "license": "Apache-2.0",
   "peerDependencies": {
-    "@ca-webstack/ng-i18n": "21.0.0",
-    "@ca-webstack/reflection": "21.0.0",
+    "@ca-webstack/ng-i18n": "*",
+    "@ca-webstack/reflection": "*",
     "@ngx-translate/core": "^15.0.0"
   },
   "devDependencies": {
@@ -27,8 +27,8 @@
     "@angular/platform-browser": "~21.2.0",
     "@angular/platform-browser-dynamic": "~21.2.0",
     "@angular/router": "~21.2.0",
-    "@ca-webstack/ng-i18n": "21.0.0",
-    "@ca-webstack/reflection": "21.0.0",
+    "@ca-webstack/ng-i18n": "*",
+    "@ca-webstack/reflection": "*",
     "@ngx-translate/core": "^15.0.0",
     "@types/core-js": "^2.5.8",
     "@types/jasmine": "~5.1.0",

@@ -1,6 +1,6 @@
 {
   "name": "@caep/ng-graphql",
-  "version": "21.0.0",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,9 +13,9 @@
   "peerDependencies": {
     "@angular/common": "~21.2.0",
     "@angular/core": "~21.2.0",
-    "@ca-webstack/data-structures": "21.0.0",
-    "@ca-webstack/ng-serializer": "21.0.0",
-    "@ca-webstack/reflection": "21.0.0"
+    "@ca-webstack/data-structures": "*",
+    "@ca-webstack/ng-serializer": "*",
+    "@ca-webstack/reflection": "*"
   },
   "dependencies": {
     "apollo-angular": "~13.0.0",
@@ -35,9 +35,9 @@
     "@angular/platform-browser": "~21.2.0",
     "@angular/platform-browser-dynamic": "~21.2.0",
     "@angular/router": "~21.2.0",
-    "@ca-webstack/data-structures": "21.0.0",
-    "@ca-webstack/ng-serializer": "21.0.0",
-    "@ca-webstack/reflection": "21.0.0",
+    "@ca-webstack/data-structures": "*",
+    "@ca-webstack/ng-serializer": "*",
+    "@ca-webstack/reflection": "*",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^22.19.3",
     "jasmine-core": "~5.13.0",

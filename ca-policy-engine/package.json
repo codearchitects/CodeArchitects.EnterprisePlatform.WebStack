@@ -1,6 +1,6 @@
 {
   "name": "@ca-webstack/policy-engine",
-  "version": "21.0.0",
+  "version": "0.0.0",
   "description": "Policy engine core library",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
   "license": "Apache-2.0",
@@ -92,6 +92,5 @@
       "/src/business-policy-wrapper.spec.ts"
     ]
   },
-  "main": "dist/bundles/@ca-webstack/policy-engine.umd.js",
-  "types": "dist/types/public_api.d.ts"
+  "main": "dist/bundles/@ca-webstack/policy-engine.umd.js"
 }

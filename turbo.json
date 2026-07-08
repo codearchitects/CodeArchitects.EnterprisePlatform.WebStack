@@ -11,8 +11,7 @@
       "outputs": ["dist/**"]
     },
     "test": {
-      "dependsOn": ["build"],
-      "outputs": ["coverage/**"]
+      "dependsOn": ["build"]
     },
     "lint": {
       "dependsOn": ["^build"]

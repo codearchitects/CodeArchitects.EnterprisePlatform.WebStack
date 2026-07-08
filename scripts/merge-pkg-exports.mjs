@@ -48,6 +48,15 @@ if (!manifest) {
 }
 
 const dist = JSON.parse(readFileSync(manifest, "utf8"));
-dist.exports = { ...extra, ...(dist.exports || {}) }; // ng-packagr's "." / "./package.json" win
+const merged = { ...(dist.exports || {}) };
+for (const [subpath, conditions] of Object.entries(extra)) {
+  // Merge conditions per subpath so custom ones (e.g. "sass") are added alongside
+  // ng-packagr's generated ones (e.g. "types"/"default"), which win on conflict.
+  merged[subpath] =
+    merged[subpath] && typeof merged[subpath] === "object" && typeof conditions === "object"
+      ? { ...conditions, ...merged[subpath] }
+      : conditions;
+}
+dist.exports = merged;
 writeFileSync(manifest, JSON.stringify(dist, null, 2) + "\n");
 console.log(`merge-pkg-exports: injected ${Object.keys(extra).length} export entries into ${src.name} dist manifest`);

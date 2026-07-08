@@ -8,7 +8,8 @@ const bundleOutputLibrary = "umd";
 const bundleOutput = `bundles/${package.name}.${bundleOutputLibrary}.js`;
 package.main = bundleOutput;
 // monorepo: harden dist package.json entry points (relative to dist root)
-package.types = package.typings = "types/public_api.d.ts";
+package.typings = "types/public_api.d.ts";
+delete package.types;
 delete package.module;
 delete package.exports;
 delete package.scripts;
