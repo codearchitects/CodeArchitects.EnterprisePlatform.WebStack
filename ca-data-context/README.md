@@ -14,9 +14,9 @@ npm install @ca-webstack/data-context
 
 ### Peer Dependencies
 
-- `@ca-webstack/change-tracker` ~21.0.0
-- `@ca-webstack/data-structures` ~21.0.0
-- `@ca-webstack/reflection` ~21.0.0
+- `@ca-webstack/change-tracker` ~21.1.0
+- `@ca-webstack/data-structures` ~21.1.0
+- `@ca-webstack/reflection` ~21.1.0
 - `core-js` ^3.41.0
 - `lodash` ^4.17.21
 

@@ -14,8 +14,8 @@ npm install @ca-webstack/ng-aspects
 
 ### Peer Dependencies
 
-- `@ca-webstack/ng-i18n` ~21.0.0
-- `@ca-webstack/reflection` ~21.0.0
+- `@ca-webstack/ng-i18n` ~21.1.0
+- `@ca-webstack/reflection` ~21.1.0
 - `@ngx-translate/core` ^15.0.0
 
 ## Quick Start

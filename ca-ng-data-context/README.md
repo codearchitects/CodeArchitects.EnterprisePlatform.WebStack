@@ -14,10 +14,10 @@ npm install @ca-webstack/ng-data-context
 
 ### Peer Dependencies
 
-- `@ca-webstack/change-tracker` ~21.0.0
-- `@ca-webstack/data-context` ~21.0.0
-- `@ca-webstack/data-structures` ~21.0.0
-- `@ca-webstack/reflection` ~21.0.0
+- `@ca-webstack/change-tracker` ~21.1.0
+- `@ca-webstack/data-context` ~21.1.0
+- `@ca-webstack/data-structures` ~21.1.0
+- `@ca-webstack/reflection` ~21.1.0
 
 ## Quick Start
 

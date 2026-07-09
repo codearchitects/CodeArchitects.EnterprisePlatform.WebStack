@@ -15,7 +15,7 @@ npm install @ca-webstack/ng-event-manager
 ### Peer Dependencies
 
 - `@angular/common`, `@angular/core` ~21.2.0
-- `@ca-webstack/event-manager` ~21.0.0
+- `@ca-webstack/event-manager` ~21.1.0
 - `rxjs` ~7.8.1
 
 ## Quick Start

@@ -14,7 +14,7 @@ npm install @ca-webstack/reflection
 
 ### Peer Dependencies
 
-- `@ca-webstack/data-structures` ~21.0.0
+- `@ca-webstack/data-structures` ~21.1.0
 - `core-js` ^3.41.0
 - `tslib` ^2.3.0
 

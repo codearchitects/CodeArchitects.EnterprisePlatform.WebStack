@@ -15,7 +15,7 @@ npm install @ca-webstack/ng-graphql
 ### Peer Dependencies
 
 - `@angular/common`, `@angular/core` ~21.2.0
-- `@ca-webstack/data-structures`, `@ca-webstack/ng-serializer`, `@ca-webstack/reflection` ~21.0.0
+- `@ca-webstack/data-structures`, `@ca-webstack/ng-serializer`, `@ca-webstack/reflection` ~21.1.0
 
 ### Dependencies
 

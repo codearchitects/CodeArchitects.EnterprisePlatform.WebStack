@@ -14,8 +14,8 @@ npm install @ca-webstack/ng-policy-engine
 
 ### Peer Dependencies
 
-- `@ca-webstack/policy-engine` ~21.0.0
-- `@ca-webstack/reflection` ~21.0.0
+- `@ca-webstack/policy-engine` ~21.1.0
+- `@ca-webstack/reflection` ~21.1.0
 - `core-js` ^3.41.0
 
 ## Quick Start

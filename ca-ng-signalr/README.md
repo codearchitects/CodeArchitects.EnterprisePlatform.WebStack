@@ -14,8 +14,8 @@ npm install @ca-webstack/ng-signalr
 
 ### Peer Dependencies
 
-- `@ca-webstack/change-tracker`, `@ca-webstack/data-context`, `@ca-webstack/data-structures`, `@ca-webstack/reflection` ~21.0.0
-- `@ca-webstack/ng-data-context`, `@ca-webstack/ng-serializer` ~21.0.0
+- `@ca-webstack/change-tracker`, `@ca-webstack/data-context`, `@ca-webstack/data-structures`, `@ca-webstack/reflection` ~21.1.0
+- `@ca-webstack/ng-data-context`, `@ca-webstack/ng-serializer` ~21.1.0
 - `jquery` ^3.3.1
 
 ### Dependencies

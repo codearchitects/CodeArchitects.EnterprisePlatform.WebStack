@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 All packages in the monorepo share a single version.
 
-## [Unreleased]
+## [21.1.0]
 
 ### Added
 
@@ -19,5 +19,4 @@ All packages in the monorepo share a single version.
   `SUPPORT.md`, issue/PR templates, and `CODEOWNERS`.
 - Continuous integration (build + test) and Dependabot configuration.
 
-[Unreleased]: https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/compare/v21.0.0...HEAD
-[21.0.0]: https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/releases/tag/v21.0.0
+[21.1.0]: https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/releases/tag/v21.1.0

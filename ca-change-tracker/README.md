@@ -14,8 +14,8 @@ npm install @ca-webstack/change-tracker
 
 ### Peer Dependencies
 
-- `@ca-webstack/data-structures` ~21.0.0
-- `@ca-webstack/reflection` ~21.0.0
+- `@ca-webstack/data-structures` ~21.1.0
+- `@ca-webstack/reflection` ~21.1.0
 - `rxjs` ~7.8.1
 - `lodash` ^4.17.21
 
