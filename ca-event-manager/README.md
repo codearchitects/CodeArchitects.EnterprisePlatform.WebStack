@@ -1,4 +1,4 @@
-# caep-event-manager
+# ca-event-manager
 
 > `@ca-webstack/event-manager` — Lightweight, framework-agnostic event dispatching with a `@CaepEvent` decorator.
 

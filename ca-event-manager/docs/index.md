@@ -1,4 +1,4 @@
-# caep-event-manager — API Documentation
+# ca-event-manager — API Documentation
 
 ## Why use this package
 

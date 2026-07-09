@@ -1,4 +1,4 @@
-# caep-ng-graphql
+# ca-ng-graphql
 
 > `@ca-webstack/ng-graphql` — Angular GraphQL service with typed query/mutation composition and Apollo integration.
 

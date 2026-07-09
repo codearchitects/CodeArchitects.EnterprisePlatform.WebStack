@@ -1,4 +1,4 @@
-# caep-ng-components
+# ca-ng-components-extra
 
 > `@ca-webstack/ng-components-extra` — Extended Angular component library with decorator-driven options, lifecycle hooks, pipes, and container layout system.
 

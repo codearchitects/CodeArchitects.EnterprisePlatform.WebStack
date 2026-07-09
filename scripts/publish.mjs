@@ -44,7 +44,7 @@ function findDistManifest(pkgDir, expectedName) {
 }
 
 const pkgDirs = readdirSync(root, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && /^(ca|caep)-/.test(d.name))
+  .filter((d) => d.isDirectory() && /^ca-/.test(d.name))
   .map((d) => join(root, d.name))
   .filter((p) => existsSync(join(p, "package.json")) && !JSON.parse(readFileSync(join(p, "package.json"), "utf8")).private);
 

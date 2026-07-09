@@ -108,7 +108,7 @@ node scripts/publish.mjs --access public --tag latest   # add --dry-run to previ
 
 ## Packages
 
-Libraries live in the `ca-*` and `caep-*` directories. Pure-TypeScript libraries
+Libraries live in the `ca-*` directories. Pure-TypeScript libraries
 build with webpack; Angular libraries build with ng-packagr. Both are driven
 uniformly through Turborepo.
 

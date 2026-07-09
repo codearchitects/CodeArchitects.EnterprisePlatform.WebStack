@@ -1,4 +1,4 @@
-# caep-ng-event-manager — API Documentation
+# ca-ng-event-manager — API Documentation
 
 ## Why use this package
 

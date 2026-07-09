@@ -14,8 +14,7 @@
     "url": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/issues"
   },
   "workspaces": [
-    "ca-*",
-    "caep-*"
+    "ca-*"
   ],
   "scripts": {
     "setup": "npm install",

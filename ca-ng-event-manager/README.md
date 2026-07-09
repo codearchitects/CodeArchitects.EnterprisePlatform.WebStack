@@ -1,4 +1,4 @@
-# caep-ng-event-manager
+# ca-ng-event-manager
 
 > `@ca-webstack/ng-event-manager` — Angular wrapper for `@ca-webstack/event-manager`, providing DI-friendly event dispatching and decorator-based subscription.
 
