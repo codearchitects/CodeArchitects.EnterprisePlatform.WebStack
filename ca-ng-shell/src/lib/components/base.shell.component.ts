@@ -10,7 +10,7 @@ import { ActionShellComponent } from './action.shell.component';
 import { Activity, IActivityOnInit } from './activity';
 import { IShSignalrSubscription, onSignalrEvent } from '../utilities/signalr.function';
 import { FormHandlerService } from '@ca-webstack/ng-components';
-import { CaepEventManagerService } from '@caep/ng-event-manager';
+import { CaepEventManagerService } from '@ca-webstack/ng-event-manager';
 
 /**
  * Base Shell component

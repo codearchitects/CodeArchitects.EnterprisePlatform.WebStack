@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CaepComponentsModule } from '@caep/ng-components';
+import { CaepComponentsModule } from '@ca-webstack/ng-components-extra';
 import { ComponentAComponent } from './componentA.component';
 import { PipeAPipe } from './pipeA.pipe';
 import { RouterModule, Routes } from '@angular/router';

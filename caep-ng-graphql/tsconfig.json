@@ -17,10 +17,10 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "@caep/ng-graphql": [
+      "@ca-webstack/ng-graphql": [
         "./dist/ng-graphql"
       ],
-      "@caep/ng-graphql/*": [
+      "@ca-webstack/ng-graphql/*": [
         "./dist/ng-graphql/*"
       ]
     },

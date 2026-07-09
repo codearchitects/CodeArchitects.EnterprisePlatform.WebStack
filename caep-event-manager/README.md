@@ -1,6 +1,6 @@
 # caep-event-manager
 
-> `@caep/event-manager` — Lightweight, framework-agnostic event dispatching with a `@CaepEvent` decorator.
+> `@ca-webstack/event-manager` — Lightweight, framework-agnostic event dispatching with a `@CaepEvent` decorator.
 
 ## Overview
 
@@ -9,7 +9,7 @@ Provides an `EventManager` class that dispatches `CustomEvent`s on the browser's
 ## Installation
 
 ```bash
-npm install @caep/event-manager
+npm install @ca-webstack/event-manager
 ```
 
 ### Peer Dependencies
@@ -23,7 +23,7 @@ npm install @caep/event-manager
 ## Quick Start
 
 ```typescript
-import { EventManager, CaepEvent } from '@caep/event-manager';
+import { EventManager, CaepEvent } from '@ca-webstack/event-manager';
 
 class MyComponent {
   @CaepEvent({ name: 'onSave' })

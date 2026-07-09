@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Aspect } from '@ca-webstack/ng-aspects';
-import { CaepSidePanelService, CaepTextOptions, CaepValueChange, MockTextOptions } from '@caep/ng-components';
+import { CaepSidePanelService, CaepTextOptions, CaepValueChange, MockTextOptions } from '@ca-webstack/ng-components-extra';
 import { Subject } from 'rxjs';
 import { BaseInputChildOptions } from './components/base';
 import { BaseChildOptions } from './components/base/base-child.component';

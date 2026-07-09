@@ -7,7 +7,7 @@ import {
   CaepHookType,
   CaepOption,
   PickAll
-} from '@caep/ng-components';
+} from '@ca-webstack/ng-components-extra';
 import * as _ from 'lodash-es';
 import { from } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';

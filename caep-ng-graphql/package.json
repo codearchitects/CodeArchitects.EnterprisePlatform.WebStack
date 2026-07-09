@@ -1,5 +1,5 @@
 {
-  "name": "@caep/ng-graphql",
+  "name": "@ca-webstack/ng-graphql",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -51,6 +51,6 @@
     "typescript": "5.9.3",
     "zone.js": "~0.16.0"
   },
-  "module": "dist/ng-graphql/fesm2022/caep-ng-graphql.mjs",
-  "typings": "dist/ng-graphql/types/caep-ng-graphql.d.ts"
+  "module": "dist/ng-graphql/fesm2022/ca-webstack-ng-graphql.mjs",
+  "typings": "dist/ng-graphql/types/ca-webstack-ng-graphql.d.ts"
 }

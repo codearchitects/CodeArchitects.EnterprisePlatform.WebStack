@@ -1,6 +1,6 @@
 # caep-ng-components
 
-> `@caep/ng-components` — Extended Angular component library with decorator-driven options, lifecycle hooks, pipes, and container layout system.
+> `@ca-webstack/ng-components-extra` — Extended Angular component library with decorator-driven options, lifecycle hooks, pipes, and container layout system.
 
 ## Overview
 
@@ -9,7 +9,7 @@ Builds on top of `@ca-webstack/ng-components` with an enhanced component model f
 ## Installation
 
 ```bash
-npm install @caep/ng-components
+npm install @ca-webstack/ng-components-extra
 ```
 
 ### Key Peer Dependencies

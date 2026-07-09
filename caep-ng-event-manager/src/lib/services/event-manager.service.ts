@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CaepEventMetadataKey, EventManager, ICaepEventMetadata } from '@caep/event-manager';
+import { CaepEventMetadataKey, EventManager, ICaepEventMetadata } from '@ca-webstack/event-manager';
 
 @Injectable()
 export class CaepEventManagerService {

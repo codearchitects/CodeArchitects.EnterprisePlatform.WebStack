@@ -383,7 +383,7 @@ In uno scenario di esempio che abbiamo ipotizzato, andremo ad inserire il compon
 
 ### Prerequisiti
 
-Piuttosto importante è verificare che la libreria `@caep/ng-components` sia installata correttamente e tutti i suoi assets siano serviti tramite **_angular.json_**.
+Piuttosto importante è verificare che la libreria `@ca-webstack/ng-components-extra` sia installata correttamente e tutti i suoi assets siano serviti tramite **_angular.json_**.
 
 ```json
 ...
@@ -397,12 +397,12 @@ Piuttosto importante è verificare che la libreria `@caep/ng-components` sia ins
         ...
         {
           "glob": "**/*",
-          "input": "node_modules/@caep/ng-components/styles/fonts",
+          "input": "node_modules/@ca-webstack/ng-components-extra/styles/fonts",
           "output": "/assets/fonts/caep"
         },
         {
           "glob": "**/*",
-          "input": "node_modules/@caep/ng-components/assets",
+          "input": "node_modules/@ca-webstack/ng-components-extra/assets",
           "output": "/assets"
         },
         ...
@@ -592,7 +592,7 @@ Negli applicativi `Storybook` e `Demo`, andremo a loro volta a richiamare il _se
 ```ts
 import { Component } from '@angular/core';
 import { ApplicationShellComponent, IOnInit } from '@ca-webstack/ng-shell';
-import { CaepSideMenuService, ICaepSideMenuEntry } from '@caep/ng-components';
+import { CaepSideMenuService, ICaepSideMenuEntry } from '@ca-webstack/ng-components-extra';
 ...
 const STORYBOOK_MENU: ICaepSideMenuEntry[] = [
   {
@@ -729,7 +729,7 @@ A scopo dimostrativo abbiamo anche indicato per lo scenario `Textarea` un'apertu
 ```ts
 import { Component } from '@angular/core';
 import { ApplicationShellComponent, IOnInit } from '@ca-webstack/ng-shell';
-import { CaepSideMenuService, ICaepSideMenuEntry } from '@caep/ng-components';
+import { CaepSideMenuService, ICaepSideMenuEntry } from '@ca-webstack/ng-components-extra';
 ...
 const DEMO_MENU: ICaepSideMenuEntry[] = [
   {

@@ -1,5 +1,5 @@
 import { Component, Injector, Pipe } from '@angular/core';
-import { CaepBaseFormattedComponent, CaepBaseFormattedOptions, CaepCoercionType, CaepFormControlMode, CaepNumberParserService, caepNumeral, CaepOption, CaepPipe, CaepPipeTransform, PickAll } from '@caep/ng-components';
+import { CaepBaseFormattedComponent, CaepBaseFormattedOptions, CaepCoercionType, CaepFormControlMode, CaepNumberParserService, caepNumeral, CaepOption, CaepPipe, CaepPipeTransform, PickAll } from '@ca-webstack/ng-components-extra';
 
 export interface IMyCurrencyArgs {
   format: string;

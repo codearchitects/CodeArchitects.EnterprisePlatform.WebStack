@@ -4,7 +4,7 @@
 [![Node.js >= 22](https://img.shields.io/badge/node-%3E%3D22-brightgreen.svg)](https://nodejs.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-An npm-workspaces monorepo of the `@ca-webstack/*` and `@caep/*` libraries,
+An npm-workspaces monorepo of the `@ca-webstack/*` libraries,
 orchestrated with [Turborepo](https://turbo.build/). One install links every
 internal library; one command builds them all in the correct order.
 
@@ -27,7 +27,7 @@ That's it — no per-package installs, no manual build ordering.
 ## How it works
 
 - **npm workspaces** — a single root `node_modules`. Every internal library is
-  symlinked into `node_modules/@ca-webstack/*` and `node_modules/@caep/*`, so a
+  symlinked into `node_modules/@ca-webstack/*`, so a
   package always consumes the sibling it depends on, not a registry copy.
 - **Turborepo** — derives the dependency graph from each package's
   `dependencies`/`devDependencies` and runs builds in topological order

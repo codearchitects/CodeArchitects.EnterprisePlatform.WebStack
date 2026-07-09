@@ -18,10 +18,10 @@
     "module": "ES2022",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@caep/ng-components": [
+      "@ca-webstack/ng-components-extra": [
         "./dist/ng-components"
       ],
-      "@caep/ng-components/*": [
+      "@ca-webstack/ng-components-extra/*": [
         "./dist/ng-components/*"
       ]
     },

@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { CaepBaseInputComponent, CaepBaseInputOptions, CaepOption, PickAll } from '@caep/ng-components';
+import { CaepBaseInputComponent, CaepBaseInputOptions, CaepOption, PickAll } from '@ca-webstack/ng-components-extra';
 
 
 export interface IBaseInputChildOptions extends PickAll<BaseInputChildOptions> {};

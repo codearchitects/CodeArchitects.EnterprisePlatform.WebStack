@@ -1,5 +1,5 @@
 {
-  "name": "@caep/event-manager",
+  "name": "@ca-webstack/event-manager",
   "version": "0.0.0",
   "description": "Event-manager utilities.",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
@@ -99,5 +99,5 @@
       "<rootDir>/dist/"
     ]
   },
-  "main": "dist/bundles/@caep/event-manager.umd.js"
+  "main": "dist/bundles/@ca-webstack/event-manager.umd.js"
 }

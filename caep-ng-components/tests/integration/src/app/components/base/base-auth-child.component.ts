@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { CaepBaseAuthComponent, CaepHook, CaepHookType } from '@caep/ng-components';
+import { CaepBaseAuthComponent, CaepHook, CaepHookType } from '@ca-webstack/ng-components-extra';
 
 @Component({
     selector: 'app-base-auth-child',

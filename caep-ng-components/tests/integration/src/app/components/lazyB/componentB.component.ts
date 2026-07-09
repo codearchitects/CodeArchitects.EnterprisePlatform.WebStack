@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CaepPipeMapperService } from '@caep/ng-components';
+import { CaepPipeMapperService } from '@ca-webstack/ng-components-extra';
 
 @Component({
     template: '<h1>Component B</h1><button type="button" (click)="onClick()">Test Pipe</button>',

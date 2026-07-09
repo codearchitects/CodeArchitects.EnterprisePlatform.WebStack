@@ -2,7 +2,7 @@
 
 ## Why use this package
 
-`@caep/event-manager` provides a simple, framework-agnostic pub/sub mechanism based on the browser's native `CustomEvent` API. It pairs well with `@caep/ng-event-manager` for Angular integration.
+`@ca-webstack/event-manager` provides a simple, framework-agnostic pub/sub mechanism based on the browser's native `CustomEvent` API. It pairs well with `@ca-webstack/ng-event-manager` for Angular integration.
 
 ---
 

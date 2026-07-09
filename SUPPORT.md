@@ -19,7 +19,7 @@ Use the GitHub issue templates:
 - **Feature request** — for a new capability or improvement.
 
 Please provide a minimal reproduction, versions (Node, npm, the affected
-`@ca-webstack/*` / `@caep/*` package), and expected vs. actual behavior.
+`@ca-webstack/*` package), and expected vs. actual behavior.
 
 ## Security issues
 

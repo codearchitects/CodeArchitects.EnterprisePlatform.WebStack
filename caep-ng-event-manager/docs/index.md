@@ -2,7 +2,7 @@
 
 ## Why use this package
 
-Provides Angular DI for `@caep/event-manager`’s `CustomEvent`-based pub/sub system. The service handles bulk registration/unregistration of `@CaepEvent`-decorated methods and imperative single-handler management.
+Provides Angular DI for `@ca-webstack/event-manager`’s `CustomEvent`-based pub/sub system. The service handles bulk registration/unregistration of `@CaepEvent`-decorated methods and imperative single-handler management.
 
 ---
 

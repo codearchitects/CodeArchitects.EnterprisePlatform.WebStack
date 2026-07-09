@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, Injector, Pipe, PipeTransform, ViewChild } from '@angular/core';
-import { CAEP_OPTIONS_TOKEN, CaepBaseLookupSingleComponent, CaepBaseLookupSingleOptions, CaepOption, CaepPipe, PickAll } from '@caep/ng-components';
+import { CAEP_OPTIONS_TOKEN, CaepBaseLookupSingleComponent, CaepBaseLookupSingleOptions, CaepOption, CaepPipe, PickAll } from '@ca-webstack/ng-components-extra';
 
 @CaepPipe({
     name: 'person'

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { CaepPipe } from '@caep/ng-components';
+import { CaepPipe } from '@ca-webstack/ng-components-extra';
 
 @CaepPipe({
     name: 'myPipe'

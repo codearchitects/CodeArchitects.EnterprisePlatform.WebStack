@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a defect in a @ca-webstack/* or @caep/* package
+description: Report a defect in a @ca-webstack/* package
 labels: ["bug", "triage"]
 body:
   - type: markdown

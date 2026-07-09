@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ContextService } from '@ca-webstack/ng-aspects';
 import { I18nModule } from '@ca-webstack/ng-i18n';
-import { CaepComponentsModule } from '@caep/ng-components';
+import { CaepComponentsModule } from '@ca-webstack/ng-components-extra';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 // import 'numeral/locales/it';
 import { AppComponent } from './app.component';

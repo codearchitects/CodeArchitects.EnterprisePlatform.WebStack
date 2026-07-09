@@ -1,5 +1,5 @@
 {
-  "name": "@caep/ng-components",
+  "name": "@ca-webstack/ng-components-extra",
   "private": false,
   "version": "0.0.0",
   "ngPackageExports": {
@@ -85,6 +85,6 @@
     "numeral": "^2.0.6",
     "rxjs": "~7.8.1"
   },
-  "module": "dist/ng-components/fesm2022/caep-ng-components.mjs",
-  "typings": "dist/ng-components/types/caep-ng-components.d.ts"
+  "module": "dist/ng-components/fesm2022/ca-webstack-ng-components-extra.mjs",
+  "typings": "dist/ng-components/types/ca-webstack-ng-components-extra.d.ts"
 }

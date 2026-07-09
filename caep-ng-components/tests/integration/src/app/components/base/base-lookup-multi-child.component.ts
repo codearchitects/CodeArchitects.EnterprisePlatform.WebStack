@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, Injector, ViewChild } from '@angular/core';
-import { CAEP_OPTIONS_TOKEN, CaepBaseLookupMultiComponent, CaepBaseLookupMultiOptions, CaepOption, ICaepLookupMulti, PickAll } from '@caep/ng-components';
+import { CAEP_OPTIONS_TOKEN, CaepBaseLookupMultiComponent, CaepBaseLookupMultiOptions, CaepOption, ICaepLookupMulti, PickAll } from '@ca-webstack/ng-components-extra';
 
 
 export interface IBaseLookupMultiChildOptions<T, V> extends PickAll<BaseLookupMultiChildOptions<T, V>> { }

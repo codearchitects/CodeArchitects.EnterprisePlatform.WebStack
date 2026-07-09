@@ -1,6 +1,6 @@
 # caep-ng-graphql
 
-> `@caep/ng-graphql` — Angular GraphQL service with typed query/mutation composition and Apollo integration.
+> `@ca-webstack/ng-graphql` — Angular GraphQL service with typed query/mutation composition and Apollo integration.
 
 ## Overview
 
@@ -9,7 +9,7 @@ Provides `ShGraphQLService` for executing GraphQL queries and mutations via Apol
 ## Installation
 
 ```bash
-npm install @caep/ng-graphql
+npm install @ca-webstack/ng-graphql
 ```
 
 ### Peer Dependencies
@@ -26,7 +26,7 @@ npm install @caep/ng-graphql
 ## Quick Start
 
 ```typescript
-import { ShGraphQLModule } from '@caep/ng-graphql';
+import { ShGraphQLModule } from '@ca-webstack/ng-graphql';
 
 @NgModule({
   imports: [ShGraphQLModule.forRoot({ hostUrl: 'https://api.example.com/graphql' })]
