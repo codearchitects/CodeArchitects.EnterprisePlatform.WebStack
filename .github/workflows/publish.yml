@@ -3,26 +3,60 @@ name: Publish packages
 # Publishes every workspace package to npm at a single shared version, with
 # internal dependencies pinned to that same version.
 #
-# Triggers:
-#   - a published GitHub Release  -> version taken from the tag (e.g. v21.1.0 -> 21.1.0)
-#   - manual dispatch             -> version + dist-tag provided as inputs
+# Two ways to release:
 #
-# Requires repository secret NPM_TOKEN (an npm automation token with publish rights).
+#   1. Manual (recommended) — run this workflow from the Actions tab and pick a
+#      bump type. The workflow computes the next version from the current one
+#      (root package.json), publishes, and — for a STABLE release — commits the
+#      version bump back to the branch and creates a `v<version>` git tag.
+#
+#        * patch / minor / major        -> stable release, dist-tag "latest"
+#        * prepatch / preminor / premajor / prerelease + a pre-id
+#          (beta | rc | alpha | canary | next) -> pre-release, e.g. 21.1.0-beta.0,
+#          published under the matching dist-tag (npm i <pkg>@beta). Pre-releases
+#          are NOT committed back and do NOT move the "latest" tag.
+#
+#   2. GitHub Release — publishing a Release with a tag like `v21.1.0`
+#      (or `v21.1.0-rc.1`) publishes exactly that version. The dist-tag is
+#      derived from the tag (stable -> latest, pre-release -> its identifier).
+#
+# Requires repository secret NPM_TOKEN (an npm automation token with publish
+# rights). Commit-back uses the built-in GITHUB_TOKEN.
 
 on:
   release:
     types: [published]
   workflow_dispatch:
     inputs:
-      version:
-        description: "Version to publish (e.g. 21.1.0)"
+      release_type:
+        description: "Version bump"
+        type: choice
         required: true
-        type: string
-      dist_tag:
-        description: "npm dist-tag"
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+          - prerelease
+          - prepatch
+          - preminor
+          - premajor
+      preid:
+        description: "Pre-release identifier (only used for pre* bumps)"
+        type: choice
         required: false
-        default: "latest"
-        type: string
+        default: beta
+        options:
+          - beta
+          - rc
+          - alpha
+          - canary
+          - next
+      dry_run:
+        description: "Dry run: build + npm publish --dry-run, no real publish, no git changes"
+        type: boolean
+        required: false
+        default: false
 
 concurrency:
   group: publish-${{ github.ref }}
@@ -32,9 +66,13 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write   # needed to commit the version bump and push the tag
     steps:
       - uses: actions/checkout@v4
+        with:
+          # full history + a writable token so we can push the release commit/tag
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
@@ -42,22 +80,28 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: npm
 
+      - name: Install (single workspace install)
+        run: npm ci
+
       - name: Resolve version and dist-tag
         id: meta
         run: |
+          set -euo pipefail
           if [ "${{ github.event_name }}" = "release" ]; then
-            VERSION="${{ github.event.release.tag_name }}"
-            VERSION="${VERSION#v}"
-            echo "dist_tag=latest" >> "$GITHUB_OUTPUT"
+            RESULT=$(node scripts/release-version.mjs tag "${{ github.event.release.tag_name }}")
+            IS_DISPATCH=false
           else
-            VERSION="${{ inputs.version }}"
-            echo "dist_tag=${{ inputs.dist_tag }}" >> "$GITHUB_OUTPUT"
+            RESULT=$(node scripts/release-version.mjs bump "${{ inputs.release_type }}" "${{ inputs.preid }}")
+            IS_DISPATCH=true
           fi
+          echo "result: $RESULT"
+          VERSION=$(echo "$RESULT" | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d).next))")
+          DIST_TAG=$(echo "$RESULT" | node -e "process.stdin.on('data',d=>console.log(JSON.parse(d).distTag))")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "Publishing version $VERSION"
-
-      - name: Install (single workspace install)
-        run: npm ci
+          echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+          echo "is_dispatch=$IS_DISPATCH" >> "$GITHUB_OUTPUT"
+          [ "$DIST_TAG" = "latest" ] && echo "prerelease=false" >> "$GITHUB_OUTPUT" || echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          echo "Publishing $VERSION under dist-tag '$DIST_TAG'"
 
       - name: Set shared version and pin internal deps
         run: node scripts/set-version.mjs "${{ steps.meta.outputs.version }}"
@@ -66,6 +110,39 @@ jobs:
         run: npm run build
 
       - name: Publish to npm
-        run: node scripts/publish.mjs --access public --tag "${{ steps.meta.outputs.dist_tag }}"
+        run: |
+          node scripts/publish.mjs \
+            --access public \
+            --tag "${{ steps.meta.outputs.dist_tag }}" \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Commit version bump and tag (stable manual releases only)
+        if: >-
+          steps.meta.outputs.is_dispatch == 'true' &&
+          steps.meta.outputs.prerelease == 'false' &&
+          inputs.dry_run == false
+        run: |
+          set -euo pipefail
+          VERSION="${{ steps.meta.outputs.version }}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Persist ONLY the root package.json — it is the single source of truth
+          # for the current released version. Workspace packages intentionally
+          # stay at the "0.0.0" placeholder in source (with wildcard internal
+          # deps); set-version.mjs stamps the real version into them only at
+          # build/publish time, so we deliberately do NOT commit those changes.
+          git checkout -- '*/package.json'
+          git add package.json
+          git commit -m "chore(release): v${VERSION}"
+          git tag -a "v${VERSION}" -m "Release v${VERSION}"
+          git push origin "HEAD:${GITHUB_REF_NAME}" --follow-tags
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Publish result" >> "$GITHUB_STEP_SUMMARY"
+          echo "- version: \`${{ steps.meta.outputs.version }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- dist-tag: \`${{ steps.meta.outputs.dist_tag }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- dry run: \`${{ inputs.dry_run || false }}\`" >> "$GITHUB_STEP_SUMMARY"

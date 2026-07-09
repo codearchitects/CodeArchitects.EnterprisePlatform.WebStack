@@ -64,22 +64,44 @@ Target a single package with `--filter`, e.g.
 
 ## Versioning & publishing
 
-All packages share **one version** and pin their internal dependencies to that
-exact version. Publishing is handled by
-[`.github/workflows/publish.yml`](.github/workflows/publish.yml):
+All packages share **one version**. The source tree keeps each workspace
+package at the `0.0.0` placeholder (with wildcard internal deps); the **root
+`package.json` version is the single source of truth** for the current released
+version. At release time `scripts/set-version.mjs` stamps the real version into
+every package and pins internal deps to it — the working tree is only mutated
+during the build, never committed for the workspace packages.
 
-1. Create a GitHub Release with a tag like `v21.1.0` (or run the workflow
-   manually and pass the version).
-2. The workflow installs, runs `scripts/set-version.mjs <version>` (bumps every
-   package and pins internal deps), builds all packages, then runs
-   `scripts/publish.mjs`, which publishes each package's built `dist/` manifest.
+Publishing is handled by
+[`.github/workflows/publish.yml`](.github/workflows/publish.yml). It requires the
+`NPM_TOKEN` repository secret (an npm automation token with publish rights).
 
-Publishing requires the `NPM_TOKEN` repository secret (an npm automation token).
+### Option 1 — run the workflow from the Actions tab (recommended)
 
-To publish locally (once authenticated with npm):
+Pick a **bump type**; the workflow computes the next version from the current
+one, publishes, and — for a stable release — commits the version bump to the
+branch and creates a `v<version>` tag:
+
+| Bump | Result | npm dist-tag |
+| --- | --- | --- |
+| `patch` / `minor` / `major` | stable, e.g. `21.0.1` / `21.1.0` / `22.0.0` | `latest` |
+| `preminor` / `premajor` / `prepatch` + pre-id | e.g. `21.1.0-beta.0` | `beta` (or `rc`/`alpha`/`canary`/`next`) |
+| `prerelease` + pre-id | increments an existing pre-release, e.g. `21.1.0-beta.0` → `21.1.0-beta.1` | the pre-id |
+
+Pre-releases are published under their own dist-tag and do **not** move
+`latest`, so consumers stay on stable unless they opt in with
+`npm install @ca-webstack/<pkg>@beta`. Tick **Dry run** to build and
+`npm publish --dry-run` without publishing or touching git.
+
+### Option 2 — publish from a GitHub Release
+
+Create a Release with a tag like `v21.1.0` (or `v21.1.0-rc.1`). The workflow
+publishes exactly that version; the dist-tag is derived from the tag (stable →
+`latest`, pre-release → its identifier).
+
+### Publish locally (once authenticated with npm)
 
 ```bash
-npm run version:set 21.1.0
+npm run version:set 21.1.0    # stamp the version everywhere (incl. root)
 npm run build
 node scripts/publish.mjs --access public --tag latest   # add --dry-run to preview
 ```

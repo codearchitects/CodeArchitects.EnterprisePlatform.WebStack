@@ -41,4 +41,16 @@ for (const { file, json } of pkgs) {
   writeFileSync(file, JSON.stringify(json, null, 2) + "\n");
   console.log(`  ${json.name} -> ${version}`);
 }
-console.log(`\nSet ${pkgs.length} packages to ${version}.`);
+
+// Also bump the (private) root package version so it stays the single source of
+// truth for the "current" released version — used by scripts/release-version.mjs
+// to compute the next bump. The root has no internal deps to pin.
+const rootFile = join(root, "package.json");
+const rootJson = JSON.parse(readFileSync(rootFile, "utf8"));
+if (rootJson.version !== version) {
+  rootJson.version = version;
+  writeFileSync(rootFile, JSON.stringify(rootJson, null, 2) + "\n");
+  console.log(`  ${rootJson.name} (root) -> ${version}`);
+}
+
+console.log(`\nSet ${pkgs.length} packages (+ root) to ${version}.`);
