@@ -78,3 +78,32 @@ been assessed as acceptable, and document the rationale below.
 | Advisory | Package | Rationale | Review by |
 | -------- | ------- | --------- | --------- |
 | _(none)_ | — | Shipped dependencies currently report zero vulnerabilities. | — |
+
+## Known / accepted advisories (build & dev toolchain)
+
+`npm audit` (full graph) reports advisories in the **Angular build toolchain**
+(`@angular-devkit/build-angular` 21.2.x and its transitive dependencies). These
+are **not** shipped to consumers — the production audit
+(`npm audit --omit=dev`) reports **0 vulnerabilities** — and they only affect the
+local development server / build process. They are therefore **not** gated by CI
+and are **not** listed in `.github/allowed-advisories.txt` (which covers shipped
+dependencies only).
+
+As of **2026-07**, there is no non-breaking fix on the Angular 21.x line: `npm`'s
+only suggested remediation is a major downgrade of `@angular-devkit/build-angular`.
+These are long-standing, upstream-tracked issues in the Angular CLI
+([angular/angular-cli#28693](https://github.com/angular/angular-cli/issues/28693),
+[#30122](https://github.com/angular/angular-cli/issues/30122)); they will clear
+when we adopt an Angular CLI release that bumps the affected transitive packages.
+
+| Advisory | Package (installed) | Severity | Surface | Notes |
+| -------- | ------------------- | -------- | ------- | ----- |
+| [GHSA-gcq2-9pq2-cxqm](https://github.com/advisories/GHSA-gcq2-9pq2-cxqm), [GHSA-64mm-vxmg-q3vj](https://github.com/advisories/GHSA-64mm-vxmg-q3vj) | http-proxy-middleware 3.0.5 | high | dev server | dev-proxy only; not used at runtime |
+| — | webpack-dev-server 5.2.5 | moderate | dev server | local `ng serve` / karma only |
+| — | sockjs 0.3.24 | moderate | dev server | via webpack-dev-server |
+| [GHSA-w5hq-g745-h8pq](https://github.com/advisories/GHSA-w5hq-g745-h8pq) | uuid 8.3.2 | moderate | build | transitive build tooling |
+| [GHSA-4x5r-pxfx-6jf8](https://github.com/advisories/GHSA-4x5r-pxfx-6jf8) | @babel/core 7.29.7 | low | build | build-time source maps |
+| [GHSA-g7r4-m6w7-qqqr](https://github.com/advisories/GHSA-g7r4-m6w7-qqqr) | esbuild | low | dev server | Windows dev-server only |
+
+Re-verify this table when upgrading the Angular CLI: run `npm run audit:all` and
+update or remove entries that upstream has resolved.

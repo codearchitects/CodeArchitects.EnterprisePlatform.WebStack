@@ -8,6 +8,11 @@ updates:
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
+    # Internal workspace packages are linked locally and versioned by the release
+    # pipeline — never let Dependabot try to bump them from the registry.
+    ignore:
+      - dependency-name: "@ca-webstack/*"
+      - dependency-name: "@caep/*"
     groups:
       # Batch low-risk updates to reduce PR noise
       angular:
@@ -15,7 +20,9 @@ updates:
           - "@angular*"
           - "@angular-devkit/*"
           - "@angular-eslint/*"
+          - "@schematics/*"
           - "ng-packagr"
+          - "zone.js"
       dev-minor-patch:
         dependency-type: "development"
         update-types:
