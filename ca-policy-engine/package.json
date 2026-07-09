@@ -68,7 +68,6 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "dist",
       "src"
     ],
     "testPathIgnorePatterns": [
@@ -90,6 +89,9 @@
       "webpack.config.js",
       "/tests/integration/",
       "/src/business-policy-wrapper.spec.ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
     ]
   },
   "main": "dist/bundles/@ca-webstack/policy-engine.umd.js"

@@ -75,7 +75,6 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "dist",
       "src"
     ],
     "testPathIgnorePatterns": [
@@ -95,6 +94,9 @@
       "webpack.common.js",
       "webpack.dev.js",
       "webpack.prod.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
     ]
   },
   "main": "dist/bundles/@caep/event-manager.umd.js"

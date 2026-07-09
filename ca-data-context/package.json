@@ -77,7 +77,6 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "dist",
       "src"
     ],
     "testPathIgnorePatterns": [
@@ -97,6 +96,9 @@
       "rimraf.js",
       "webpack.config.js",
       "/tests/integration/"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
     ]
   },
   "main": "dist/bundles/@ca-webstack/data-context.umd.js"
