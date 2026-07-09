@@ -14,8 +14,7 @@
     "url": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/issues"
   },
   "workspaces": [
-    "ca-*",
-    "caep-*"
+    "ca-*"
   ],
   "scripts": {
     "setup": "npm install",
@@ -32,7 +31,9 @@
     "sbom": "npx --yes @cyclonedx/cyclonedx-npm@latest --omit dev --output-format JSON --output-file sbom.json"
   },
   "devDependencies": {
+    "@jest/globals": "^30.4.1",
     "cross-env": "^7.0.3",
+    "jest-util": "^30.4.1",
     "puppeteer": "^24.0.0",
     "turbo": "^2.3.3"
   },

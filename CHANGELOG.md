@@ -12,7 +12,7 @@ All packages in the monorepo share a single version.
 
 - Initial public open-source release of the CodeArchitects Enterprise Platform
   WebStack monorepo under the Apache License 2.0.
-- `@ca-webstack/*` and `@caep/*` libraries published from a single npm-workspaces
+- `@ca-webstack/*` libraries published from a single npm-workspaces
   monorepo orchestrated with Turborepo.
 - Project legal and governance documentation: `LICENSE`, `NOTICE`,
   `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `GOVERNANCE.md`,

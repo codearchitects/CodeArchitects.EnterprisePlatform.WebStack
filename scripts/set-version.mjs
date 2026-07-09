@@ -15,9 +15,9 @@ if (!version) {
   process.exit(1);
 }
 
-// Discover workspace package directories (ca-*, caep-*) that contain a package.json.
+// Discover workspace package directories (ca-*) that contain a package.json.
 const dirs = readdirSync(root, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && /^(ca|caep)-/.test(d.name))
+  .filter((d) => d.isDirectory() && /^ca-/.test(d.name))
   .map((d) => join(root, d.name))
   .filter((p) => existsSync(join(p, "package.json")));
 

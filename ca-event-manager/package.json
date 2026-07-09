@@ -1,0 +1,103 @@
+{
+  "name": "@ca-webstack/event-manager",
+  "version": "0.0.0",
+  "description": "Event-manager utilities.",
+  "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
+  "license": "Apache-2.0",
+  "typings": "dist/types/public_api.d.ts",
+  "peerDependencies": {
+    "tslib": "^2.3.0"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/core-js": "^2.5.8",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.19.3",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "circular-dependency-plugin": "5.2.0",
+    "core-js": "^3.41.0",
+    "eslint": "^9.32.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest": "^29.11.0",
+    "eslint-plugin-jsdoc": "^60.5.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "generate-package-json-webpack-plugin": "^2.6.0",
+    "jest": "^29.7.0",
+    "path": "0.12.7",
+    "ts-jest": "^29.2.2",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.0.0",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "tslib": "^2.3.0",
+    "typedoc": "^0.28.15",
+    "typescript": "5.9.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-merge": "~6.0.1",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "scripts": {
+    "clean": "npm run clean.artifacts && npm run clean.node_modules",
+    "clean.artifacts": "node rimraf.js dist typedocs",
+    "clean.node_modules": "node rimraf.js node_modules",
+    "prebuild": "npm run clean.artifacts",
+    "build": "webpack --config webpack.prod.js",
+    "build.watch": "webpack --config webpack.prod.js --watch",
+    "build.dev": "webpack --config webpack.dev.js",
+    "build.dev.watch": "webpack --config webpack.dev.js --watch",
+    "setup": "npm install",
+    "test": "npm run test.unit",
+    "test.unit": "jest --runInBand --logHeapUsage",
+    "test.watch": "jest --watch --no-cache --verbose",
+    "lint": "eslint --ext .ts src/",
+    "typedoc": "npm run clean.artifacts && typedoc public_api.ts --out typedocs --theme default --exclude node_modules --readme none"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "rootDir": "./",
+    "testRegex": ".*\\.(test|spec).ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/",
+      "/build/",
+      "/coverage/",
+      "/.tmp/",
+      "/.vscode/",
+      "/typedocs/",
+      "index.ts",
+      "public_api.ts",
+      "rimraf.js",
+      "webpack.common.js",
+      "webpack.dev.js",
+      "webpack.prod.js"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
+    ]
+  },
+  "main": "dist/bundles/@ca-webstack/event-manager.umd.js"
+}

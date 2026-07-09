@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, inject } from '@angular/core';
 import { CaepTranslationMergeMode, ShTranslateService } from '../../i18n';
 import { Subject, lastValueFrom, take, takeUntil } from 'rxjs';
 import { LocaleService } from '@ca-webstack/ng-i18n';
-import { CaepEventManagerService } from '@caep/ng-event-manager';
+import { CaepEventManagerService } from '@ca-webstack/ng-event-manager';
 import { CAEP_MICROFRONTEND_REMOTE_TRANSLATIONS_CHANGE_EVENT_NAME, CAEP_MICROFRONTEND_REMOTE_TRANSLATIONS_LOAD_EVENT_NAME, CAEP_MICROFRONTEND_SHELL_DEFAULT_LANG_REQUEST_EVENT_NAME, getMfShellDefaultLangChangeEventName } from './util';
 import { LangChangeEvent } from '@ngx-translate/core';
 

@@ -21,7 +21,7 @@ See CONTRIBUTING.md for the full guidelines.
 
 ## Affected package(s)
 
-<!-- e.g. @ca-webstack/reflection, @caep/ng-event-manager -->
+<!-- e.g. @ca-webstack/reflection, @ca-webstack/ng-event-manager -->
 
 ## How has this been tested?
 

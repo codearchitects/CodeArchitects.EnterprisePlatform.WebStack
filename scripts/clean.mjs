@@ -10,7 +10,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const targets = [join(root, "node_modules"), join(root, ".turbo")];
 
 for (const dir of readdirSync(root, { withFileTypes: true })) {
-  if (dir.isDirectory() && /^(ca|caep)-/.test(dir.name)) {
+  if (dir.isDirectory() && /^ca-/.test(dir.name)) {
     const pkg = join(root, dir.name);
     targets.push(
       join(pkg, "node_modules"),

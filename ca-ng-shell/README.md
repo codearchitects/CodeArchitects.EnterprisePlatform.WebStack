@@ -19,7 +19,7 @@ npm install @ca-webstack/ng-shell
 - `@ca-webstack/ng-i18n`, `@ca-webstack/ng-policy-engine`, `@ca-webstack/ng-serializer`, `@ca-webstack/ng-signalr`
 - `@ca-webstack/change-tracker`, `@ca-webstack/data-context`, `@ca-webstack/data-structures`, `@ca-webstack/reflection`
 - `@ca-webstack/policy-engine`
-- `@caep/event-manager`, `@caep/ng-event-manager`
+- `@ca-webstack/event-manager`, `@ca-webstack/ng-event-manager`
 - `@microsoft/signalr`
 
 ## Key Exports

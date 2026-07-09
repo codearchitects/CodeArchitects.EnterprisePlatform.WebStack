@@ -19,7 +19,7 @@ import { ShCommandComponent } from '@ca-webstack/ng-command-dispatcher';
 import { BaseShellComponent } from './base.shell.component';
 import { onSignalrEvent } from '../utilities/signalr.function';
 import { FormHandlerService } from '@ca-webstack/ng-components';
-import { CaepEventManagerService } from '@caep/ng-event-manager';
+import { CaepEventManagerService } from '@ca-webstack/ng-event-manager';
 
 /**
  * Action Shell component implementation. Every action controller must specialized this one.

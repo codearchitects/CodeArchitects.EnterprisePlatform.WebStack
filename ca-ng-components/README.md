@@ -18,7 +18,7 @@ npm install @ca-webstack/ng-components
 - `@angular-architects/module-federation`
 - `@ca-webstack/ng-aspects`, `@ca-webstack/ng-command-dispatcher`, `@ca-webstack/ng-i18n`, `@ca-webstack/ng-policy-engine`
 - `@ca-webstack/data-structures`, `@ca-webstack/policy-engine`, `@ca-webstack/reflection`
-- `@caep/event-manager`, `@caep/ng-event-manager`
+- `@ca-webstack/event-manager`, `@ca-webstack/ng-event-manager`
 - `@ngx-translate/core`, `@perfectmemory/ngx-contextmenu`, `@nodro7/angular-mydatepicker`
 - `dompurify`, `jquery`, `lodash-es`, `ngx-countdown`, `ngx-mask`, `ngx-toastr`, `numeral`, `rxjs`
 
