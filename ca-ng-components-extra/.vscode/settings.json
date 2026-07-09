@@ -50,7 +50,6 @@
     "titleBar.inactiveBackground": "#576574",
     "titleBar.inactiveForeground": "#ebeef2"
   },
-  "window.title": "CAEP: NgComponents",
   "[html][scss][typescript]": {
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
