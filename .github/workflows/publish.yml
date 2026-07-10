@@ -21,7 +21,11 @@ name: Publish packages
 #      derived from the tag (stable -> latest, pre-release -> its identifier).
 #
 # Requires repository secret NPM_TOKEN (an npm automation token with publish
-# rights). Commit-back uses the built-in GITHUB_TOKEN.
+# rights). The commit-back + tag push is authenticated with a GitHub App
+# installation token (secrets CODEARCHITECTS_RELEASE_BOT_APP_ID /
+# CODEARCHITECTS_RELEASE_BOT_PRIVATE_KEY) so it can bypass the branch ruleset
+# that would otherwise require a pull request. The built-in GITHUB_TOKEN cannot
+# bypass that rule. See the "github-app-automation" playbook for setup.
 
 on:
   release:
