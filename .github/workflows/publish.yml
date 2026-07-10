@@ -68,11 +68,18 @@ jobs:
     permissions:
       contents: write   # needed to commit the version bump and push the tag
     steps:
+      - name: Generate GitHub App token
+        id: app_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.CODEARCHITECTS_RELEASE_BOT_APP_ID }}
+          private-key: ${{ secrets.CODEARCHITECTS_RELEASE_BOT_PRIVATE_KEY }}
+
       - uses: actions/checkout@v4
         with:
-          # full history + a writable token so we can push the release commit/tag
+          # full history + GitHub App token to bypass branch protection rules
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app_token.outputs.token }}
 
       - uses: actions/setup-node@v4
         with:
