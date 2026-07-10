@@ -18,7 +18,7 @@ coverage/
 */package-lock.json
 
 # generated SBOM
-sbom.json
+/sbom.json
 
 # logs & os
 *.log

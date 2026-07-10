@@ -28,7 +28,8 @@
     "audit": "npm audit --omit=dev",
     "audit:all": "npm audit",
     "audit:ci": "node scripts/check-vulnerabilities.mjs",
-    "sbom": "npx --yes @cyclonedx/cyclonedx-npm@latest --omit dev --output-format JSON --output-file sbom.json"
+    "sbom": "npx --yes @cyclonedx/cyclonedx-npm@latest --omit dev --output-format JSON --output-file sbom.json",
+    "report:security": "node scripts/generate-security-report.mjs"
   },
   "devDependencies": {
     "@jest/globals": "^30.4.1",

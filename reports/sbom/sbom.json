@@ -1,0 +1,3115 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "serialNumber": "urn:uuid:6c87eb63-07dc-4df6-86aa-16f26736fc06",
+  "metadata": {
+    "timestamp": "2026-07-10T13:39:09.797Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "npm",
+          "version": "10.9.8"
+        },
+        {
+          "type": "application",
+          "name": "cyclonedx-npm",
+          "group": "@cyclonedx",
+          "version": "6.0.0",
+          "author": "Jan Kowalleck",
+          "description": "Create CycloneDX Software Bill of Materials (SBOM) from NPM projects.",
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0"
+              }
+            }
+          ],
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/CycloneDX/cyclonedx-node-npm.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-node-npm#readme",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-node-npm/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "cyclonedx-library",
+          "group": "@cyclonedx",
+          "version": "10.1.0",
+          "author": "Jan Kowalleck",
+          "description": "Core functionality of CycloneDX for JavaScript (Node.js or WebBrowser).",
+          "licenses": [
+            {
+              "license": {
+                "id": "Apache-2.0"
+              }
+            }
+          ],
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/CycloneDX/cyclonedx-javascript-library.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-javascript-library#readme",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/CycloneDX/cyclonedx-javascript-library/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            }
+          ]
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "monorepo",
+      "group": "@ca-webstack",
+      "version": "21.1.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1",
+      "author": "Code Architects S.r.l.",
+      "description": "CodeArchitects Enterprise Platform WebStack - monorepo",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/monorepo@21.1.1?vcs_url=git%2Bhttps%3A%2F%2Fgithub.com%2Fcodearchitects%2FCodeArchitects.EnterprisePlatform.WebStack.git",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:private",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "change-tracker",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/change-tracker@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Change tracking utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/change-tracker@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/change-tracker"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "data-context",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/data-context@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Data context utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/data-context@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/data-context"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "data-structures",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/data-structures@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Data structures utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/data-structures@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/data-structures"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "event-manager",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/event-manager@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Event-manager utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/event-manager@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/event-manager"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-aspects",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-aspects@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Aspects utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-aspects@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-aspects"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-command-dispatcher",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-command-dispatcher@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Seed to create typescript libraries by Code Architects",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-command-dispatcher@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-command-dispatcher"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-components-extra",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-components-extra@0.0.0",
+      "purl": "pkg:npm/%40ca-webstack/ng-components-extra@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-components-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-components",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-components@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Angular components.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-components@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-components"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-data-context",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-data-context@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Data context utilities for Angular.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-data-context@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-data-context"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-event-manager",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-event-manager@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-event-manager@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-event-manager"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-graphql",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-graphql@0.0.0",
+      "purl": "pkg:npm/%40ca-webstack/ng-graphql@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-graphql"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-i18n",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-i18n@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "i18n utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-i18n@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-i18n"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-policy-engine",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-policy-engine@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Policy engine service for Angular",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-policy-engine@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-policy-engine"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-react",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-react@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "React Angular components.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-react@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-react"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-serializer",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-serializer@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Serializer utility for Angular.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-serializer@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-serializer"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-shell",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-shell@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Code Architects Shell",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-shell@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-shell"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ng-signalr",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-signalr@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "SignalR utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/ng-signalr@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/ng-signalr"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "policy-engine",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/policy-engine@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Policy engine core library",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/policy-engine@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/policy-engine"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "reflection",
+      "group": "@ca-webstack",
+      "version": "0.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/reflection@0.0.0",
+      "author": "Code Architects S.r.l.",
+      "description": "Reflection utilities.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40ca-webstack/reflection@0.0.0",
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@ca-webstack/reflection"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "core",
+      "group": "@emnapi",
+      "version": "1.11.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@emnapi/core@1.11.2",
+      "author": "toyobayashi",
+      "description": "emnapi core",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40emnapi/core@1.11.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/emnapi.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@emnapi/core/-/core-1.11.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@emnapi/core"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "runtime",
+      "group": "@emnapi",
+      "version": "1.11.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@emnapi/runtime@1.11.2",
+      "author": "toyobayashi",
+      "description": "emnapi runtime",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40emnapi/runtime@1.11.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/emnapi.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.11.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@emnapi/runtime"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wasi-threads",
+      "group": "@emnapi",
+      "version": "1.2.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@emnapi/wasi-threads@1.2.2",
+      "author": "toyobayashi",
+      "description": "WASI threads proposal implementation in JavaScript",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40emnapi/wasi-threads@1.2.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/emnapi.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/emnapi/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@emnapi/wasi-threads"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wasm-util",
+      "group": "@tybys",
+      "version": "0.10.3",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@tybys/wasm-util@0.10.3",
+      "author": "toyobayashi",
+      "description": "WASI polyfill for browser and some wasm util",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40tybys/wasm-util@0.10.3",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/toyobayashi/wasm-util.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/wasm-util#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/toyobayashi/wasm-util/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.3.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:extraneous",
+          "value": "true"
+        },
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@tybys/wasm-util"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "reflect-metadata",
+      "version": "0.1.14",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|reflect-metadata@0.1.14",
+      "author": "Ron Buckton",
+      "description": "Polyfill for Metadata Reflection API",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/reflect-metadata@0.1.14",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/rbuckton/reflect-metadata.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "http://rbuckton.github.io/reflect-metadata",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/rbuckton/reflect-metadata/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/reflect-metadata/-/reflect-metadata-0.1.14.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/reflect-metadata"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tslib",
+      "version": "2.8.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|tslib@2.8.1",
+      "author": "Microsoft Corp.",
+      "description": "Runtime library for TypeScript helper functions",
+      "licenses": [
+        {
+          "license": {
+            "id": "0BSD",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tslib@2.8.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/Microsoft/tslib.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://www.typescriptlang.org/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/Microsoft/TypeScript/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/tslib"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "vm",
+      "version": "0.1.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|vm@0.1.0",
+      "author": "Diego Rodríguez Baquero",
+      "description": "NodeJS Core Module Extended",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/vm@0.1.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/DiegoRBaquero/node-vm.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/DiegoRBaquero/node-vm#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/DiegoRBaquero/node-vm/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/vm/-/vm-0.1.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/vm"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "client",
+      "group": "@apollo",
+      "version": "4.0.13",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@apollo/client@4.0.13",
+      "author": "packages@apollographql.com",
+      "description": "A fully-featured caching GraphQL client.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40apollo/client@4.0.13",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/apollographql/apollo-client.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://www.apollographql.com/docs/react/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/apollographql/apollo-client/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@apollo/client/-/client-4.0.13.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@apollo/client"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "apollo-angular",
+      "version": "13.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|apollo-angular@13.0.0",
+      "description": "Use your GraphQL data in your Angular app, with the Apollo Client",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/apollo-angular@13.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/the-guild-org/apollo-angular.git#packages/apollo-angular",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://www.apollo-angular.com/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/the-guild-org/apollo-angular/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/apollo-angular/-/apollo-angular-13.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/apollo-angular"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "graphql",
+      "version": "16.12.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|graphql@16.12.0",
+      "description": "A Query Language and Runtime which can target any service.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/graphql@16.12.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/graphql/graphql-js.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/graphql/graphql-js",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/graphql/graphql-js/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/graphql/-/graphql-16.12.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/graphql"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "signalr",
+      "group": "@microsoft",
+      "version": "8.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@microsoft/signalr@8.0.0",
+      "author": "Microsoft",
+      "description": "ASP.NET Core SignalR Client",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40microsoft/signalr@8.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/dotnet/aspnetcore.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/dotnet/aspnetcore/tree/main/src/SignalR#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/dotnet/aspnetcore/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@microsoft/signalr/-/signalr-8.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@microsoft/signalr"
+        }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "node-fetch",
+          "version": "2.7.0",
+          "bom-ref": "@ca-webstack/monorepo@21.1.1|@microsoft/signalr@8.0.0|node-fetch@2.7.0",
+          "author": "David Frank",
+          "description": "A light-weight module that brings window.fetch to node.js",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/node-fetch@2.7.0",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/bitinn/node-fetch.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/bitinn/node-fetch",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/bitinn/node-fetch/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/node-fetch/-/node-fetch-2.7.0.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/@microsoft/signalr/node_modules/node-fetch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "core-js",
+      "version": "3.49.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|core-js@3.49.0",
+      "author": "Denis Pushkarev",
+      "description": "Standard library",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/core-js@3.49.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/zloirock/core-js.git#packages/core-js",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://core-js.io",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/zloirock/core-js/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/core-js/-/core-js-3.49.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/core-js"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "core",
+      "group": "@graphql-typed-document-node",
+      "version": "3.2.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@graphql-typed-document-node/core@3.2.0",
+      "author": "Dotan Simha",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40graphql-typed-document-node/core@3.2.0",
+      "externalReferences": [
+        {
+          "url": "git+ssh://git@github.com/dotansimha/graphql-typed-document-node.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/dotansimha/graphql-typed-document-node#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/dotansimha/graphql-typed-document-node/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.2.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@graphql-typed-document-node/core"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "caches",
+      "group": "@wry",
+      "version": "1.0.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@wry/caches@1.0.1",
+      "author": "Ben Newman",
+      "description": "Various cache implementations",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40wry/caches@1.0.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/benjamn/wryware.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@wry/caches/-/caches-1.0.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@wry/caches"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "equality",
+      "group": "@wry",
+      "version": "0.5.7",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@wry/equality@0.5.7",
+      "author": "Ben Newman",
+      "description": "Structural equality checking for JavaScript values",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40wry/equality@0.5.7",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/benjamn/wryware.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@wry/equality/-/equality-0.5.7.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@wry/equality"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "trie",
+      "group": "@wry",
+      "version": "0.5.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@wry/trie@0.5.0",
+      "author": "Ben Newman",
+      "description": "https://en.wikipedia.org/wiki/Trie",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40wry/trie@0.5.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/benjamn/wryware.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@wry/trie/-/trie-0.5.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@wry/trie"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "graphql-tag",
+      "version": "2.12.7",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|graphql-tag@2.12.7",
+      "description": "A JavaScript template literal tag that parses GraphQL queries",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/graphql-tag@2.12.7",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/apollographql/graphql-tag.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/apollographql/graphql-tag#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/apollographql/graphql-tag/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/graphql-tag/-/graphql-tag-2.12.7.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/graphql-tag"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "optimism",
+      "version": "0.18.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|optimism@0.18.1",
+      "author": "Ben Newman",
+      "description": "Composable reactive caching with efficient invalidation.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/optimism@0.18.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/benjamn/optimism.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/benjamn/optimism#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/benjamn/optimism/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/optimism/-/optimism-0.18.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/optimism"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react-dom",
+      "version": "17.0.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|react-dom@17.0.2",
+      "description": "React package for working with the DOM.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react-dom@17.0.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/facebook/react.git#packages/react-dom",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://reactjs.org/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/facebook/react/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/react-dom"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "react",
+      "version": "17.0.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|react@17.0.2",
+      "description": "React is a JavaScript library for building user interfaces.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/react@17.0.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/facebook/react.git#packages/react",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://reactjs.org/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/facebook/react/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/react/-/react-17.0.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/react"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "rxjs",
+      "version": "7.8.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|rxjs@7.8.2",
+      "author": "Ben Lesh",
+      "description": "Reactive Extensions for modern JavaScript",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/rxjs@7.8.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/reactivex/rxjs.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://rxjs.dev",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/ReactiveX/RxJS/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/rxjs/-/rxjs-7.8.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/rxjs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "core",
+      "group": "@angular",
+      "version": "21.2.18",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@angular/core@21.2.18",
+      "author": "angular",
+      "description": "Angular - the core framework",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40angular/core@21.2.18",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/angular/angular.git#packages/core",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://github.com/angular/angular#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/angular/angular/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@angular/core/-/core-21.2.18.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@angular/core"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "abort-controller",
+      "version": "3.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|abort-controller@3.0.0",
+      "author": "Toru Nagashima",
+      "description": "An implementation of WHATWG AbortController interface.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/abort-controller@3.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/mysticatea/abort-controller.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/mysticatea/abort-controller#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/mysticatea/abort-controller/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/abort-controller"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "eventsource",
+      "version": "2.0.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|eventsource@2.0.2",
+      "author": "Aslak Hellesøy",
+      "description": "W3C compliant EventSource client for Node.js and browser (polyfill)",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        },
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared",
+            "url": "http://github.com/EventSource/eventsource/raw/master/LICENSE"
+          }
+        }
+      ],
+      "purl": "pkg:npm/eventsource@2.0.2",
+      "externalReferences": [
+        {
+          "url": "git://github.com/EventSource/eventsource.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "http://github.com/EventSource/eventsource",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "http://github.com/EventSource/eventsource/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/eventsource/-/eventsource-2.0.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/eventsource"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fetch-cookie",
+      "version": "2.2.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|fetch-cookie@2.2.0",
+      "author": "Val",
+      "description": "Decorator for a `fetch` function to support automatic cookies.",
+      "licenses": [
+        {
+          "license": {
+            "id": "Unlicense",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/fetch-cookie@2.2.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/valeriangalliat/fetch-cookie.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/valeriangalliat/fetch-cookie#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/valeriangalliat/fetch-cookie/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/fetch-cookie/-/fetch-cookie-2.2.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/fetch-cookie"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ws",
+      "version": "7.5.11",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|ws@7.5.11",
+      "author": "Einar Otto Stangvik",
+      "description": "Simple to use, blazing fast and thoroughly tested websocket client and server for Node.js",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/ws@7.5.11",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/websockets/ws.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/websockets/ws",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/websockets/ws/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/ws/-/ws-7.5.11.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/ws"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "context",
+      "group": "@wry",
+      "version": "0.7.4",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@wry/context@0.7.4",
+      "author": "Ben Newman",
+      "description": "Manage contextual information needed by (a)synchronous tasks without explicitly passing objects around",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40wry/context@0.7.4",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/benjamn/wryware.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/benjamn/wryware/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@wry/context/-/context-0.7.4.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@wry/context"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "loose-envify",
+      "version": "1.4.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|loose-envify@1.4.0",
+      "author": "Andres Suarez",
+      "description": "Fast (and loose) selective `process.env` replacer using js-tokens instead of an AST",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/loose-envify@1.4.0",
+      "externalReferences": [
+        {
+          "url": "git://github.com/zertosh/loose-envify.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/zertosh/loose-envify",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/zertosh/loose-envify/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/loose-envify"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "object-assign",
+      "version": "4.1.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|object-assign@4.1.1",
+      "author": "Sindre Sorhus",
+      "description": "ES2015 `Object.assign()` ponyfill",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/object-assign@4.1.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/sindresorhus/object-assign.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/sindresorhus/object-assign#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/sindresorhus/object-assign/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/object-assign"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "scheduler",
+      "version": "0.20.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|scheduler@0.20.2",
+      "description": "Cooperative scheduler for the browser environment.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/scheduler@0.20.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/facebook/react.git#packages/scheduler",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://reactjs.org/",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/facebook/react/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/scheduler/-/scheduler-0.20.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/scheduler"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "compiler",
+      "group": "@angular",
+      "version": "21.2.18",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|@angular/compiler@21.2.18",
+      "author": "angular",
+      "description": "Angular - the compiler library",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/%40angular/compiler@21.2.18",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/angular/angular.git#packages/compiler",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://github.com/angular/angular#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/angular/angular/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/@angular/compiler/-/compiler-21.2.18.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/@angular/compiler"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "zone.js",
+      "version": "0.16.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|zone.js@0.16.2",
+      "author": "Brian Ford",
+      "description": "Zones for JavaScript",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/zone.js@0.16.2",
+      "externalReferences": [
+        {
+          "url": "git://github.com/angular/angular.git#packages/zone.js",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\" and \"repository.directory\""
+        },
+        {
+          "url": "https://github.com/angular/angular#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/angular/angular/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/zone.js/-/zone.js-0.16.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/zone.js"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "event-target-shim",
+      "version": "5.0.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|event-target-shim@5.0.1",
+      "author": "Toru Nagashima",
+      "description": "An implementation of WHATWG EventTarget interface.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/event-target-shim@5.0.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/mysticatea/event-target-shim.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/mysticatea/event-target-shim",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/mysticatea/event-target-shim/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/event-target-shim"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "set-cookie-parser",
+      "version": "2.7.2",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|set-cookie-parser@2.7.2",
+      "author": "Nathan Friedly",
+      "description": "Parses set-cookie headers into objects",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/set-cookie-parser@2.7.2",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/nfriedly/set-cookie-parser.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/nfriedly/set-cookie-parser",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/nfriedly/set-cookie-parser/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/set-cookie-parser/-/set-cookie-parser-2.7.2.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/set-cookie-parser"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tough-cookie",
+      "version": "4.1.4",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4",
+      "author": "Jeremy Stashewsky",
+      "description": "RFC6265 Cookies and Cookie Jar for node.js",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tough-cookie@4.1.4",
+      "externalReferences": [
+        {
+          "url": "git://github.com/salesforce/tough-cookie.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/salesforce/tough-cookie",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/salesforce/tough-cookie/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-4.1.4.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/tough-cookie"
+        }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "punycode",
+          "version": "2.3.1",
+          "bom-ref": "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4|punycode@2.3.1",
+          "author": "Mathias Bynens",
+          "description": "A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms.",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/punycode@2.3.1",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/mathiasbynens/punycode.js.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://mths.be/punycode",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/mathiasbynens/punycode.js/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/tough-cookie/node_modules/punycode"
+            }
+          ]
+        },
+        {
+          "type": "library",
+          "name": "universalify",
+          "version": "0.2.0",
+          "bom-ref": "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4|universalify@0.2.0",
+          "author": "Ryan Zimmerman",
+          "description": "Make a callback- or promise-based function support both promises and callbacks.",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/universalify@0.2.0",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/RyanZim/universalify.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://github.com/RyanZim/universalify#readme",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/RyanZim/universalify/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/universalify/-/universalify-0.2.0.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/tough-cookie/node_modules/universalify"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "whatwg-url",
+      "version": "5.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|whatwg-url@5.0.0",
+      "author": "Sebastian Mayr",
+      "description": "An implementation of the WHATWG URL Standard's URL API and parsing machinery",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/whatwg-url@5.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/jsdom/whatwg-url.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/jsdom/whatwg-url#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/jsdom/whatwg-url/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/whatwg-url"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "js-tokens",
+      "version": "4.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|js-tokens@4.0.0",
+      "author": "Simon Lydell",
+      "description": "A regex that tokenizes JavaScript.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/js-tokens@4.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/lydell/js-tokens.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/lydell/js-tokens#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/lydell/js-tokens/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/js-tokens"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "psl",
+      "version": "1.15.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|psl@1.15.0",
+      "author": "Lupo Montero",
+      "description": "Domain name parser based on the Public Suffix List",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/psl@1.15.0",
+      "externalReferences": [
+        {
+          "url": "git+ssh://git@github.com/lupomontero/psl.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/lupomontero/psl#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/lupomontero/psl/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/psl/-/psl-1.15.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/psl"
+        }
+      ],
+      "components": [
+        {
+          "type": "library",
+          "name": "punycode",
+          "version": "2.3.1",
+          "bom-ref": "@ca-webstack/monorepo@21.1.1|psl@1.15.0|punycode@2.3.1",
+          "author": "Mathias Bynens",
+          "description": "A robust Punycode converter that fully complies to RFC 3492 and RFC 5891, and works on nearly all JavaScript platforms.",
+          "licenses": [
+            {
+              "license": {
+                "id": "MIT",
+                "acknowledgement": "declared"
+              }
+            }
+          ],
+          "purl": "pkg:npm/punycode@2.3.1",
+          "externalReferences": [
+            {
+              "url": "git+https://github.com/mathiasbynens/punycode.js.git",
+              "type": "vcs",
+              "comment": "as detected from PackageJson property \"repository.url\""
+            },
+            {
+              "url": "https://mths.be/punycode",
+              "type": "website",
+              "comment": "as detected from PackageJson property \"homepage\""
+            },
+            {
+              "url": "https://github.com/mathiasbynens/punycode.js/issues",
+              "type": "issue-tracker",
+              "comment": "as detected from PackageJson property \"bugs.url\""
+            },
+            {
+              "url": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",
+              "type": "distribution",
+              "comment": "as detected from npm-ls property \"resolved\""
+            }
+          ],
+          "properties": [
+            {
+              "name": "cdx:npm:package:path",
+              "value": "node_modules/psl/node_modules/punycode"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "url-parse",
+      "version": "1.5.10",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|url-parse@1.5.10",
+      "author": "Arnout Kazemier",
+      "description": "Small footprint URL parser that works seamlessly across Node.js and browser environments",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/url-parse@1.5.10",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/unshiftio/url-parse.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/unshiftio/url-parse#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/unshiftio/url-parse/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/url-parse/-/url-parse-1.5.10.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/url-parse"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tr46",
+      "version": "0.0.3",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|tr46@0.0.3",
+      "author": "Sebastian Mayr",
+      "description": "An implementation of the Unicode TR46 spec",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/tr46@0.0.3",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/Sebmaster/tr46.js.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/Sebmaster/tr46.js#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/Sebmaster/tr46.js/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/tr46"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "webidl-conversions",
+      "version": "3.0.1",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|webidl-conversions@3.0.1",
+      "author": "Domenic Denicola",
+      "description": "Implements the WebIDL algorithms for converting to and from JavaScript values",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/webidl-conversions@3.0.1",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/jsdom/webidl-conversions.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/jsdom/webidl-conversions#readme",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/jsdom/webidl-conversions/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/webidl-conversions"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "querystringify",
+      "version": "2.2.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|querystringify@2.2.0",
+      "author": "Arnout Kazemier",
+      "description": "Querystringify - Small, simple but powerful query string parser.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/querystringify@2.2.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/unshiftio/querystringify.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/unshiftio/querystringify",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/unshiftio/querystringify/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/querystringify/-/querystringify-2.2.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/querystringify"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "requires-port",
+      "version": "1.0.0",
+      "bom-ref": "@ca-webstack/monorepo@21.1.1|requires-port@1.0.0",
+      "author": "Arnout Kazemier",
+      "description": "Check if a protocol requires a certain port number to be added to an URL.",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT",
+            "acknowledgement": "declared"
+          }
+        }
+      ],
+      "purl": "pkg:npm/requires-port@1.0.0",
+      "externalReferences": [
+        {
+          "url": "git+https://github.com/unshiftio/requires-port.git",
+          "type": "vcs",
+          "comment": "as detected from PackageJson property \"repository.url\""
+        },
+        {
+          "url": "https://github.com/unshiftio/requires-port",
+          "type": "website",
+          "comment": "as detected from PackageJson property \"homepage\""
+        },
+        {
+          "url": "https://github.com/unshiftio/requires-port/issues",
+          "type": "issue-tracker",
+          "comment": "as detected from PackageJson property \"bugs.url\""
+        },
+        {
+          "url": "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz",
+          "type": "distribution",
+          "comment": "as detected from npm-ls property \"resolved\""
+        }
+      ],
+      "properties": [
+        {
+          "name": "cdx:npm:package:path",
+          "value": "node_modules/requires-port"
+        }
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/change-tracker@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/data-context@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/data-structures@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/event-manager@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-aspects@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-command-dispatcher@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-components-extra@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-components@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-data-context@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-event-manager@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-graphql@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-i18n@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-policy-engine@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-react@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-serializer@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-shell@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-signalr@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/policy-engine@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@ca-webstack/reflection@0.0.0",
+        "@ca-webstack/monorepo@21.1.1|@emnapi/core@1.11.2",
+        "@ca-webstack/monorepo@21.1.1|@emnapi/runtime@1.11.2",
+        "@ca-webstack/monorepo@21.1.1|@emnapi/wasi-threads@1.2.2",
+        "@ca-webstack/monorepo@21.1.1|@tybys/wasm-util@0.10.3"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/change-tracker@0.0.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/data-context@0.0.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/data-structures@0.0.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/event-manager@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|reflect-metadata@0.1.14"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-aspects@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-command-dispatcher@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-components-extra@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-components@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1",
+        "@ca-webstack/monorepo@21.1.1|vm@0.1.0"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-data-context@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-event-manager@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-graphql@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@apollo/client@4.0.13",
+        "@ca-webstack/monorepo@21.1.1|apollo-angular@13.0.0",
+        "@ca-webstack/monorepo@21.1.1|graphql@16.12.0",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-i18n@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-policy-engine@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-react@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-serializer@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-shell@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/ng-signalr@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@microsoft/signalr@8.0.0",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/policy-engine@0.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|core-js@3.49.0",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@ca-webstack/reflection@0.0.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@emnapi/core@1.11.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@emnapi/wasi-threads@1.2.2",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@emnapi/runtime@1.11.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@emnapi/wasi-threads@1.2.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@tybys/wasm-util@0.10.3",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|reflect-metadata@0.1.14"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|vm@0.1.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@apollo/client@4.0.13",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@graphql-typed-document-node/core@3.2.0",
+        "@ca-webstack/monorepo@21.1.1|@wry/caches@1.0.1",
+        "@ca-webstack/monorepo@21.1.1|@wry/equality@0.5.7",
+        "@ca-webstack/monorepo@21.1.1|@wry/trie@0.5.0",
+        "@ca-webstack/monorepo@21.1.1|graphql-tag@2.12.7",
+        "@ca-webstack/monorepo@21.1.1|graphql@16.12.0",
+        "@ca-webstack/monorepo@21.1.1|optimism@0.18.1",
+        "@ca-webstack/monorepo@21.1.1|react-dom@17.0.2",
+        "@ca-webstack/monorepo@21.1.1|react@17.0.2",
+        "@ca-webstack/monorepo@21.1.1|rxjs@7.8.2",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|apollo-angular@13.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@angular/core@21.2.18",
+        "@ca-webstack/monorepo@21.1.1|@apollo/client@4.0.13",
+        "@ca-webstack/monorepo@21.1.1|graphql@16.12.0",
+        "@ca-webstack/monorepo@21.1.1|rxjs@7.8.2",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|graphql@16.12.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@microsoft/signalr@8.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|abort-controller@3.0.0",
+        "@ca-webstack/monorepo@21.1.1|eventsource@2.0.2",
+        "@ca-webstack/monorepo@21.1.1|fetch-cookie@2.2.0",
+        "@ca-webstack/monorepo@21.1.1|@microsoft/signalr@8.0.0|node-fetch@2.7.0",
+        "@ca-webstack/monorepo@21.1.1|ws@7.5.11"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@microsoft/signalr@8.0.0|node-fetch@2.7.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|whatwg-url@5.0.0"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|core-js@3.49.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@graphql-typed-document-node/core@3.2.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|graphql@16.12.0"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@wry/caches@1.0.1",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@wry/equality@0.5.7",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@wry/trie@0.5.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|graphql-tag@2.12.7",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|graphql@16.12.0",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|optimism@0.18.1",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@wry/caches@1.0.1",
+        "@ca-webstack/monorepo@21.1.1|@wry/context@0.7.4",
+        "@ca-webstack/monorepo@21.1.1|@wry/trie@0.5.0",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|react-dom@17.0.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|loose-envify@1.4.0",
+        "@ca-webstack/monorepo@21.1.1|object-assign@4.1.1",
+        "@ca-webstack/monorepo@21.1.1|react@17.0.2",
+        "@ca-webstack/monorepo@21.1.1|scheduler@0.20.2"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|react@17.0.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|loose-envify@1.4.0",
+        "@ca-webstack/monorepo@21.1.1|object-assign@4.1.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|rxjs@7.8.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@angular/core@21.2.18",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|@angular/compiler@21.2.18",
+        "@ca-webstack/monorepo@21.1.1|rxjs@7.8.2",
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1",
+        "@ca-webstack/monorepo@21.1.1|zone.js@0.16.2"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|abort-controller@3.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|event-target-shim@5.0.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|eventsource@2.0.2"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|fetch-cookie@2.2.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|set-cookie-parser@2.7.2",
+        "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|ws@7.5.11"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@wry/context@0.7.4",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|loose-envify@1.4.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|js-tokens@4.0.0"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|object-assign@4.1.1"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|scheduler@0.20.2",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|loose-envify@1.4.0",
+        "@ca-webstack/monorepo@21.1.1|object-assign@4.1.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|@angular/compiler@21.2.18",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tslib@2.8.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|zone.js@0.16.2"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|event-target-shim@5.0.1"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|set-cookie-parser@2.7.2"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|psl@1.15.0",
+        "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4|punycode@2.3.1",
+        "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4|universalify@0.2.0",
+        "@ca-webstack/monorepo@21.1.1|url-parse@1.5.10"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4|punycode@2.3.1"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|tough-cookie@4.1.4|universalify@0.2.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|whatwg-url@5.0.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|tr46@0.0.3",
+        "@ca-webstack/monorepo@21.1.1|webidl-conversions@3.0.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|js-tokens@4.0.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|psl@1.15.0",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|psl@1.15.0|punycode@2.3.1"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|psl@1.15.0|punycode@2.3.1"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|url-parse@1.5.10",
+      "dependsOn": [
+        "@ca-webstack/monorepo@21.1.1|querystringify@2.2.0",
+        "@ca-webstack/monorepo@21.1.1|requires-port@1.0.0"
+      ]
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|tr46@0.0.3"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|webidl-conversions@3.0.1"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|querystringify@2.2.0"
+    },
+    {
+      "ref": "@ca-webstack/monorepo@21.1.1|requires-port@1.0.0"
+    }
+  ]
+}
