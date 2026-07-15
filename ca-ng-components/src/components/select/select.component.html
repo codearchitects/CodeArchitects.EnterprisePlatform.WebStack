@@ -5,6 +5,14 @@
       [class.ng-invalid]="formControl.invalid" [class.ng-touched]="formControl.touched"
       [class.ng-dirty]="formControl.dirty" [class.sh-populated]="!!formControl.value"
       [attr.tabindex]="internalOptions.tabindex" [attr.autofocus]="internalOptions.autofocus || null"
+      role="combobox" aria-haspopup="listbox" [attr.aria-expanded]="isOpened"
+      [attr.aria-controls]="id + '-listbox'"
+      [attr.aria-labelledby]="placeholder ? (id + '-label') : ariaLabelledBy" [attr.aria-label]="ariaLabel"
+      [attr.aria-describedby]="ariaDescribedBy"
+      [attr.aria-disabled]="!enable ? true : null" [attr.aria-readonly]="internalOptions.isReadonly ? true : null"
+      [attr.aria-invalid]="formControl.invalid ? true : null"
+      [attr.aria-activedescendant]="isOpened && activeResultIndex >= 0 ? (id + '-opt-' + activeResultIndex) : null"
+      (keydown)="onComboboxKeydown($event)"
       (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)" [class.disabled]="!enable"
       [class.readonly]="internalOptions.isReadonly" [style.height]="height" [class.with-icon]="true"
       (focusout)="!formControl.touched && formControl.markAsTouched()"
@@ -21,18 +29,25 @@
       }
     </div>
     @if (placeholder) {
-      <label class="no-float-on-empty" [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder
+      <!-- names the div-based combobox via aria-labelledby (reverse association); `for` cannot target a non-labelable element -->
+      <!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
+      <label class="no-float-on-empty" [id]="id + '-label'">{{placeholder?.key ? (placeholder
       | i18n) : (placeholder | translate)}}</label>
     }
-    <sh-icon vertical-centered pointer name="{{ isOpened ? internalOptions.caretUpIcon : internalOptions.caretDownIcon }}"
+    <sh-icon vertical-centered pointer aria-hidden="true" name="{{ isOpened ? internalOptions.caretUpIcon : internalOptions.caretDownIcon }}"
       (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)">
     </sh-icon>
     @if (isOpened) {
       <div shDropdown #dropdown class="results" [style.width]="dropdownWidth"
         [style.maxHeight]="internalOptions.dropdownHeight">
-        <ul #results>
+        <ul #results role="listbox" [id]="id + '-listbox'"
+          [attr.aria-labelledby]="placeholder ? (id + '-label') : ariaLabelledBy" [attr.aria-label]="ariaLabel">
           @for (value of values; track value.id; let i = $index) {
-            <li class="result" [class.current-item]="activeResultIndex === i"
+            <!-- APG combobox: options are not individually focusable; keyboard is handled on the combobox via aria-activedescendant -->
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+            <li class="result" role="option" [id]="id + '-opt-' + i"
+              [attr.aria-selected]="value.ref === formControl.value"
+              [class.current-item]="activeResultIndex === i"
               [class.selected]="value.ref === formControl.value" (click)="onSelectValue(value.ref)">
               <span [id]="value.id" translate>{{value.label}}</span>
             </li>

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { A11yModule } from '@angular/cdk/a11y';
 import { IStackFrame, ITaskSlot } from '@ca-webstack/ng-shell';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -59,7 +60,7 @@ export interface CaepSideMenuServiceConfig {
 }
 
 @NgModule({
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, A11yModule],
   declarations: [
     CaepSideMenuComponent,
     CaepContainerComponent,

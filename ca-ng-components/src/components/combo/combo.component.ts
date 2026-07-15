@@ -79,6 +79,27 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
   private _getData$ = new Subject<void>();
 
   /**
+   * Id of the currently active option (`aria-activedescendant`) while the
+   * listbox is open, or `null` when there is no active option / the popup is
+   * closed. Keeps DOM focus on the input per the APG editable combobox
+   * pattern. (WCAG 4.1.2)
+   */
+  public get activeDescendantId(): string | null {
+    if (!this.isOpened || this.internalOptions.isReadonly) {
+      return null;
+    }
+    const hasValues = !!(this.values && this.values.length);
+    if (this.activeResultIndex === -1) {
+      return (this.internalOptions.showTextAsResult && this.text && !hasValues)
+        ? this.id + '-opt-text'
+        : null;
+    }
+    return (hasValues && this.activeResultIndex < this.values.length)
+      ? this.id + '-opt-' + this.activeResultIndex
+      : null;
+  }
+
+  /**
    * Base Combo Component
    */
   constructor(injector: Injector) {

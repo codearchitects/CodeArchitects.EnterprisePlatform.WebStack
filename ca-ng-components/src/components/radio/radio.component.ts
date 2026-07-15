@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, ElementRef, Injector, QueryList, ViewChildren } from '@angular/core';
 import { FormDesignerControl } from '../../decorators';
 import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
 import { IN } from '../../utilities/common.utility';
@@ -37,6 +37,24 @@ export class ShRadioComponent<T, V>
   /*protected*/ public groupName: string;
 
   /**
+   * References to the focusable `role="radio"` elements, in `values` order.
+   * Used to move DOM focus for the roving-tabindex APG radio-group pattern.
+   */
+  @ViewChildren('radioOpt') public radioOpts!: QueryList<ElementRef<HTMLElement>>;
+
+  /**
+   * Index of the option that owns the roving `tabindex="0"`. The checked
+   * option is tabbable; when nothing is checked the first option is, per APG.
+   */
+  public get focusableIndex(): number {
+    if (!this.values || this.values.length === 0) {
+      return -1;
+    }
+    const idx = this.values.findIndex(v => v.ref === this.formControl?.value);
+    return idx > -1 ? idx : 0;
+  }
+
+  /**
    * Base Radio Component
    */
   constructor(injector: Injector) {
@@ -61,6 +79,70 @@ export class ShRadioComponent<T, V>
   }
 
   /**
+   * Event fired on key on a single `role="radio"` option. Space selects the
+   * focused option (APG). Arrow keys are intentionally left to bubble to the
+   * group-level {@link onKey} handler so their behaviour is not duplicated.
+   * @param e Keyboard event
+   * @param value The option the event originated from
+   */
+  /*protected*/ public onOptionKey(e: KeyboardEvent, value: ILookupSingle<V>) {
+    if (!this.internalOptions.isReadonly && this.enable !== false) {
+      const keycode = e.keyCode || e.which;
+      if (IN(keycode, KeyCode.SPACE)) {
+        this.toggle(value);
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+  }
+
+  /**
+   * Moves DOM focus to the `role="radio"` option at the given index, keeping
+   * focus with the selected option as required by the roving-tabindex pattern.
+   * @param index Index of the option in {@link values}
+   */
+  private focusOption(index: number) {
+    const el = this.radioOpts?.toArray()[index]?.nativeElement;
+    if (el) {
+      el.focus();
+    }
+  }
+
+  /**
+   * Index of the `role="radio"` option that currently owns DOM focus, or `-1`
+   * when focus is not on any option. Used to anchor arrow-key navigation on the
+   * FOCUSED option (APG roving-tabindex) rather than on the selected value, so
+   * arrows work even when nothing is selected or the selected ref is falsy.
+   */
+  private getFocusedOptionIndex(): number {
+    const active = typeof document !== 'undefined' ? document.activeElement : null;
+    if (!active) {
+      return -1;
+    }
+    const arr = this.radioOpts?.toArray() ?? [];
+    return arr.findIndex(ref => ref?.nativeElement === active);
+  }
+
+  /**
+   * Provides a programmatic accessible name for an option that has no visible
+   * label (its `aria-labelledby` target is absent), falling back to the option
+   * ref and then its id so every `role="radio"` always exposes a name.
+   * @param value The option
+   * @return An aria-label string, or `null` when the option already has a
+   * label-based name (so the attribute is not rendered).
+   */
+  /*protected*/ public optionAriaLabel(value: ILookupSingle<V>): string | null {
+    if (value?.label) {
+      return null;
+    }
+    const ref = value?.ref;
+    if (ref !== null && ref !== undefined && `${ref}`.length > 0) {
+      return `${ref}`;
+    }
+    return value?.id ?? null;
+  }
+
+  /**
    * Toggles control value
    * @param id Identifier of value to toggle
    */
@@ -82,29 +164,34 @@ export class ShRadioComponent<T, V>
   }
 
   /**
-   * Moves to next/prev value
+   * Moves focus and selection to the next/previous option, per the APG radio
+   * group pattern (arrow keys move AND select, with wrap-around). The anchor is
+   * the currently FOCUSED option (or, when focus is not on an option, the
+   * roving-tabindex option) — never the selected value — so navigation always
+   * works even when nothing is selected or the selected ref is falsy.
    * @param next If true, moves to next value
    */
   private next(next = true) {
-    const currentValue = this.getControlValue();
-    if (currentValue) {
-      let newIndex = 0;
-      const currentIndex = this.values.findIndex(v => this.internalOptions.equalityFunc(currentValue, v.ref));
-      if (next) {
-        if (currentIndex < this.values.length - 1) {
-          newIndex = currentIndex + 1;
-        }
-      } else {
-        if (currentIndex > 0) {
-          newIndex = currentIndex - 1;
-        } else {
-          newIndex = this.values.length - 1;
-        }
-      }
-      if (newIndex > -1) {
-        this.toggle(this.values[newIndex]);
-      }
+    if (!this.values || this.values.length === 0) {
+      return;
     }
+    const len = this.values.length;
+    let currentIndex = this.getFocusedOptionIndex();
+    if (currentIndex < 0) {
+      // Fall back to the roving-tabindex option (checked, or first when none).
+      currentIndex = this.focusableIndex;
+    }
+    if (currentIndex < 0) {
+      currentIndex = 0;
+    }
+    let newIndex: number;
+    if (next) {
+      newIndex = currentIndex < len - 1 ? currentIndex + 1 : 0;
+    } else {
+      newIndex = currentIndex > 0 ? currentIndex - 1 : len - 1;
+    }
+    this.toggle(this.values[newIndex]);
+    this.focusOption(newIndex);
   }
 
 }

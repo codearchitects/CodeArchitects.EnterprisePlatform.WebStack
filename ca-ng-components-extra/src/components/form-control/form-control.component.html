@@ -1,5 +1,9 @@
 @if (isReady && show && model) {
-  <div component="">
+  <div
+    component=""
+    [attr.role]="label ? 'group' : null"
+    [attr.aria-label]="label ? (label | translateMstring | async) : null"
+  >
     <!--<caep-label [model]="model" [prop]="prop" [options]="options" [enable]="enable" [show]="show"></caep-label>-->
     <caep-template
       #controlRef

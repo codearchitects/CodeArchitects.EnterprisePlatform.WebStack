@@ -1,4 +1,5 @@
-import { Component, ContentChild, ContentChildren, Inject, Injector, QueryList } from '@angular/core';
+import { Component, ContentChild, ContentChildren, Inject, Injector, Input, QueryList } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { CaepContentChild, CaepContentChildren, CaepOption } from '../../decorators';
 import { caepChangeDetectorStrategy } from '../../environments/change-detection-strategy';
 import { CAEP_OPTIONS_TOKEN } from '../../tokens';
@@ -42,7 +43,21 @@ export class MockTextComponent<O extends MockTextOptions = MockTextOptions> exte
   @ContentChildren(CaepOptionComponent, { descendants: true })
   public testDescendants: QueryList<CaepOptionComponent<string>>;
 
+  /**
+   * Accessible name for the input, used when no visible associated label is present.
+   * Bound to the input's `aria-label` attribute for assistive technologies (WCAG 4.1.2 / 3.3.2).
+   */
+  @Input() public ariaLabel?: string;
+
   constructor(injector: Injector, @Inject(CAEP_OPTIONS_TOKEN) optionsCtor: (value?: PickAll<O>) => O) {
     super(injector, optionsCtor);
+  }
+
+  /**
+   * Whether the underlying form control carries a `required` validator, so the input can
+   * reflect it via `aria-required` for assistive technologies (WCAG 3.3.2).
+   */
+  public isAriaRequired(): boolean {
+    return !!this.formControl && this.formControl.hasValidator(Validators.required);
   }
 }

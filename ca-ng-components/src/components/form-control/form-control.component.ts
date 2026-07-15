@@ -69,5 +69,22 @@ export class ShFormControlComponent<T>
       this.isCaptionControl = this._aspectHelper.getTemplate(this.model, this.prop, this._contextService.context)?.toUpperCase() === 'CAPTION';
     }
   }
-  
+
+  /**
+   * The rendered `<sh-label>` is a sibling of the dynamic control, not an
+   * ancestor `<label>` wrapping it, and its `for` targets whatever native
+   * input the control happens to expose (e.g. Toggle's hidden checkbox, not
+   * the real `role="switch"` element). Point the control at the label
+   * explicitly via `aria-labelledby` (matching the id `<sh-label>` renders)
+   * so custom ARIA widgets get a real accessible name too (WCAG 4.1.2),
+   * unless a caller already supplied their own ariaLabelledBy/ariaLabel.
+   */
+  public onOptionsChanges() {
+    super.onOptionsChanges();
+    if (this.internalOptions.ariaLabelledBy === undefined && this.internalOptions.ariaLabel === undefined
+      && this.internalOptions.label !== false) {
+      this.internalOptions.ariaLabelledBy = `${this.internalOptions.id}-label`;
+    }
+  }
+
 }

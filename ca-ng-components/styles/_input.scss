@@ -1,5 +1,6 @@
 @use "colors" as *;
 @use "functions" as *;
+@use "a11y" as *;
 
 $input-recess: v(input-recess, 10px);
 $input-font-size: v(input-font-size, 18px);
@@ -24,20 +25,20 @@ $input-disabled-border-bottom-style: var(--input-disabled-border-bottom-style, d
 $input-hover-border-color: var(--input-hover-border-color, $sh-light-gray);
 $input-invalid-border-color: var(--input-invalid-border-color, $sh-red);
 $input-invalid-hover-border-color: var(--input-invalid-hover-border-color, $sh-flash-red);
-$select-results-background: var(--select-results-background, $sh-ghost-white);
+$select-results-background: var(--select-results-background, $sh-white);
 $select-results-border: var(--select-results-border, none);
 $select-results-recess: var(--select-results-recess, 0);
 
 // TODO: utilizzare le variabili per i colori :
 $input-color: v(input-color, $sh-iron-gray);
-$input-readonly-color: var(--input-readonly-color, $sh-light-gray);
+$input-readonly-color: var(--input-readonly-color, $sh-text-gray);
 $input-hover-color: var(--input-hover-color, $sh-sea-black);
-$label-color: var(--label-color, $sh-light-gray);
+$label-color: var(--label-color, $sh-text-gray);
 $label-invalid-color: var(--label-invalid-color, $sh-red);
 $label-invalid-hover-color: var(--label-invalid-hover-color, $sh-flash-red);
-$select-result-color: var(--select-result-color, $sh-light-gray);
+$select-result-color: var(--select-result-color, $sh-text-gray);
 $select-result-hover-color: var(--select-result-hover-color, $sh-sea-black);
-$select-result-selected-color: var(--select-result-selected-color, var(--sh-first));
+$select-result-selected-color: var(--select-result-selected-color, $sh-primary-text);
 
 @mixin input($input-label-offset: $label-offset) {
   border: $input-border;
@@ -70,6 +71,12 @@ $select-result-selected-color: var(--select-result-selected-color, var(--sh-firs
   &:active {
     color: $input-hover-color;
     border-color: $input-hover-border-color;
+  }
+
+  // WCAG 2.4.7: keyboard focus must stay visible. `outline: none` above removes
+  // the UA outline for mouse interaction; restore a clear ring for keyboard focus.
+  &:focus-visible {
+    @include sh-focus-ring;
   }
 
   &+label {

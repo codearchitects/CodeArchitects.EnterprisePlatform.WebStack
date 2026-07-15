@@ -1,8 +1,11 @@
 // #region app-header
 $app-header-height: var(--app-header-height, 60px);
+// #6a81b9 only reaches 3.85:1 against white text (below the 4.5:1 AA text
+// threshold) — darkened to #5a6e9d (5.07:1) while keeping the same hue
+// (WCAG 1.4.3). Consuming apps setting --primary directly are unaffected.
 $app-header-background-color: var(
   --app-header-background-color,
-  var(--primary, #6a81b9)
+  var(--primary, #5a6e9d)
 );
 $app-header-active-background-color: var(
   --app-header-active-background-color,
@@ -14,16 +17,19 @@ $app-header-color: var(--app-header-color, var(--primary-contrast,  white));
 // #region app-sidebar
 $app-sidebar-width: var(--app-sidebar-width, 60px);
 $app-sidebar-space-top: var(--app-sidebar-space-top, 120px);
+// See app-header above: darkened fallback for AA text contrast.
 $app-sidebar-background-color: var(
   --app-sidebar-background-color,
-  var(--primary, #6a81b9)
+  var(--primary, #5a6e9d)
 );
 $app-sidebar-color: var(--app-sidebar-color, var(--primary-contrast, white));
 // #endregion
 
 // #region caep-floating-commands
 $caep-floating-commands-width: var(--caep-floating-commands-width, 60px);
-$caep-floating-commands-drag-handle-width: var(--caep-floating-commands-drag-handle-width, 20px);
+// 20px + this element's own padding/border (content-box) rendered at 23px —
+// under the 24px WCAG 2.2 2.5.8 target-size minimum. Bumped to clear it.
+$caep-floating-commands-drag-handle-width: var(--caep-floating-commands-drag-handle-width, 22px);
 $caep-floating-commands-background-color: var(
   --caep-floating-commands-background-color,
   var(--primary, #41608C)

@@ -10,11 +10,13 @@
 @forward 'common';
 @use 'common' as *;
 @forward 'context-menu';
+@forward 'a11y';
 
 @include scrollbar($scrollbar-size, $scrollbar-thumb-color, $scrollbar-thumb-hover-color, $scrollbar-thumb-active-color, $scrollbar-track-color);
 
 :root {
     --sh-first: #{$sh-azure};
+    --sh-first-text: #{$sh-primary-text};
     --sh-secondary: #{$sh-pale-cyan};
     --sh-tertiary: #{$sh-sky};
     --sh-quaternary: #{$sh-clean-glass};

@@ -1,4 +1,4 @@
-<div #container class="topbar-container">
+<div #container class="topbar-container" role="banner" [attr.aria-label]="ariaLabel || null">
   <div class="topbar-items-container" [class.is-checking]="checkItemsFit">
     @if (items.length) {
       <div class="left">

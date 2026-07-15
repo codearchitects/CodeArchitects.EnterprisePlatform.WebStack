@@ -24,6 +24,8 @@ import { CaepSideMenuService } from '../../services';
 export class CaepSideMenuComponent implements OnInit, OnDestroy {
   //#region Internals
   protected _destroy$ = new Subject<void>();
+  /** Monotonic counter to generate unique landmark ids across instances. */
+  private static _nextId = 0;
   //#endregion
   //#region Bindings
   @HostBinding('class') protected _hostClass = 'caep-side-menu';
@@ -75,9 +77,23 @@ export class CaepSideMenuComponent implements OnInit, OnDestroy {
    * Menu collapse icon path.
    */
   @Input() public collapseIcon = 'assets/menu/collapse.svg';
+  /**
+   * Accessible name (translation key or literal) for the collapse/expand toggle button.
+   * The button has no visible text, so this provides its programmatic name.
+   */
+  @Input() public toggleAriaLabel = 'collapser';
+  /**
+   * Accessible name (translation key or literal) for the navigation landmark.
+   */
+  @Input() public navAriaLabel = 'menu';
   //#endregion
   //#region View
   protected entries: ICaepSideMenuEntry[];
+  /**
+   * Unique id for the navigation landmark, used to associate the toggle button
+   * (aria-controls) with the region it expands/collapses.
+   */
+  protected readonly navId = `caep-side-menu-nav-${CaepSideMenuComponent._nextId++}`;
   /**
    * Whether menu is collapsed or not.
    */

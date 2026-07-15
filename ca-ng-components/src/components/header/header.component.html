@@ -1,7 +1,7 @@
 <div class="leeway">
   @if (logo) {
     <div class="logo">
-      <img src="assets/{{logo}}">
+      <img src="assets/{{logo}}" [attr.alt]="applicationName || 'logo'">
     </div>
   }
 </div>

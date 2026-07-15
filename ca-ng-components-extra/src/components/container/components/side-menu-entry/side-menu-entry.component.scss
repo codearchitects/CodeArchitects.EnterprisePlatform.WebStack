@@ -16,7 +16,11 @@ $menu-content-padding: 8px 16px;
   &:active,
   &:focus {
     text-decoration: none;
-    color: var(--caep-menu-entry-foreground);
+    color: var(--caep-menu-entry-foreground, #fefefe);
+  }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
   &:hover {
     --caep-side-menu-entry-opacity: 1;
@@ -135,5 +139,18 @@ $active-state: path('M 1 0 H 3 V 16 H 1 Z');
   100% {
     clip-path: $default-state;
     -webkit-clip-path: $default-state;
+  }
+}
+
+// Respect users who prefer reduced motion (WCAG 2.3.3 / EN 301 549):
+// drop the chevron/active-icon keyframe animations and label/icon transitions.
+@media (prefers-reduced-motion: reduce) {
+  .caep-side-menu__chevron-icon,
+  .caep-side-menu__active-icon {
+    animation: none;
+  }
+  .caep-side-menu__entry .caep-side-menu__label,
+  .caep-side-menu__active-icon {
+    transition: none;
   }
 }

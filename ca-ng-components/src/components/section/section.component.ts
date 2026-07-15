@@ -28,6 +28,13 @@ export class ShSectionComponent extends ShBaseAuthComponent<IShBaseOptions> impl
    */
   @Input() public collapsed = false;
   /**
+   * ARIA heading level (aria-level) exposed for the section header when it
+   * behaves as a disclosure toggle. Defaults to 2. Override to match the host
+   * page's document outline and avoid skipped/out-of-order heading levels
+   * (WCAG 1.3.1), which the component cannot detect from inside the library.
+   */
+  @Input() public headingLevel = 2;
+  /**
    * Event fired on collapsed property changes
    */
   @Output() public collapsedChange = new EventEmitter<boolean>();
@@ -92,11 +99,32 @@ export class ShSectionComponent extends ShBaseAuthComponent<IShBaseOptions> impl
   }
 
   /**
+   * Whether the header behaves as a disclosure toggle
+   * (i.e. it is both collapsible and has a title, so it is actually rendered/interactive).
+   */
+  public get isToggle(): boolean {
+    return !!(this.title && this.isCollapsible);
+  }
+
+  /**
    * Toggles section
    */
   /*protected*/ public toggle() {
     if (this.title && this.isCollapsible) {
       this.collapsedChange.emit(this.collapsed = !this.collapsed);
+    }
+  }
+
+  /**
+   * Keyboard equivalent of clicking the header: activates the toggle on Enter/Space.
+   */
+  public onHeaderKeydown(event: KeyboardEvent): void {
+    if (!this.isToggle) {
+      return;
+    }
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      this.toggle();
     }
   }
 }

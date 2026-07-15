@@ -21,6 +21,9 @@ body {
     display: flex;
     & > * {
       background-color: $caep-floating-commands-background-color;
+      // Projected commands (plain buttons/icons) inherit a light default text
+      // colour so they aren't left at the browser's black-on-blue default (WCAG 1.4.3).
+      color: $caep-floating-commands-color;
     }
   }
   .caep-drag-handle {
@@ -45,6 +48,10 @@ body {
     }
     &::before {
       margin-bottom: 3px;
+    }
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
     }
   }
 }

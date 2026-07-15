@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 All packages in the monorepo share a single version.
 
+## [Unreleased]
+
+### Added
+
+- A monorepo Storybook (`npm run storybook`) documenting every component of
+  `@ca-webstack/ng-components` and `@ca-webstack/ng-components-extra` with
+  interactive usage examples, backed by an automated test suite (structural
+  and keyboard-interaction checks) that runs in CI on every change.
+
+### Changed
+
+- Broadened automated accessibility verification for
+  `@ca-webstack/ng-components` and `@ca-webstack/ng-components-extra` —
+  colour-contrast auditing and keyboard-interaction regression testing now run
+  alongside the existing static analysis — and published a formal
+  accessibility conformance statement (`ACCESSIBILITY.md`) covering both
+  packages against WCAG 2.2 AA / EN 301 549.
+
 ## [21.1.0]
 
 ### Added

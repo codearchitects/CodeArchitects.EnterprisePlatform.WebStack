@@ -9,25 +9,39 @@
       [class.sh-populated]="!!formControl.value" [attr.readonly]="internalOptions.isReadonly ? true : null"
       [attr.maxlength]="internalOptions.maxLength || null"
       [class.floating-placeholder]="placeholder && (formControl.value === undefined || formControl.value === null || formControl.value === '') && !input.value"
-      [class.opened]="isOpened">
+      [class.opened]="isOpened" role="combobox" aria-autocomplete="list" aria-haspopup="listbox"
+      [attr.aria-expanded]="(isOpened && !internalOptions.isReadonly) ? 'true' : 'false'"
+      [attr.aria-controls]="(isOpened && !internalOptions.isReadonly) ? (id + '-listbox') : null"
+      [attr.aria-activedescendant]="activeDescendantId"
+      [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy"
+      [attr.aria-describedby]="ariaDescribedBy"
+      [attr.aria-invalid]="formControl.invalid ? 'true' : null">
     @if (placeholder) {
       <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
     }
-    <sh-icon vertical-centered pointer name="{{ isOpened ? internalOptions.caretUpIcon : internalOptions.caretDownIcon }}"
+    <sh-icon vertical-centered pointer aria-hidden="true" name="{{ isOpened ? internalOptions.caretUpIcon : internalOptions.caretDownIcon }}"
       (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)">
     </sh-icon>
     @if (isOpened && !internalOptions.isReadonly) {
       <div shDropdown #dropdown class="results"
         [style.width]="dropdownWidth" [style.maxHeight]="internalOptions.dropdownHeight">
-        <ul #results>
+        <ul #results role="listbox" [id]="id + '-listbox'" [attr.aria-label]="ariaLabel">
           @if (internalOptions.showTextAsResult && text && !values.length) {
-            <li class="result" [class.current-item]="activeResultIndex === -1" (click)="onSelectText(text)">
+            <!-- APG combobox: options are not individually focusable; keyboard is handled on the input via aria-activedescendant -->
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+            <li class="result" [class.current-item]="activeResultIndex === -1" (click)="onSelectText(text)"
+              role="option" [id]="id + '-opt-text'"
+              [attr.aria-selected]="activeResultIndex === -1 ? 'true' : 'false'">
               <span>{{text}}</span>
             </li>
           }
           @for (value of values; track value.id; let i = $index) {
+            <!-- APG combobox: options are not individually focusable; keyboard is handled on the input via aria-activedescendant -->
+            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
             <li class="result" [class.current-item]="activeResultIndex === i"
-              [class.selected]="value.ref === formControl.value" (click)="onSelectValue(value.ref)">
+              [class.selected]="value.ref === formControl.value" (click)="onSelectValue(value.ref)"
+              role="option" [id]="id + '-opt-' + i"
+              [attr.aria-selected]="value.ref === formControl.value ? 'true' : 'false'">
               <span [id]="value.id" translate>{{value.label}}</span>
             </li>
           }

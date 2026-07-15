@@ -6,6 +6,6 @@
     [disabled]="!enable"
     (click)="model.handler($event)"
   >
-    <i class="topbar-button__icon icon-{{ model.icon }}"></i>
+    <i class="topbar-button__icon icon-{{ model.icon }}" aria-hidden="true"></i>
   </button>
 }

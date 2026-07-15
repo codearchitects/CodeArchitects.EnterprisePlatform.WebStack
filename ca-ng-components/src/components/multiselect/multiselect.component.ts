@@ -68,6 +68,14 @@ export class ShMultiSelectComponent<T, V, O extends IShMultiSelectOptions<T, V>>
    */
   /*protected*/ public keyDownDebounceTime = 0;
   /**
+   * Accumulated characters for first-character type-ahead
+   */
+  /*protected*/ public typeaheadBuffer = '';
+  /**
+   * Timer that resets the type-ahead buffer
+   */
+  private _typeaheadTimeout: ReturnType<typeof setTimeout>;
+  /**
    * List of dropdown results (pure html elements)
    */
   @ViewChild('results')
@@ -151,6 +159,13 @@ export class ShMultiSelectComponent<T, V, O extends IShMultiSelectOptions<T, V>>
     this.internalOptions.toggleDropdown$
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.isOpened = !this.isOpened);
+    // A11y: warn (dev only) if the combobox would have no programmatic name.
+    if (!this.ariaLabel && !this.ariaLabelledBy && !this.placeholder) {
+      console.warn(
+        `sh-multiselect (${this.internalOptions.id}): no accessible name. `
+        + `Provide an aria-label, aria-labelledby or a placeholder.`
+      );
+    }
   }
 
   /*protected*/ public getDefaultOptions(): IShMultiSelectOptions<T, V> {
@@ -187,6 +202,22 @@ export class ShMultiSelectComponent<T, V, O extends IShMultiSelectOptions<T, V>>
             if (v) {
               this.onSelectValue(v);
             }
+          } else {
+            // APG: Enter opens the popup when it is closed.
+            this.isOpened = true;
+            prevent = true;
+          }
+          break;
+        case KeyCode.HOME:
+          if (this.isOpened && this.values.length) {
+            this.activateResult(0, false);
+            prevent = true;
+          }
+          break;
+        case KeyCode.END:
+          if (this.isOpened && this.values.length) {
+            this.activateResult(this.values.length - 1, true);
+            prevent = true;
           }
           break;
         case KeyCode.ESC:
@@ -194,11 +225,41 @@ export class ShMultiSelectComponent<T, V, O extends IShMultiSelectOptions<T, V>>
           this.isOpened = false;
           break;
         default:
+          // APG: first-character type-ahead while the listbox is open.
+          if (this.isOpened && e.key && e.key.length === 1 && /\S/.test(e.key)) {
+            this.onTypeahead(e.key);
+          }
           break;
       }
       if (prevent) {
         e.preventDefault();
       }
+    }
+  }
+
+  /**
+   * Keyboard handler bound to the combobox trigger element.
+   * Provides a keyboard equivalent to the mouse toggle: Space opens the
+   * listbox when closed and toggles the active option when already open,
+   * keeping the popup open (multi-select). Enter/Arrow keys are handled by
+   * {@link onKey}. Does nothing when disabled or read-only.
+   * @param e The keyboard event
+   */
+  /*protected*/ public onTriggerKeydown(e: KeyboardEvent) {
+    if (!this.enable || this.internalOptions.isReadonly) {
+      return;
+    }
+    const keyCode = e.keyCode || e.which;
+    if (keyCode === KeyCode.SPACE) {
+      if (this.isOpened) {
+        const v = this.values && this.values[this.activeResultIndex];
+        if (v) {
+          this.onSelectValue(v);
+        }
+      } else {
+        this.isOpened = true;
+      }
+      e.preventDefault();
     }
   }
 
@@ -233,6 +294,56 @@ export class ShMultiSelectComponent<T, V, O extends IShMultiSelectOptions<T, V>>
         });
       } else {
         this.toggleResult(0, next);
+      }
+    }
+  }
+
+  /**
+   * Moves the active option to an absolute index, opening the popup and
+   * scrolling the option into view. Backs the Home/End keys and type-ahead.
+   * Keeps aria-activedescendant in sync with the highlighted option.
+   * @param index Absolute index of the option to activate
+   * @param next Scroll direction hint
+   */
+  /*protected*/ public activateResult(index: number, next = true) {
+    if (this.internalOptions.isReadonly || !this.values || index < 0 || index >= this.values.length) {
+      return;
+    }
+    this.isOpened = true;
+    this.activeResultIndex = index;
+    yieldFunc(() => {
+      scrollTo(this._dropdown?.nativeElement, this._results, index, next);
+    });
+  }
+
+  /**
+   * First-character type-ahead. Appends the typed character to a short-lived
+   * buffer and moves the active option to the first option whose label starts
+   * with the buffer, wrapping around the list. The buffer is cleared after a
+   * brief pause so consecutive keystrokes match progressively longer prefixes.
+   * @param char The printable character that was typed
+   */
+  /*protected*/ public onTypeahead(char: string) {
+    if (!this.values || !this.values.length) {
+      return;
+    }
+    if (this._typeaheadTimeout) {
+      clearTimeout(this._typeaheadTimeout);
+    }
+    this.typeaheadBuffer += char.toLowerCase();
+    this._typeaheadTimeout = setTimeout(() => (this.typeaheadBuffer = ''), 500);
+    const count = this.values.length;
+    // On the first character start searching after the current option so
+    // repeated presses cycle; while extending the buffer keep the current one.
+    const start = this.typeaheadBuffer.length > 1
+      ? this.activeResultIndex
+      : this.activeResultIndex + 1;
+    for (let offset = 0; offset < count; offset++) {
+      const idx = (((start + offset) % count) + count) % count;
+      const label = String(this.values[idx].label || '').toLowerCase();
+      if (label.startsWith(this.typeaheadBuffer)) {
+        this.activateResult(idx, idx >= this.activeResultIndex);
+        break;
       }
     }
   }

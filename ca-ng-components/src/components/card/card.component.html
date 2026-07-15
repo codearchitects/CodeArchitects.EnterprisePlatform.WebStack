@@ -1,16 +1,24 @@
 @if (isReady) {
   <sh-form [model]="model" [parent]="parent" [prop]="prop">
     <div class="card" title="{{title | translate}}" [style.width]="width" [style.height]="height"
-      [id]="internalOptions.id">
+      [id]="internalOptions.id" role="group"
+      [attr.aria-labelledby]="title ? internalOptions.id + '-title' : null"
+      [attr.aria-label]="!title ? ariaLabel : null"
+      [attr.aria-describedby]="ariaDescribedBy">
       <div class="card-toolbar">
-        <div class="title" translate>{{title}}</div>
+        <div class="title" [id]="internalOptions.id + '-title'" translate>{{title}}</div>
         <ng-content select="[toolbar]"></ng-content>
         <div class="commands">
           <ng-content select="[command]"></ng-content>
           @for (command of commands; track command) {
             @if (command.isShown) {
               <sh-icon pointer name="{{command.icon}}" [class.disabled]="!command.isEnabled"
-                (click)="command.isEnabled && command.handler(command)" title="{{command.name | translate}}">
+                (click)="command.isEnabled && command.handler(command)" title="{{command.name | translate}}"
+                role="button" [attr.tabindex]="0"
+                [attr.aria-label]="command.name | translate"
+                [attr.aria-disabled]="!command.isEnabled || null"
+                (keydown.enter)="command.isEnabled && command.handler(command)"
+                (keydown.space)="$event.preventDefault(); command.isEnabled && command.handler(command)">
               </sh-icon>
             }
           }
@@ -20,7 +28,12 @@
                 <sh-icon pointer name="{{command.iconClassName}}"
                   [class.disabled]="command.enabled === false"
                   (click)="command.enabled !== false && command.handler(command)"
-                  title="{{(command.caption || command.label) | translate}}">
+                  title="{{(command.caption || command.label) | translate}}"
+                  role="button" [attr.tabindex]="0"
+                  [attr.aria-label]="(command.caption || command.label) | translate"
+                  [attr.aria-disabled]="command.enabled === false || null"
+                  (keydown.enter)="command.enabled !== false && command.handler(command)"
+                  (keydown.space)="$event.preventDefault(); command.enabled !== false && command.handler(command)">
                 </sh-icon>
               }
             </ng-template>

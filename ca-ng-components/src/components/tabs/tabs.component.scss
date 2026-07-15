@@ -1,4 +1,5 @@
 @use '../../../styles/colors' as *;
+@use '../../../styles/a11y' as *;
 
 $tabs-tab-height: var(--tabs-tab-height, 42px);
 $tab-vertical-recess: 6px;
@@ -8,7 +9,7 @@ $tabs-distance: 40px;
 $tabs-tab-border-bottom-size: var(--tabs-tab-border-bottom-size, 5px);
 $tabs-tab-border-bottom-style: var(--tabs-tab-border-bottom-style, solid);
 $tabs-tab-border-bottom-color: var(--tabs-tab-border-bottom-color, $sh-metallic-gray);
-$tabs-current-tab-color: var(--tabs-current-tab-color, var(--sh-first));
+$tabs-current-tab-color: var(--tabs-current-tab-color, var(--sh-first-text));
 $tabs-current-tab-border-bottom-color: var(--tabs-current-tab-border-bottom-color, $tabs-current-tab-color);
 $tabs-current-tab-font-weight: var(--tabs-current-tab-font-weight, bold);
 $tabs-tab-disabled-opacity: var(--tabs-tab-disabled-opacity, .5);
@@ -44,6 +45,10 @@ $tabs-tab-font-size: var(--tabs-tab-font-size, 20px);
     margin-bottom: calc(-1 * #{$tabs-tab-border-bottom-size});
     font-size: $tabs-tab-font-size;
 
+    &:focus-visible {
+      @include sh-focus-ring;
+    }
+
     &.current {
       border-bottom-color: $tabs-current-tab-border-bottom-color;
       color: $tabs-current-tab-color;
@@ -73,6 +78,10 @@ $tabs-tab-font-size: var(--tabs-tab-font-size, 20px);
   width: 100%;
   height: 100%;
   padding: $tabs-tab-content-recess;
+
+  &:focus-visible {
+    @include sh-focus-ring(calc(-1 * #{$sh-focus-ring-width}));
+  }
 
   &.absolute-content {
     position: absolute;

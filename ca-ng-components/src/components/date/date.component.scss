@@ -98,6 +98,12 @@ $picker-header-arrows-color: var(--date-picker-header-arrows-color, $picker-head
       }
     }
 
+    // Keyboard focus indicator for the (now focusable) calendar toggle button.
+    sh-icon:focus-visible {
+      outline: 2px solid $picker-selection-color;
+      outline-offset: 2px;
+    }
+
     ::ng-deep {
       .sh-date-picker {
         position: fixed;

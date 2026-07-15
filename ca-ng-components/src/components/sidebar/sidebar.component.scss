@@ -1,6 +1,7 @@
 @use '../../../styles/colors' as *;
 @use '../../../styles/common' as *;
 @use '../../../styles/mixins' as *;
+@use '../../../styles/a11y' as *;
 
 $toggler-height: $bars-height;
 $sidebar-background-color: var(--sidebar-background-color, $sh-lush-black);
@@ -54,6 +55,12 @@ $sidebar-scrollbar-thumb-active-color: var(--sidebar-scrollbar-thumb-active-colo
     sh-icon {
       font-size: $sidebar-toggler-icon-font-size;
       color: $sidebar-toggler-icon-color;
+    }
+
+    // WCAG 2.4.7/2.4.11 — restore a visible keyboard focus ring for the toggler,
+    // which the blanket `outline: none` above would otherwise suppress.
+    &:focus-visible {
+      @include sh-focus-ring(-$sh-focus-ring-width);
     }
   }
 

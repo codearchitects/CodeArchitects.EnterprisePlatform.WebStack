@@ -47,6 +47,25 @@ export interface IShBaseOptions {
    */
    label?:string | boolean | Mstring;
   /**
+   * Accessible name exposed as `aria-label` when no visible label is
+   * associated with the control (WCAG 4.1.2). Prefer a visible, associated
+   * label where possible.
+   * @default undefined
+   */
+  ariaLabel?: string;
+  /**
+   * Space-separated id(s) of the element(s) that label this control, exposed
+   * as `aria-labelledby` (WCAG 1.3.1 / 4.1.2).
+   * @default undefined
+   */
+  ariaLabelledBy?: string;
+  /**
+   * Space-separated id(s) of the element(s) that describe this control (hint,
+   * validation message, …), exposed as `aria-describedby` (WCAG 1.3.1).
+   * @default undefined
+   */
+  ariaDescribedBy?: string;
+  /**
    * Event fired just before the value changes.
    * Asks if it's possible to change the value.
    * Returning false, the value will not vary
@@ -98,6 +117,27 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
    */
   public get containerClass() {
     return this.internalOptions.containerClass.join(' ');
+  }
+  /**
+   * Accessible name for the control (`aria-label`). `null` when unset so the
+   * bound attribute is not rendered. (WCAG 4.1.2)
+   */
+  public get ariaLabel(): string | null {
+    return this.internalOptions?.ariaLabel ?? null;
+  }
+  /**
+   * Id(s) of the element(s) labelling the control (`aria-labelledby`). `null`
+   * when unset. (WCAG 1.3.1 / 4.1.2)
+   */
+  public get ariaLabelledBy(): string | null {
+    return this.internalOptions?.ariaLabelledBy ?? null;
+  }
+  /**
+   * Id(s) of the element(s) describing the control (`aria-describedby`).
+   * `null` when unset. (WCAG 1.3.1)
+   */
+  public get ariaDescribedBy(): string | null {
+    return this.internalOptions?.ariaDescribedBy ?? null;
   }
   /**
    * Registered handler for control keypress event

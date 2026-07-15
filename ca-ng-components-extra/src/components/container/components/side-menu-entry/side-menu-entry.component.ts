@@ -53,6 +53,14 @@ export class CaepSideMenuEntryComponent extends CaepBaseAuthComponent implements
    * Whether this is the current active route.
    */
   protected isActiveRoute = false;
+  /**
+   * Stable id of the children container, used to wire `aria-controls` from an
+   * expandable entry to the list of child entries it discloses.
+   * Null when this entry has no stable id so the attribute renders nothing.
+   */
+  protected get childrenId(): string | null {
+    return this.model?.id != null ? `caep-side-menu-children-${this.model.id}` : null;
+  }
   //#endregion
   //#endregion
   //#region Inputs
@@ -105,8 +113,17 @@ export class CaepSideMenuEntryComponent extends CaepBaseAuthComponent implements
             this.isActive &&
             entry.children?.some(child => this._menuService.isActive(child, location, true, activeEntry));
           if (this.isActiveRoute) {
-            // Scrolls towards this entry.
-            setTimeout(() => this._elementRef.nativeElement.scrollIntoView({ behavior: 'smooth' }), 100);
+            // Scrolls towards this entry, honoring the user's reduced-motion preference (WCAG 2.3.3).
+            const prefersReducedMotion =
+              typeof window !== 'undefined' &&
+              window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+            setTimeout(
+              () =>
+                this._elementRef.nativeElement.scrollIntoView({
+                  behavior: prefersReducedMotion ? 'auto' : 'smooth'
+                }),
+              100
+            );
           }
         } else {
           this.isActive = this.isActiveRoute = this.isOpen = false;
@@ -132,6 +149,18 @@ export class CaepSideMenuEntryComponent extends CaepBaseAuthComponent implements
   protected onChildInward() {
     // Notifies parent this is not the current layer anymore.
     this.inward.emit();
+  }
+  /**
+   * Mirrors the pointer interaction on the keyboard for expandable entries.
+   * Expandable entries carry no `href` (they only toggle their children), so the
+   * native anchor does not react to Enter/Space; here we replicate the click-driven
+   * expand/collapse. Navigable entries keep their native anchor behavior untouched.
+   */
+  protected onEntryKeydown(event: Event): void {
+    if (this.isExpandable) {
+      event.preventDefault();
+      this.onInward();
+    }
   }
   //#endregion
 }

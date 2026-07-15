@@ -1,5 +1,5 @@
 @if (internalOptions.showValidationMessage && control?.touched) {
-  <div>
+  <div [id]="internalOptions.id + '-error'" role="alert" aria-atomic="true">
     @for (error of errors; track error) {
       <p>{{ error | errorMessage:internalOptions.messages:control:model:prop | i18n }}</p>
     }

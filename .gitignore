@@ -24,3 +24,6 @@ coverage/
 *.log
 npm-debug.log*
 .DS_Store
+
+# Storybook build output
+storybook-static/

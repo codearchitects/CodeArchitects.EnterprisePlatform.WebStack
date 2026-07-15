@@ -1,4 +1,5 @@
 @use '../../../styles/colors' as *;
+@use '../../../styles/a11y' as *;
 
 $header-border-size: 1px;
 $button-height: 50px;
@@ -38,9 +39,17 @@ $section-body-disabled-opacity: var(--section-body-disabled-opacity, .5);
 
     span {
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      inset: 0;
+      display: flex;
+      align-items: center;
       padding: $section-header-recess;
+      cursor: pointer;
+
+      // Visible keyboard focus for the disclosure toggle (WCAG 2.4.7 / 2.4.11).
+      // Negative offset keeps the ring inside the header so it is not clipped.
+      &:focus-visible {
+        @include sh-focus-ring(-2px);
+      }
     }
   }
 

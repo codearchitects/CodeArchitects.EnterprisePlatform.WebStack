@@ -3,9 +3,10 @@
     [id]="internalOptions.id" [disabled]="!enable" [class]="containerClass" [class.primary]="primary"
     [class.transparent]="transparent" [class.negative]="negative" [class.outline]="outline"
     [attr.autofocus]="internalOptions.autofocus || null" translate [ngStyle]="{ 'width':width, 'height': height }"
+    [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-describedby]="ariaDescribedBy"
     (click)="onClick($event)">
     @if (icon) {
-      <sh-icon [name]="icon"></sh-icon>
+      <sh-icon [name]="icon" aria-hidden="true"></sh-icon>
     }
     <ng-content></ng-content>
   </button>

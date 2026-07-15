@@ -1,15 +1,19 @@
 <div class="modal-overlay">
-  <div class="modal" tabindex="0" #controlRef
+  <div class="modal" tabindex="-1" #controlRef role="dialog" aria-modal="true"
+    cdkTrapFocus [cdkTrapFocusAutoCapture]="true"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabel ? null : id + '-title'"
+    [attr.aria-describedby]="body ? id + '-body' : null"
     (keyup.esc)="onCancel(); $event.preventDefault(); $event.stopPropagation()" [style.minWidth]="width"
     [style.maxWidth]="width" (clickOutside)="onClickOutside()">
-    <div class="modal-header">
+    <div class="modal-header" [id]="id + '-title'">
       @if (icon) {
         <sh-icon class="modal-header-icon" [name]="icon"></sh-icon>
       }
       {{title | translate}}
       <ng-content select="[header]"></ng-content>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" [id]="id + '-body'">
       {{body | translate}}
       <ng-content select="[body]"></ng-content>
     </div>

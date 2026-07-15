@@ -48,6 +48,10 @@ $menu-content-minimum-size: 160px;
     outline: none;
     padding: 0;
     cursor: pointer;
+    &:focus-visible {
+      outline: 2px solid var(--caep-menu-entry-foreground);
+      outline-offset: -2px;
+    }
     position: relative;
     width: calc(var(--menu-bar-size) + var(--menu-content-size));
     height: calc(var(--menu-bar-size) * 3);

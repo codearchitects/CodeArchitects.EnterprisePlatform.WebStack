@@ -1,13 +1,13 @@
 <context-menu #contextMenu>
   @for (command of commands; track command; let i = $index) {
     @if (!command.children?.length) {
-      <ng-template contextMenuItem>
+      <ng-template contextMenuItem [visible]="command.show" [disabled]="!command.enable" (execute)="onExecute(command)">
         <div class="context-menu-item">
           <sh-context-menu-item [command]="command" [resource]="command.resource" [enable]="command.enable" [show]="command.show"></sh-context-menu-item>
         </div>
       </ng-template>
     } @else {
-      <ng-template contextMenuItem [subMenu]="subContextMenu.context">
+      <ng-template contextMenuItem [subMenu]="subContextMenu.context" [visible]="command.show" [disabled]="!command.enable">
         <div class="context-menu-item">
           <sh-context-menu-item [command]="command" [resource]="command.resource" [enable]="command.enable" [show]="command.show"></sh-context-menu-item>
         </div>

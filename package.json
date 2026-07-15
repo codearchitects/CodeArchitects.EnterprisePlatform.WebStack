@@ -29,14 +29,28 @@
     "audit:all": "npm audit",
     "audit:ci": "node scripts/check-vulnerabilities.mjs",
     "sbom": "npx --yes @cyclonedx/cyclonedx-npm@latest --omit dev --output-format JSON --output-file sbom.json",
-    "report:security": "node scripts/generate-security-report.mjs"
+    "report:security": "node scripts/generate-security-report.mjs",
+    "storybook": "ng run storybook-host:storybook",
+    "build-storybook": "ng run storybook-host:build-storybook",
+    "test:a11y": "npm run build-storybook && node .storybook/a11y.mjs",
+    "test:keyboard": "npm run build-storybook && node .storybook/keyboard.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@jest/globals": "^30.4.1",
+    "@storybook/addon-a11y": "^10.5.0",
+    "@storybook/addon-docs": "^10.5.0",
+    "@storybook/angular": "^10.5.0",
     "cross-env": "^7.0.3",
+    "http-server": "^14.1.1",
     "jest-util": "^30.4.1",
+    "playwright": "^1.61.1",
     "puppeteer": "^24.0.0",
+    "storybook": "^10.5.0",
     "turbo": "^2.3.3"
+  },
+  "overrides": {
+    "jest": "29.7.0"
   },
   "engines": {
     "node": ">=22",

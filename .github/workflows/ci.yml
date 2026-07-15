@@ -34,6 +34,18 @@ jobs:
       - name: Test all packages
         run: npm run test
 
+      - name: Accessibility lint (WCAG rules enforced at error)
+        run: npx turbo run lint --filter=@ca-webstack/ng-components --filter=@ca-webstack/ng-components-extra
+
+      - name: Install Playwright (chromium) for the a11y gate
+        run: npx playwright install --with-deps chromium
+
+      - name: Accessibility gate (Storybook + axe, WCAG 2.2 AA)
+        run: npm run test:a11y
+
+      - name: Keyboard-interaction gate (Storybook + Playwright)
+        run: npm run test:keyboard
+
   security:
     name: Security & SBOM
     runs-on: ubuntu-latest

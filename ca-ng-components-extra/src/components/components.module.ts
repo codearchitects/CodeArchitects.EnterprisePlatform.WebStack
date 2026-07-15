@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { A11yModule } from '@angular/cdk/a11y';
 import { CaepPipesModule } from '../pipes';
 import { CaepServicesModule } from '../services';
 import { CaepFormControlComponent } from './form-control/form-control.component';
@@ -29,7 +30,7 @@ import { CaepTextComponent } from './text/text.component';
     MockTextComponent,
     CaepTextComponent
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, CaepPipesModule, CaepServicesModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, A11yModule, CaepPipesModule, CaepServicesModule],
   exports: [
     CaepAppHeaderComponent,
     CaepAppSidebarComponent,

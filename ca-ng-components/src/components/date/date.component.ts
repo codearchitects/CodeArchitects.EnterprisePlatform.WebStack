@@ -202,6 +202,11 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    */
   /*protected*/ public showDate: boolean;
   /**
+   * Reflects whether the calendar overlay is currently open.
+   * Used to drive aria-expanded / aria-controls on the calendar toggle.
+   */
+  /*protected*/ public isCalendarOpen = false;
+  /**
    * Specifies when overwrite
    */
   /*protected*/ public canOverwrite: boolean;
@@ -898,7 +903,8 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
         switch (keyCode) {
           case KeyCode.ARROW_UP:
           case KeyCode.ARROW_DOWN:
-          case KeyCode.ENTER: {
+          case KeyCode.ENTER:
+          case KeyCode.SPACE: {
             evt.preventDefault();
             evt.stopPropagation();
             switchHour = true;
@@ -937,6 +943,20 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   protected onFocusout() {
     this.canOverwrite = true;
     this._yearDigit = 0;
+  }
+
+  /**
+   * Keeps {@link isCalendarOpen} in sync with the (library-owned) calendar overlay
+   * so the toggle button can expose a correct aria-expanded state. The library emits
+   * a positive open code (1) when the calendar opens and other codes when it closes
+   * (date selection, toggle button, outside click, Escape).
+   * @param toggleCode The calendar toggle code emitted by the datepicker directive
+   */
+  public onCalendarToggle(toggleCode: number) {
+    this.isCalendarOpen = toggleCode === 1;
+    if (shChangeDetectorStrategy() === ChangeDetectionStrategy.OnPush) {
+      this.changeDetection.markForCheck();
+    }
   }
 
   /**
@@ -1058,6 +1078,11 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
       this._datePicker.setCalendarVisibleMonth();
     }
     this._datePicker.onCellKeyDown = this.onPickerKeyDown.bind(this);
+    // Give the (library-owned) calendar overlay a stable id so the toggle's aria-controls resolves.
+    const calendarEl = this._datePickerElement;
+    if (calendarEl && calendarEl.length && !calendarEl.attr('id')) {
+      calendarEl.attr('id', this.internalOptions.id + '-calendar');
+    }
     this.focusDayCell();
   }
 

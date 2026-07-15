@@ -16,12 +16,18 @@ export class ShIconComponent implements OnChanges {
    */
   @Input() public name: string;
   /**
+   * Optional accessible label. When set, the icon is exposed to assistive
+   * technology as role="img" with this label; otherwise the icon is treated
+   * as decorative and hidden from assistive technology (aria-hidden).
+   */
+  @Input() public ariaLabel: string;
+  /**
    * Icon prefix registered by token
    */
   protected iconPrefix: string = inject(CAEP_ICON_PREFIX_TOKEN, { optional: true });
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes && changes['name']) {
+    if (changes && changes['name'] && this.name != null) {
       this.name = !isNoU(this.iconPrefix) ? `${this.iconPrefix}${this.name}` : (this.name.indexOf('icon icon-') !== -1 ? this.name :  `icon icon-${this.name}`);
     }
   }

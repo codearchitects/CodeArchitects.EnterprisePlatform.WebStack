@@ -140,6 +140,14 @@ export class ShTimerComponent extends ShBaseAuthComponent<IShTimerOptions> {
    */
   public leftTime: number;
   /**
+   * Translation key for the current discrete timer state, surfaced in the
+   * screen-reader-only role="status" live region. Updated ONLY on discrete
+   * transitions (start/pause/resume/stop/done/restart) in {@link handleEvent},
+   * never on the per-second 'notify' tick, so the polite live region is not
+   * flooded with continuous announcements.
+   */
+  public statusKey: string;
+  /**
    * Status of the timer
    */
   public get status(): ShTimerStatus {
@@ -200,25 +208,33 @@ export class ShTimerComponent extends ShBaseAuthComponent<IShTimerOptions> {
   public handleEvent(event: CountdownEvent) {
     switch (event.action) {
       case 'start':
+        this.statusKey = 'timer-started';
         this.started.emit('start');
         break;
       case 'done':
+        this.statusKey = 'timer-done';
         this.done.emit('done');
         break;
       case 'pause':
+        this.statusKey = 'timer-paused';
         this.paused.emit('pause');
         break;
       case 'stop':
+        this.statusKey = 'timer-stopped';
         this.stopped.emit('stop');
         break;
       case 'resume':
+        this.statusKey = 'timer-resumed';
         this.resumed.emit('resume');
         break;
       case 'notify':
+        // Per-second tick: update the model only, never the live-region status,
+        // otherwise the polite region would announce continuously.
         this.model = event.left / 1000;
         this.modelChange.next(this.model);
         break;
       case 'restart':
+        this.statusKey = 'timer-restarted';
         this.restarted.emit('restart');
         break;
       default:
