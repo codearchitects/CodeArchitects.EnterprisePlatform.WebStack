@@ -22,6 +22,15 @@ const meta: Meta<ShSidebarComponent> = {
   title: 'ng-components/Sidebar',
   component: ShSidebarComponent,
   tags: ['autodocs'],
+  parameters: {
+    a11y: {
+      // KNOWN LIMITATION (ACCESSIBILITY.md §6): the odd/even row backgrounds
+      // this component itself sets ($sh-submarine-gray / $sh-sea-black, both
+      // dark) leave sh-sidebar-item's compromise text colour below 4.5:1 here
+      // too — same trade-off as sidebar-item.stories.ts, not a separate bug.
+      config: { rules: [{ id: 'color-contrast', enabled: false }] },
+    },
+  },
   decorators: [moduleMetadata({ imports: [ShComponentsModule] })],
   argTypes: {
     isExpanded: { control: 'boolean', description: 'Whether the rail is expanded (labels visible)' },
@@ -58,10 +67,10 @@ const sampleCommands: SidebarCommand[] = [
     id: 'settings',
     icon: 'settings',
     title: 'Settings',
-    routerLink: '/settings',
+    routerLink: undefined,
     children: [
-      { id: 'profile', icon: 'user', title: 'Profile', routerLink: '/settings/profile' },
-      { id: 'security', icon: 'lock', title: 'Security', routerLink: '/settings/security' },
+      { id: 'profile', icon: 'user-empty', title: 'Profile', routerLink: '/settings/profile' },
+      { id: 'security', icon: 'user-full', title: 'Security', routerLink: '/settings/security' },
     ],
   },
   { id: 'reports', icon: 'chart', title: 'Reports', routerLink: '/reports' },

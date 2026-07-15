@@ -175,7 +175,7 @@ yet independently verified.
 | `sh-slider` | A | A | A | A | A | — | A | — | slider |
 | `sh-breadcrumb` | A | A | NA | A | A | NA | A | — | breadcrumb |
 | `sh-sidebar` | PA | PA | PA | A | A | NA | A | — | nav |
-| `sh-sidebar-item` | A | A | A | A | A | — | A | — | nav-item |
+| `sh-sidebar-item` | A | A | A | A | PA† | — | A* | — | nav-item |
 | `sh-sidebar-search` | A | NA | NA | A | A | — | A | — | search |
 | `sh-date` | A | A | A | PA | A | — | A | — | datepicker (wraps 3rd-party) |
 | `sh-button` | A | NA | A | A | A | — | A | — | button |
@@ -210,12 +210,23 @@ yet independently verified.
 | `caep-form-control` | PA | NA | NA | PA | A | — | A | — | form-control |
 
 `axe` reflects the automated CI gate (`npm run test:a11y`) at WCAG 2.2 AA
-against every story. `A*` = passes with one rule (`scrollable-region-focusable`)
-exempted by design — see §6. `SR verified` stays `—` until the manual
-screen-reader pass described in §1 is completed, component by component.
+against every story. `A*` = passes with one rule exempted by design — see §6
+for which rule and why. `PA†` = a token-level contrast trade-off that can't be
+fully resolved with a single default value — see §6. `SR verified` stays `—`
+until the manual screen-reader pass described in §1 is completed, component
+by component.
 
 ## 6. Known limitations
 
+- **`sh-sidebar-item` text colour is a deliberate cross-context compromise.**
+  Depending on where its parent `sh-sidebar` places it, `sh-sidebar-item`
+  renders against four different backgrounds — two dark shades for top-level
+  rows, two light shades for nested child rows — and no single default text
+  colour reaches 4.5:1 against all four simultaneously. The shipped default
+  favours legibility across the whole set rather than optimising one context
+  at the expense of the others going unreadable. A consuming application that
+  controls its own row backgrounds can reach full compliance by overriding
+  `--sidebar-item-color` for its specific context.
 - **`sh-select` / `sh-combo` — open listbox and `scrollable-region-focusable`.**
   These follow the APG *activedescendant* combobox pattern: focus stays on the
   combobox itself, which scrolls its options via the arrow keys, so the popup

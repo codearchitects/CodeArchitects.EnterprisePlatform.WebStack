@@ -9,7 +9,16 @@ $sidebar-item-icon-font-size: var(--sidebar-item-icon-font-size, calc(#{$sidebar
 $sidebar-item-caption-recess: var(--sidebar-item-caption-recess, 10px);
 $sidebar-item-active-marker-width: var(--sidebar-item-active-marker-width, 7px);
 $sidebar-item-active-marker-background: var(--sidebar-item-active-marker-background, var(--sh-tertiary));
-$sidebar-item-color: var(--sidebar-item-color, $sh-diamond-white);
+// Reverted to the original $sh-light-gray: sh-sidebar-item renders on FOUR
+// different backgrounds depending on where its parent sh-sidebar places it
+// (top-level odd/even rows: $sh-sea-black / $sh-submarine-gray — dark; child
+// odd/even rows: $sh-gray / $sh-cool-gray — light), via sh-sidebar's own
+// ::ng-deep rules. No single flat colour clears 4.5:1 against all four; a
+// light default (tried during the contrast pass) looked right against the
+// dark rows but was nearly invisible against the light child rows in real
+// use. $sh-light-gray is a deliberate, imperfect compromise — see
+// ACCESSIBILITY.md §6.
+$sidebar-item-color: var(--sidebar-item-color, $sh-light-gray);
 $sidebar-item-active-color: var(--sidebar-item-active-color, $sh-white);
 $sidebar-item-active-background-color: var(--sidebar-item-active-background-color, var(--sh-first));
 $sidebar-child-item-active-background-color: var(--sidebar-child-item-active-background-color, $sh-granite);
