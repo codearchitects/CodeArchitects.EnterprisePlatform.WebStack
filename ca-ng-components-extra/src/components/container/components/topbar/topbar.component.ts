@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  Input,
   NgZone,
   OnDestroy,
   OnInit,
@@ -36,6 +37,12 @@ import { CaepTopbarService } from '../../services';
 })
 export class CaepTopbarComponent implements OnInit, OnDestroy, AfterViewChecked {
   //#region View
+  /**
+   * Optional accessible name for the header `banner` landmark. Set this when the
+   * page renders more than one landmark of the same type, so assistive technology
+   * can tell them apart. Leave unset for the common single-header case.
+   */
+  @Input() ariaLabel?: string;
   protected items: ICaepTopbarItem[] = [];
   protected allItems: ICaepTopbarItem[] = [];
   protected checkItemsFit: boolean;

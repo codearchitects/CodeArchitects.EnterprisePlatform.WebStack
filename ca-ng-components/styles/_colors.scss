@@ -99,6 +99,13 @@ $sh-medical-green: #20A392;
 $sh-classic-green: #195629;
 $sh-grass-green: #006638;
 
+// WCAG 1.4.3 (contrast) text tokens — AA-compliant (>=4.5:1) darker variants of
+// the brand neutrals/primary, used only where the colour is TEXT (fills/borders
+// keep the original brand values). See ACCESSIBILITY.md §6.
+$sh-text-gray: #6C6B6B;       // was $sh-light-gray (#8C8B8B, 3.40:1) — 4.54:1 on white
+$sh-primary-text: #0F7EB1;    // darker $sh-azure for text (was 3.12:1) — 4.53:1 on white
+$sh-warning-text: #A16A00;    // darker $sh-mandarin for warning text — 4.59:1 on white
+
 @function color-opacity($color, $opacity) {
   @return rgba($color, $opacity);
 }

@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="change-tracker/Docs" />
+
+# ca-change-tracker
+
+> `@ca-webstack/change-tracker` — Change tracking utilities for Self-Tracking Entities.
+
+## Overview
+
+This library provides a framework-agnostic change tracking system for entities, inspired by the Self-Tracking Entities pattern. It allows you to monitor property changes, track collection mutations, and manage entity lifecycle states (`unchanged`, `added`, `modified`, `deleted`).
+
+## Installation
+
+```bash
+npm install @ca-webstack/change-tracker
+```
+
+### Peer Dependencies
+
+- `@ca-webstack/data-structures`
+- `@ca-webstack/reflection`
+- `rxjs`
+- `lodash`
+
+## Quick Start
+
+```typescript
+import {
+  ObjectChangeTracker,
+  ObjectState,
+  IObjectWithChangeTracker,
+  ObjectWithChangeTrackerExtensions
+} from '@ca-webstack/change-tracker';
+
+// 1. Define an entity that implements IObjectWithChangeTracker
+class MyEntity implements IObjectWithChangeTracker {
+  changeTracker = new ObjectChangeTracker();
+  private _name: string = '';
+
+  get name() { return this._name; }
+  set name(value: string) {
+    this.changeTracker.recordOriginalValue('name', this._name);
+    this._name = value;
+  }
+}
+
+// 2. Enable tracking and mutate
+const entity = new MyEntity();
+ObjectWithChangeTrackerExtensions.startTracking(entity);
+entity.name = 'Hello';
+// entity.changeTracker.state === ObjectState.modified
+
+// 3. Accept changes to reset the tracker
+entity.changeTracker.acceptChanges(entity);
+// entity.changeTracker.state === ObjectState.unchanged
+```
+
+## Key Concepts
+
+| Concept | Description |
+|---|---|
+| **ObjectState** | Enum with values `detached`, `unchanged`, `added`, `modified`, `deleted`. |
+| **ObjectChangeTracker** | Core class that records original values, collection additions/removals, and manages state transitions. |
+| **IObjectWithChangeTracker** | Interface that entities must implement (exposes a `changeTracker` property). |
+| **ObjectWithChangeTrackerExtensions** | Static helpers: `markAsAdded`, `markAsDeleted`, `markAsModified`, `markAsUnchanged`, `startTracking`, `stopTracking`, `enableChangeTracking`, `disableChangeTracking`. |
+| **TrackableCollection\<T\>** | An `Array<T>` subclass that emits `collectionChanged` events via RxJS `Subject`. |
+| **TrackableCollectionFactory** | Creates proxied `TrackableCollection` instances that automatically fire change events on `push`, `splice`, and index assignment. |
+
+## More Documentation
+
+[Full API documentation](https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/blob/master/ca-change-tracker/docs/index.md)

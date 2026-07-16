@@ -6,6 +6,9 @@
   flex-direction: column;
   z-index: 10;
   background-color: $app-header-background-color;
+  // Projected content (logo, actions, …) inherits a readable default text
+  // colour instead of the browser's black default (WCAG 1.4.3).
+  color: $app-header-color;
   .header {
     padding: 0;
   }

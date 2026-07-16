@@ -17,7 +17,7 @@ $button-border: var(--button-border, none);
 $button-font-family: var(--button-font-family, RobotoLight);
 $button-disabled-icon-opacity: var(--button-disabled-icon-opacity, 0.5);
 
-$button-primary-background-color: var(--button-primary-background-color, var(--sh-first));
+$button-primary-background-color: var(--button-primary-background-color, var(--sh-first-text));
 $button-primary-hover-background-color: var(--button-primary-hover-background-color, var(--sh-quinary));
 $button-primary-active-background-color: var(--button-primary-active-background-color, var(--sh-senary));
 $button-primary-focus-shadow-color: var(--button-primary-focus-shadow-color, var(--sh-octonary));
@@ -27,12 +27,12 @@ $button-primary-hover-color: var(--button-primary-hover-color, $sh-white);
 $button-primary-active-color: var(--button-primary-active-color, $sh-white);
 $button-primary-disabled-color: var(--button-primary-disabled-color, $sh-white);
 
-$button-primary-transparent-color: var(--button-primary-transparent-color, var(--sh-first));
+$button-primary-transparent-color: var(--button-primary-transparent-color, var(--sh-first-text));
 $button-primary-transparent-hover-color: var(--button-primary-transparent-hover-color, var(--sh-senary));
 $button-primary-transparent-active-color: var(--button-primary-transparent-active-color, var(--sh-nonary));
 $button-primary-transparent-disabled-color: var(--button-primary-transparent-disabled-color, var(--sh-secondary));
 
-$button-primary-outline-color: var(--button-primary-outline-color, var(--sh-first));
+$button-primary-outline-color: var(--button-primary-outline-color, var(--sh-first-text));
 $button-primary-outline-hover-color: var(--button-primary-outline-hover-color, var(--sh-senary));
 $button-primary-outline-active-color: var(--button-primary-outline-active-color, var(--sh-nonary));
 $button-primary-outline-disabled-color: var(--button-primary-outline-disabled-color, var(--sh-secondary));

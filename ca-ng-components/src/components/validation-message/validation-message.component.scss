@@ -5,7 +5,7 @@
 $validation-message-font-size: v(validation-message-font-size, 12px);
 $validation-message-font-family: var(--validation-message-font-family, RobotoBold);
 $validation-message-error-color: var(--validation-message-error-color, $sh-red);
-$validation-message-warning-color: var(--validation-message-warning-color, $sh-mandarin);
+$validation-message-warning-color: var(--validation-message-warning-color, $sh-warning-text);
 
 p {
   font-family: $validation-message-font-family;

@@ -1,6 +1,7 @@
 @use '../../../styles/colors' as *;
 @use '../../../styles/common' as *;
 @use '../../../styles/attributes';
+@use '../../../styles/a11y' as a11y;
 
 $toggle-width: var(--toggle-width, 44px);
 $toggle-height: var(--toggle-height, 24px);
@@ -22,7 +23,7 @@ $toggle-checked-hover-background-color: var(--toggle-checked-hover-background-co
 $toggle-on-right-distance: var(--toggle-on-right-distance, 5px);
 $toggle-off-right-distance: var(--toggle-off-right-distance, 20px);
 $toggle-label-font-size: var(--toggle-label-font-size, 18px);
-$toggle-label-color: var(--toggle-label-color, $sh-light-gray);
+$toggle-label-color: var(--toggle-label-color, $sh-text-gray);
 $toggle-label-distance: var(--toggle-label-distance, 10px);
 $toggle-recess: var(--toggle-recess, 10px);
 
@@ -40,6 +41,13 @@ $toggle-recess: var(--toggle-recess, 10px);
   &,
   * {
     outline: none;
+  }
+
+  // Keyboard focus indicator (WCAG 2.4.7 / 2.4.11). The rule above removes the
+  // default outline; restore a clearly visible ring for keyboard users only,
+  // preserving the existing mouse/hover styling.
+  &:focus-visible {
+    @include a11y.sh-focus-ring($offset: $toggle-focused-offset);
   }
 
   label {

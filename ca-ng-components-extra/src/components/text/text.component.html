@@ -3,11 +3,16 @@
     @if (label) {
       <label [attr.for]="id" class="caep-label">{{label | translateMstring | async}}</label>
     }
+    <!-- mouse-convenience target that delegates focus to the inner input (itself keyboard-operable); tabindex=-1 keeps it out of the tab order -->
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
     <section class="caep-input-control-container" tabIndex="-1" (click)="onContainerClick($event)">
       <input #controlRef [attr.autofocus]="autofocus || null" [id]="id" [formControl]="formControl" autocomplete="off"
         [attr.tabindex]="tabindex" [style.maxWidth]="width" [style.height]="height"
         [attr.maxlength]="options.maxLength || null" [attr.readonly]="options.isReadonly ? true : null"
         [class]="options.inputClass" class="caep-input" [attr.type]="options.type"
+        [attr.aria-label]="(!label && ariaLabel) ? (ariaLabel | translateMstring | async) : null"
+        [attr.aria-required]="isRequired"
+        [attr.aria-invalid]="(formControl.invalid && formControl.touched) ? true : null"
         [placeholder]="options.placeholder | translateMstring | async">
       <i class="caep-input-icon icon-{{options.icon}}"></i>
     </section>

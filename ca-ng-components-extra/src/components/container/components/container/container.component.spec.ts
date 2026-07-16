@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { provideZoneChangeDetection } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { CaepContainerModule } from '../../container.module';
 import { CaepContainerComponent } from './container.component';
 
@@ -10,7 +11,7 @@ describe('CaepContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CaepContainerModule.forRoot({ stackFrameFactory: null, taskSlotFactory: null })],
+      imports: [CaepContainerModule.forRoot({ stackFrameFactory: null, taskSlotFactory: null }), TranslateModule.forRoot()],
       providers: [provideZoneChangeDetection()]
     }).compileComponents();
 

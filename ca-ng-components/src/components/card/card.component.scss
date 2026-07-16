@@ -1,4 +1,5 @@
 @use '../../../styles/colors' as *;
+@use '../../../styles/a11y' as *;
 
 $card-toolbar-height: var(--card-toolbar-height, 60px);
 $card-box-shadow: var(--card-box-shadow, $sh-gray 0 0 10px 0px);
@@ -21,7 +22,7 @@ $card-toolbar-commands-recess: var(--card-toolbar-commands-recess, $card-toolbar
 $card-toolbar-commands-right-recess: var(--card-toolbar-commands-right-recess, $card-right-recess);
 $card-toolbar-command-width: var(--card-toolbar-command-width, $card-toolbar-command-size);
 $card-toolbar-command-height: var(--card-toolbar-command-height, $card-toolbar-command-width);
-$card-title-color: var(--card-title-color, $sh-iron-gray);
+$card-title-color: var(--card-title-color, $sh-sea-black);
 $card-title-recess: var(--card-title-recess, $card-toolbar-recess);
 $card-toolbar-tab-font-size: var(--card-toolbar-tab-font-size, 15px);
 $card-toolbar-tab-border-width: var(--card-toolbar-tab-border-width, 3px);
@@ -83,6 +84,10 @@ $card-footer-right-recess: var(--card-footer-right-recess, $card-right-recess);
           &:not(:last-of-type) {
             padding-right: $card-toolbar-commands-distance;
           }
+        }
+
+        sh-icon[role='button']:focus-visible {
+          @include sh-focus-ring;
         }
 
         sh-commands-bar>* {

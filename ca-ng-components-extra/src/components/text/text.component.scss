@@ -1,3 +1,17 @@
 @use "../../../styles" as *;
 
 @include input();
+
+// Keyboard focus indicator (WCAG 2.4.7): the shared input mixin removes the
+// native outline via `.caep-input-component .caep-input-container
+// .caep-input-control-container .caep-input { outline: none; }` (specificity
+// 0,4,0). Match that chain (host `caep-text` also carries `caep-input-component`)
+// plus `:focus-visible` for specificity 0,5,1 so the outline actually wins and
+// paints on keyboard focus. No !important needed.
+caep-text.caep-input-component
+  .caep-input-container
+  .caep-input-control-container
+  .caep-input:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}

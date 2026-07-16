@@ -1,10 +1,11 @@
 @use '../../../styles/colors' as *;
 @use '../../../styles/common' as *;
+@use '../../../styles/a11y' as *;
 
 $checkbox-size: var(--checkbox-size, 19px);
 $checkbox-label-font-size: var(--checkbox-label-font-size, 18px);
 $checkbox-label-distance: var(--checkbox-label-distance, $inline-control-label-distance);
-$checkbox-label-color: var(--checkbox-label-color, $sh-light-gray);
+$checkbox-label-color: var(--checkbox-label-color, $sh-text-gray);
 $checkbox-checked-label-color: var(--checkbox-checked-label-color, $sh-sea-black);
 $check-top-recess: var(--checkbox-check-top-recess, 6px);
 $check-left-recess: var(--checkbox-check-left-recess, calc(#{$check-top-recess} - 1px));
@@ -67,9 +68,18 @@ $checkbox-checked-hover-border-color: var(--checkbox-checked-hover-border-color,
     vertical-align: top;
   }
 
+  // The native input is the single focusable control and is exposed to
+  // assistive technology (it must NOT be `display:none`, which would remove it
+  // from the accessibility tree and make it unfocusable). It is visually hidden
+  // instead; the custom visual box is drawn by the adjacent <label>.
   input {
-    display: none;
+    @include sh-visually-hidden;
     pointer-events: none;
+
+    // Keyboard focus indicator rendered on the visual box (WCAG 2.4.7 / 2.4.11).
+    &:focus-visible+label {
+      @include sh-focus-ring;
+    }
 
     &:checked+label {
       background-color: $checkbox-checked-background-color;

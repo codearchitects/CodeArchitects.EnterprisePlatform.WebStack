@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { A11yModule } from '@angular/cdk/a11y';
 import { I18nModule } from '@ca-webstack/ng-i18n';
 import { PolicyEngineModule } from '@ca-webstack/ng-policy-engine';
 import { AngularMyDatePickerModule } from '@nodro7/angular-mydatepicker';
@@ -76,6 +77,7 @@ import { ShTranslateModule } from '../i18n/translate.module';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    A11yModule,
     PolicyEngineModule,
     ClickOutsideModule,
     ShServicesModule,

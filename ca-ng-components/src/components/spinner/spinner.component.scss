@@ -55,6 +55,15 @@ $spinner-overlay-background-color: var(--spinner-overlay-background-color, $sh-o
       }
     }
 
+    // Respect users who prefer reduced motion: stop the decorative
+    // animation. The role="status" text still conveys the loading state.
+    @media (prefers-reduced-motion: reduce) {
+      svg,
+      svg .path {
+        animation: none;
+      }
+    }
+
     @keyframes rotate {
       100% {
         transform: rotate(360deg);

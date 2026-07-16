@@ -12,6 +12,8 @@
       [attr.readonly]="internalOptions.isReadonly ? true : null"
       [class.floating-placeholder]="placeholder && !formControl?.value" [class.sh-populated]="!!formControl.value"
       [formControl]="formControl" [leadZeroDateTime]="internalOptions.leadZeroDateTime"
+      [attr.aria-invalid]="formControl.invalid && formControl.touched ? true : null"
+      [attr.aria-describedby]="formControl.invalid && formControl.touched ? internalOptions.id + '-error' : null"
       [hiddenInput]="internalOptions.hiddenInput" />
     @if (placeholder) {
       <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder |

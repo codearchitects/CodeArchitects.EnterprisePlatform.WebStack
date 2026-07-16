@@ -19,6 +19,8 @@ $header-content-right-recess: var(--header-content-right-recess, $bar-recess);
   right: 0;
   height: $header-height;
   background: $header-background;
+  // Dark header bar → light default text for projected content (WCAG 1.4.3).
+  color: var(--header-color, #{$sh-mist});
   transition: $bars-transition-speed left;
   z-index: 999;
 

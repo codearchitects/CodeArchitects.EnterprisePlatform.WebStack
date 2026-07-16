@@ -1,17 +1,29 @@
 @if (show && formControl) {
   <div #controlRef [id]="internalOptions.id" [class]="containerClass" [class.radio-group]="true"
+    role="radiogroup" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy"
+    [attr.aria-describedby]="ariaDescribedBy" [attr.aria-readonly]="internalOptions.isReadonly ? true : null"
+    [attr.aria-disabled]="(formControl.disabled || !enable) ? true : null"
     [attr.autofocus]="internalOptions.autofocus || null" [attr.tabindex]="internalOptions.tabindex"
     (keydown)="onKey($event)">
-    @for (value of values; track value.id) {
+    @for (value of values; track value.id; let i = $index) {
       <div class="radio-group-item" [attr.inline]="internalOptions.isInline ? true : null">
-        <div class="radio" [class.current]="value.ref === formControl.value"
-          [class.disabled]="formControl.disabled || !enable">
+        <div class="radio" #radioOpt role="radio" [class.current]="value.ref === formControl.value"
+          [class.disabled]="formControl.disabled || !enable"
+          [attr.aria-checked]="value.ref === formControl.value"
+          [attr.aria-disabled]="(formControl.disabled || !enable) ? true : null"
+          [attr.aria-labelledby]="value.label ? value.id + '-label' : null"
+          [attr.aria-label]="optionAriaLabel(value)"
+          [attr.tabindex]="(formControl.disabled || !enable) ? null : (i === focusableIndex ? 0 : -1)"
+          (keydown)="onOptionKey($event, value)">
           <input [formControl]="formControl" [value]="value.ref" type="radio" [attr.id]="value.id" name="{{groupName}}"
-            [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
-          <label [attr.for]="value.id" [attr.untouchable]="internalOptions.isReadonly || null"></label>
+            [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable"
+            tabindex="-1" aria-hidden="true">
+          <label [attr.for]="value.id" [attr.untouchable]="internalOptions.isReadonly || null" aria-hidden="true"></label>
         </div>
         @if (value.label) {
-          <span [attr.for]="value.id" translate (click)="toggle(value)">{{value.label?.key ? (value.label | i18n) : (value.label | translate)}}</span>
+          <span [id]="value.id + '-label'" [attr.for]="value.id" translate tabindex="-1"
+            (click)="toggle(value)"
+            (keydown.enter)="toggle(value)" (keydown.space)="toggle(value); $event.preventDefault()">{{value.label?.key ? (value.label | i18n) : (value.label | translate)}}</span>
         }
       </div>
     }

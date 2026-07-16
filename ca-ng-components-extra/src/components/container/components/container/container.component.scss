@@ -5,6 +5,38 @@
   height: 100vh;
   overflow: hidden;
   box-sizing: border-box;
+  position: relative;
+}
+.container-skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  margin: 8px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: Canvas;
+  color: CanvasText;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+  transition: transform 0.2s ease;
+
+  &:focus {
+    transform: translateY(0);
+  }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+.content-container:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .container-skip-link {
+    transition: none;
+  }
 }
 .container-right {
   display: flex;

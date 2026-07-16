@@ -1,7 +1,7 @@
 @if (show) {
-  <div class="command" (click)="handle()" [class.disabled]="!enable">
+  <div class="command" [class.disabled]="!enable" [attr.aria-disabled]="!enable ? 'true' : null">
     @if (command.routerLink) {
-      <div class="routed-command" [routerLink]="command.routerLink">
+      <div class="routed-command">
         <ng-container *ngTemplateOutlet="commandDescriptor"></ng-container>
       </div>
     } @else {
@@ -9,7 +9,7 @@
     }
     <ng-template #commandDescriptor>
       @if (command.icon) {
-        <sh-icon [name]="command.icon"></sh-icon>
+        <sh-icon [name]="command.icon" aria-hidden="true"></sh-icon>
       }
       <div translate>
         {{command?.name}}

@@ -1,0 +1,9 @@
+/* Global styles for the Storybook host — loads the ng-components design system
+   (tokens, fonts, focus ring, reduced-motion, etc.) so components render as they
+   do in a real app. */
+@use "../ca-ng-components/styles/index.scss" as *;
+
+body {
+  margin: 0;
+  font-family: RobotoLight, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}

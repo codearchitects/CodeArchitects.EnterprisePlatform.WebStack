@@ -15,6 +15,9 @@
       [style.height]="height"
       [attr.maxlength]="options.maxLength || null"
       [attr.readonly]="options.isReadonly ? true : null"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.aria-invalid]="formControl.invalid && formControl.touched ? true : null"
+      [attr.aria-required]="isAriaRequired() ? true : null"
     />
     <ng-content select="[header]"></ng-content>
     <hr />

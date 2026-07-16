@@ -46,7 +46,7 @@ export class ShCheckgroupComponent<T, V>
    * @param e Keyboard event
    */
   /*protected*/ public onKey(id: string, e: KeyboardEvent) {
-    if (!this.internalOptions.isReadonly && this.enable !== false) {
+    if (!this.internalOptions.isReadonly && this.enable !== false && !this.formControl.disabled) {
       const keycode = e.keyCode || e.which;
       if (IN(keycode, KeyCode.ENTER, KeyCode.SPACE)) {
         this.toggle(id);
@@ -61,7 +61,7 @@ export class ShCheckgroupComponent<T, V>
    * @param id Identifier of value to toggle
    */
   /*protected*/ public toggle(id: string) {
-    if (!this.internalOptions.isReadonly && this.enable !== false) {
+    if (!this.internalOptions.isReadonly && this.enable !== false && !this.formControl.disabled) {
       const value = this.values.find(v => v.id === id);
       if (value) {
         const formControl = value.formControl;

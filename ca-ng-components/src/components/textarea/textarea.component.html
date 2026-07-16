@@ -1,6 +1,8 @@
 @if (show && formControl) {
   <div [class]="containerClass" relative>
     <textarea #controlRef [id]="internalOptions.id" [formControl]="formControl" [class]="inputClass"
+      [attr.aria-invalid]="formControl.invalid && formControl.touched ? true : null"
+      [attr.aria-describedby]="formControl.invalid && formControl.touched ? internalOptions.id + '-error' : null"
       [attr.rows]="internalOptions.rows" [attr.cols]="internalOptions.cols" [attr.tabindex]="internalOptions.tabindex"
       [attr.autofocus]="internalOptions.autofocus || null" [style.minWidth]="width" [style.minHeight]="height"
       [style.maxWidth]="width" [style.maxHeight]="height" [attr.maxlength]="internalOptions.maxLength || null"

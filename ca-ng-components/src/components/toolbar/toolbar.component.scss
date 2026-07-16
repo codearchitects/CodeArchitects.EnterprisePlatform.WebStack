@@ -1,7 +1,7 @@
 @use '../../../styles/colors' as *;
 @use '../../../styles/common' as *;
 
-$toolbar-background: var(--toolbar-background, var(--sh-first));
+$toolbar-background: var(--toolbar-background, var(--sh-first-text));
 $toolbar-leeway-left-recess: var(--toolbar-leeway-left-recess, $bar-recess);
 $toolbar-back-button-font-size: var(--toolbar-back-button-font-size, 20px);
 $toolbar-back-button-left-recess: var(--toolbar-back-button-left-recess, 8px);

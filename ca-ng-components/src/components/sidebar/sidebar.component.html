@@ -1,15 +1,22 @@
 <div>
-  <div class="toggler" (click)="isExpandedChange.emit(isExpanded = !isExpanded)">
+  <div class="toggler" role="button" tabindex="0"
+    [attr.aria-label]="(isExpanded ? 'collapse-menu' : 'expand-menu') | translate"
+    [attr.aria-expanded]="isExpanded" aria-controls="sidebar"
+    (click)="isExpandedChange.emit(isExpanded = !isExpanded)"
+    (keydown.enter)="isExpandedChange.emit(isExpanded = !isExpanded)"
+    (keydown.space)="$event.preventDefault(); isExpandedChange.emit(isExpanded = !isExpanded)">
     <sh-icon full-centered [name]="togglerIcon"></sh-icon>
   </div>
   <div class="logo-container" [class.expanded]="isExpanded">
     @if (logo) {
       <div class="logo" full-centered>
-        <img src="assets/{{logo}}">
+        <img src="assets/{{logo}}" alt="{{'logo' | translate}}">
       </div>
     }
   </div>
-  <div id="sidebar" [class.expanded]="isExpanded">
+  <div id="sidebar" role="navigation" [class.expanded]="isExpanded"
+    [attr.aria-labelledby]="ariaLabelledBy"
+    [attr.aria-label]="ariaLabelledBy ? null : (ariaLabel || ('navigation' | translate))">
     @if (commands) {
       @for (command of commands; track command.id) {
         <sh-sidebar-item [model]="command" [resource]="command.resource"

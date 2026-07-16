@@ -8,7 +8,13 @@ import { CAEP_SIDEBAR_SEARCH_DEFAULT_ICON } from '../../utilities/common.utility
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+    standalone: false,
+    host: {
+        'role': 'banner',
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.aria-describedby]': 'ariaDescribedBy'
+    }
 })
 export class ShHeaderComponent extends ShBaseAuthComponent<IShBaseOptions> {
   /**

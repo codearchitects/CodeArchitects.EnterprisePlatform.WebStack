@@ -1,6 +1,7 @@
 @use '../../../styles/colors' as *;
 @use '../../../styles/common' as *;
 @use '../../../styles/mixins' as *;
+@use '../../../styles/a11y' as *;
 
 $sidebar-item-caption-font-size: var(--sidebar-item-caption-font-size, 15px);
 $children-icon-recess: 15px;
@@ -8,6 +9,15 @@ $sidebar-item-icon-font-size: var(--sidebar-item-icon-font-size, calc(#{$sidebar
 $sidebar-item-caption-recess: var(--sidebar-item-caption-recess, 10px);
 $sidebar-item-active-marker-width: var(--sidebar-item-active-marker-width, 7px);
 $sidebar-item-active-marker-background: var(--sidebar-item-active-marker-background, var(--sh-tertiary));
+// Reverted to the original $sh-light-gray: sh-sidebar-item renders on FOUR
+// different backgrounds depending on where its parent sh-sidebar places it
+// (top-level odd/even rows: $sh-sea-black / $sh-submarine-gray — dark; child
+// odd/even rows: $sh-gray / $sh-cool-gray — light), via sh-sidebar's own
+// ::ng-deep rules. No single flat colour clears 4.5:1 against all four; a
+// light default (tried during the contrast pass) looked right against the
+// dark rows but was nearly invisible against the light child rows in real
+// use. $sh-light-gray is a deliberate, imperfect compromise — see
+// ACCESSIBILITY.md §6.
 $sidebar-item-color: var(--sidebar-item-color, $sh-light-gray);
 $sidebar-item-active-color: var(--sidebar-item-active-color, $sh-white);
 $sidebar-item-active-background-color: var(--sidebar-item-active-background-color, var(--sh-first));
@@ -35,6 +45,27 @@ $sidebar-child-item-icon-active-background-color: var(--sidebar-child-item-icon-
     user-select: none;
     color: $sidebar-item-color;
     outline: none;
+
+    // Restore a visible focus ring for the keyboard-operable link / expand
+    // controls, since `:host * { outline: none }` above suppresses the global one.
+    [role='link'],
+    .children-overlay {
+      &:focus-visible {
+        @include sh-focus-ring($offset: calc(-1 * #{$sh-focus-ring-width}));
+      }
+    }
+
+    // Keep the asserted aria-disabled state consistent with behavior: a
+    // disabled item is announced disabled and must not be operable by mouse.
+    // Keyboard activation is guarded in the component handlers.
+    &.disabled {
+      cursor: default;
+
+      [role='link'],
+      .children-overlay {
+        pointer-events: none;
+      }
+    }
 
     &>.active {
       color: $sidebar-item-active-color;

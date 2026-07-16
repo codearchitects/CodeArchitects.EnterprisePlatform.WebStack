@@ -1,5 +1,9 @@
 @if (show && formGroup) {
-  <div [formGroup]="formGroup">
+  <div [formGroup]="formGroup"
+    role="group"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledBy"
+    [attr.aria-describedby]="ariaDescribedBy">
     <ng-content></ng-content>
     <sh-validation-message [model]="model" [parent]="parent" [prop]="prop" [options]="internalOptions" [enable]="enable" [show]="show"></sh-validation-message>
   </div>

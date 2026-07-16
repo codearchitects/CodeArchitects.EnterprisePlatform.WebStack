@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, ViewEncapsulation } from '@angular/core';
 import { CaepSidePanelService } from './service/caep-side-panel.service';
 
 @Component({
@@ -10,6 +10,16 @@ import { CaepSidePanelService } from './service/caep-side-panel.service';
     standalone: false
 })
 export class CaepSidePanelComponent {
+  /**
+   * Accessible name for the side panel dialog. Exposed as the `aria-label` of the
+   * `role="dialog"` overlay so the panel has a programmatic name (WCAG 4.1.2).
+   * Pass an already-localized string.
+   */
+  @Input() public ariaLabel = 'Side panel';
+  /**
+   * Accessible name for the close button. Pass an already-localized string.
+   */
+  @Input() public closeAriaLabel = 'Close';
   /** Template in side panel content */
   public get template() {
     return this._caepSidePanel.template;

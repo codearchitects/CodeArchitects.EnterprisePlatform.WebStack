@@ -3,21 +3,35 @@
     title="{{model.title | translate}}">
     <ng-template #commandTemplate>
       <div class="command-icon">
-        <sh-icon full-centered [name]="model.icon"></sh-icon>
+        <sh-icon full-centered aria-hidden="true" [name]="model.icon"></sh-icon>
       </div>
       <div class="command-caption">{{model.title | translate}}</div>
     </ng-template>
     @if (model.routerLink) {
-      <div [routerLink]="model.routerLink" routerLinkActive="active">
+      <div [routerLink]="model.routerLink" routerLinkActive="active" #rla="routerLinkActive"
+        role="link" tabindex="0"
+        [attr.aria-label]="ariaLabel ?? (model.title | translate)"
+        [attr.aria-current]="rla.isActive ? 'page' : null"
+        [attr.aria-disabled]="!enable ? true : null"
+        (keydown.enter)="onLinkKeydown($event)">
         <ng-container *ngTemplateOutlet="commandTemplate"></ng-container>
       </div>
     } @else {
       <div routerLinkActive="active" [class.parent]="model.children?.length">
         <ng-container *ngTemplateOutlet="commandTemplate"></ng-container>
         @if (model.children?.length) {
-          <div class="children-overlay" (click)="toggleChildren.emit()">
+          <div class="children-overlay" role="button" tabindex="0"
+            [attr.aria-label]="ariaLabel ?? (model.title | translate)"
+            [attr.aria-expanded]="areChildrenShown"
+            [attr.aria-controls]="id + '-children'"
+            [attr.aria-disabled]="!enable ? true : null"
+            (click)="onToggleClick()"
+            (keydown.enter)="onToggleKeydown($event)"
+            (keydown.space)="onToggleKeydown($event)">
           </div>
-          <div hidden class="children" [class.expanded-children]="areChildrenShown">
+          <div [hidden]="!areChildrenShown" class="children" [id]="id + '-children'" role="group"
+            [attr.aria-label]="ariaLabel ?? (model.title | translate)"
+            [class.expanded-children]="areChildrenShown">
             @for (child of model.children; track child.id) {
               <div class="child" [routerLink]="child.routerLink" routerLinkActive="active">
                 <sh-sidebar-item [model]="child" [resource]="child.resource"></sh-sidebar-item>

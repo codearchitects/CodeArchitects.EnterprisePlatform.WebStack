@@ -1,5 +1,7 @@
-<div class="spinner" [class.inline-spinner]="isInline">
-  <svg viewBox="25 25 50 50">
+<div class="spinner" [class.inline-spinner]="isInline" role="status"
+  [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-describedby]="ariaDescribedBy">
+  <svg viewBox="25 25 50 50" aria-hidden="true" focusable="false">
     <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
   </svg>
+  <span class="sh-visually-hidden" translate>Loading</span>
 </div>

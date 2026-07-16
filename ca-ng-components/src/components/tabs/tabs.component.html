@@ -1,9 +1,13 @@
 @if (model?.length) {
-  <div class="tabs" [class.left-aligned]="isLeftAligned">
-    @for (tab of model; track tab) {
+  <div class="tabs" [class.left-aligned]="isLeftAligned" role="tablist"
+    [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+    @for (tab of model; track tab; let i = $index) {
       @if (!tab.isHidden) {
-        <div class="tab" [attr.id]="tab.id" [class.current]="tab.isCurrent" [class.disabled]="tab.isDisabled"
-          (click)="select(tab)" (keyup.enter)="!tab.isDisabled && select(tab)" tabindex="0">
+        <div #tabHeader class="tab" [attr.id]="tabDomId(tab, i)" [class.current]="tab.isCurrent"
+          [class.disabled]="tab.isDisabled" role="tab" [attr.aria-selected]="tab.isCurrent ? true : false"
+          [attr.aria-controls]="(template && current) ? panelId : null" [attr.aria-disabled]="tab.isDisabled ? true : null"
+          [attr.tabindex]="tabDomId(tab, i) === focusableTabDomId ? 0 : -1"
+          (click)="select(tab)" (focus)="onTabHeaderFocus(tab)" (keydown)="onTabKeydown($event, tab)">
           <span class="tab-title">{{tab.title | translate}}</span>
         </div>
       }
@@ -11,7 +15,8 @@
   </div>
 }
 @if (template && current) {
-  <div class="tab-content" [class.absolute-content]="hasAbsoluteContent">
+  <div class="tab-content" [class.absolute-content]="hasAbsoluteContent" role="tabpanel"
+    [attr.id]="panelId" [attr.aria-labelledby]="currentTabDomId" tabindex="0">
     <ng-container *ngTemplateOutlet="template; context: templateContext"></ng-container>
   </div>
 }

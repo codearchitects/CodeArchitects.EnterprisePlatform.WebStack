@@ -1,16 +1,28 @@
 @if (show && formControl) {
   <div [id]="internalOptions.id" [class]="containerClass" [class.checkgroup]="true"
-    [attr.autofocus]="internalOptions.autofocus || null" #controlRef>
+    [attr.autofocus]="internalOptions.autofocus || null" role="group"
+    [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy"
+    [attr.aria-describedby]="ariaDescribedBy" #controlRef>
     @for (value of values; track value.id) {
       <div [attr.inline]="internalOptions.isInline ? true : null">
         <div class="checkbox" [attr.tabindex]="internalOptions.tabindex" (keydown)="onKey(value.id,$event)"
+          role="checkbox" [attr.aria-checked]="!!value.formControl.value"
+          [attr.aria-labelledby]="value.label ? (value.id + '-label') : null"
+          [attr.aria-label]="value.label ? null : value.id"
+          [attr.aria-disabled]="(formControl.disabled || !enable) ? true : null"
+          [attr.aria-readonly]="internalOptions.isReadonly ? true : null"
           [class.disabled]="formControl.disabled || !enable" [class.checked]="!!value.formControl.value">
-          <input [formControl]="value.formControl" type="checkbox" [attr.id]="value.id"
+          <input [formControl]="value.formControl" type="checkbox" [attr.id]="value.id" tabindex="-1"
+            aria-hidden="true" hidden
             [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
-          <label (click)="toggle(value.id)"></label>
+          <!-- decorative styled checkbox box, hidden from AT; the accessible control is the sibling role="checkbox" element -->
+          <!-- eslint-disable-next-line @angular-eslint/template/label-has-associated-control -->
+          <label aria-hidden="true" (click)="toggle(value.id)"></label>
         </div>
         @if (value.label) {
-          <span [attr.for]="value.id" (click)="toggle(value.id)" translate>{{value.label?.key ? (value.label | i18n) : (value.label | translate)}}</span>
+          <!-- visible label referenced via aria-labelledby by the role="checkbox"; click is a convenience mirror of the keyboard-operable checkbox -->
+          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+          <span [id]="value.id + '-label'" (click)="toggle(value.id)" translate>{{value.label?.key ? (value.label | i18n) : (value.label | translate)}}</span>
         }
       </div>
     }

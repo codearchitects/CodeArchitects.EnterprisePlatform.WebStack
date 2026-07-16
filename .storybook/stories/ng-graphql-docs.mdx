@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="ng-graphql/Docs" />
+
+# ca-ng-graphql
+
+> `@ca-webstack/ng-graphql` — Angular GraphQL service with typed query/mutation composition and Apollo integration.
+
+## Overview
+
+Provides `ShGraphQLService` for executing GraphQL queries and mutations via Apollo Client, with automatic serialization/deserialization through `@ca-webstack/reflection`. Includes a `GraphQL` namespace with helper functions for composing typed query and mutation strings programmatically.
+
+## Installation
+
+```bash
+npm install @ca-webstack/ng-graphql
+```
+
+### Peer Dependencies
+
+- `@angular/common`, `@angular/core` ~21.2.0
+- `@ca-webstack/data-structures`, `@ca-webstack/ng-serializer`, `@ca-webstack/reflection` ~21.1.0
+
+### Dependencies
+
+- `apollo-angular`
+- `@apollo/client`
+- `graphql`
+
+## Quick Start
+
+```typescript
+import { ShGraphQLModule } from '@ca-webstack/ng-graphql';
+
+@NgModule({
+  imports: [ShGraphQLModule.forRoot({ hostUrl: 'https://api.example.com/graphql' })]
+})
+export class AppModule { }
+
+// In a service:
+constructor(private graphql: ShGraphQLService) { }
+
+getCustomers() {
+  return this.graphql.query('customers/v2', 'Customers', {}, ['id', 'name', 'email']);
+}
+```
+
+## Key Exports
+
+| Symbol | Description |
+|---|---|
+| `ShGraphQLModule` | NgModule with `forRoot()` / `forChild()` static config. |
+| `ShGraphQLService` | Injectable service: `query()`, `mutation()`. |
+| `GraphQL` namespace | Query/mutation build: `buildQuery()`, `buildMutation()`. |
+| `GRAPHQL_HOST_URL` | Injection token for the GraphQL endpoint URL. |
+| `GRAPHQL_RUNTIMETYPE` | Injection token to enable runtime type resolution. |

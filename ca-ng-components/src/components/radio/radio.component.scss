@@ -1,9 +1,13 @@
 @use '../../../styles/colors' as *;
+@use '../../../styles/a11y' as *;
 
 $radio-size: var(--radio-size, 19px);
 $radio-label-font-size: var(--radio-label-font-size, 18px);
 $radio-label-distance: var(--radio-label-distance, 10px);
-$radio-label-color: var(--radio-label-color, $sh-light-gray);
+// Default resting label color darkened from $sh-light-gray (#8C8B8B, ~3.4:1 on a
+// white host) to #6E6E6E (~5.1:1) so unselected label text meets WCAG 1.4.3 AA
+// (>=4.5:1). Consumers can still override via the --radio-label-color CSS var.
+$radio-label-color: var(--radio-label-color, #6E6E6E);
 $radio-label-vertical-align: var(--radio-label-vertical-align, top);
 $radio-label-disabled-color: var(--radio-label-disabled-color, $sh-light-gray);
 $radio-label-checked-color: var(--radio-label-checked-color, $sh-sea-black);
@@ -68,6 +72,15 @@ $radio-group-focus-border-image: var(--radio-group-focus-border-image, linear-gr
     user-select: none;
     margin-right: $radio-text-distance;
     display: inline-block;
+
+    // Visible keyboard focus for the role="radio" element (WCAG 2.4.7/2.4.11).
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      @include sh-focus-ring;
+    }
 
     label {
       display: block;

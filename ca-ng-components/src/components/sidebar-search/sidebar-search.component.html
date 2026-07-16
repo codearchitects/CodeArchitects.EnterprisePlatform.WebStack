@@ -1,5 +1,9 @@
-@if (combo) {
-  <sh-combo [model]="this" prop="value" [options]="combo" (valueChanges)="onChange($event)">
-  </sh-combo>
-}
-<sh-icon [name]="icon"></sh-icon>
+<div role="search"
+  [attr.aria-labelledby]="ariaLabelledBy"
+  [attr.aria-label]="ariaLabelledBy ? null : (ariaLabel || ('search' | translate))">
+  @if (combo) {
+    <sh-combo [model]="this" prop="value" [options]="combo" (valueChanges)="onChange($event)">
+    </sh-combo>
+  }
+  <sh-icon [name]="icon" aria-hidden="true"></sh-icon>
+</div>

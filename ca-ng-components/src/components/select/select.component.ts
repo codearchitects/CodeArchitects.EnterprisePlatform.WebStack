@@ -210,6 +210,58 @@ export class ShSelectComponent<T, V, O extends IShSelectOptions<T, V>>
   }
 
   /**
+   * Keyboard handler bound on the combobox box itself. Complements the
+   * element-level {@link onKey} listener (which already covers Arrow keys,
+   * Enter, Escape and Delete/Backspace) by adding the APG combobox keys that
+   * were missing: Home/End jump to first/last option and Space toggles the
+   * dropdown open/closed. Focus stays on the combobox (active-descendant
+   * model); nothing here changes the committed value except through the
+   * existing methods.
+   * @param e The keyboard event
+   */
+  /*protected*/ public onComboboxKeydown(e: KeyboardEvent) {
+    if (!(this.values && this.enable && !this.internalOptions.isReadonly)) {
+      return;
+    }
+    const lastIndex = this.values.length - 1;
+    switch (e.key) {
+      case 'Home':
+        this.isOpened = true;
+        this.setActiveResult(0);
+        e.preventDefault();
+        break;
+      case 'End':
+        this.isOpened = true;
+        this.setActiveResult(lastIndex);
+        e.preventDefault();
+        break;
+      case ' ':
+      case 'Spacebar':
+        this.isOpened = !this.isOpened;
+        e.preventDefault();
+        break;
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Moves the active-descendant marker to the given option index (clamped to
+   * the available range) and scrolls it into view when the dropdown is
+   * rendered. Does not commit the value.
+   * @param index Target option index
+   */
+  /*protected*/ public setActiveResult(index: number) {
+    if (!this.values || !this.values.length) {
+      return;
+    }
+    this.activeResultIndex = Math.max(0, Math.min(index, this.values.length - 1));
+    if (this._dropdown && this._results) {
+      scrollTo(this._dropdown.nativeElement, this._results, this.activeResultIndex, true);
+    }
+  }
+
+  /**
    * Event fired when enter keyboard key is tapped or
    * item is selected with mouse click from dropdown
    */

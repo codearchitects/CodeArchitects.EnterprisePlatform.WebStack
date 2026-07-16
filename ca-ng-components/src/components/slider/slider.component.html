@@ -4,7 +4,10 @@
       [formControl]="formControl" [class]="inputClass" autocomplete="off" [attr.tabindex]="internalOptions.tabindex"
       [style.width]="width" [style.height]="height" [attr.min]="internalOptions.min || null"
       [attr.max]="internalOptions.max || null" [attr.step]="internalOptions.step || null" [class.with-icon]="!!icon"
-      [attr.readonly]="internalOptions.isReadonly ? true : null">
+      [attr.readonly]="internalOptions.isReadonly ? true : null"
+      [attr.aria-label]="placeholder ? null : ariaLabel"
+      [attr.aria-labelledby]="placeholder ? null : ariaLabelledBy"
+      [attr.aria-describedby]="ariaDescribedBy">
     @if (placeholder) {
       <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder) : (placeholder | translate)}}</label>
     }

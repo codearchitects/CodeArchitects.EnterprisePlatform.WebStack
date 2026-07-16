@@ -1,11 +1,20 @@
 @if (formControl && show) {
-  <div #controlRef class="toggle" [class.disabled]="!formControl.valid || !enable"
+  <div #controlRef class="toggle" role="switch" [class.disabled]="!formControl.valid || !enable"
     [class.readonly]="internalOptions.isReadonly" [attr.tabindex]="internalOptions.tabindex"
-    [attr.autofocus]="internalOptions.autofocus || null" (keydown)="onKey($event)" pointer (click)="toggle()">
+    [attr.autofocus]="internalOptions.autofocus || null"
+    [attr.aria-checked]="!!getControlValue()"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledBy ?? ((internalOptions.label && show) ? id + '-label' : null)"
+    [attr.aria-describedby]="ariaDescribedBy"
+    [attr.aria-disabled]="(!formControl.valid || !enable) ? true : null"
+    [attr.aria-readonly]="internalOptions.isReadonly ? true : null"
+    (keydown)="onKey($event)" pointer (click)="toggle()">
     <input [formControl]="formControl" type="checkbox" untouchable [attr.id]="internalOptions.id">
-    <label [attr.for]="internalOptions.id" untouchable></label>
+    <label [attr.for]="internalOptions.id" untouchable aria-hidden="true"></label>
   </div>
 }
 @if (internalOptions.label && show) {
-  <span (click)="toggle()" translate>{{internalOptions.label?.key ? (internalOptions.label | i18n) : (internalOptions.label | translate)}}</span>
+  <!-- external visible label; click is a convenience mirror of the keyboard-operable role="switch" control above -->
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
+  <span [attr.id]="id + '-label'" (click)="toggle()" translate>{{internalOptions.label?.key ? (internalOptions.label | i18n) : (internalOptions.label | translate)}}</span>
 }

@@ -1,6 +1,6 @@
-<header class="row header">
+<header class="row header" role="banner" [attr.aria-label]="ariaLabel || null">
   <div class="col-3 col-hd-12 col-hdmd-3 header-inner-start">
-    <div class="search-placeholder"></div>
+    <div class="search-placeholder" aria-hidden="true"></div>
     <ng-content select="[header-start]"></ng-content>
   </div>
   <section class="col header-inner-space">

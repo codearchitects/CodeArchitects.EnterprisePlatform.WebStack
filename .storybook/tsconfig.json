@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "../dist/out-tsc/storybook",
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "downlevelIteration": true,
+    "types": ["node"]
+  },
+  "include": [
+    "../ca-ng-components/src/**/*.ts",
+    "../ca-ng-components-extra/src/**/*.ts",
+    "./stories/**/*.ts",
+    "./*.ts"
+  ],
+  "exclude": [
+    "../ca-ng-components/**/*.spec.ts",
+    "../ca-ng-components-extra/**/*.spec.ts",
+    "../ca-ng-components/src/test.ts",
+    "../ca-ng-components-extra/**/tests/**"
+  ]
+}
