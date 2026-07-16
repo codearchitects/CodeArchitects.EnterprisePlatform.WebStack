@@ -79,7 +79,7 @@ jobs:
           app-id: ${{ secrets.CODEARCHITECTS_RELEASE_BOT_APP_ID }}
           private-key: ${{ secrets.CODEARCHITECTS_RELEASE_BOT_PRIVATE_KEY }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           # full history + GitHub App token to bypass branch protection rules
           fetch-depth: 0
