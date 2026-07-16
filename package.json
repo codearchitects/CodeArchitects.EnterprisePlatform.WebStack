@@ -45,7 +45,7 @@
     "http-server": "^14.1.1",
     "jest-util": "^30.4.1",
     "playwright": "^1.61.1",
-    "puppeteer": "^24.0.0",
+    "puppeteer": "^25.3.0",
     "storybook": "^10.5.0",
     "turbo": "^2.3.3"
   },
