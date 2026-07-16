@@ -41,7 +41,7 @@
     "@storybook/addon-a11y": "^10.5.0",
     "@storybook/addon-docs": "^10.5.0",
     "@storybook/angular": "^10.5.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.1.0",
     "http-server": "^14.1.1",
     "jest-util": "^30.4.1",
     "playwright": "^1.61.1",
