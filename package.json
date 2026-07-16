@@ -1,6 +1,6 @@
 {
   "name": "@ca-webstack/monorepo",
-  "version": "21.1.1",
+  "version": "21.2.0",
   "private": true,
   "description": "CodeArchitects Enterprise Platform WebStack - monorepo",
   "license": "Apache-2.0",
