@@ -9,6 +9,8 @@ const config: StorybookConfig = {
   stories: [
     '../ca-ng-components/src/**/*.stories.@(ts|mdx)',
     '../ca-ng-components-extra/src/**/*.stories.@(ts|mdx)',
+    './stories/**/*.stories.@(ts|mdx)',
+    './stories/**/*.mdx',
   ],
   addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: {

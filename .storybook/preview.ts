@@ -71,6 +71,33 @@ const preview: Preview = {
     controls: {
       matchers: { color: /(background|color)$/i, date: /Date$/i },
     },
+    options: {
+      storySort: (a, b) => {
+        const rankSidebarLeaf = (segment) => {
+          const normalized = segment.toLowerCase();
+          if (normalized === 'docs') return 0;
+          if (normalized === 'examples') return 1;
+          return 2;
+        };
+
+        const aParts = a.title.split('/');
+        const bParts = b.title.split('/');
+        const maxDepth = Math.max(aParts.length, bParts.length);
+
+        for (let index = 0; index < maxDepth; index++) {
+          const left = aParts[index] ?? '';
+          const right = bParts[index] ?? '';
+          if (left === right) continue;
+
+          if (index === 1) {
+            const rankDiff = rankSidebarLeaf(left) - rankSidebarLeaf(right);
+            if (rankDiff !== 0) return rankDiff;
+          }
+          return left.localeCompare(right);
+        }
+        return 0;
+      },
+    },
     a11y: {
       config: {
         runOnly: {

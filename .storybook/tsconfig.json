@@ -23,6 +23,7 @@
   "include": [
     "../ca-ng-components/src/**/*.ts",
     "../ca-ng-components-extra/src/**/*.ts",
+    "./stories/**/*.ts",
     "./*.ts"
   ],
   "exclude": [
