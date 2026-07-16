@@ -20,11 +20,11 @@ export interface IShRadioOptions<T, V> extends IShBaseLookupSingleOptions<T, V> 
   shortDescription: 'Radio Control'
 })
 @Component({
-    selector: 'sh-radio',
-    templateUrl: './radio.component.html',
-    styleUrls: ['./radio.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-radio',
+  templateUrl: './radio.component.html',
+  styleUrls: ['./radio.component.scss'],
+  changeDetection: shChangeDetectorStrategy(),
+  standalone: false
 })
 /**
  * Base Radio Component
@@ -50,7 +50,7 @@ export class ShRadioComponent<T, V>
     if (!this.values || this.values.length === 0) {
       return -1;
     }
-    const idx = this.values.findIndex(v => v.ref === this.formControl?.value);
+    const idx = this.values.findIndex(v => this.internalOptions.equalityFunc(this.formControl?.value, v.ref));
     return idx > -1 ? idx : 0;
   }
 
@@ -147,7 +147,7 @@ export class ShRadioComponent<T, V>
    * @param id Identifier of value to toggle
    */
   /*protected*/ public toggle(value: ILookupSingle<V>) {
-    if (!this.internalOptions.isReadonly && this.enable !== false){
+    if (!this.internalOptions.isReadonly && this.enable !== false) {
       this.setControlValue(value.ref);
       this.touch();
       this.markAsDirty();

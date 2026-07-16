@@ -22,6 +22,8 @@ $player-btn-offset: 1px;
       button {
         font-size: $timer-player-font-size;
         padding: $player-btn-v-recess $player-btn-h-recess;
+        min-width: 24px;
+        min-height: 24px;
       }
 
       &.stop,
