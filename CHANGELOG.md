@@ -48,3 +48,4 @@ All packages in the monorepo share a single version.
 - Continuous integration (build + test) and Dependabot configuration.
 
 [21.1.0]: https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/releases/tag/v21.1.0
+[21.2.0]: https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack/releases/tag/v21.2.0
