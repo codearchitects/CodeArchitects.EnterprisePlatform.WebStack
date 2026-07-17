@@ -6,9 +6,9 @@ name: CI
 
 on:
   push:
-    branches: [main, master, "version/8.x.x"]
+    branches: [main, master, "version/8"]
   pull_request:
-    branches: [main, master, "version/8.x.x"]
+    branches: [main, master, "version/8"]
 
 concurrency:
   group: ci-${{ github.ref }}
