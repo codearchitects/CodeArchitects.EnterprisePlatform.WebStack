@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import * as _ from 'lodash-es';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import * as _ from 'lodash';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { IShDateOptions, ShDateComponent } from '../date/date.component';
 
 @FormDesignerControl({
@@ -9,12 +9,11 @@ import { IShDateOptions, ShDateComponent } from '../date/date.component';
   shortDescription: 'Time Control'
 })
 @Component({
-    selector: 'sh-time',
-    templateUrl: '../date/date.component.html',
-    styleUrls: ['../date/date.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-time',
+  templateUrl: '../date/date.component.html',
+  styleUrls: ['../date/date.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Time Component
  */
@@ -27,7 +26,7 @@ export class ShTimeComponent extends ShDateComponent implements OnInit {
     super(injector);
   }
 
-  /*protected*/ public getDefaultOptions(): IShDateOptions {
+  protected getDefaultOptions(): IShDateOptions {
     return _.merge(super.getDefaultOptions(), {
       format: ['hour', 'minutes']
     });

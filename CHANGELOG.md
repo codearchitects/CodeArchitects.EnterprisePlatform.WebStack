@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 All packages in the monorepo share a single version.
 
+## [8.0.0] — branch version/8.x.x
+
+### Added
+
+- Reorganised the v8 generation of `@ca-webstack/*` libraries (Angular 8 /
+  Node 12 era) as an npm-workspaces monorepo orchestrated with Turborepo.
+- Added `@ca-webstack/vb6-library` (previously only distributed as a
+  standalone repository).
+
+### Removed
+
+- `@ca-webstack/event-manager` — not present in the v8 generation.
+- `@ca-webstack/ng-components-extra` — not present in the v8 generation.
+- `@ca-webstack/ng-event-manager` — not present in the v8 generation.
+- `@ca-webstack/ng-graphql` — not present in the v8 generation.
+- Storybook and accessibility tooling (not applicable to this version).
+
+---
+
 ## [21.2.0]
 
 ### Added

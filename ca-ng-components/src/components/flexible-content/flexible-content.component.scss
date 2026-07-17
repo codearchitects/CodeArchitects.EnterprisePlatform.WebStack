@@ -1,6 +1,6 @@
-$zone-horizontal-recess: var(--flexible-content-zone-left-recess, 26px);
-$text-zone-size: var(--flexible-content-text-zone-size, 150px);
-$text-zone-font-size: var(--flexible-content-text-zone-font-size, 19px);
+$zone-horizontal-recess: 26px;
+$text-zone-size: 150px;
+$text-zone-font-size: 19px;
 
 :host {
   height: inherit;

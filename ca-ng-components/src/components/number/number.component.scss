@@ -1,6 +1,7 @@
-@use '../../../styles/input' as *;
+@import '../../styles/input';
 
 div {
+  display: inline-block;
 
   input {
     @include input();

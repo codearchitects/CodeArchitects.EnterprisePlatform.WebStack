@@ -1,5 +1,5 @@
-@use "../../../styles/colors" as *;
-@use "../../../styles/functions" as *;
+@import "../../styles/colors";
+@import "../../styles/functions";
 
 
 $icon-distance: v(icon-distance, 6px);
@@ -10,57 +10,6 @@ $button-font-size: v(button-font-size, 18px);
 $button-recess: v(button-recess, 10px 18px);
 $button-focus-shadow-size: v(button-focus-shadow-size, -5px);
 $button-distance: v(button-distance, 2px);
-$button-outline-border-size: var(--button-outline-border-size, 1px);
-$button-outline-border-style: var(--button-outline-border-style, solid);
-$button-box-shadow: var(--button-box-shadow, none);
-$button-border: var(--button-border, none);
-$button-font-family: var(--button-font-family, RobotoLight);
-$button-disabled-icon-opacity: var(--button-disabled-icon-opacity, 0.5);
-
-$button-primary-background-color: var(--button-primary-background-color, var(--sh-first-text));
-$button-primary-hover-background-color: var(--button-primary-hover-background-color, var(--sh-quinary));
-$button-primary-active-background-color: var(--button-primary-active-background-color, var(--sh-senary));
-$button-primary-focus-shadow-color: var(--button-primary-focus-shadow-color, var(--sh-octonary));
-$button-primary-disabled-background-color: var(--button-primary-disabled-background-color, var(--sh-secondary));
-$button-primary-color: var(--button-primary-color, $sh-white);
-$button-primary-hover-color: var(--button-primary-hover-color, $sh-white);
-$button-primary-active-color: var(--button-primary-active-color, $sh-white);
-$button-primary-disabled-color: var(--button-primary-disabled-color, $sh-white);
-
-$button-primary-transparent-color: var(--button-primary-transparent-color, var(--sh-first-text));
-$button-primary-transparent-hover-color: var(--button-primary-transparent-hover-color, var(--sh-senary));
-$button-primary-transparent-active-color: var(--button-primary-transparent-active-color, var(--sh-nonary));
-$button-primary-transparent-disabled-color: var(--button-primary-transparent-disabled-color, var(--sh-secondary));
-
-$button-primary-outline-color: var(--button-primary-outline-color, var(--sh-first-text));
-$button-primary-outline-hover-color: var(--button-primary-outline-hover-color, var(--sh-senary));
-$button-primary-outline-active-color: var(--button-primary-outline-active-color, var(--sh-nonary));
-$button-primary-outline-disabled-color: var(--button-primary-outline-disabled-color, var(--sh-secondary));
-
-$button-background-color: var(--button-background-color, $sh-granite);
-$button-hover-background-color: var(--button-hover-background-color, $sh-wind-gray);
-$button-active-background-color: var(--button-active-background-color, $sh-iron-gray);
-$button-focus-shadow-color: var(--button-focus-shadow-color, $sh-gray);
-$button-disabled-background-color: var(--button-disabled-background-color, $sh-granite);
-$button-color: var(--button-color, $sh-smoke-gray);
-$button-hover-color: var(--button-hover-color, $sh-sea-black);
-$button-active-color: var(--button-active-color, $sh-white);
-$button-disabled-color: var(--button-disabled-color, $sh-dark-silver);
-
-$button-transparent-color: var(--button-transparent-color, $sh-iron-gray);
-$button-transparent-hover-color: var(--button-transparent-hover-color, color-opacity($sh-black, 0.8));
-$button-transparent-active-color: var(--button-transparent-active-color, $sh-black);
-$button-transparent-disabled-color: var(--button-transparent-disabled-color, $sh-dark-silver);
-
-$button-outline-color: var(--button-outline-color, $sh-iron-gray);
-$button-outline-hover-color: var(--button-outline-hover-color, color-opacity($sh-black, 0.8));
-$button-outline-active-color: var(--button-outline-active-color, $sh-black);
-$button-outline-disabled-color: var(--button-outline-disabled-color, $sh-dark-silver);
-
-$button-negative-color: var(--button-negative-color, color-opacity($sh-white, 0.7));
-$button-negative-hover-color: var(--button-negative-hover-color, color-opacity($sh-white, 0.8));
-$button-negative-active-color: var(--button-negative-active-color, $sh-white);
-$button-negative-disabled-color: var(--button-negative-disabled-color, color-opacity($sh-white, 0.5));
 
 @mixin button-style(
   $background,
@@ -78,7 +27,7 @@ $button-negative-disabled-color: var(--button-negative-disabled-color, color-opa
   color: $color;
 
   @if ($outline==true) {
-    border: $button-outline-border-size $button-outline-border-style $color;
+    border: 1px solid $color;
   }
 
   &:hover {
@@ -126,11 +75,11 @@ $button-negative-disabled-color: var(--button-negative-disabled-color, color-opa
 button {
   display: inline-block;
   border-radius: $button-border-radius;
-  box-shadow: $button-box-shadow;
-  border: $button-border;
+  box-shadow: none;
+  border: none;
   padding: $button-recess;
   font-size: $button-font-size;
-  font-family: $button-font-family;
+  font-family: RobotoLight;
   outline: none;
   margin: $button-distance;
   overflow: hidden;
@@ -147,22 +96,13 @@ button {
     }
 
     sh-icon {
-      opacity: $button-disabled-icon-opacity;
+      opacity: 0.5;
     }
   }
 
   &.primary {
     &:not(.transparent) {
-      @include button-style(
-        $button-primary-background-color,
-        $button-primary-hover-background-color,
-        $button-primary-active-background-color,
-        $button-primary-focus-shadow-color,
-        $button-primary-disabled-background-color,
-        $button-primary-color,
-        $button-primary-hover-color,
-        $button-primary-active-color,
-        $button-primary-disabled-color);
+      @include button-style($sh-azure, $sh-stripe-blue, $sh-beautiful-blue, $sh-electric-blue, $sh-pale-cyan);
     }
 
     &.transparent {
@@ -172,42 +112,42 @@ button {
         transparent,
         transparent,
         transparent,
-        $button-primary-transparent-color,
-        $button-primary-transparent-hover-color,
-        $button-primary-transparent-active-color,
-        $button-primary-transparent-disabled-color
+        $sh-azure,
+        $sh-beautiful-blue,
+        $sh-dark-blue,
+        $sh-pale-cyan
       );
     }
 
     &.outline {
-      box-shadow: none !important;
       @include button-style(
         transparent,
         transparent,
         transparent,
         transparent,
         transparent,
-        $button-primary-outline-color,
-        $button-primary-outline-hover-color,
-        $button-primary-outline-active-color,
-        $button-primary-outline-disabled-color,
+        $sh-azure,
+        $sh-beautiful-blue,
+        $sh-dark-blue,
+        $sh-pale-cyan,
         true
       );
+      box-shadow: none !important;
     }
   }
 
   &:not(.primary) {
     &:not(.transparent) {
       @include button-style(
-        $button-background-color,
-        $button-hover-background-color,
-        $button-active-background-color,
-        $button-focus-shadow-color,
-        $button-disabled-background-color,
-        $button-color,
-        $button-hover-color,
-        $button-active-color,
-        $button-disabled-color
+        $sh-granite,
+        $sh-wind-gray,
+        $sh-iron-gray,
+        $sh-gray,
+        $sh-granite,
+        $sh-smoke-gray,
+        $sh-sea-black,
+        $sh-white,
+        $sh-dark-silver
       );
     }
 
@@ -218,27 +158,27 @@ button {
         transparent,
         transparent,
         transparent,
-        $button-transparent-color,
-        $button-transparent-hover-color,
-        $button-transparent-active-color,
-        $button-transparent-disabled-color
+        $sh-iron-gray,
+        color-opacity($sh-black, 0.8),
+        $sh-black,
+        $sh-dark-silver
       );
     }
 
     &.outline {
-      box-shadow: none !important;
       @include button-style(
         transparent,
         transparent,
         transparent,
         transparent,
         transparent,
-        $button-outline-color,
-        $button-outline-hover-color,
-        $button-outline-active-color,
-        $button-outline-disabled-color,
+        $sh-iron-gray,
+        color-opacity($sh-black, 0.8),
+        $sh-black,
+        $sh-dark-silver,
         true
       );
+      box-shadow: none !important;
     }
   }
 
@@ -246,18 +186,18 @@ button {
     &,
     &.primary,
     &.transparent {
-      box-shadow: none !important;
       @include button-style(
         transparent !important,
         transparent !important,
         transparent !important,
         transparent,
         transparent !important,
-        $button-negative-color !important,
-        $button-negative-hover-color !important,
-        $button-negative-active-color !important,
-        $button-negative-disabled-color !important
+        color-opacity($sh-white, 0.7) !important,
+        color-opacity($sh-white, 0.8) !important,
+        $sh-white !important,
+        color-opacity($sh-white, 0.5) !important
       );
+      box-shadow: none !important;
     }
   }
 

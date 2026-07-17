@@ -1,3 +1,4 @@
+// TODO: =NS= restore tests when ca-ng-boilerplate supports them
 // import { TestBed, inject } from '@angular/core/testing';
 // import { SerializerService } from './serializer.service';
 // import { JsonObject } from 'ca-reflection/core';

@@ -1,33 +1,14 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/common' as *;
-@use '../../../styles/a11y' as *;
+@import '../../styles/colors';
+@import '../../styles/common';
 
-$checkbox-size: var(--checkbox-size, 19px);
-$checkbox-label-font-size: var(--checkbox-label-font-size, 18px);
-$checkbox-label-distance: var(--checkbox-label-distance, $inline-control-label-distance);
-$checkbox-label-color: var(--checkbox-label-color, $sh-text-gray);
-$checkbox-checked-label-color: var(--checkbox-checked-label-color, $sh-sea-black);
-$check-top-recess: var(--checkbox-check-top-recess, 6px);
-$check-left-recess: var(--checkbox-check-left-recess, calc(#{$check-top-recess} - 1px));
-$check-width: var(--checkbox-check-width, 11px);
-$check-height: var(--checkbox-check-height, 5px);
-$checkbox-border-width: var(--checkbox-border-width, 2px);
-$check-size: var(--checkbox-check-size, $checkbox-border-width);
-$check-color: var(--checkbox-check-color, $sh-white);
-$checkbox-checked-background-color: var(--checkbox-checked-background-color, var(--sh-first));
-$checkbox-checked-border-color: var(--checkbox-checked-border-color, var(--sh-first));
-$checkbox-border-style: var(--checkbox-border-style, solid);
-$checkbox-border-color: var(--checkbox-border-color, $sh-light-gray);
-$checkbox-background-color: var(--checkbox-background-color, transparent);
-$checkbox-text-distance: var(--checkbox-text-distance, 6px);
-$checkbox-disabled-opacity: var(--checkbox-disabled-opacity, 0.4);
-$checkbox-disabled-background-color: var(--checkbox-disabled-background-color, $sh-sea-black);
-$checkbox-disabled-border-color: var(--checkbox-disabled-border-color, $sh-sea-black);
-$checkbox-disabled-label-color: var(--checkbox-disabled-label-color, $sh-light-gray);
-$checkbox-hover-background-color: var(--checkbox-hover-background-color, $sh-gray);
-$checkbox-hover-border-color: var(--checkbox-hover-border-color, $sh-sea-black);
-$checkbox-checked-hover-background-color: var(--checkbox-checked-hover-background-color, var(--sh-first));
-$checkbox-checked-hover-border-color: var(--checkbox-checked-hover-border-color, $sh-wood-gray);
+$checkbox-size: 19px;
+$checkbox-label-font-size: 18px;
+$checkbox-label-distance: $inline-control-label-distance;
+$check-recess: 6px;
+$check-width: 11px;
+$check-height: 5px;
+$checkbox-border-size: 2px;
+$checkbox-text-distance: 6px;
 
 .checkbox {
   position: relative;
@@ -48,15 +29,15 @@ $checkbox-checked-hover-border-color: var(--checkbox-checked-hover-border-color,
     width: $checkbox-size;
     height: $checkbox-size;
     padding: 0;
-    border-width: $checkbox-border-width;
-    border-style: $checkbox-border-style;
-    border-color: $checkbox-border-color;
-    background-color: $checkbox-background-color;
+    border-width: $checkbox-border-size;
+    border-style: solid;
+    border-color: $sh-light-gray;
+    background-color: transparent;
     transition: .3s background-color, .3s border-color;
   }
 
   &+span {
-    color: $checkbox-label-color;
+    color: $sh-light-gray;
     cursor: pointer;
     font-size: $checkbox-label-font-size;
     margin-left: $checkbox-label-distance;
@@ -68,33 +49,24 @@ $checkbox-checked-hover-border-color: var(--checkbox-checked-hover-border-color,
     vertical-align: top;
   }
 
-  // The native input is the single focusable control and is exposed to
-  // assistive technology (it must NOT be `display:none`, which would remove it
-  // from the accessibility tree and make it unfocusable). It is visually hidden
-  // instead; the custom visual box is drawn by the adjacent <label>.
   input {
-    @include sh-visually-hidden;
+    display: none;
     pointer-events: none;
 
-    // Keyboard focus indicator rendered on the visual box (WCAG 2.4.7 / 2.4.11).
-    &:focus-visible+label {
-      @include sh-focus-ring;
-    }
-
     &:checked+label {
-      background-color: $checkbox-checked-background-color;
+      background-color: $sh-azure;
       margin-left: 0;
-      border-color: $checkbox-checked-border-color;
+      border-color: $sh-azure;
 
       &:before {
         content: "";
         display: block;
         width: $check-width;
         height: $check-height;
-        top: $check-top-recess;
-        left: $check-left-recess;
+        top: $check-recess;
+        left: $check-recess - 1px;
         position: absolute;
-        border: $check-size solid $check-color;
+        border: $checkbox-border-size solid $sh-white;
         border-top: none;
         border-right: none;
         background: transparent;
@@ -104,19 +76,19 @@ $checkbox-checked-hover-border-color: var(--checkbox-checked-hover-border-color,
   }
 
   &.disabled {
-    opacity: $checkbox-disabled-opacity;
+    opacity: .4;
     pointer-events: none;
     cursor: not-allowed;
 
     input {
       &+label {
-        background-color: $checkbox-disabled-background-color;
-        border-color: $checkbox-disabled-border-color;
+        background-color: $sh-sea-black;
+        border-color: $sh-sea-black;
       }
     }
 
     &+span {
-      color: $checkbox-disabled-label-color;
+      color: $sh-light-gray;
       pointer-events: none;
       cursor: not-allowed;
     }
@@ -127,17 +99,17 @@ $checkbox-checked-hover-border-color: var(--checkbox-checked-hover-border-color,
   &:focus,
   &:active {
     input:checked+label {
-      background-color: $checkbox-checked-hover-background-color;
-      border-color: $checkbox-checked-hover-border-color;
+      background-color: $sh-azure;
+      border-color: $sh-wood-gray;
     }
 
     input:not(:checked)+label {
-      background-color: $checkbox-hover-background-color;
-      border-color: $checkbox-hover-border-color;
+      background-color: $sh-gray;
+      border-color: $sh-sea-black;
     }
   }
 
   &.checked:not(.disabled)+span {
-    color: $checkbox-checked-label-color;
+    color: $sh-sea-black;
   }
 }

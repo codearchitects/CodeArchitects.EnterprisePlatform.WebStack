@@ -1,8 +1,7 @@
-@use "../../../styles/input" as *;
-@use "../../../styles/functions" as *;
-
+@import "../../styles/input";
 $textarea-input-label-offset: v(textarea-input-label-offset, 5px);
 div {
+  display: inline-block;
   margin-top: $input-top-distance;
 
   textarea {

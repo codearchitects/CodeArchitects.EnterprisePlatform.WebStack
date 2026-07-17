@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/reflection"
+    path: .
+    type: npm-package

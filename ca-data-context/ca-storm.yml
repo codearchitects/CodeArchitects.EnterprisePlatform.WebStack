@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/data-context"
+    path: .
+    type: npm-package

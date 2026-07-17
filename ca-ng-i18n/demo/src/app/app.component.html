@@ -1,0 +1,7 @@
+<h1>
+  {{ title | i18n }}
+  <select (change)="changeLang($event.target.value)">
+    <option value="en">English</option>
+    <option value="it">Italiano</option>
+  </select>
+</h1>

@@ -17,7 +17,7 @@ export class OverwriteStrategy {
 
     _.union(newValKeys, oldValKeys)
       .forEach((field) => {
-        let isDateTime = Boolean(newVal[field] && newVal[field].toDate);
+        let isDateTime = Boolean(newVal[field] && newVal[field].toDate); //WORKAROUND DA ELIMINARE
 
         if (!_.isObject(newVal[field]) || _.isDate(newVal[field]) || isDateTime) {
           if (field.startsWith('_')) {

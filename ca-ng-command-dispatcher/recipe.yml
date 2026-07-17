@@ -1,0 +1,54 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+# cake build version
+version: 1
+# name
+name: ca-ng-command-dispatcher
+# environment variables
+environment:
+  CA_BAKERY_BUILD_NUMBER: 001
+#---------------------------------#
+#      build configuration        #
+#---------------------------------#
+build:
+  dist: build-dist
+  semantic_version_size: 3
+  release_notes: RELEASE_NOTES.md
+#---------------------------------#
+#    components configuration     #
+#---------------------------------#
+components:
+  - name: ca-ng-command-dispatcher-component
+    path:
+    build:
+      type: npm
+      dist: dist
+#---------------------------------#
+#     bundlers configuration      #
+#---------------------------------#
+bundlers:
+  - name: ca-ng-command-dispatcher-lib-bundler
+    imports:
+    steps:
+      - operation: copy
+        from:
+          component: ca-ng-command-dispatcher-component
+          context: dist
+          path:
+        to:
+          path:
+          enable_compression: false
+      - operation: npm-version-patch
+#---------------------------------#
+#     artifacts configuration     #
+#---------------------------------#
+artifacts:
+  - name: ca-ng-command-dispatcher-lib
+    path: ca-ng-command-dispatcher
+    bundle:
+      name: ca-ng-command-dispatcher-lib-bundler
+      enable_compression: true
+    deployment:
+      type: npm
+      script:

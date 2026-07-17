@@ -1,5 +1,6 @@
 import 'core-js';
 import { MetadataHelpers } from './metadata-helpers';
+import { expect } from 'chai';
 
 const DecoratorKey = 'decorator';
 
@@ -41,8 +42,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, Entity, undefined, { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Class Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Class Meta']);
     });
 
     it('should extract class metadata from instance', () => {
@@ -53,8 +54,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, entity, undefined, { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Class Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Class Meta']);
     });
 
     it('should return undefined if pass undefined target', () => {
@@ -62,7 +63,7 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, undefined);
 
       // Assert
-      expect(metadata).toBeFalsy();
+      expect(metadata).to.not.exist;
 
     });
 
@@ -71,7 +72,7 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, null);
 
       // Assert
-      expect(metadata).toBeFalsy();
+      expect(metadata).to.not.exist;
 
     });
 
@@ -80,8 +81,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, Entity, 'field', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Field Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Field Meta']);
     });
 
     it('should extract field metadata from instance', () => {
@@ -92,8 +93,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, entity, 'field', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Field Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Field Meta']);
     });
 
     it('should extract property metadata from class', () => {
@@ -101,8 +102,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, Entity, 'property', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Property Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Property Meta']);
     });
 
     it('should extract property metadata from instance', () => {
@@ -113,8 +114,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, entity, 'property', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Property Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Property Meta']);
     });
 
     it('should extract method metadata from class', () => {
@@ -122,8 +123,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, Entity, 'method', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Method Meta']);
     });
 
     it('should extract method metadata from instance', () => {
@@ -134,8 +135,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, entity, 'method', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Method Meta']);
     });
 
     it('should extract static method metadata from class', () => {
@@ -143,8 +144,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, Entity, 'staticMethod', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Static Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Static Method Meta']);
     });
 
     it('should extract static method metadata from instance', () => {
@@ -155,8 +156,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, entity, 'staticMethod', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Static Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Static Method Meta']);
     });
   });
 
@@ -166,8 +167,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, ChildEntity, undefined, { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Class Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Class Meta']);
     });
 
     it('should extract class metadata from derived instance', () => {
@@ -178,8 +179,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, childEntity, undefined, { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Class Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Class Meta']);
     });
 
     it('should extract field metadata from derived class', () => {
@@ -187,8 +188,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, ChildEntity, 'field', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Field Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Field Meta']);
     });
 
     it('should extract field metadata from derived instance', () => {
@@ -199,8 +200,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, childEntity, 'field', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Field Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Field Meta']);
     });
 
     it('should extract property metadata from derived class', () => {
@@ -208,8 +209,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, ChildEntity, 'property', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Property Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Property Meta']);
     });
 
     it('should extract property metadata from derived instance', () => {
@@ -220,8 +221,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, childEntity, 'property', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Property Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Property Meta']);
     });
 
     it('should extract method metadata from derived class', () => {
@@ -229,8 +230,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, ChildEntity, 'method', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Method Meta']);
     });
 
     it('should extract method metadata from derived instance', () => {
@@ -241,8 +242,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, childEntity, 'method', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Method Meta']);
     });
 
     it('should extract static method metadata from derived class', () => {
@@ -250,8 +251,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, ChildEntity, 'staticMethod', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Static Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Static Method Meta']);
     });
 
     it('should extract static method metadata from derived instance', () => {
@@ -262,8 +263,8 @@ describe('Metadata helpers', () => {
       let metadata = MetadataHelpers.getMetadata(DecoratorKey, childEntity, 'staticMethod', { inheritParentMetadata: true });
 
       // Assert
-      expect(metadata).toBeDefined();
-      expect(metadata).toEqual(['Static Method Meta']);
+      expect(metadata).to.exist;
+      expect(metadata).to.deep.equal(['Static Method Meta']);
     });
   });
 });

@@ -1,22 +1,8 @@
-@use '../../../styles/colors' as *;
+@import '../../styles/colors';
 
-$modal-base-recess: var(--modal-base-recess, 20px);
-$modal-header-recess: var(--modal-header-recess, calc(#{$modal-base-recess} * 0.5) $modal-base-recess);
-$modal-header-icon-right-recess: var(--modal-header-icon-right-recess, calc(#{$modal-base-recess} * 0.25));
-$modal-body-recess: var(--modal-body-recess, $modal-base-recess);
-$modal-footer-recess: var(--modal-footer-recess, $modal-base-recess);
-$modal-header-font-size: var(--modal-header-font-size, 20px);
-$modal-header-height: var(--modal-header-height, 27px);
-$modal-header-background: var(--modal-header-background, $sh-traffic-white);
-$modal-header-border-bottom: var(--modal-header-border-bottom, 1px solid $sh-gray);
-$modal-header-color: var(--modal-header-color, $sh-iron-gray);
-$modal-header-font-family: var(--modal-header-font-family, RobotoLight);
-$modal-body-font-family: var(--modal-body-font-family, $modal-header-font-family);
-$modal-footer-text-align: var(--modal-footer-text-align, right);
-$modal-overlay-background-color: var(--modal-overlay-background-color, $sh-overlay);
-$modal-background-color: var(--modal-background-color, $sh-diamond-white);
-$modal-vertical-recess: var(--modal-vertical-recess, 50%);
-$modal-horizontal-recess: var(--modal-horizontal-recess, 50%);
+$modal-base-recess: 20px;
+$modal-header-font-size: 20px;
+$modal-header-height: 27px;
 
 .modal-overlay {
   position: fixed;
@@ -26,47 +12,47 @@ $modal-horizontal-recess: var(--modal-horizontal-recess, 50%);
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: $modal-overlay-background-color;
+  background-color: $sh-overlay;
   ;
 }
 
 .modal {
   padding: 0;
-  background-color: $modal-background-color;
+  background-color: $sh-diamond-white;
   position: absolute;
   margin: 0;
-  top: $modal-vertical-recess;
-  left: $modal-horizontal-recess;
+  top: 50%;
+  left: 50%;
   transform: translateY(-50%) translateX(-50%);
 
   .modal-header {
     position: relative;
-    padding: $modal-header-recess;
+    padding: ($modal-base-recess/2) $modal-base-recess;
     height: $modal-header-height;
-    background: $modal-header-background;
-    border-bottom: $modal-header-border-bottom;
+    background: $sh-traffic-white;
+    border-bottom: 1px solid $sh-gray;
     font-size: $modal-header-font-size;
-    color: $modal-header-color;
-    font-family: $modal-header-font-family;
+    color: $sh-iron-gray;
+    font-family: RobotoLight;
     margin: 0;
     white-space: nowrap;
 
     .modal-header-icon {
       vertical-align: middle;
-      margin-right: $modal-header-icon-right-recess;
+      margin-right: ($modal-base-recess/4);
     }
   }
 
   .modal-body {
     position: relative;
-    padding: $modal-body-recess;
+    padding: $modal-base-recess;
     margin-bottom: 0;
-    font-family: $modal-body-font-family;
+    font-family: RobotoLight;
   }
 
   .modal-footer {
     position: relative;
-    padding: $modal-footer-recess;
-    text-align: $modal-footer-text-align;
+    padding: $modal-base-recess;
+    text-align: right;
   }
 }

@@ -1,0 +1,18 @@
+$header-height: 50px;
+$toolbar-height: 50px;
+$bars-height: $header-height+$toolbar-height;
+$bar-recess: 20px;
+$bars-transition-speed: .3s;
+$bars-width-breakpoint: 600px;
+$brand-width: 170px;
+$sidebar-collapsed-width: 50px;
+$sidebar-expanded-width: $brand-width+$sidebar-collapsed-width;
+$sidebar-item-height: 50px;
+$panel-width: 350px;
+$toolbar-command-base-distance: 15px;
+$container-vertical-recess: 20px;
+$container-horizontal-recess: 30px;
+$container-recess: $container-vertical-recess $container-horizontal-recess;
+$scrollbar-size: 10px;
+$component-group-base-distance: 10px;
+$inline-control-label-distance: 10px;

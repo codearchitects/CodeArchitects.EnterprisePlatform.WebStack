@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { IShBaseOptions, ShBaseModelComponent } from '../base';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
-import { FormDesignerControl } from '../../decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
+import { FormDesignerControl } from 'src/decorators';
 
 
 @FormDesignerControl({
@@ -9,12 +9,11 @@ import { FormDesignerControl } from '../../decorators';
   shortDescription: 'Caption Control'
 })
 @Component({
-    selector: 'sh-caption',
-    templateUrl: './caption.component.html',
-    styleUrls: ['./caption.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-caption',
+  templateUrl: './caption.component.html',
+  styleUrls: ['./caption.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Caption component
  */

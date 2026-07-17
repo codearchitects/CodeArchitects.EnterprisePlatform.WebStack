@@ -1,6 +1,7 @@
-@use '../../../styles/input' as *;
+@import '../../styles/input';
 
 div {
+  display: inline-block;
   margin-top: $input-top-distance;
 
   input {

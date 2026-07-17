@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "dist/types",
+    "lib": ["es2018", "dom"],
+    "types": [],
+    "skipLibCheck": true
+  },
+  "include": [
+    "public_api.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "tests",
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

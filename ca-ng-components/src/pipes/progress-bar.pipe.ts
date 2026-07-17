@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'progressBarPercent',
-    standalone: false
+  name: 'progressBarPercent'
 })
 export class ShProgressBarPercentPipe implements PipeTransform {
 

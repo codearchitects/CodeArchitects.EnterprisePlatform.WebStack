@@ -1,5 +1,5 @@
-@if (isReady) {
-  @for (command of commands; track command.name) {
+<ng-container *ngIf="isReady">
+  <ng-container *ngFor="let command of commands">
     <ng-container *ngTemplateOutlet="templateRef; context: {$implicit: command}"></ng-container>
-  }
-}
+  </ng-container>
+</ng-container>

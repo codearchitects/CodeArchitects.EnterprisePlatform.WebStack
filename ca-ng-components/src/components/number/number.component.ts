@@ -1,8 +1,8 @@
 import { Component, Injector } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash-es';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import * as _ from 'lodash';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { shNumeral } from '../../utilities/numeral.utility';
 import { NumberParserService } from './../../services/number-parser.service';
 import { ShFormControlMode } from './../../utilities/form-control.utility';
@@ -32,12 +32,11 @@ export interface IShNumberOptions
   shortDescription: 'Number Control'
 })
 @Component({
-    selector: 'sh-number',
-    templateUrl: './number.component.html',
-    styleUrls: ['number.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-number',
+  templateUrl: './number.component.html',
+  styleUrls: ['number.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Numeric Component
  */
@@ -46,11 +45,11 @@ export class ShNumberComponent<O extends IShNumberOptions>
   /**
    * Number Parser Service
    */
-  /*protected*/ public numberParser: NumberParserService;
+  protected numberParser: NumberParserService;
   /**
    * Translate Service
    */
-  /*protected*/ public translateService: TranslateService;
+  protected translateService: TranslateService;
   /**
    * Specifies if control allows negative numbers
    */
@@ -80,7 +79,7 @@ export class ShNumberComponent<O extends IShNumberOptions>
    * Event fired on control key down
    * @param e Keyboard event
    */
-  /*protected*/ public onKeyDown(e: KeyboardEvent) {
+  protected onKeyDown(e: KeyboardEvent) {
     if (this.enable && !this.internalOptions.isReadonly) {
       switch (e.keyCode) {
         case KeyCode.ARROW_UP:
@@ -98,7 +97,7 @@ export class ShNumberComponent<O extends IShNumberOptions>
   /**
    * Increase value
    */
-  /*protected*/ public increase() {
+  protected increase() {
     const newValue = shNumeral.set(this.getModelValue()).add(this.internalOptions.step).value();
     this.updateValue(newValue);
   }
@@ -106,7 +105,7 @@ export class ShNumberComponent<O extends IShNumberOptions>
   /**
    * Decrease value
    */
-  /*protected*/ public decrease() {
+  protected decrease() {
     const newValue = shNumeral.set(this.getModelValue()).subtract(this.internalOptions.step).value();
     this.updateValue(newValue);
   }
@@ -117,7 +116,7 @@ export class ShNumberComponent<O extends IShNumberOptions>
    * @param min Minimum value
    * @param max Maximum value
    */
-  /*protected*/ public checkLimits(value: number, min = this.internalOptions.min, max = this.internalOptions.max) {
+  protected checkLimits(value: number, min = this.internalOptions.min, max = this.internalOptions.max) {
     if (min !== undefined && value < min) {
       value = undefined;
     }
@@ -130,32 +129,34 @@ export class ShNumberComponent<O extends IShNumberOptions>
   /**
    * Provides control edit format
    */
-  /*protected*/ public getEditFormat() {
+  protected getEditFormat() {
     const format = this.internalOptions.format;
     return format === '0,0' ? '0' : format.replace(/\,/g, '');
   }
 
-  public override initializeFormControl(): void {
-    // this.formControl.validator = ShValidators.compose([this.formControl.validator, ShValidators.number(this.allowNegative, this.maximumFractionDigits, this.internalOptions.format)]);
-    super.initializeFormControl();
-    this.formControl.browseFormat = this.internalOptions.format;
-    this.formControl.editFormat = this.getEditFormat();
+  protected createFormControl() {
+    super.createFormControl();
+    if (this.formControl) {
+      // this.formControl.validator = ShValidators.compose([this.formControl.validator, ShValidators.number(this.allowNegative, this.maximumFractionDigits, this.internalOptions.format)]);
+      this.formControl.browseFormat = this.internalOptions.format;
+      this.formControl.editFormat = this.getEditFormat();
+    }
   }
 
-  /*protected*/ public tolerantCheck() {
+  protected tolerantCheck() {
     return this.numberParser.tolerantCheck(this.getControlValue(), this.allowNegative, this.maximumFractionDigits);
   }
 
-  /*protected*/ public parseControlValue(value = this.getControlValue()) {
+  protected parseControlValue(value = this.getControlValue()) {
     return this.mode === ShFormControlMode.Browse ? this.getModelValue() : this.parseValue(value);
   }
 
-  /*protected*/ public formatModelValue(value = this.getModelValue()) {
+  protected formatModelValue(value = this.getModelValue()) {
     const format = this.mode === ShFormControlMode.Browse ? this.internalOptions.format : this.getEditFormat();
     return value !== undefined ? shNumeral.set(value).format(format) : undefined;
   }
 
-  /*protected*/ public getDefaultOptions(): IShNumberOptions {
+  protected getDefaultOptions(): IShNumberOptions {
     return _.merge(super.getDefaultOptions(), {
       format: '0,0',
       step: 1,

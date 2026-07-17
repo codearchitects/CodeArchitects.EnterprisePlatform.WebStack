@@ -1,0 +1,30 @@
+{
+  "name": "integration",
+  "version": "0.0.0",
+  "author": "Code Architects srl",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://devops.codearchitects.com:444/Code%20Architects/CA-WebStack/_git/ca-data-context"
+  },
+  "description": "Describes the integration tests project for ca-data-context.",
+  "scripts": {
+    "clean": "node ../../rimraf.js node_modules && npm run clean.self.package",
+    "clean.self.package": "node ../../rimraf.js ../../dist/ca-webstack-data-context-0.0.0.tgz",
+    "setup": "cd ../../dist && npm pack && cd ../tests/integration && npm install --no-package-lock --no-optional --loglevel=error",
+    "test.integration": "nyc -e .ts --reporter=none mocha -r ts-node/register *.spec.ts",
+    "test": "npm run clean && npm run setup && npm run test.integration && npm run clean.self.package"
+  },
+  "devDependencies": {
+    "@types/chai": "~4.0.0",
+    "@types/mocha": "~2.2.41",
+    "@types/node": "~8.0.1",
+    "chai": "~4.0.2",
+    "mocha": "~3.4.2",
+    "nyc": "^11.3.0"
+  },
+  "dependencies": {
+    "@ca-webstack/data-context": "file:../../dist/ca-webstack-data-context-0.0.0.tgz",
+    "reflect-metadata": "^0.1.12"
+  }
+}

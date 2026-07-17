@@ -1,56 +1,16 @@
-# ca-policy-engine
-
-> `@ca-webstack/policy-engine` — Claims-based authorization policy engine for TypeScript.
+# ca-authorization
 
 ## Overview
+Authorization utility.
 
-A framework-agnostic policy engine that evaluates authorization rules against a set of claims. Supports composite conditions (AND/OR trees), resource-based policies with wildcard matching, and reactive policy evaluation via RxJS observables.
+## Status
 
-## Installation
-
-```bash
-npm install @ca-webstack/policy-engine
-```
-
-### Peer Dependencies
-
-- `rxjs` ~7.8.1
-
-## Quick Start
-
-```typescript
-import { PolicyEngine, ClaimType, ClaimWrapper, PolicyWrapperHelper } from '@ca-webstack/policy-engine';
-
-const engine = new PolicyEngine();
-
-// Set claims (e.g. from JWT)
-engine.claims = [
-  { type: ClaimType.role, value: 'admin' },
-  { type: ClaimType.email, value: 'user@example.com' }
-];
-
-// Set policies (e.g. from configuration)
-engine.policies = PolicyWrapperHelper.wrapJsonPolicies(jsonPoliciesConfig);
-
-// Evaluate
-const result = engine.runPolicies('myResource', 'mySelector');
-
-// Or observe reactively
-engine.observePolicies('myResource', 'mySelector').subscribe(console.log);
-```
-
-## Key Exports
-
-| Symbol | Description |
-|---|---|
-| `PolicyEngine` | Core engine: holds claims and policies, evaluates conditions. |
-| `ClaimType` | Constants for well-known claim URIs (role, email, group, etc.). |
-| `ClaimWrapper` | Converts JSON claim data (e.g. from JWT) into `IClaim[]`. |
-| `PolicyWrapperHelper` | Converts JSON policy configuration into typed `IPolicy[]`. |
-| `IClaim` | `{ type: string; value: string }` |
-| `IPolicy` | Policy with `resource`, `condition`, `selector`, and `type`. |
-| `ObjectState` enum values | `detached`, `unchanged`, `added`, `modified`, `deleted` |
+|         | Build & Test                                                                                                                                            |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Win](docs/images/os/win_med.png) **Windows**   | *not configured yet*   |
+| ![macOS](docs/images/os/apple_med.png) **macOS**   | *not configured yet*                                                                                         |
+| ![Linux](docs/images/os/linux_med.png) **Linux**   | *not configured yet*                                                                                         |
 
 ## More Documentation
 
-[Full API documentation](docs/index.md)
+[Documentation Here](docs/index.md)

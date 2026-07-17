@@ -1,32 +1,11 @@
-<nav [attr.aria-label]="ariaLabelledBy ? null : (ariaLabel || ('breadcrumb' | translate))"
-     [attr.aria-labelledby]="ariaLabelledBy"
-     [attr.aria-describedby]="ariaDescribedBy">
-  <ol>
-    <li>
-      <span [attr.tabindex]="internalOptions.tabindex"
-            [attr.role]="hasVisibleFrames ? 'link' : null"
-            [attr.aria-current]="hasVisibleFrames ? null : 'page'"
-            routerLink="/"
-            (keydown.enter)="onActivateKey($event)"
-            (keydown.space)="onActivateKey($event)">HOME</span>
-    </li>
-    @if (activity?.CurrentPayload?.stack) {
-      @for (frame of activity.CurrentPayload.stack; track frame) {
-        @if (!frame.isReturnPoint) {
-          <li>
-            <div class="divider" aria-hidden="true">/</div>
-            <span [attr.tabindex]="internalOptions.tabindex"
-                  [attr.role]="isCurrentFrame(frame) ? null : 'link'"
-                  [attr.aria-current]="isCurrentFrame(frame) ? 'page' : null"
-                  [routerLink]="frame | breadcrumb"
-                  (click)="actualize(frame)"
-                  (keydown.enter)="onActivateKey($event)"
-                  (keydown.space)="onActivateKey($event)">
-              {{frame.label || (hasFallback && frame.action ? frame.action[0] : '') | translate}}
-            </span>
-          </li>
-        }
-      }
-    }
-  </ol>
-</nav>
+<span [attr.tabindex]="internalOptions.tabindex" routerLink="/">HOME</span>
+<ng-container *ngIf="activity?.CurrentPayload?.stack">
+  <ng-container *ngFor="let frame of activity.CurrentPayload.stack">
+    <ng-container *ngIf="!frame.isReturnPoint">
+      <div class="divider">/</div>
+      <span [attr.tabindex]="internalOptions.tabindex" [routerLink]="frame | breadcrumb" (click)="actualize(frame)">
+        {{frame.label || (hasFallback ? frame.action[0] : '') | translate}}
+      </span>
+    </ng-container>
+  </ng-container>
+</ng-container>

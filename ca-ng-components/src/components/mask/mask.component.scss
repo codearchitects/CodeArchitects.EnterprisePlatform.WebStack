@@ -1,8 +1,0 @@
-@use "../../../styles/input" as *;
-div {
-  margin-top: $input-top-distance;
-
-  input {
-    @include input();
-  }
-}

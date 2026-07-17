@@ -1,11 +1,11 @@
 import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash-es';
-import { Observable, Subject, lastValueFrom } from 'rxjs';
+import * as _ from 'lodash';
+import { Observable, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
-import { isNoU } from '../../utilities/common.utility';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
+import { IN, isNoU } from '../../utilities/common.utility';
 import { KeyCode, keyIsLetter, keyIsNumber } from '../../utilities/key-code.const';
 import { IShSelectOptions, ShSelectComponent } from './../select/select.component';
 
@@ -49,11 +49,10 @@ export interface IShComboOptions<T>
   shortDescription: 'Combo Control'
 })
 @Component({
-    selector: 'sh-combo',
-    templateUrl: './combo.component.html',
-    styleUrls: ['./combo.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-combo',
+  templateUrl: './combo.component.html',
+  styleUrls: ['./combo.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 /**
  * Base Combo Component
@@ -63,12 +62,12 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
   /**
    * References to control HTML element
    */
-  @ViewChild('input')
-  /*protected*/ public controlRef: ElementRef;
+  @ViewChild('input', { static: false })
+  protected controlRef: ElementRef;
   /**
    * Control text value
    */
-  /*protected*/ public text: string;
+  protected text: string;
   /**
    * Translate service
    */
@@ -76,28 +75,7 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
   /**
    * Get Data subject
    */
-  private _getData$ = new Subject<void>();
-
-  /**
-   * Id of the currently active option (`aria-activedescendant`) while the
-   * listbox is open, or `null` when there is no active option / the popup is
-   * closed. Keeps DOM focus on the input per the APG editable combobox
-   * pattern. (WCAG 4.1.2)
-   */
-  public get activeDescendantId(): string | null {
-    if (!this.isOpened || this.internalOptions.isReadonly) {
-      return null;
-    }
-    const hasValues = !!(this.values && this.values.length);
-    if (this.activeResultIndex === -1) {
-      return (this.internalOptions.showTextAsResult && this.text && !hasValues)
-        ? this.id + '-opt-text'
-        : null;
-    }
-    return (hasValues && this.activeResultIndex < this.values.length)
-      ? this.id + '-opt-' + this.activeResultIndex
-      : null;
-  }
+  private _getData$ = new Subject();
 
   /**
    * Base Combo Component
@@ -106,8 +84,14 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
     super(injector);
     this._translateService = injector.get(TranslateService);
     this.keyDownDebounceTime = 10;
-    this.onModelValueChanges =  (_, value) => {
-      this._updateText(value);
+    this.onModelValueChanges = async (controlValue, value) => {
+      if (!isNoU(value)) {
+        const translatedValue = await this.translate(value);
+        this.text = translatedValue;
+      } else {
+        this.text = undefined;
+        this.onDelete();
+      }
     };
   }
 
@@ -116,21 +100,17 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
     if (this.internalOptions.showTextAsResult) {
       this.activeResultIndex = -1;
       this.onDropdownToggled = () => this.activeResultIndex = -1;
-      const value = this.model ? this.getModelValue() : this.getControlValue();
+      const value = this.getModelValue();
       if (this.values && this.values.findIndex((v) => value === v.ref) === -1 && typeof value === 'string') {
         this.text = value;
         await this.onSelectText(value);
       }
     }
-    if (this.model) {
-      await this.onModelValueChanges(this.getControlValue(), this.getModelValue());
-    } else {
-      this._updateText(this.getControlValue());
-    }
+    await this.onModelValueChanges(this.getControlValue(), this.getModelValue());
     this._getData$
       .pipe(debounceTime(this.internalOptions.debounceTime), takeUntil(this.destroy$))
       .subscribe(async () => {
-        if (!isNoU(this.text) && this.text.length >= this.internalOptions.minChars) {
+        if (!this.text || this.text.length >= this.internalOptions.minChars) {
           await this.getData();
         } else {
           this.setValues([]);
@@ -142,14 +122,14 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
    * Fired when a key is pressed
    * @param e The keyboard event
    */
-  /*protected*/ public onKey(e: KeyboardEvent) {
+  protected onKey(e: KeyboardEvent) {
     const keyCode = e.keyCode || e.which;
     if (this.internalOptions.showTextAsResult
       && keyCode === KeyCode.ENTER
       && this.activeResultIndex === -1) {
       this.onSelectText(this.text);
     } else if (this.values) {
-      if (keyIsLetter(keyCode) || keyIsNumber(keyCode)) {
+      if (keyIsLetter(keyCode) || keyIsNumber(keyCode) || IN(keyCode, KeyCode.DELETE, KeyCode.BACKSPACE)) {
         this._getData$.next();
       } else {
         super.onKey(e);
@@ -157,34 +137,17 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
     }
   }
 
-  /*protected*/ public onDelete() {
+  protected onDelete() {
     this._getData$.next();
     super.onDelete();
   }
 
-  /*protected*/ public onSelectValue(value: T) {
+  protected onSelectValue(value: T) {
     this.setControlValue(value);
-    this.formControl.markAsDirty();
     this.translate(value).then(text => {
       this.text = text;
       this.isOpened = false;
     });
-  }
-
-  public onControlValueChanges(): void {
-    super.onControlValueChanges();
-    if (!this.isOpened) {
-      this._updateText(this.getControlValue());
-    }
-  }
-
-  private _updateText(value: T) {
-    if (!isNoU(value)) {
-      this.translate(value).then(text => this.text = text);
-    } else {
-      this.text = undefined;
-      this.onDelete();
-    }
   }
 
   /**
@@ -193,12 +156,12 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
    * It works just when showTextAsResult is true
    * @param text Input text
    */
-  /*protected*/ public onSelectText(text: string) {
+  protected onSelectText(text: string) {
     this.setControlValue(this.internalOptions.onSelectText(text));
     this.isOpened = false;
   }
 
-  /*protected*/ public toggleResult(index: number, next = true, apply = false) {
+  protected toggleResult(index: number, next = true, apply = false) {
     if (this.internalOptions.showTextAsResult && !apply) {
       const count = this.values.length - 1;
       if (index === -1) {
@@ -218,7 +181,7 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
   /**
    * Event fired when user click outside
    */
-  /*protected*/ public onClickOutside() {
+  protected onClickOutside() {
     this.isOpened = false;
     if (this.internalOptions.showTextAsResult && this.text && !this.values.length) {
       this.onSelectText(this.text);
@@ -228,13 +191,13 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
   /**
    * Marks form control as touched
    */
-  /*protected*/ public touch() {
+  protected touch() {
     if (!this.formControl.touched) {
       this.formControl.markAsTouched();
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShComboOptions<T> {
+  protected getDefaultOptions(): IShComboOptions<T> {
     return _.merge(super.getDefaultOptions(), {
       minChars: 3,
       debounceTime: 500,
@@ -279,7 +242,7 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
     for (let index = 0; index < values.length; index++) {
       const value = values[index];
       const translatedValue = await this.translate(value);
-      if (translatedValue.toLowerCase().indexOf(this.text.toLowerCase()) > -1) {
+      if (!this.text || translatedValue.toLowerCase().indexOf(this.text.toLowerCase()) > -1) {
         retval.push(value);
       }
     }
@@ -302,7 +265,7 @@ export class ShComboComponent<T, TOptions extends IShComboOptions<T> = IShComboO
       controlValue = (<any>value) as string;
     }
     if (controlValue) {
-      controlValue = await lastValueFrom(this._translateService.get(controlValue));
+      controlValue = await this._translateService.get(controlValue).toPromise();
     }
     return controlValue;
   }

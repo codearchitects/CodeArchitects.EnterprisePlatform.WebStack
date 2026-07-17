@@ -4,7 +4,7 @@ import { ShBaseComponent } from './../components/base/base.component';
 /**
  * Code Architects Component Class
  */
-// eslint-disable-next-line @typescript-eslint/prefer-function-type
+// tslint:disable-next-line: callable-types
 export type ShComponentClass<TComponent extends ShBaseComponent<any> = any> = { new(): TComponent };
 
 /**

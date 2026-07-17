@@ -1,0 +1,19 @@
+parameters:
+- name: workDir
+  type: string
+  default: $(System.DefaultWorkingDirectory)
+- name: feed
+  type: string
+- name: organization
+  type: string
+
+steps:
+- task: PowerShell@2
+  displayName: npm login to ${{ parameters.feed }}
+  inputs:
+    targetType: 'inline'
+    workingDirectory: ${{ parameters.workDir }}
+    script: |
+      npm config set "//${{ parameters.organization }}/_packaging/${{ parameters.feed }}/npm/registry/:username" "$(USERNAME)" 
+      npm config set "//${{ parameters.organization }}/_packaging/${{ parameters.feed }}/npm/registry/:_password" "$(BASE64-TOKEN)"
+      npm config get

@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
-import * as _ from 'lodash-es';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import * as _ from 'lodash';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { ShFormControlMode } from './../../utilities/form-control.utility';
 import { IShNumberOptions, ShNumberComponent } from './../number/number.component';
 
@@ -10,12 +10,11 @@ import { IShNumberOptions, ShNumberComponent } from './../number/number.componen
   shortDescription: 'Percent Control'
 })
 @Component({
-    selector: 'sh-percent',
-    templateUrl: '../number/number.component.html',
-    styleUrls: ['../number/number.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-percent',
+  templateUrl: '../number/number.component.html',
+  styleUrls: ['../number/number.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Percent Component
  */
@@ -28,14 +27,14 @@ export class ShPercentComponent
     super(injector);
   }
 
-  /*protected*/ public formatModelValue(value = this.getModelValue()) {
+  protected formatModelValue(value = this.getModelValue()) {
     if (this.mode === ShFormControlMode.Edit) {
       value = value && value * 100;
     }
     return super.formatModelValue(value);
   }
 
-  /*protected*/ public parseControlValue(value = this.getControlValue()) {
+  protected parseControlValue(value = this.getControlValue()) {
     let parsedValue = super.parseControlValue(value);
     if (this.mode === ShFormControlMode.Edit) {
       parsedValue = parsedValue && parsedValue / 100;
@@ -43,7 +42,7 @@ export class ShPercentComponent
     return parsedValue;
   }
 
-  /*protected*/ public checkLimits(value: number, min = this.internalOptions.min, max = this.internalOptions.max) {
+  protected checkLimits(value: number, min = this.internalOptions.min, max = this.internalOptions.max) {
     if (this.mode === ShFormControlMode.Browse) {
       return super.checkLimits(value, min, max);
     } else {
@@ -51,14 +50,14 @@ export class ShPercentComponent
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShNumberOptions {
+  protected getDefaultOptions(): IShNumberOptions {
     return _.merge(super.getDefaultOptions(), {
       format: '0 %',
       step: .01
     });
   }
 
-  /*protected*/ public getEditFormat() {
+  protected getEditFormat() {
     return super.getEditFormat().replace(/\s*\%\s*/g, '');
   }
 }

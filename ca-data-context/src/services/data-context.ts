@@ -48,7 +48,7 @@ export class DataContext {
         let item = value[field];
 
         if (this.isExplorable(item)) {
-          attached[field] = _.isArrayLikeObject(item) && item.map
+          attached[field] = Array.isArray(item)
             ? item.map((arrayItem) => this.attachRecursive(arrayItem, mergeStrategy, checkList))
             : this.attachRecursive(item, mergeStrategy, checkList);
         }
@@ -59,7 +59,7 @@ export class DataContext {
 
   private isAttachable(value: any) {
     if (!_.isObject(value)
-      || _.isArrayLikeObject(value)
+      || Array.isArray(value)
       || _.isFunction(value))
       return false;
 
@@ -67,6 +67,6 @@ export class DataContext {
   }
 
   private isExplorable(value: any) {
-    return this.isAttachable(value) || _.isArrayLikeObject(value);
+    return this.isAttachable(value) || Array.isArray(value);
   }
 }

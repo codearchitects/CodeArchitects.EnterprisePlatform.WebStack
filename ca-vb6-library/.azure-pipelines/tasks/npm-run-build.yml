@@ -1,0 +1,14 @@
+parameters:
+- name: workDir
+  type: string
+  default: $(System.DefaultWorkingDirectory)
+
+steps:
+- task: PowerShell@2
+  displayName: npm run build
+  continueOnError: false
+  inputs:
+    targetType: inline
+    workingDirectory: ${{ parameters.workDir }}
+    script: |
+      npm run build

@@ -1,21 +1,14 @@
-@if (show && formControl) {
-  <div [class]="containerClass" relative>
-    <textarea #controlRef [id]="internalOptions.id" [formControl]="formControl" [class]="inputClass"
-      [attr.aria-invalid]="formControl.invalid && formControl.touched ? true : null"
-      [attr.aria-describedby]="formControl.invalid && formControl.touched ? internalOptions.id + '-error' : null"
-      [attr.rows]="internalOptions.rows" [attr.cols]="internalOptions.cols" [attr.tabindex]="internalOptions.tabindex"
-      [attr.autofocus]="internalOptions.autofocus || null" [style.minWidth]="width" [style.minHeight]="height"
-      [style.maxWidth]="width" [style.maxHeight]="height" [attr.maxlength]="internalOptions.maxLength || null"
-      [attr.readonly]="internalOptions.isReadonly ? true : null"
-      placeholder="{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}"
-      [class.floating-placeholder]="placeholder && !formControl?.value" [class.with-icon]="!!icon"
-      [class.sh-populated]="!!formControl.value">
-    </textarea>
-    @if (placeholder) {
-      <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
-    }
-    @if (icon) {
-      <sh-icon vertical-centered [name]="icon"></sh-icon>
-    }
-  </div>
-}
+<div *ngIf="show && formControl" [class]="containerClass" relative>
+  <textarea #controlRef [id]="internalOptions.id" [formControl]="formControl" [class]="inputClass"
+    [attr.rows]="internalOptions.rows" [attr.cols]="internalOptions.cols" [attr.tabindex]="internalOptions.tabindex"
+    [attr.autofocus]="internalOptions.autofocus || null" [style.minWidth]="width" [style.minHeight]="height"
+    [style.maxWidth]="width" [style.maxHeight]="height" [attr.maxlength]="internalOptions.maxLength || null"
+    [attr.readonly]="internalOptions.isReadonly ? true : null"
+    placeholder="{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}"
+    [class.floating-placeholder]="placeholder && !formControl?.value" [class.with-icon]="!!icon"
+    [class.sh-populated]="!!formControl.value">
+  </textarea>
+  <label *ngIf="placeholder"
+    [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
+  <sh-icon *ngIf="icon" vertical-centered [name]="icon"></sh-icon>
+</div>

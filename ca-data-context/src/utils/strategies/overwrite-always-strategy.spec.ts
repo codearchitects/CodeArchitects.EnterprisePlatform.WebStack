@@ -1,86 +1,85 @@
 import { OverwriteAlwaysStrategy } from './overwrite-always-strategy';
 import { IMergeStrategy } from '../merge-strategy';
 import { Person, PersonWithAge, PersonWithAddress, PersonWithAddresses, Address } from '../fixtures/models';
+import { expect } from 'chai';
 
 describe('OverwriteAlwaysStrategy', () => {
 
-  let mergeStrategy: IMergeStrategy;
-
   beforeEach(() => {
     // Arrange
-    mergeStrategy = new OverwriteAlwaysStrategy();
+    this.mergeStrategy = new OverwriteAlwaysStrategy();
   });
 
   it('should be defined', () => {
     // Assert
-    expect(OverwriteAlwaysStrategy).toBeDefined();
-    expect(mergeStrategy).toBeDefined();
-    expect(mergeStrategy instanceof OverwriteAlwaysStrategy).toBe(true);
+    expect(OverwriteAlwaysStrategy).to.exist;
+    expect(this.mergeStrategy).to.exist;
+    expect(this.mergeStrategy instanceof OverwriteAlwaysStrategy).to.be.true;
   });
 
   it('should return the attached object', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new Person();
     attachedObject.name = 'Jhon';
     let newObject = new Person();
     newObject.name = 'Jack';
 
-    // Act
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toBe(attachedObject);
+    //Assert
+    expect(actual).to.be.equal(attachedObject);
   });
 
   it('should return the attached object with new values', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new Person();
     attachedObject.name = 'Jhon';
     let newObject = new Person();
     newObject.name = 'Jack';
 
-    // Act
+    //Act
     let expected = new Person();
     expected.name = 'Jack';
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    expect(actual).to.be.deep.equal(expected);
   });
 
   it('should return the attached object with null values', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new Person();
     attachedObject.name = 'Jhon';
     let newObject = new Person();
 
-    // Act
+    //Act
     let expected = new Person();
-    expected.name = undefined!;
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    expected.name = undefined;
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    expect(actual).to.be.deep.equal(expected);
   });
 
   it('should return the attached object with new date values', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new Person();
     attachedObject.birthday = new Date(2015, 1, 1);
     let newObject = new Person();
     newObject.birthday = new Date(2016, 2, 20);
 
-    // Act
+    //Act
     let expected = new Person();
     expected.birthday = new Date(2016, 2, 20);
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    expect(actual).to.be.deep.equal(expected);
   });
 
   it('should return the attached object with new parent\'s values', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new PersonWithAge();
     attachedObject.name = 'John';
     attachedObject.age = 22;
@@ -88,18 +87,20 @@ describe('OverwriteAlwaysStrategy', () => {
     newObject.name = 'Jack';
     newObject.age = 24;
 
-    // Act
+    //Act
     let expected = new PersonWithAge();
     expected.name = 'Jack';
     expected.age = 24;
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    //expect(actual).to.be.equal(expected);
+    expect(actual).to.be.deep.equal(expected);
+    //expect(actual === expected).to.be.equal(true);
   });
 
   it('should return the attached object without new single association', () => {
-    // Arrange
+    //Arrange
     let attachedAddress = new Address();
     attachedAddress.street = 'Main street';
     let attachedObject = new PersonWithAddress();
@@ -111,18 +112,18 @@ describe('OverwriteAlwaysStrategy', () => {
     newObject.name = 'Jack';
     newObject.address = newAddress;
 
-    // Act
+    //Act
     let expected = new PersonWithAddress();
     expected.name = 'Jack';
     expected.address = attachedAddress;
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    expect(actual).to.be.deep.equal(expected);
   });
 
   it('should return the attached object without new multiple association', () => {
-    // Arrange
+    //Arrange
     let attachedAddress = new Address();
     attachedAddress.street = 'Main street';
     let attachedObject = new PersonWithAddresses();
@@ -134,28 +135,27 @@ describe('OverwriteAlwaysStrategy', () => {
     newObject.name = 'Jack';
     newObject.addresses = [newAddress];
 
-    // Act
+    //Act
     let expected = new PersonWithAddresses();
     expected.name = 'Jack';
     expected.addresses = [attachedAddress];
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    expect(actual).to.be.deep.equal(expected);
   });
 
   it('should attach a brand new DateTime', () => {
-    // Arrange
+    //Arrange
     let oldObject = { nome: 'Piero', date: { time: new Date(1987, 2, 15), toDate: () => new Date() } };
     let newObject = { nome: 'Davide', date: { time: new Date(1987, 2, 18), toDate: () => new Date() } };
 
-    // Act
-    let actual = mergeStrategy.merge(newObject, oldObject);
-
-    // Assert
-    expect(actual === oldObject).toBe(true);
-    expect(actual.nome).toBe('Davide');
-    expect(actual.date).toBe(oldObject.date);
-    expect(actual.date.time).toBe(oldObject.date.time);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, oldObject);
+    //Assert
+    expect(actual === oldObject).to.be.true;
+    expect(actual.nome).to.be.equal('Davide');
+    expect(actual.date).to.be.equal(oldObject.date);
+    expect(actual.date.time).to.be.equal(oldObject.date.time);
   });
 });

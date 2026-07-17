@@ -1,10 +1,10 @@
-import { OnInit, OnChanges, Injector, SimpleChanges, Input, Directive } from '@angular/core';
-import * as _ from 'lodash-es';
+import { OnInit, OnChanges, Injector, SimpleChanges, Input } from '@angular/core';
+import * as _ from 'lodash';
 import { IShBaseOptions, ShBaseComponent } from './base.component';
 import { PolicyEngineService, ResourceService } from '@ca-webstack/ng-policy-engine';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
 import { distinct } from 'rxjs/operators';
-import { isNoU } from '../../utilities/common.utility';
+import { isNoU } from 'src/utilities/common.utility';
 
 /**
  * Authorization actions contract
@@ -25,7 +25,6 @@ export interface IShAuthorizationActions {
 /**
  * Base Component with actions and authentication service
  */
-@Directive()
 export class ShBaseAuthComponent<TOptions extends IShBaseOptions, TPolicies = IShAuthorizationActions>
   extends ShBaseComponent<TOptions>
   implements OnChanges, OnInit {
@@ -50,15 +49,15 @@ export class ShBaseAuthComponent<TOptions extends IShBaseOptions, TPolicies = IS
   /**
    * Authorization service
    */
-  /*protected*/ public policyEngineService: PolicyEngineService;
+  protected policyEngineService: PolicyEngineService;
   /**
    * Resource service
    */
-  /*protected*/ public resourceService: ResourceService;
+  protected resourceService: ResourceService;
   /**
    * Authorization actions
    */
-  /*protected*/ public authorizations: IShAuthorizationActions = {
+  protected authorizations: IShAuthorizationActions = {
     enable: true,
     show: true
   };
@@ -90,13 +89,21 @@ export class ShBaseAuthComponent<TOptions extends IShBaseOptions, TPolicies = IS
    * Event fired when new policies roll in.
    * Subclass which allow policies roll in, must override this method
    */
-  /*protected*/ public onPoliciesChanges(policies: TPolicies | IShAuthorizationActions) {
+  protected onPoliciesChanges(policies: TPolicies | IShAuthorizationActions) {
     const authorizations = policies as IShAuthorizationActions;
     if (authorizations) {
       this.authorizations.enable = isNoU(authorizations.enable) ? true : authorizations.enable;
       this.authorizations.show = isNoU(authorizations.show) ? true : authorizations.show;
       this.mergeActions();
     }
+  }
+
+  /**
+   * Updates the @param selector's value taking care of authorization rules
+   */
+  public setSelector(selector: 'enable' | 'show', value: boolean) {
+    this[selector] = value;
+    this.mergeActions();
   }
 
   /**

@@ -1,6 +1,7 @@
-import { Serializer, JsonObject, JsonProperty, JsonIgnore, getJsonObject, Enumerable } from '@ca-webstack/reflection';
+import { Serializer, JsonObject, JsonProperty, JsonIgnore, getJsonObject } from '@ca-webstack/reflection';
 import { Subject } from 'rxjs';
 import { List, Dictionary } from '@ca-webstack/data-structures';
+import * as _ from 'lodash';
 import { ListUtils } from './list-utils';
 
 /**
@@ -18,7 +19,6 @@ export class ObjectList extends List<any> {
       convertFrom: (arr) => [...arr]
     }
   })
-  @Enumerable()
   private get collection() {
     return [...this._collection];
   }

@@ -1,14 +1,8 @@
-@if (internalOptions.showValidationMessage && control?.touched) {
-  <div [id]="internalOptions.id + '-error'" role="alert" aria-atomic="true">
-    @for (error of errors; track error) {
-      <p>{{ error | errorMessage:internalOptions.messages:control:model:prop | i18n }}</p>
-    }
-    @if (!errors?.length && warnings?.length) {
-      @for (warning of warnings; track warning) {
-        <p class="warning">
-          {{ warning | warningMessage:internalOptions.messages:control:model:prop | i18n }}
-        </p>
-      }
-    }
-  </div>
-}
+<div *ngIf="internalOptions.showValidationMessage && control?.touched">
+  <p *ngFor="let error of errors">{{ error | errorMessage:internalOptions.messages:control:model:prop | i18n }}</p>
+  <ng-container *ngIf="!errors?.length && warnings?.length">
+    <p class="warning" *ngFor="let warning of warnings">
+      {{ warning | warningMessage:internalOptions.messages:control:model:prop | i18n }}
+    </p>
+  </ng-container>
+</div>

@@ -1,15 +1,6 @@
-@if (show) {
-  <div class="sh-progress-bar" role="progressbar" #controlRef [class.disabled]="!enable"
-    [attr.aria-valuemin]="min"
-    [attr.aria-valuemax]="max"
-    [attr.aria-valuenow]="isIndeterminate ? null : value"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledBy"
-    [attr.aria-describedby]="ariaDescribedBy">
-    <div class="sh-progress-bar-fill" [class.is-indeterminate]="isIndeterminate"
-      [ngStyle]="{'transform':'scaleX('+ (value | progressBarPercent:min:max) +')'}"></div>
-  </div>
-}
-@if (showLabel && !isIndeterminate ) {
-  <span class="label" [class.incoherent]="value > max">{{(value | progressBarPercent:min:max) | percent:internalOptions.format}}</span>
-}
+<div class="sh-progress-bar" role="progressbar" #controlRef *ngIf="show" [class.disabled]="!enable">
+  <div class="sh-progress-bar-fill" [class.is-indeterminate]="isIndeterminate"
+    [ngStyle]="{'transform':'scaleX('+ (value | progressBarPercent:min:max) +')'}"></div>
+</div>
+<span class="label" [class.incoherent]="value > max"
+  *ngIf="showLabel && !isIndeterminate ">{{(value | progressBarPercent:min:max) | percent:internalOptions.format}}</span>

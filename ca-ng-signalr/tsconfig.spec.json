@@ -1,14 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "noImplicitAny": false,
-    "strict": true,
-    "types": [
-      "node",
-      "jasmine",
-      "signalr"
-    ]
+    "outDir": "./out-tsc/spec"
   },
   "files": [
     "./test.ts",

@@ -1,84 +1,49 @@
-@if (show && formControl && format) {
-  <div relative shDropdownContainer [class]="containerClass"
-    [style.minWidth]="width">
-    <div #input [id]="internalOptions.id" [class]="inputClass" [class.input]="true"
-      [class.ng-invalid]="formControl.invalid" [class.ng-touched]="formControl.touched"
-      [class.ng-dirty]="formControl.dirty" [class.sh-populated]="!!formControl.value"
-      [attr.tabindex]="internalOptions.tabindex" [attr.autofocus]="internalOptions.autofocus || null"
-      [class.disabled]="!enable" [class.readonly]="internalOptions.isReadonly" [style.height]="height"
-      [class.with-icon]="true" tabindex="0" (click)="$event.preventDefault(); touch(); hidePicker();"
-      (keydown)="onDateKey($event)" (focusout)="reset()"
-      role="group"
-      [attr.aria-labelledby]="placeholder ? (internalOptions.id + '-label') : ariaLabelledBy"
-      [attr.aria-label]="(placeholder || ariaLabelledBy) ? null : (ariaLabel || ('Date' | translate))"
-      [attr.aria-disabled]="!enable || null"
-      [attr.aria-invalid]="formControl.invalid || null">
-      <input type="date" angular-mydatepicker [options]="pickerOptions" #dp="angular-mydatepicker"
-        (dateChanged)="dateChanged($event)" (calendarToggle)="onCalendarToggle($event)" aria-hidden="true" hidden />
-      @if (isReady) {
-        <div class="text-input" translate>
-          @for (f of format; track f; let i = $index) {
-            @if (f === 'day') {
-              <span #daySpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onDayKey($event)"
-              (focusout)="onFocusout()" role="spinbutton" [attr.aria-label]="'Day' | translate"
-              [attr.aria-valuemin]="1" [attr.aria-valuemax]="31" [attr.aria-valuenow]="day ?? null"
-              [attr.aria-valuetext]="(day | day) || null">{{day | day}}</span>
-            }
-            @if (f === 'month') {
-              <span #monthSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onMonthKey($event)"
-              (focusout)="onFocusout()" role="spinbutton" [attr.aria-label]="'Month' | translate"
-              [attr.aria-valuemin]="1" [attr.aria-valuemax]="12"
-              [attr.aria-valuenow]="month >= 0 ? (month + 1) : null"
-              [attr.aria-valuetext]="(month | month) || null">{{month | month}}</span>
-            }
-            @if (f === 'year') {
-              <span #yearSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onYearKey($event)"
-              (focusout)="onFocusout()" role="spinbutton" [attr.aria-label]="'Year' | translate"
-              [attr.aria-valuenow]="year ?? null" [attr.aria-valuetext]="(year | year) || null">{{year | year}}</span>
-            }
-            <ng-container *ngIf="i < 2 && showDate">/</ng-container>
-            <ng-container *ngIf="f === 'hh' || f === 'HH' ">&nbsp;<span #hourSpan
-              tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onHourKey($event)"
-              (focusout)="onFocusout()" role="spinbutton" [attr.aria-label]="'Hours' | translate"
-              [attr.aria-valuemin]="0" [attr.aria-valuemax]="isTwelveHourNotation ? 12 : 23"
-              [attr.aria-valuenow]="hour ?? null" [attr.aria-valuetext]="(hour | hour) || null">{{hour | hour}}</span>
-            </ng-container>
-            @if (f === 'minutes') {
-              :<span #minutesSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onMinutesKey($event)"
-                (focusout)="onFocusout()" role="spinbutton" [attr.aria-label]="'Minutes' | translate"
-                [attr.aria-valuemin]="0" [attr.aria-valuemax]="59" [attr.aria-valuenow]="minutes ?? null"
-                [attr.aria-valuetext]="(minutes | minutes) || null">{{minutes | minutes}}</span>
-            }
-            @if (f === 'seconds') {
-              :<span #secondsSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onSecondsKey($event)"
-                (focusout)="onFocusout()" role="spinbutton" [attr.aria-label]="'Seconds' | translate"
-                [attr.aria-valuemin]="0" [attr.aria-valuemax]="59" [attr.aria-valuenow]="seconds ?? null"
-                [attr.aria-valuetext]="(seconds | minutes) || null">{{seconds | minutes}}</span>
-            }
-          }
-          @if (isTwelveHourNotation) {
-            <a class="meridian" (click)="changeMeridian($event)"
-              (keydown)="changeMeridian($event)" role="button"
-              [attr.aria-label]="('Toggle AM/PM' | translate) + ' (' + (hour > 12 || hour === 0 ? 'PM' : 'AM') + ')'"
-              tabindex="{{ enable ? internalOptions.tabindex : -1}}">{{ hour > 12 || hour === 0 ? 'PM' : 'AM'}}</a>
-          }
-        </div>
-      }
+<div *ngIf="show && formControl && format" relative shDropdownContainer [class]="containerClass">
+  <div #input [id]="internalOptions.id" [class]="inputClass" [class.input]="true"
+    [class.ng-invalid]="formControl.invalid" [class.ng-touched]="formControl.touched"
+    [class.ng-dirty]="formControl.dirty" [class.sh-populated]="!!formControl.value"
+    [attr.tabindex]="internalOptions.tabindex" [attr.autofocus]="internalOptions.autofocus || null"
+    [class.disabled]="!enable" [class.readonly]="internalOptions.isReadonly" [style.minWidth]="width"
+    [style.height]="height" [class.with-icon]="true" tabindex="0"
+    (click)="$event.preventDefault(); touch(); hidePicker();" (keydown)="onDateKey($event)" (focusout)="reset()">
+    <input type="date" ngx-mydatepicker [options]="pickerOptions" #dp="ngx-mydatepicker"
+      (dateChanged)="dateChanged($event.jsdate)" hidden />
+    <div *ngIf="isReady" class="text-input" translate>
+      <ng-container *ngFor="let f of format; let i = index">
+        <ng-container *ngIf="f === 'day'">
+          <span #daySpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onDayKey($event)"
+            (focusout)="canOverwrite = true">{{day | day}}</span>
+        </ng-container>
+        <ng-container *ngIf="f === 'month'">
+          <span #monthSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onMonthKey($event)"
+            (focusout)="canOverwrite = true">{{month | month}}</span>
+        </ng-container>
+        <ng-container *ngIf="f === 'year'">
+          <span #yearSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onYearKey($event)"
+            (focusout)="canOverwrite = true">{{year | year}}</span>
+        </ng-container>
+        <ng-container *ngIf="i < 2 && showDate">/</ng-container>
+        <ng-container *ngIf="f === 'hh' || f === 'HH'">&nbsp;<span #hourSpan
+            tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onHourKey($event)"
+            (focusout)="canOverwrite = true">{{hour | hour :f}}</span>
+        </ng-container>
+        <ng-container *ngIf="f === 'minutes'">
+          :<span #minutesSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onMinutesKey($event)"
+            (focusout)="canOverwrite = true">{{minutes | minutes}}</span>
+        </ng-container>
+        <ng-container *ngIf="f === 'seconds'">
+          :<span #secondsSpan tabindex="{{ enable ? internalOptions.tabindex : -1}}" (keydown)="onSecondsKey($event)"
+            (focusout)="canOverwrite = true">{{seconds | minutes}}</span>
+        </ng-container>
+      </ng-container>
+      <a class="meridian" *ngIf="isTwelveHourNotation" (click)="changeMeridian($event)"
+        (keydown)="changeMeridian($event)"
+        tabindex="{{ enable ? internalOptions.tabindex : -1}}">{{ hour > 12 || hour === 0 ? 'PM' : 'AM'}}</a>
     </div>
-    @if (placeholder) {
-      <label [id]="internalOptions.id + '-label'" [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
-    }
-    @if (!internalOptions.isReadonly && enable && showDate) {
-      <sh-icon pointer vertical-centered [name]="icon"
-        (click)="togglePicker()"
-        (keydown.enter)="$event.preventDefault(); togglePicker()"
-        (keydown.space)="$event.preventDefault(); togglePicker()"
-        role="button" tabindex="0"
-        [attr.aria-label]="'Open calendar' | translate"
-        [attr.aria-haspopup]="'grid'"
-        [attr.aria-expanded]="isCalendarOpen"
-        [attr.aria-controls]="isCalendarOpen ? (internalOptions.id + '-calendar') : null">
-      </sh-icon>
-    }
   </div>
-}
+  <label *ngIf="placeholder"
+    [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
+  <sh-icon *ngIf="!internalOptions.isReadonly && enable && showDate" pointer vertical-centered name="date-input"
+    (click)="togglePicker()">
+  </sh-icon>
+</div>

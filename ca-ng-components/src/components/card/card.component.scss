@@ -1,49 +1,30 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/a11y' as *;
+@import '../../styles/colors';
 
-$card-toolbar-height: var(--card-toolbar-height, 60px);
-$card-box-shadow: var(--card-box-shadow, $sh-gray 0 0 10px 0px);
-$card-toolbar-vertical-recess: var(--card-toolbar-vertical-recess, 0);
-$card-toolbar-left-recess: var(--card-toolbar-left-recess, 0);
-$card-toolbar-right-recess: var(--card-toolbar-right-recess, 0);
-$card-toolbar-recess: 17px 20px;
-$card-top-recess: var(--card-top-recess, 0);
-$card-bottom-recess: var(--card-bottom-recess, 0);
-$card-body-recess: var(--card-body-recess, 40px);
-$card-tabs-vertical-recess: var(--card-tabs-vertical-recess, 12px);
+$card-toolbar-height: 60px;
+$card-shadow: $sh-gray 0 0 10px 0px;
+$card-toolbar-vertical-recess: 20px;
+$card-toolbar-recess: 17px $card-toolbar-vertical-recess;
+$card-body-recess: 40px;
+$card-tabs-vertical-recess: 12px;
 $card-border-radius: 10px;
-$card-border-bottom-left-radius: var(--card-border-bottom-left-radius, $card-border-radius);
-$card-border-top-right-radius: var(--card-border-top-right-radius, $card-border-bottom-left-radius);
-$card-title-font-size: var(--card-title-font-size, 20px);
+$card-title-font-size: 20px;
 $card-toolbar-command-size: 15px;
-$card-right-recess: var(--card-right-recess, $card-toolbar-command-size * 2);
-$card-toolbar-commands-distance: var(--card-toolbar-commands-distance, 20px);
-$card-toolbar-commands-recess: var(--card-toolbar-commands-recess, $card-toolbar-recess);
-$card-toolbar-commands-right-recess: var(--card-toolbar-commands-right-recess, $card-right-recess);
-$card-toolbar-command-width: var(--card-toolbar-command-width, $card-toolbar-command-size);
-$card-toolbar-command-height: var(--card-toolbar-command-height, $card-toolbar-command-width);
-$card-title-color: var(--card-title-color, $sh-sea-black);
-$card-title-recess: var(--card-title-recess, $card-toolbar-recess);
-$card-toolbar-tab-font-size: var(--card-toolbar-tab-font-size, 15px);
-$card-toolbar-tab-border-width: var(--card-toolbar-tab-border-width, 3px);
-$card-background-color: var(--card-background-color, $sh-white);
-$card-border: var(--card-border, 1px solid $sh-white);
-$card-toolbar-border-bottom: var(--card-toolbar-border-bottom, 1px solid $sh-granite);
-$card-toolbar-background: var(--card-toolbar-background, $sh-smoke-white);
-$card-footer-vertical-recess: var(--card-footer-vertical-recess, 20px);
-$card-footer-right-recess: var(--card-footer-right-recess, $card-right-recess);
+$card-toolbar-commands-distance: 20px;
+$card-right-recess: $card-toolbar-command-size * 2;
+$card-toolbar-tab-font-size: 15px;
+$card-toolbar-tab-border-size: 3px;
 
 :host {
   .card {
-    background-color: $card-background-color;
-    border: $card-border;
-    border-bottom-left-radius: $card-border-bottom-left-radius;
-    border-top-right-radius: $card-border-top-right-radius;
+    background-color: $sh-white;
+    border: 1px solid $sh-white;
+    border-bottom-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
     position: absolute;
-    top: $card-top-recess;
-    bottom: $card-bottom-recess;
+    top: 0;
+    bottom: 0;
     width: 100%;
-    box-shadow: $card-box-shadow;
+    box-shadow: $card-shadow;
     overflow: hidden;
 
     .card-toolbar {
@@ -51,17 +32,17 @@ $card-footer-right-recess: var(--card-footer-right-recess, $card-right-recess);
       display: inline-flex;
       width: 100%;
       position: absolute;
-      top: $card-toolbar-vertical-recess;
-      left: $card-toolbar-left-recess;
-      right: $card-toolbar-right-recess;
-      border-bottom: $card-toolbar-border-bottom;
-      background: $card-toolbar-background;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid $sh-granite;
+      background: $sh-smoke-white;
 
 
       .title {
         font-size: $card-title-font-size;
-        color: $card-title-color;
-        padding: $card-title-recess;
+        color: $sh-iron-gray;
+        padding: $card-toolbar-recess;
         flex-grow: 1;
         flex-shrink: 1;
         overflow: hidden;
@@ -70,24 +51,20 @@ $card-footer-right-recess: var(--card-footer-right-recess, $card-right-recess);
       }
 
       .commands {
-        margin: $card-toolbar-commands-recess;
+        margin: $card-toolbar-recess;
         flex-grow: 1;
         flex-shrink: 0;
         text-align: right;
-        margin-right: $card-toolbar-commands-right-recess;
+        margin-right: $card-right-recess;
 
         &>* {
-          width: $card-toolbar-command-width;
-          height: $card-toolbar-command-height;
+          width: $card-toolbar-command-size;
+          height: $card-toolbar-command-size;
           vertical-align: sub;
 
           &:not(:last-of-type) {
             padding-right: $card-toolbar-commands-distance;
           }
-        }
-
-        sh-icon[role='button']:focus-visible {
-          @include sh-focus-ring;
         }
 
         sh-commands-bar>* {
@@ -112,7 +89,7 @@ $card-footer-right-recess: var(--card-footer-right-recess, $card-right-recess);
 
           .tab {
             font-size: $card-toolbar-tab-font-size;
-            border-bottom-width: $card-toolbar-tab-border-width;
+            border-bottom-width: $card-toolbar-tab-border-size;
           }
         }
       }
@@ -132,14 +109,20 @@ $card-footer-right-recess: var(--card-footer-right-recess, $card-right-recess);
 
       ::ng-deep [shdropdown],
       ::ng-deep .ngxmdp {
-        position: absolute;
+        position: absolute !important;
       }
     }
 
     .card-footer {
-      bottom: $card-footer-vertical-recess;
-      right: $card-footer-right-recess;
+      bottom: $card-toolbar-vertical-recess;
+      right: $card-right-recess;
+      opacity: .1;
       position: absolute;
+      transition: .5s opacity;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }

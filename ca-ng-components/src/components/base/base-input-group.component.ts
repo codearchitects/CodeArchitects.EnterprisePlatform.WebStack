@@ -1,8 +1,8 @@
-import { Injector, OnChanges, OnInit, OnDestroy, SimpleChanges, Output, EventEmitter, Directive } from '@angular/core';
-import * as _ from 'lodash-es';
-import { IShBaseOptions } from './base.component';
+import { Injector, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import * as _ from 'lodash';
 import { ShBaseModelComponent } from './base-model.component';
-import { ShFormGroup } from '../../utilities/form-group.utility';
+import { IShBaseOptions } from './base.component';
 
 /**
  * Base Input Group Component options contract
@@ -19,14 +19,13 @@ export interface IShBaseInputGroupOptions<T>
 /**
  * Base Component which introduces the form group
  */
-@Directive()
 export abstract class ShBaseInputGroupComponent<T, O extends IShBaseInputGroupOptions<T>>
   extends ShBaseModelComponent<T, O>
   implements OnChanges, OnInit, OnDestroy {
   /**
    * Generated Form Group related to model property values
    */
-  /*protected*/ public formGroup: ShFormGroup<any>;
+  protected formGroup: FormGroup;
   /**
    * List of css classes to be applied to control container
    */
@@ -65,18 +64,18 @@ export abstract class ShBaseInputGroupComponent<T, O extends IShBaseInputGroupOp
   /**
    * Creates a form group related to model property values
    */
-  /*protected*/ public createFormGroup() {
+  protected createFormGroup() {
     this.formGroup = this.formHandler.getGroup(this.getModelValue(), this.model);
   }
 
   /**
    * Removes the form group from the tree
    */
-  /*protected*/ public destroyFormGroup() {
+  protected destroyFormGroup() {
     this.formHandler.removeGroup(this.getModelValue(), this.model);
   }
 
-  /*protected*/ public getDefaultOptions(): IShBaseInputGroupOptions<T> {
+  protected getDefaultOptions(): IShBaseInputGroupOptions<T> {
     return _.merge(super.getDefaultOptions(), {
       inputClass: [],
       onChange: (value: T) => undefined

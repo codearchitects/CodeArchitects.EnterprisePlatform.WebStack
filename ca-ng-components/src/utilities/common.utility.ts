@@ -1,22 +1,7 @@
-import { each } from 'lodash-es';
+import { each } from 'lodash';
 import { Mstring } from '@ca-webstack/ng-i18n';
 import { Aspect, IValidationParams, Validation } from '@ca-webstack/ng-aspects';
 import { Command, ShCommandComponent, ICommand } from '@ca-webstack/ng-command-dispatcher';
-
-/**
- * Default icon name for the sidebar toggler
- */
-export const CAEP_SIDEBAR_DEFAULT_TOGGLER_ICON = 'icon icon-hamburger';
-
-/**
- * Default icon name for the sidebar search
- */
-export const CAEP_SIDEBAR_SEARCH_DEFAULT_ICON = 'icon icon-search';
-
-/**
- * Property name used with FormattedControlValueAccessorDirective to bind model value of a formatted input component
- */
-export const FORMATTED_CVA_MODEL_PROPERTY_NAME = 'value';
 
 /**
  * Checks whether the item is at least equal to one of the values
@@ -151,7 +136,7 @@ export function isDateValid(date: Date) {
  * @param value
  */
 export function isPresent(value: any) {
-  return value !== undefined && value !== null && value !== '' && !(Array.isArray(value) && value.length === 0);
+  return value !== undefined && value !== null && value !== '' && value !== [];
 }
 
 /**

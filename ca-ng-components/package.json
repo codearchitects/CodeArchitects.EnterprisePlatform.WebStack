@@ -4,154 +4,141 @@
   "description": "Angular components.",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
   "license": "Apache-2.0",
-  "ngPackageExports": {
-    "./styles/attributes": {
-      "sass": "./styles/_attributes.scss"
-    },
-    "./styles/colors": {
-      "sass": "./styles/_colors.scss"
-    },
-    "./styles/common": {
-      "sass": "./styles/_common.scss"
-    },
-    "./styles/fonts": {
-      "sass": "./styles/_fonts.scss"
-    },
-    "./styles/functions": {
-      "sass": "./styles/_functions.scss"
-    },
-    "./styles/grid-system": {
-      "sass": "./styles/_grid-system.scss"
-    },
-    "./styles/icons": {
-      "sass": "./styles/_icons.scss"
-    },
-    "./styles/input": {
-      "sass": "./styles/_input.scss"
-    },
-    "./styles/mixins": {
-      "sass": "./styles/_mixins.scss"
-    },
-    "./styles/toast": {
-      "sass": "./styles/_toast.scss"
-    },
-    "./styles/*": {
-      "sass": "./styles/*.scss"
-    }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack.git"
   },
   "peerDependencies": {
-    "@angular-architects/module-federation": "21.2.1",
+    "@angular/core": "^8.1.2",
+    "@angular/router": "^8.1.2",
+    "@angular/platform-browser": "^8.1.2",
+    "@angular/common": "^8.1.2",
+    "@angular/platform-browser-dynamic": "^8.1.2",
+    "@angular/animations": "^8.1.2",
+    "@angular/compiler": "^8.1.2",
+    "@angular/forms": "^8.1.2",
+    "@angular/http": "^7.2.3",
     "@ca-webstack/data-structures": "*",
-    "@ca-webstack/event-manager": "*",
     "@ca-webstack/ng-aspects": "*",
     "@ca-webstack/ng-command-dispatcher": "*",
-    "@ca-webstack/ng-event-manager": "*",
     "@ca-webstack/ng-i18n": "*",
     "@ca-webstack/ng-policy-engine": "*",
     "@ca-webstack/policy-engine": "*",
     "@ca-webstack/reflection": "*",
-    "@ngx-translate/core": "^15.0.0",
-    "@nodro7/angular-mydatepicker": "~20.0.0",
-    "@perfectmemory/ngx-contextmenu": "^21.0.1",
-    "angular2-uuid": "^1.1.1",
-    "core-js": "^3.41.0",
-    "dompurify": "^3.3.1",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
+    "angular2-toaster": "^7.0.0",
+    "core-js": "^2.6.3",
     "jquery": "^3.3.1",
-    "lodash-es": "^4.17.23",
-    "ng-click-outside": "^9.0.0",
-    "ngx-countdown": "21.0.0",
-    "ngx-mask": "~20.0.3",
-    "ngx-toastr": "^19.1.0",
-    "numeral": "^2.0.6",
-    "rxjs": "~7.8.1"
+    "lodash": "^4.17.11",
+    "ngx-contextmenu": "^5.1.1",
+    "rxjs": "^6.4.0",
+    "zone.js": "~0.9.1"
   },
   "dependencies": {
-    "tslib": "^2.3.0",
+    "flag-icon-css": "^3.5.0",
+    "ng-click-outside": "^4.0.0",
+    "ngx-mydatepicker": "^2.4.9",
+    "ngx-numeral": "^0.0.1-beta.0",
+    "numeral": "^2.0.6",
     "vm": "^0.1.0"
   },
   "devDependencies": {
-    "@angular-architects/module-federation": "21.2.1",
-    "@angular-devkit/build-angular": "~21.2.0",
-    "@angular-eslint/builder": "~21.2.0",
-    "@angular-eslint/eslint-plugin": "~21.2.0",
-    "@angular-eslint/eslint-plugin-template": "~21.2.0",
-    "@angular-eslint/schematics": "~21.2.0",
-    "@angular-eslint/template-parser": "~21.2.0",
-    "@angular/animations": "~21.2.0",
-    "@angular/cdk": "~21.2.0",
-    "@angular/cli": "~21.2.0",
-    "@angular/common": "~21.2.0",
-    "@angular/compiler": "~21.2.0",
-    "@angular/compiler-cli": "~21.2.0",
-    "@angular/core": "~21.2.0",
-    "@angular/forms": "~21.2.0",
-    "@angular/language-service": "~21.2.0",
-    "@angular/platform-browser": "~21.2.0",
-    "@angular/platform-browser-dynamic": "~21.2.0",
-    "@angular/router": "~21.2.0",
+    "sass": "^1.32.0",
+    "@angular-devkit/build-angular": "~0.801.2",
+    "@angular/animations": "^8.1.2",
+    "@angular/cdk": "^7.2.3",
+    "@angular/cli": "^8.1.2",
+    "@angular/common": "^8.1.2",
+    "@angular/compiler": "^8.1.2",
+    "@angular/compiler-cli": "^8.1.2",
+    "@angular/core": "^8.1.2",
+    "@angular/forms": "^8.1.2",
+    "@angular/http": "^7.2.3",
+    "@angular/language-service": "^8.1.2",
+    "@angular/platform-browser": "^8.1.2",
+    "@angular/platform-browser-dynamic": "^8.1.2",
+    "@angular/router": "^8.1.2",
     "@ca-webstack/data-structures": "*",
-    "@ca-webstack/event-manager": "*",
     "@ca-webstack/ng-aspects": "*",
     "@ca-webstack/ng-command-dispatcher": "*",
-    "@ca-webstack/ng-event-manager": "*",
     "@ca-webstack/ng-i18n": "*",
     "@ca-webstack/ng-policy-engine": "*",
     "@ca-webstack/policy-engine": "*",
     "@ca-webstack/reflection": "*",
-    "@ngx-translate/core": "^15.0.0",
-    "@nodro7/angular-mydatepicker": "~20.0.0",
-    "@perfectmemory/ngx-contextmenu": "^21.0.1",
-    "@types/core-js": "^2.5.8",
-    "@types/jasmine": "~5.1.0",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
+    "@types/core-js": "^2.5.0",
+    "@types/jasmine": "^3.3.8",
     "@types/jasminewd2": "^2.0.6",
     "@types/jquery": "^3.3.29",
-    "@types/lodash-es": "^4.17.12",
-    "@types/node": "^22.19.3",
+    "@types/lodash": "4.14.120",
+    "@types/node": "^10.12.21",
     "@types/numeral": "^0.0.25",
-    "@typescript-eslint/eslint-plugin": "^8.50.0",
-    "@typescript-eslint/parser": "^8.50.0",
-    "angular2-uuid": "^1.1.1",
-    "core-js": "^3.41.0",
-    "dompurify": "^3.3.1",
-    "eslint": "^9.32.2",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsdoc": "^61.5.0",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "jasmine-core": "~5.13.0",
-    "jasmine-spec-reporter": "~7.0.0",
+    "angular2-toaster": "^7.0.0",
+    "codelyzer": "^5.0.1",
+    "core-js": "^2.6.3",
+    "jasmine-core": "^3.3.0",
+    "jasmine-spec-reporter": "^4.2.1",
     "jquery": "^3.3.1",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "^2.1.0",
-    "lodash-es": "^4.17.23",
-    "ng-click-outside": "^9.0.0",
-    "ng-packagr": "~21.2.0",
-    "ngx-countdown": "21.0.0",
-    "ngx-mask": "~20.0.3",
-    "ngx-toastr": "^19.1.0",
-    "numeral": "^2.0.6",
-    "rxjs": "~7.8.1",
+    "karma": "^4.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage-istanbul-reporter": "^2.0.4",
+    "karma-jasmine": "^2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^5.7.1",
+    "lodash": "^4.17.11",
+    "ngx-contextmenu": "^5.1.1",
+    "protractor": "^5.4.2",
+    "rxjs": "^6.4.0",
     "ts-node": "^8.0.2",
-    "typedoc": "^0.28.15",
-    "typescript": "5.9.3",
-    "zone.js": "~0.16.0"
+    "tslint": "^5.12.1",
+    "typescript": "3.4.5",
+    "zone.js": "^0.11.3"
   },
   "scripts": {
     "clean": "npm run clean.artifacts && npm run clean.node_modules",
     "clean.artifacts": "node rimraf.js dist .tmp typedocs",
-    "clean.node_modules": "node rimraf.js node_modules",
-    "setup": "npm install --loglevel=error",
-    "build": "ng build",
-    "postbuild": "node ../scripts/merge-pkg-exports.mjs",
-    "build.watch": "ng build --watch",
+    "clean.node_modules": "node rimraf.js node_modules && rm -f package-lock.json",
+    "setup": "npm install --no-optional --loglevel=error",
+    "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json",
     "test": "npm run test.unit",
-    "test.unit": "ng test --watch=false",
+    "test.unit": "ng test --watch=false --code-coverage",
     "test.unit.watch": "ng test",
-    "typedoc": "npm run clean.artifacts && typedoc public_api.ts --out typedocs --theme default --exclude node_modules --readme none",
-    "lint": "ng lint"
+    "test.integration": "cd tests/integration && npm run test",
+    "test.dev": "npm run test && start ./coverage/index.html",
+    "demo": "cd demo && npm run start",
+    "typedoc": "npm run clean.artifacts && typedoc --out typedocs public_api.ts --module commonjs --target es6 --theme minimal --exclude node_modules --readme none"
   },
-  "module": "dist/fesm2022/ca-webstack-ng-components.mjs",
-  "typings": "dist/types/ca-webstack-ng-components.d.ts"
+  "config": {
+    "ca": {
+      "rollupOptions": {
+        "entryPoint": "public_api.ts",
+        "tsconfig": "tsconfig.json",
+        "externals": [
+          "lodash",
+          "numeral",
+          "numeral/locales",
+          "ngx-translate",
+          "rxjs",
+          "rxjs/operators",
+          "typescript"
+        ],
+        "copy": [
+          {
+            "from": "src/styles",
+            "to": "."
+          }
+        ],
+        "targets": {
+          "angular": true,
+          "web": false,
+          "node": false
+        }
+      }
+    }
+  },
+  "main": "dist/bundles/ca-webstack-ng-components.umd.js",
+  "module": "dist/fesm5/ca-webstack-ng-components.js",
+  "typings": "dist/ca-webstack-ng-components.d.ts"
 }

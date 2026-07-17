@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Injector, OnChanges, SimpleChanges } from '@angular/core';
 import 'jquery';
-import * as _ from 'lodash-es';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import * as _ from 'lodash';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { IShBaseInputOptions, ShBaseInputComponent } from '../base/index';
 
 /**
@@ -37,12 +37,11 @@ export interface IShTextAreaOptions
   shortDescription: 'Textarea Control'
 })
 @Component({
-    selector: 'sh-textarea',
-    templateUrl: './textarea.component.html',
-    styleUrls: ['./textarea.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-textarea',
+  templateUrl: './textarea.component.html',
+  styleUrls: ['./textarea.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Textarea Component
  */
@@ -78,17 +77,10 @@ export class ShTextareaComponent
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShTextAreaOptions {
+  protected getDefaultOptions(): IShTextAreaOptions {
     return _.merge(super.getDefaultOptions(), {
       autoresize: false
     });
-  }
-
-  public onControlValueChanges(): void {
-    super.onControlValueChanges();
-    if (this.internalOptions.autoresize) {
-      this.autoresize();
-    }
   }
 
   /**
@@ -96,7 +88,9 @@ export class ShTextareaComponent
    */
   private setupAutoResizing() {
     if ($) {
-      this._element = $('#' + this.internalOptions.id);
+      this._element =
+        $('#' + this.internalOptions.id)
+          .keydown(this.autoresize.bind(this));
       if (this.internalOptions.maxRows) {
         this.setMaxRows();
       }
@@ -110,6 +104,7 @@ export class ShTextareaComponent
    * Sets a maximum number of visible rows before scroll
    */
   private setMaxRows() {
+    // tslint:disable-next-line:radix
     const lineHeight = parseInt(this._element.css('line-height'));
     this._element.css('max-height', this.internalOptions.maxRows * lineHeight);
   }

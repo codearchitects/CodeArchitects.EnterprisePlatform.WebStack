@@ -1,33 +1,25 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ShFormGroup } from '../../utilities/form-group.utility';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { ShBaseCommand } from '../../models/command';
-import { isNoU, yieldFunc } from '../../utilities';
+import { FormHandlerService } from 'src/services/form-handler.service';
+import { isNoU, yieldFunc } from 'src/utilities/common.utility';
 import { IShBaseOptions, ShBaseAuthComponent } from '../base/index';
 
 @Component({
-    selector: 'sh-card',
-    templateUrl: './card.component.html',
-    styleUrls: ['./card.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-card',
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
-export class ShCardComponent<T> extends ShBaseAuthComponent<IShBaseOptions> implements OnInit, AfterViewInit, OnDestroy {
+export class ShCardComponent<T> extends ShBaseAuthComponent<IShBaseOptions> implements OnInit, AfterViewInit {
   /**
    * The object binded to the card (for validations)
    * @default {}
    */
   @Input() public model: T = {} as any;
-  /**
-   * The parent object which contains the model
-   */
-  @Input() public parent?: { [id: string]: T; };
-  /**
-   * The prop name on the parent object which identifies the model to bind to the card
-   */
-  @Input() public prop?: string;
   /**
    * Card title
    */
@@ -98,15 +90,15 @@ export class ShCardComponent<T> extends ShBaseAuthComponent<IShBaseOptions> impl
   /**
    * The model form group
    */
-  /*protected*/ public formGroup: ShFormGroup<any>;
+  protected formGroup: FormGroup;
   /**
    * Specifies whether the content of the card can be shown
    */
-  /*protected*/ public isReady = false;
+  public isReady = false;
   /**
    * Change detector references
    */
-  /*protected*/ public changeDetection: ChangeDetectorRef;
+  protected changeDetection: ChangeDetectorRef;
 
   /**
    * Card component
@@ -118,28 +110,21 @@ export class ShCardComponent<T> extends ShBaseAuthComponent<IShBaseOptions> impl
 
   public ngOnInit() {
     super.ngOnInit();
-    if (isNoU(this.prop)) {
-      this.formGroup = this.formHandler.getGroup(this.model);
-    } else if (this.parent && this.prop in this.parent) {
-      this.formGroup = this.formHandler.getGroup(this.prop, this.parent);
-    } else {
-      console.warn('Parent or prop is invalid. Unable to create form group.');
-    }
-    
+    this.formGroup = this.formHandler.getGroup(this.model);
     if (this.formGroup) {
       this.validityChanges(this.formGroup.valid);
     }
     this.formHandler.validityChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(this.validityChanges.bind(this));
-    if (this.formGroup && this.valueChanges.observed) {
+    if (this.formGroup && this.valueChanges.observers && this.valueChanges.observers.length) {
       this.formGroup.valueChanges
         .pipe(takeUntil(this.destroy$), distinctUntilChanged())
         .subscribe(v => this.valueChanges.emit(v));
     }
     yieldFunc(() => {
       this.isReady = true;
-      if (shChangeDetectorStrategy() === ChangeDetectionStrategy.OnPush) {
+      if (SH_CHANGE_DETECTOR.STRATEGY === ChangeDetectionStrategy.OnPush) {
         this.changeDetection.markForCheck();
       }
     });
@@ -148,16 +133,6 @@ export class ShCardComponent<T> extends ShBaseAuthComponent<IShBaseOptions> impl
   public ngAfterViewInit() {
     if (this.isScrollable && this.scrollElement) {
       this.scrollTo(this.scrollElement);
-    }
-  }
-
-  public ngOnDestroy(): void {
-    super.ngOnDestroy();
-    if (isNoU(this.prop)) {
-      this.formHandler.removeGroup(this.model);
-    } else {
-      // undefined parent[prop] not supported, should throw error?
-      this.formHandler.removeGroup(this.formGroup);
     }
   }
 

@@ -1,0 +1,111 @@
+@import '../../styles/colors';
+
+$sub-menu-distance: 11px;
+$menu-margin: 0 12px;
+$menu-items-font-size: 15px;
+$menu-item-recess: $sub-menu-distance 0;
+$sub-menu-item-recess: 35px;
+$menu-radius: 5px;
+$sub-menu-icon-distance: 21px;
+
+::ng-deep .ngx-contextmenu {
+  background: color-opacity($sh-chinese-black, .6);
+  border: 1px solid $sh-wood-gray;
+  border-radius: $menu-radius;
+
+  &.cdk-overlay-pane {
+    margin-left: $sub-menu-distance;
+    margin-right: $sub-menu-distance;
+  }
+}
+
+::ng-deep context-menu-content {
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: $menu-margin;
+
+    li {
+      display: contents;
+
+      &:not(:last-of-type) {
+        &:after {
+          content: '-';
+          background: $sh-wood-gray;
+          font-size: 1px;
+          position: absolute;
+          left: 0;
+          right: 0;
+        }
+      }
+
+      &:hover {
+        a {
+
+          &,
+          &:before {
+            color: $sh-white;
+          }
+        }
+      }
+
+      &:not(:hover) {
+        a {
+
+          &,
+          &:before {
+            color: color-opacity($sh-white, .6);
+          }
+        }
+      }
+
+      a {
+        text-decoration: none;
+        font-size: $menu-items-font-size;
+        cursor: default;
+        font-family: RobotoLight;
+
+        .command {
+          padding: $menu-item-recess;
+          cursor: pointer;
+          position: relative;
+
+          sh-icon {
+
+            i {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+
+            &+div {
+              padding-left: $sub-menu-icon-distance;
+              vertical-align: top;
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+
+    .hasSubMenu {
+      &:before {
+        display: none;
+      }
+
+      &>.context-menu-item>sh-context-menu-item>.command {
+        &>div {
+          margin-right: $sub-menu-item-recess;
+        }
+
+        &:after {
+          content: "▶";
+          position: absolute;
+          right: 5px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+}

@@ -1,47 +1,15 @@
 # ca-ng-policy-engine
 
-> `@ca-webstack/ng-policy-engine` — Angular wrapper for the claims-based policy engine.
-
 ## Overview
 
-Provides `PolicyEngineService` (injectable wrapper around `@ca-webstack/policy-engine`), a `@Resource` decorator for annotating entities with resource URIs, and `ResourceService` for extracting that metadata.
+## Status
 
-## Installation
-
-```bash
-npm install @ca-webstack/ng-policy-engine
-```
-
-### Peer Dependencies
-
-- `@ca-webstack/policy-engine` ~21.1.0
-- `@ca-webstack/reflection` ~21.1.0
-- `core-js` ^3.41.0
-
-## Quick Start
-
-```typescript
-import { PolicyEngineService, Resource } from '@ca-webstack/ng-policy-engine';
-
-@Resource({ uri: 'customers' })
-class Customer { }
-
-// In a service:
-constructor(private policyEngine: PolicyEngineService) { }
-
-check() {
-  return this.policyEngine.runPolicies('customers', 'canEdit');
-}
-```
-
-## Key Exports
-
-| Symbol | Description |
-|---|---|
-| `PolicyEngineService` | Injectable wrapper: setClaims, setPolicies, runPolicies, observePolicies. |
-| `@Resource` | Class/property decorator for resource URI metadata. |
-| `ResourceService` | Service to extract `@Resource` metadata from entities. |
+|         | Build & Test                                                                                                                                            |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Win](docs/images/os/win_med.png) **Windows** | *not configured yet* |
+| ![macOS](docs/images/os/apple_med.png) **macOS**   | *not configured yet*                                                                                         |
+| ![Linux](docs/images/os/linux_med.png) **Linux**   | *not configured yet*                                                                                         |
 
 ## More Documentation
 
-[Full API documentation](docs/index.md)
+[Documentation Here](docs/index.md)

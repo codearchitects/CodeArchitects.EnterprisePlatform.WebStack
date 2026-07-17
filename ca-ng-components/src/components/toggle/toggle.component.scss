@@ -1,31 +1,16 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/common' as *;
-@use '../../../styles/attributes';
-@use '../../../styles/a11y' as a11y;
-
-$toggle-width: var(--toggle-width, 44px);
-$toggle-height: var(--toggle-height, 24px);
-$toggle-border-width: var(--toggle-border-width, 3px);
-$toggle-border-style: var(--toggle-border-style, solid);
-$toggle-border-color: var(--toggle-border-color, $sh-matrix-gray);
+@import '../../styles/colors';
+@import '../../styles/common';
+@import '../../styles/attributes';
+$toggle-width: 44px;
+$toggle-height: 24px;
+$toggle-border-size: 3px;
 $toggle-focused-offset: 6px;
-$toggle-border-radius: var(--toggle-border-radius, 30px);
-$toggle-ball-size: var(--toggle-ball-size, 14px);
-$toggle-ball-background: var(--toggle-ball-background, $toggle-border-color);
-$toggle-checked-border-color: var(--toggle-checked-border-color, var(--sh-first));
-$toggle-ball-checked-background: var(--toggle-ball-checked-background, $toggle-checked-border-color);
-$toggle-disabled-opacity: var(--toggle-disabled-opacity, .4);
-$toggle-disabled-background-color: var(--toggle-disabled-background-color, $sh-silver);
-$toggle-ball-disabled-background: var(--toggle-ball-disabled-background, $sh-quick-silver);
-$toggle-label-disabled-color: var(--toggle-label-disabled-color, $sh-quick-silver);
-$toggle-hover-background-color: var(--toggle-hover-background-color, $sh-granite);
-$toggle-checked-hover-background-color: var(--toggle-checked-hover-background-color, var(--sh-secondary));
-$toggle-on-right-distance: var(--toggle-on-right-distance, 5px);
-$toggle-off-right-distance: var(--toggle-off-right-distance, 20px);
-$toggle-label-font-size: var(--toggle-label-font-size, 18px);
-$toggle-label-color: var(--toggle-label-color, $sh-text-gray);
-$toggle-label-distance: var(--toggle-label-distance, 10px);
-$toggle-recess: var(--toggle-recess, 10px);
+$toggle-border-radius: 30px;
+$toggle-ball-size: 14px;
+$toggle-on-right-distance: 5px;
+$toggle-off-right-distance: 20px;
+$toggle-label-font-size: 18px;
+$toggle-base-recess: 10px;
 
 .toggle {
   position: relative;
@@ -34,20 +19,13 @@ $toggle-recess: var(--toggle-recess, 10px);
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  margin: $toggle-recess;
+  margin: $toggle-base-recess;
   display: inline-block;
   vertical-align: middle;
 
   &,
   * {
     outline: none;
-  }
-
-  // Keyboard focus indicator (WCAG 2.4.7 / 2.4.11). The rule above removes the
-  // default outline; restore a clearly visible ring for keyboard users only,
-  // preserving the existing mouse/hover styling.
-  &:focus-visible {
-    @include a11y.sh-focus-ring($offset: $toggle-focused-offset);
   }
 
   label {
@@ -58,9 +36,9 @@ $toggle-recess: var(--toggle-recess, 10px);
     height: $toggle-height;
     padding: 0;
     border-radius: $toggle-border-radius;
-    border-width: $toggle-border-width;
-    border-style: $toggle-border-style;
-    border-color: $toggle-border-color;
+    border-width: $toggle-border-size;
+    border-style: solid;
+    border-color: $sh-matrix-gray;
     transition: .3s background-color;
 
     &:before {
@@ -79,20 +57,20 @@ $toggle-recess: var(--toggle-recess, 10px);
 
     &:checked+label {
       margin-left: 0;
-      border-color: $toggle-checked-border-color;
+      border-color: $sh-azure;
 
       &:before {
         right: $toggle-on-right-distance;
-        background: $toggle-ball-checked-background;
+        background: $sh-azure;
       }
     }
 
     &:not(:checked)+label {
-      border-color: $toggle-border-color;
+      border-color: $sh-matrix-gray;
 
       &:before {
         right: $toggle-off-right-distance;
-        background: $toggle-ball-background;
+        background: $sh-matrix-gray;
       }
     }
   }
@@ -106,23 +84,23 @@ $toggle-recess: var(--toggle-recess, 10px);
   }
 
   &.disabled {
-    opacity: $toggle-disabled-opacity;
+    opacity: .4;
     pointer-events: none;
     cursor: not-allowed;
 
     input {
       &+label {
-        background-color: $toggle-disabled-background-color;
-        border-color: $toggle-disabled-background-color;
+        background-color: $sh-silver;
+        border-color: $sh-silver;
 
         &:before {
-          background: $toggle-ball-disabled-background;
+          background: $sh-quick-silver;
         }
       }
     }
 
     &+span {
-      color: $toggle-label-disabled-color;
+      color: $sh-quick-silver;
       pointer-events: none;
       cursor: not-allowed;
     }
@@ -133,19 +111,19 @@ $toggle-recess: var(--toggle-recess, 10px);
   &:focus,
   &:active {
     input:checked+label {
-      background-color: $toggle-checked-hover-background-color;
+      background-color: $sh-pale-cyan;
     }
 
     input:not(:checked)+label {
-      background-color: $toggle-hover-background-color;
+      background-color: $sh-granite;
     }
   }
 
   &+span {
-    color: $toggle-label-color;
+    color: $sh-light-gray;
     cursor: pointer;
     font-size: $toggle-label-font-size;
-    margin-left: $toggle-label-distance;
+    margin-left: $toggle-base-recess;
     user-select: none;
     vertical-align: middle;
   }

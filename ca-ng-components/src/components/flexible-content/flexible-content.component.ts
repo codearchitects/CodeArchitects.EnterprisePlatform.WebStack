@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 
 @Component({
-    selector: 'sh-flexible-content',
-    templateUrl: './flexible-content.component.html',
-    styleUrls: ['./flexible-content.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-flexible-content',
+  templateUrl: './flexible-content.component.html',
+  styleUrls: ['./flexible-content.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Flexible component that offers three zones
  * configurables with custom content.

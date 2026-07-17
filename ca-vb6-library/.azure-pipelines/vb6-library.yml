@@ -1,0 +1,100 @@
+trigger:
+- develop
+
+parameters:
+- name: release
+  displayName: "Release"
+  type: string
+  default: CI
+  values:
+  - CI
+  - RC
+  - beta
+- name: nodeVersion
+  displayName: "Node Version: <20.x>"
+  type: string
+  default: 14.x
+- name: packageVersion
+  displayName: "Package Version: <14.1.0>"
+  type: string
+  default: 0.0.$(Rev:r)
+- name: betaVersion
+  displayName: 'Only if Release -eq beta: 14.1.0-beta.<betaVersion>'
+  type: string
+  default: $(Rev:r)
+
+variables:
+- group: Key Vault Secrets
+- name: organization
+  value: devops.codearchitects.com:444/Code%20Architects
+- name: uploadFeed
+  value: ca-webstack-npm-local
+- name: downloadFeed
+  value: ca-appmodeler-npm
+- name: feedList
+  value: 'bontalucane-npm,bosch-npm,ca-activities-npm,caa-omni-fleet-npm,ca-appmodeler-npm,ca-bcs,ca-coge-npm,ca-hyperautomation-npm,ca-modeler-npm,ca-urquell-npm,ca-webstack-npm,ca-wf-engine-npm,easyone-crm-npm,emisfera-npm,engineering,eo-powercrm-npm,exprivia-fidi-npm,exprivia-storybook-npm,icam-hmi-npm,marsili-ics-core-npm,mpsmonitor-npm,revorg-suite-npm,roboze-npm,sis-net-npm,terranova-npm,vgpnext-npm'
+- name: artifactDir
+  value: dist
+- name: betaReleaseName
+  value: ${{ parameters.packageVersion }}-beta.${{ parameters.betaVersion }}
+- ${{ if eq(parameters.release, 'CI') }}:
+  - name: version
+    value: $(Date:dd-MM-yyyy).$(Rev:r)
+- ${{ if eq(parameters.release, 'RC') }}:
+  - name: version
+    value: ${{ parameters.packageVersion }}
+- ${{ if eq(parameters.release, 'beta') }}:
+  - name: version
+    value: ${{ variables.betaReleaseName }}
+
+name: ${{ variables.version }}
+
+jobs:
+- job: ${{ parameters.release }}
+  pool:
+    name: kubernetes
+    demands:
+    - NODE_VERSION -equals 20
+    - NPM_VERSION -equals 10
+
+  steps:
+
+  - template: tasks/node-version.yml
+    parameters:
+      nodeVersion: ${{ parameters.nodeVersion }}
+
+  - template: tasks/npm-login.yml
+    parameters:
+      feed: ${{ variables.downloadFeed }}
+      organization: ${{ variables.organization }}
+
+  - template: tasks/npm-cache-clean.yml
+
+  - template: tasks/npm-ci.yml
+
+  - template: tasks/npm-run-build.yml
+
+  - template: tasks/npm-logout.yml
+    parameters:
+      feed: ${{ variables.downloadFeed }}
+      organization: ${{ variables.organization }}
+
+  - ${{ if ne(parameters.release, 'CI') }}:
+    - template: tasks/npm-login.yml
+      parameters:
+        feed: ${{ variables.uploadFeed }}
+        organization: ${{ variables.organization }}
+    - template: tasks/npm-publish.yml
+      parameters:
+        workDir: ${{ variables.artifactDir }}
+        feed: ${{ variables.uploadfeed }}
+        organization: ${{ variables.organization }}
+    - template: tasks/npm-logout.yml
+      parameters:
+        feed: ${{ variables.uploadfeed }}
+        organization: ${{ variables.organization }}
+    - template: tasks/check-publish.yml
+      parameters:
+        workDir: ${{ variables.artifactDir }}
+        organization: ${{ variables.organization }}
+        feedList: ${{ variables.feedList }}

@@ -1,0 +1,6 @@
+@import '../../../styles/input';
+
+.select-container {
+  @include select();
+  cursor: pointer;
+}

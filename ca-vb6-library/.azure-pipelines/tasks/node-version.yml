@@ -1,0 +1,8 @@
+parameters:
+- name: nodeVersion
+  type: string
+
+steps:
+- task: UseNode@1
+  inputs:
+    version: ${{ parameters.nodeVersion }}

@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/ng-signalr"
+    path: .
+    type: npm-package

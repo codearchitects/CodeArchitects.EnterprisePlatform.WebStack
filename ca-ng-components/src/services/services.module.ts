@@ -1,4 +1,5 @@
-import { AspectHelper } from '@ca-webstack/ng-aspects';
+import { ValidatorHelper, AspectHelper } from '@ca-webstack/ng-aspects';
+import { FormHandlerService } from './form-handler.service';
 // import { ToastService } from './toast.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,14 +9,18 @@ import { TemplateMapperService } from './template-mapper.service';
 import { ComplexTypeList, ShComplexType } from '../utilities/complex-type.list';
 import { NumberParserService } from './number-parser.service';
 import { AssetsService } from './assets.service';
+import { HttpClientModule } from '@angular/common/http';
 import { ShToastService } from './toast.service';
 
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule
   ],
   providers: [
     // ToastService,
+    FormHandlerService,
+    ValidatorHelper,
     IdSequenceService,
     NumberParserService,
     AssetsService,

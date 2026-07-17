@@ -1,33 +1,7 @@
-@use '../../../styles/colors' as *;
+@import '../../styles/colors';
 
-$stack-item-max-width: var(--breadcrumb-item-max-width, 200px);
-$stack-item-recess: var(--breadcrumb-item-recess, 2px 6px);
-$stack-item-border-bottom: var(--breadcrumb-item-border-bottom, 1px solid transparent);
-// Solid white (not a translucent tint): on the toolbar's darkened primary
-// background ($sh-first-text, #0F7EB1) even 100%-opacity white lands right at
-// 4.5:1 — any transparency drops below AA (WCAG 1.4.3).
-$stack-item-color: var(--breadcrumb-item-color, $sh-white);
-$stack-item-focus-color: var(--breadcrumb-item-focus-color, $sh-white);
-$stack-item-active-color: var(--breadcrumb-item-active-color, $sh-white);
-$stack-item-divider-color: var(--breadcrumb-item-divider-color, color-opacity($sh-white, .8));
-
-// The trail is wrapped in the APG-recommended <nav><ol><li> structure.
-// These wrappers are laid out inline and stripped of default list styling so
-// the visual result stays identical to the previous flat span/divider markup.
-nav {
-  display: inline;
-}
-
-ol {
-  display: inline;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-li {
-  display: inline;
-}
+$stack-item-max-width: 200px;
+$stack-item-recess: 2px 6px;
 
 span {
   cursor: pointer;
@@ -36,37 +10,36 @@ span {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  color: $stack-item-color;
-  border-bottom: $stack-item-border-bottom;
+  color: color-opacity($sh-white, .7);
+  border-bottom: 1px solid transparent;
   padding: $stack-item-recess;
   max-width: $stack-item-max-width;
-}
 
-// Every trail item except the current (last) one is an interactive link.
-li:not(:last-child) span {
-  cursor: pointer;
+  &:not(:last-of-type) {
+    cursor: pointer;
 
-  &:hover,
-  &:focus {
-    color: $stack-item-focus-color;
+    &:hover,
+    &:focus {
+      color: color-opacity($sh-white, .8);
+    }
+
+    &:active {
+      color: $sh-white;
+    }
+
   }
 
-  &:active {
-    color: $stack-item-active-color;
+  &:first-of-type {
+    padding-left: 0;
   }
-}
 
-li:first-child span {
-  padding-left: 0;
-}
-
-// Current page: not clickable, emphasised colour.
-li:last-child span {
-  pointer-events: none;
-  color: $stack-item-active-color;
+  &:last-of-type {
+    pointer-events: none;
+    color: $sh-white;
+  }
 }
 
 .divider {
   display: inline;
-  color: $stack-item-divider-color;
+  color: color-opacity($sh-white, .8);
 }

@@ -1,10 +1,1 @@
-@if (label !== false) {
-  <!--
-    `id` follows the same `<id>-label` convention custom ARIA widgets (e.g.
-    sh-toggle's role="switch") use for their own internal caption, so a
-    sibling control can reference this rendered label via aria-labelledby
-    even though `for` targets a hidden native input, not the real
-    interactive element (WCAG 4.1.2).
-  -->
-  <label [id]="internalOptions.id + '-label'" title="{{ label | i18n }}" [attr.for]="internalOptions.id" [attr.untouchable]="internalOptions.isReadonly || null" [class]="labelClass">{{ label | i18n }}</label>
-}
+<label *ngIf="label !== false" title="{{ label | i18n }}" [attr.for]="internalOptions.id" [class]="labelClass">{{ label | i18n }}</label>

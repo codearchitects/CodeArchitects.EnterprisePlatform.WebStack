@@ -1,6 +1,3 @@
-// monorepo: headless Chromium via puppeteer
-process.env.CHROME_BIN = process.env.CHROME_BIN || require("puppeteer").executablePath();
-
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
@@ -22,23 +19,23 @@ module.exports = function (config) {
         }
       },
       coverageIstanbulReporter: {
-        dir: require('path').join(__dirname, '../../coverage/my-lib'),
+        dir: require('path').join(__dirname, 'coverage'),
         reports: ['html', 'lcovonly', 'text-summary'],
         fixWebpackSourcePaths: true
       },
       reporters: ['progress', 'kjhtml'],
-      port: 9878,
+      port: 9876,
       colors: true,
       logLevel: config.LOG_INFO,
       autoWatch: true,
-      customLaunchers: {
-        ChromeHeadlessNoSandbox: {
-          base: "ChromeHeadless",
-          flags: ["--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage"]
-        }
-      },
-      browsers: ["ChromeHeadlessNoSandbox"],
-      singleRun: false,
+          customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu']
+      }
+    },
+    browsers: [process.env.CI ? 'ChromeHeadlessCI' : 'Chrome'],
+    singleRun: false,
       restartOnFileChange: true
     });
   };

@@ -1,3 +1,4 @@
+// TODO: =NS= restore tests when ca-ng-boilerplate supports them
 // import { TestBed, inject } from '@angular/core/testing';
 // import { Entity } from 'ca-data-context/core';
 // import { DataContextService } from './data-context.service';

@@ -1,10 +1,9 @@
-import { isNoU } from '../../utilities/common.utility';
+import { isNoU } from 'src/utilities/common.utility';
 import { takeUntil } from 'rxjs/operators';
-import { PipeTransform, Injector, Directive, ContentChildren, QueryList } from '@angular/core';
-import * as _ from 'lodash-es';
+import { PipeTransform, Injector } from '@angular/core';
+import * as _ from 'lodash';
 import { IShBaseInputOptions, ShBaseInputComponent } from './base-input.component';
 import { Observable, Subject, from, merge } from 'rxjs';
-import { ShOptionComponent } from '../option/option.component';
 
 /**
  * Lookup-value contract
@@ -54,29 +53,16 @@ export interface IShBaseLookupSingleOptions<T, V>
 /**
  * Base Component which introduces the lookups
  */
-@Directive()
 export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupSingleOptions<T, V>>
   extends ShBaseInputComponent<T, O> {
   /**
    * Lookup values (converted values)
    */
-  /*protected*/ public values: ILookupSingle<V>[];
+  protected values: ILookupSingle<V>[];
   /**
    * Subject which notifies subscribers when user options changes
    */
-  /*protected*/ public resetOptions$ = new Subject<void>();
-  /**
-   * False if almost one sh-option is specified in the component content
-   */
-  public legacyMode = true;
-  /**
-   * Selected value label (only with legacyMode = false)
-   */
-  public selectedLabel: string;
-  /**
-   * List of values ​​passed as ng-content to the component
-   */
-  @ContentChildren(ShOptionComponent) public contentValues: QueryList<ShOptionComponent<V>>;
+  protected resetOptions$ = new Subject();
 
   /**
    * Base Component which introduces the lookups
@@ -85,44 +71,29 @@ export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupS
     super(injector);
   }
 
-  public ngAfterContentInit() {
-    if (this.contentValues?.length) {
-      this.setContentValues(this.contentValues.toArray() || []);
-    }
-    this.contentValues?.changes
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((values: ShOptionComponent<V>[]) => {
-        this.setContentValues(values);
-      });
-  }
-
-  /*protected*/ public onOptionsChanges() {
+  protected onOptionsChanges() {
     super.onOptionsChanges();
     this.extractValuesFromOptions();
   }
 
-  /*protected*/ public onControlValueChanges() {
+  protected onControlValueChanges() {
+    if (!this.internalOptions.equalityFunc(this.getModelValue(), this.getControlValue())) {
+      this.setModelValue(this.internalOptions.transform(this.getControlValue()));
+    }
+  }
+
+  protected modelValueChangesHandler() {
+    const value = this.getModelValue();
     const controlValue = this.getControlValue();
-    if (!this.internalOptions.equalityFunc(this.getModelValue(), controlValue)) {
-      this.setModelValue(this.internalOptions.transform(controlValue));
-    }
-    this._updateSelectedLabel(controlValue);
-  }
-
-  /*protected*/ public modelValueChangesHandler() {
-    if (this.model) {
-      const value = this.getModelValue();
-      const controlValue = this.getControlValue();
-      if (!this.internalOptions.equalityFunc(value, controlValue)) {
-        if (this.onModelValueChanges) {
-          this.onModelValueChanges(controlValue, value);
-        }
-        this.setControlValue(this.getSelectedValue());
+    if (!this.internalOptions.equalityFunc(value, controlValue)) {
+      if (this.onModelValueChanges) {
+        this.onModelValueChanges(controlValue, value);
       }
+      this.setControlValue(this.getSelectedValue());
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShBaseLookupSingleOptions<T, V> {
+  protected getDefaultOptions(): IShBaseLookupSingleOptions<T, V> {
     return _.merge(super.getDefaultOptions(), {
       values: <V[]>[],
       equalityFunc: (modelValue: T, lookupValue: V) => _.isEqual(modelValue, lookupValue),
@@ -133,7 +104,7 @@ export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupS
   /**
    * Retrieves values from user options and converts these last into lookup-values
    */
-  /*protected*/ public extractValuesFromOptions() {
+  protected extractValuesFromOptions() {
     this.resetOptions$.next();
     if (this.isObservable(this.internalOptions.values)) {
       from(this.internalOptions.values)
@@ -148,8 +119,8 @@ export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupS
    * Setups lookup-values
    * @param values User-options values
    */
-  public setValues(values: V[] | ShOptionComponent<V>[]) {
-    this.values = values.map(this.convertValue.bind(this), this);
+  public setValues(values: V[]) {
+    this.values = values.map(this.convertValue, this);
   }
 
   /**
@@ -219,27 +190,19 @@ export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupS
    * Converts user options values to lookup-values
    * @param values User-options values
    */
-  /*protected*/ public convertValue(value: V | ShOptionComponent<V>): ILookupSingle<V> {
-    if (value instanceof ShOptionComponent) {
-      return {
-        id: this.idSequence.next(),
-        label: value.text,
-        ref: value.value
-      };
-    } else {
-      return {
-        id: this.idSequence.next(),
-        label: this.getLabel(value),
-        ref: value
-      };
-    }
+  protected convertValue(value: V): ILookupSingle<V> {
+    return {
+      id: this.idSequence.next(),
+      label: this.getLabel(value),
+      ref: value
+    };
   }
 
   /**
    * Retrieves label to be shown from pipe
    * @param value User-options value
    */
-  /*protected*/ public getLabel(value: V) {
+  protected getLabel(value: V) {
     if (this.internalOptions.valuesPipe) {
       if (this.internalOptions.valuesPipeArgs) {
         return this.internalOptions.valuesPipe.transform(value, ...this.internalOptions.valuesPipeArgs);
@@ -247,30 +210,6 @@ export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupS
       return this.internalOptions.valuesPipe.transform(value);
     } else {
       return String(value !== null ? value : '');
-    }
-  }
-
-  public setControlValue(value: any) {
-    super.setControlValue(value);
-    this._updateSelectedLabel(value);
-  }
-
-  private _updateSelectedLabel(value: any) {
-    if (!this.legacyMode) {
-      if (this.contentValues?.length) {
-        const selected = this.contentValues.find(v => {
-          if (this.options?.equalityFunc) {
-            return this.options.equalityFunc(this.formControl.value, value);
-          } else if (v.key) {
-            return v.value[v.key] === value[v.key];
-          } else {
-            return v.value === value;
-          }
-        });
-        this.selectedLabel = selected?.text || value || '';
-      } else {
-        this.selectedLabel = '';
-      }
     }
   }
 
@@ -282,21 +221,9 @@ export abstract class ShBaseLookupSingleComponent<T, V, O extends IShBaseLookupS
     if (this.values) {
       selectedRef = this.values
         .map((value) => value.ref)
-        .find((ref) => this.model ? this.internalOptions.equalityFunc(this.getModelValue(), ref) : ref === this.getControlValue());
+        .find((ref) => this.internalOptions.equalityFunc(this.getModelValue(), ref));
     }
     return selectedRef || <any>this.getModelValue() as V;
-  }
-
-  /**
-   *
-   * @param values
-   */
-  private setContentValues(values: ShOptionComponent<V>[]) {
-    this.legacyMode = false;
-    this.setValues(values);
-    if (!isNoU(this.formControl?.value)) {
-      this.setControlValue(this.formControl.value);
-    }
   }
 
   /**

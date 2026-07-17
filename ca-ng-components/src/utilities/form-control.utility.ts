@@ -1,33 +1,21 @@
-import { EventEmitter, ɵisPromise as isPromise } from '@angular/core';
+import { ɵisObservable as isObservable, ɵisPromise as isPromise } from '@angular/core';
 import { AbstractControl, AbstractControlOptions, AsyncValidator, AsyncValidatorFn, FormControl, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
-import { from, isObservable, Observable, Subscription } from 'rxjs';
+import { from, Observable, Subscription } from 'rxjs';
 
 export enum ShFormControlMode {
   Browse,
   Edit
 }
 
-export class ShFormControl<T = any> extends FormControl<T> {
+export class ShFormControl
+  extends FormControl {
 
   public browseFormat: string;
   public editFormat: string;
   public mode = ShFormControlMode.Browse;
-  public id: string;
-  public resource: string;
   public get currentFormat() {
     return ShFormControlMode.Browse ? this.browseFormat : this.editFormat;
   }
-
-  /**
-   * Specifies whether the group instance can be destroyed.
-   */
-  public canDestroy: boolean = true;
-
-  /**
-   * Multicasting observable used for control focus.
-   */
-  public readonly focus$: Observable<void> = new EventEmitter<void>();
-
   /**
    * The function that is used to determine the validity of this control synchronously.
    */
@@ -46,7 +34,7 @@ export class ShFormControl<T = any> extends FormControl<T> {
   public set asyncWarning(asyncWarningFn: AsyncValidatorFn | null) {
     this._rawAsyncWarnings = this._composedAsyncWarningFn = asyncWarningFn;
   }
-  public hasWarning(...params: any[]) {
+  public get hasWarning() {
     return !!this.warnings;
   }
   /**
@@ -55,11 +43,7 @@ export class ShFormControl<T = any> extends FormControl<T> {
    */
   public readonly warnings: ValidationErrors | null;
   private _hasOwnPendingAsyncWarning: boolean;
-  /**
-   * Subscription of the asynchronous warning validation.
-   *
-   */
-  protected asyncWarningSubscription: Subscription;
+  private _asyncWarningSubscription: Subscription;
   /**
   * Contains the result of merging synchronous validators into a single validator function
   * (combined using `Validators.compose`).
@@ -109,30 +93,18 @@ export class ShFormControl<T = any> extends FormControl<T> {
     this._composedAsyncWarningFn = coerceToAsyncWarning(this._rawAsyncWarnings);
   }
 
-  /**
-   * Emits focus event on the control.
-   */
-  public focusControl(): void {
-    (this.focus$ as EventEmitter<void>).emit();
-  }
-
   updateValueAndValidity(opts: { onlySelf?: boolean, emitEvent?: boolean } = {}): void {
     super.updateValueAndValidity(opts);
 
     if (this.enabled) {
-      if (this.asyncWarningSubscription) {
-        this.asyncWarningSubscription.unsubscribe();
+      if (this._asyncWarningSubscription) {
+        this._asyncWarningSubscription.unsubscribe();
         this._hasOwnPendingAsyncWarning = false;
       }
       (this as unknown as { warnings: ValidationErrors | null }).warnings = this._runWarning();
 
       this._runAsyncWarning(opts.emitEvent);
     }
-  }
-
-  public setWarnings(warnings: ValidationErrors | null, opts: { emitEvent?: boolean } = {}): void {
-    (this as unknown as { warnings: ValidationErrors | null }).warnings = warnings;
-    // this._updateControlsErrors(opts.emitEvent !== false);
   }
 
   private _runWarning(): ValidationErrors | null {
@@ -143,13 +115,18 @@ export class ShFormControl<T = any> extends FormControl<T> {
     if (this.asyncWarning) {
       this._hasOwnPendingAsyncWarning = true;
       const obs = toObservable(this.asyncWarning(this));
-      this.asyncWarningSubscription = obs.subscribe((warnings: ValidationErrors | null) => {
+      this._asyncWarningSubscription = obs.subscribe((warnings: ValidationErrors | null) => {
         this._hasOwnPendingAsyncWarning = false;
         this.setWarnings(warnings, { emitEvent });
       });
     }
   }
 
+
+  private setWarnings(warnings: ValidationErrors | null, opts: { emitEvent?: boolean } = {}): void {
+    (this as unknown as { warnings: ValidationErrors | null }).warnings = warnings;
+    // this._updateControlsErrors(opts.emitEvent !== false);
+  }
 }
 
 /**

@@ -1,21 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import * as _ from 'lodash-es';
-import { IAngularMyDpOptions, AngularMyDatePickerDirective, IMyDateModel, IMyDate, IMyMonth } from '@nodro7/angular-mydatepicker';
+import * as _ from 'lodash';
+import { INgxMyDpOptions, NgxMyDatePickerDirective } from 'ngx-mydatepicker';
 import { takeUntil } from 'rxjs/operators';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { isNoU, yieldFunc } from '../../utilities/common.utility';
 import { KeyCode, keyIsNumber } from '../../utilities/key-code.const';
 import { IShBaseInputOptions, ShBaseInputComponent } from '../base/index';
-import { lastValueFrom } from 'rxjs';
-import { CAEP_DATE_INPUT_ICON_TOKEN } from './tokens/date-input-icon.token';
-
-/**
- * Default icon name for the text input of the date component
- */
-const CAEP_DATE_DEFAULT_INPUT_ICON = 'icon icon-date-input';
-
 /**
  * Date organized by year, day and month
  */
@@ -129,11 +121,10 @@ export interface IShDateOptions extends IShBaseInputOptions<Date> {
   shortDescription: 'Date Control'
 })
 @Component({
-    selector: 'sh-date',
-    templateUrl: './date.component.html',
-    styleUrls: ['./date.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-date',
+  templateUrl: './date.component.html',
+  styleUrls: ['./date.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 /**
  * Base Date Component
@@ -142,51 +133,51 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   /**
    * Date Picker Controller
    */
-  @ViewChild('dp') /*protected*/ public datePickerController: AngularMyDatePickerDirective;
+  @ViewChild('dp', { static: false }) protected datePickerController: NgxMyDatePickerDirective;
   /**
    * Element reference to day span element
    */
-  @ViewChild('daySpan') /*protected*/ public daySpan: ElementRef<HTMLSpanElement>;
+  @ViewChild('daySpan', { static: false }) protected daySpan: ElementRef<HTMLSpanElement>;
   /**
    * Element reference to month span element
    */
-  @ViewChild('monthSpan') /*protected*/ public monthSpan: ElementRef<HTMLSpanElement>;
+  @ViewChild('monthSpan', { static: false }) protected monthSpan: ElementRef<HTMLSpanElement>;
   /**
    * Element reference to year span element
    */
-  @ViewChild('yearSpan') /*protected*/ public yearSpan: ElementRef<HTMLSpanElement>;
+  @ViewChild('yearSpan', { static: false }) protected yearSpan: ElementRef<HTMLSpanElement>;
   /**
    * Element reference to hour span element
    */
-  @ViewChild('hourSpan') public hourSpan: ElementRef<HTMLSpanElement>;
+  @ViewChild('hourSpan', { static: false }) public hourSpan: ElementRef<HTMLSpanElement>;
   /**
    * Element reference to minutes span element
    */
-  @ViewChild('minutesSpan') public minutesSpan: ElementRef<HTMLSpanElement>;
+  @ViewChild('minutesSpan', { static: false }) public minutesSpan: ElementRef<HTMLSpanElement>;
   /**
    * Element reference to seconds span element
    */
-  @ViewChild('secondsSpan') public secondsSpan: ElementRef<HTMLSpanElement>;
+  @ViewChild('secondsSpan', { static: false }) public secondsSpan: ElementRef<HTMLSpanElement>;
   /**
    * References to control HTML element
    */
-  @ViewChild('input') /*protected*/ public controlRef: ElementRef;
+  @ViewChild('input', { static: false }) protected controlRef: ElementRef;
   /**
    * Picker Configuration
    */
-  /*protected*/ public pickerOptions: IAngularMyDpOptions;
+  protected pickerOptions: INgxMyDpOptions;
   /**
    * Specifies whether component is ready to be used
    */
-  /*protected*/ public isReady = false;
+  protected isReady = false;
   /**
    * Date control format definition
    */
-  /*protected*/ public format: ShDateFormat;
+  public format: ShDateFormat;
   /**
    * Translate service
    */
-  /*protected*/ public translateService: TranslateService;
+  protected translateService: TranslateService;
   /**
    * Component element reference
    */
@@ -195,29 +186,20 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   /**
    * Twelve Hour Notation
    */
-  /*protected*/ public isTwelveHourNotation: boolean;
+  protected isTwelveHourNotation: boolean;
 
   /**
    * Specifies whether component show the date
    */
-  /*protected*/ public showDate: boolean;
-  /**
-   * Reflects whether the calendar overlay is currently open.
-   * Used to drive aria-expanded / aria-controls on the calendar toggle.
-   */
-  /*protected*/ public isCalendarOpen = false;
+  protected showDate: boolean;
   /**
    * Specifies when overwrite
    */
-  /*protected*/ public canOverwrite: boolean;
+  protected canOverwrite: boolean;
   /**
   * Change detector references
   */
-  /*protected*/ public changeDetection: ChangeDetectorRef;
-  /**
-   * Text input icon name registered by token
-   */
-  protected commonDateInputIcon: string = inject(CAEP_DATE_INPUT_ICON_TOKEN, { optional: true });
+  protected changeDetection: ChangeDetectorRef;
   /**
    * Notifies when a 0 is pressed for day or month span
    */
@@ -225,99 +207,98 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
     day: false,
     month: false
   };
-  private _yearDigit: number = 0;
   /**
    * Date's day
    */
-  /*protected*/ public get day() {
-    const value = this.getControlValue();
+  protected get day() {
+    const value = this.getModelValue();
     return this._zeroPressed.day ? 0 : (value ? value.getDate() : undefined);
   }
-  /*protected*/ public set day(day: number) {
-    let date = this.getEditableControlValue();
+  protected set day(day: number) {
+    let date = this.getModelValue();
     if (!date) {
       date = this._defaultDate;
     }
     date.setDate(day);
-    this.setControlValue(date);
+    this.setModelValue(date);
   }
   /**
    * Date's month
    */
-  /*protected*/ public get month() {
-    const value = this.getControlValue();
+  protected get month() {
+    const value = this.getModelValue();
     return this._zeroPressed.month ? -1 : (value ? value.getMonth() : undefined);
   }
-  /*protected*/ public set month(month: number) {
-    let date = this.getEditableControlValue();
+  protected set month(month: number) {
+    let date = this.getModelValue();
     if (!date) {
       date = this._defaultDate;
     }
     date.setMonth(month);
-    this.setControlValue(date);
+    this.setModelValue(date);
   }
   /**
    * Date's year
    */
-  /*protected*/ public get year() {
-    const value = this.getControlValue();
+  protected get year() {
+    const value = this.getModelValue();
     return value ? value.getFullYear() : undefined;
   }
-  /*protected*/ public set year(year: number) {
-    let date = this.getEditableControlValue();
+  protected set year(year: number) {
+    let date = this.getModelValue();
     if (!date) {
       date = this._defaultDate;
     }
     date.setFullYear(year);
-    this.setControlValue(date);
+    this.setModelValue(date);
   }
 
   /**
   * Date's hour
   */
-  /*protected*/ public get hour() {
-    const value = this.getControlValue();
+  protected get hour() {
+    const value = this.getModelValue();
     return value ? value.getHours() : undefined;
   }
-  /*protected*/ public set hour(hour: number) {
-    let date = this.getEditableControlValue();
+  protected set hour(hour: number) {
+    let date = this.getModelValue();
     if (!date) {
       date = this._defaultDate;
     }
     date.setHours(hour >= 24 ? 0 : hour);
-    this.setControlValue(date);
+    this.setModelValue(date);
   }
 
   /**
    * Date's minutes
    */
-  /*protected*/ public get minutes() {
-    const value = this.getControlValue();
+  protected get minutes() {
+    const value = this.getModelValue();
     return value ? value.getMinutes() : undefined;
   }
-  /*protected*/ public set minutes(minutes: number) {
-    let date = this.getEditableControlValue();
+  protected set minutes(minutes: number) {
+    let date = this.getModelValue();
     if (!date) {
       date = this._defaultDate;
     }
     date.setMinutes(minutes);
-    this.setControlValue(date);
+    this.setModelValue(date);
   }
 
   /**
    * Date's seconds
    */
-  /*protected*/ public get seconds() {
-    const value = this.getControlValue();
+  protected get seconds() {
+    const value = this.getModelValue();
     return value ? value.getSeconds() : undefined;
   }
-  /*protected*/ public set seconds(seconds: number) {
-    let date = this.getEditableControlValue();
+  protected set seconds(seconds: number) {
+    let date = this.getModelValue();
     if (!date) {
       date = this._defaultDate;
     }
     date.setSeconds(seconds);
-    this.setControlValue(date);
+    this.setModelValue(date);
   }
 
   /**
@@ -346,7 +327,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Date Picker JQ-Element
    */
   private get _datePickerElement() {
-    return $(this._datePickerRef && this._datePickerRef.instance.elem.nativeElement);
+    return $(this._datePickerRef && this._datePickerRef._component.elem.nativeElement);
   }
 
   /**
@@ -371,7 +352,6 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
     this.translateService = injector.get(TranslateService);
     this._element = injector.get(ElementRef);
     this.changeDetection = injector.get(ChangeDetectorRef);
-    this.icon = CAEP_DATE_DEFAULT_INPUT_ICON;
   }
 
   //#region COMPONENT
@@ -382,22 +362,19 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
     this.translateService.onLangChange
       .pipe(takeUntil(this.destroy$))
       .subscribe(this.setup.bind(this));
-    if (this.icon === CAEP_DATE_DEFAULT_INPUT_ICON && !isNoU(this.commonDateInputIcon)) {
-      this.icon = this.commonDateInputIcon;
-    }
   }
 
   /**
    * Configures the components
    */
-  /*protected*/ public async setup() {
+  protected async setup() {
     this.isReady = false;
     await this.setupPickerOptions();
     this.setupFormat();
     this.setupFlag();
     yieldFunc(() => {
       this.isReady = true;
-      if (shChangeDetectorStrategy() === ChangeDetectionStrategy.OnPush) {
+      if (SH_CHANGE_DETECTOR.STRATEGY === ChangeDetectionStrategy.OnPush) {
         this.changeDetection.markForCheck();
       }
     });
@@ -406,20 +383,17 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   /**
    * Marks form control as touched
    */
-  /*protected*/ public touch() {
+  protected touch() {
     if (!this.formControl.touched) {
       this.formControl.markAsTouched();
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShDateOptions {
-    return _.merge(super.getDefaultOptions(), {
+  protected getDefaultOptions() {
+    return _.merge(super.getDefaultOptions(), <IShDateOptions>{
       defaultDateTime: {
         day: 1,
-        month: 0,
-        year: 0,
-        hour: 0,
-        minutes: 0,
+        month: 0
       },
       disableDates: [],
       disableDateRanges: [],
@@ -427,8 +401,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
     });
   }
 
-  /*protected*/ public setModelValue(value: Date) {
-    // TODO: MAY REMOVE THIS OVERRIDE SINCE COMPONENT NO LONGER UPDATES MODEL STRAIGHT AWAY
+  protected setModelValue(value: Date) {
     super.setModelValue(value);
     this.markAsDirty();
   }
@@ -440,14 +413,13 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Date Changed from picker without change time
    * @param date selected date
    */
-  /*protected*/ public dateChanged(myDateModel: IMyDateModel) {
-    const value = this.getEditableControlValue();
-    const date = myDateModel.singleDate.jsDate;
+  protected dateChanged(date: Date) {
+    const value = this.getModelValue();
     if (value) {
       date.setHours(value.getHours());
       date.setMinutes(value.getMinutes());
     }
-    this.setControlValue(date);
+    this.setModelValue(date);
     this._inputElement.focus();
   }
 
@@ -456,7 +428,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param decrease Specifies whether to decrease the day
    * @param event Keyboard event
    */
-  /*protected*/ public increaseDay(decrease = false, event: Event) {
+  protected increaseDay(decrease = false, event: Event) {
     event.preventDefault();
     event.stopPropagation();
     let day = this.day;
@@ -473,7 +445,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param decrease Specifies whether to decrease the month
    * @param event Keyboard event
    */
-  /*protected*/ public increaseMonth(decrease = false, event: Event) {
+  protected increaseMonth(decrease = false, event: Event) {
     event.preventDefault();
     event.stopPropagation();
     let month = this.month;
@@ -490,7 +462,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param decrease Specifies whether to decrease the year
    * @param event Keyboard event
    */
-  /*protected*/ public increaseYear(decrease = false, event: Event) {
+  protected increaseYear(decrease = false, event: Event) {
     event.preventDefault();
     event.stopPropagation();
     let year = this.year;
@@ -502,7 +474,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
     this.year = year;
   }
 
-  /*protected*/ public setupFormat() {
+  protected setupFormat() {
     const lang = this.translateService.currentLang;
     if (!(this.internalOptions.format && this.internalOptions.format.length)) {
       switch (lang) {
@@ -528,7 +500,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
 
   //#region KEYBOARD
 
-  /*protected*/ public reset() {
+  protected reset() {
     if (this.internalOptions.allowZeroDigits) {
       if (this._zeroPressed.day) {
         this.day = 1;
@@ -545,7 +517,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Event fired on key pressed on date control field
    * @param event Keyboard event
    */
-  /*protected*/ public onDateKey(event: KeyboardEvent) {
+  protected onDateKey(event: KeyboardEvent) {
     if (this.enable && !this.internalOptions.isReadonly) {
       const keyCode = event.keyCode || event.which;
       switch (keyCode) {
@@ -566,7 +538,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
 
         case KeyCode.DELETE:
         case KeyCode.BACKSPACE:
-          this.setControlValue(undefined);
+          this.setModelValue(undefined);
           break;
 
         case KeyCode.ARROW_RIGHT:
@@ -614,7 +586,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Event fired on key pressed on day control field
    * @param event Keyboard event
    */
-  /*protected*/ public onDayKey(event: KeyboardEvent) {
+  protected onDayKey(event: KeyboardEvent) {
     this.handleKey(
       event,
       'day',
@@ -633,6 +605,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
         }
         format = this.adaptFormat(format, value);
         if (format !== '0') {
+          // tslint:disable-next-line: radix
           this.day = parseInt(format);
           if (this.day >= 4) {
             this.focusSibling(this.daySpan);
@@ -695,7 +668,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Event fired on key pressed on month control field
    * @param event Keyboard event
    */
-  /*protected*/ public onMonthKey(event: KeyboardEvent) {
+  protected onMonthKey(event: KeyboardEvent) {
     this.handleKey(
       event,
       'month',
@@ -721,6 +694,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
           const calculatedMonth = 10 + (value);
           format = `${calculatedMonth < 12 ? calculatedMonth : value}`;
         }
+        // tslint:disable-next-line: radix
         this.month = parseInt(format === '-1' ? '0' : format);
         if (this.internalOptions.allowZeroDigits && format === '-1') {
           this._zeroPressed.month = true;
@@ -734,7 +708,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Event fired on key pressed on year control field
    * @param event Keyboard event
    */
-  /*protected*/ public onYearKey(event: KeyboardEvent) {
+  protected onYearKey(event: KeyboardEvent) {
     this.handleKey(
       event,
       'year',
@@ -742,16 +716,17 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
       this.yearSpan,
       this.increaseYear.bind(this),
       value => {
-        if (value === 0 && this._yearDigit === 0) return; // 0 is not allowed as first digit
-        if (this._yearDigit === 0) {
-          // when we are editing the thousands digit, we need to reset the year
-          this.year = 0;
+        const year = this.year;
+        let format = isNoU(year) ? '' : year.toString();
+        if (format.length === 0 || format.length === 4 || this.canOverwrite) {
+          format = event.key;
+          this.canOverwrite = false;
+        } else {
+          format = `${format}${value}`;
         }
-        // year will be current year + value * 10^(3 - currentUnitDigit)
-        this.year = (this.year || 0) + value * Math.pow(10, 3 - this._yearDigit);
-        if (++this._yearDigit === 4) {
-          // when all digits are filled, we reset the digit counter and focus the next control if any
-          this._yearDigit = 0;
+        // tslint:disable-next-line: radix
+        this.year = parseInt(format);
+        if (this.year > 999) {
           this.focusSibling(this.yearSpan);
         }
       });
@@ -766,7 +741,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param onIncrease Event fired when pressed key matches an increaser/decreaser action
    * @param onNumber Event fired when pressed key matches a number
    */
-  /*protected*/ public handleKey(
+  protected handleKey(
     event: KeyboardEvent,
     propretyName: string,
     resetValue: number,
@@ -818,6 +793,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
         default:
           if (keyIsNumber(keyCode) && !event.shiftKey) {
             prevent = true;
+            // tslint:disable-next-line: radix
             onNumber(parseInt(event.key));
           }
           break;
@@ -833,7 +809,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Forwards a specific event to day control element
    * @param event Keyboard event
    */
-  /*protected*/ public forwardEvent(event: KeyboardEvent, span: ElementRef<HTMLSpanElement>, callback?: (event: KeyboardEvent) => void) {
+  protected forwardEvent(event: KeyboardEvent, span: ElementRef<HTMLSpanElement>, callback?: (event: KeyboardEvent) => void) {
     $(span.nativeElement).focus();
     if (event && callback) {
       callback(event);
@@ -845,7 +821,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param span Reference to date specific control (day, month or year span element)
    * @param prev Specifies whether to focus previous sibling control
    */
-  /*protected*/ public focusSibling(span: ElementRef<HTMLSpanElement>, prev = false) {
+  protected focusSibling(span: ElementRef<HTMLSpanElement>, prev = false) {
     const control = $(span.nativeElement);
     const sibling = prev ? control.prev() : control.next();
     if (sibling.length) {
@@ -860,7 +836,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   /**
    * Shows picker
    */
-  /*protected*/ public showPicker() {
+  protected showPicker() {
     if (!this.internalOptions.isReadonly && this.showDate) {
       this.datePickerController.openCalendar();
       this.bindPicker();
@@ -870,7 +846,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   /**
    * Hides picker
    */
-  /*protected*/ public hidePicker() {
+  protected hidePicker() {
     if (this._datePickerRef) {
       this._datePicker.onCellKeyDown = undefined;
     }
@@ -880,10 +856,10 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
   /**
    * Shows or hides picker
    */
-  /*protected*/ public togglePicker() {
+  protected togglePicker() {
     this.touch();
     this.datePickerController.toggleCalendar();
-    if (shChangeDetectorStrategy() === ChangeDetectionStrategy.OnPush) {
+    if (SH_CHANGE_DETECTOR.STRATEGY === ChangeDetectionStrategy.OnPush) {
       this.changeDetection.detectChanges();
     }
     if (this._datePickerRef) {
@@ -903,8 +879,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
         switch (keyCode) {
           case KeyCode.ARROW_UP:
           case KeyCode.ARROW_DOWN:
-          case KeyCode.ENTER:
-          case KeyCode.SPACE: {
+          case KeyCode.ENTER: {
             evt.preventDefault();
             evt.stopPropagation();
             switchHour = true;
@@ -940,42 +915,12 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
     }
   }
 
-  protected onFocusout() {
-    this.canOverwrite = true;
-    this._yearDigit = 0;
-  }
-
-  /**
-   * Keeps {@link isCalendarOpen} in sync with the (library-owned) calendar overlay
-   * so the toggle button can expose a correct aria-expanded state. The library emits
-   * a positive open code (1) when the calendar opens and other codes when it closes
-   * (date selection, toggle button, outside click, Escape).
-   * @param toggleCode The calendar toggle code emitted by the datepicker directive
-   */
-  public onCalendarToggle(toggleCode: number) {
-    this.isCalendarOpen = toggleCode === 1;
-    if (shChangeDetectorStrategy() === ChangeDetectionStrategy.OnPush) {
-      this.changeDetection.markForCheck();
-    }
-  }
-
   /**
    * Configures flags based on format
    */
   private setupFlag() {
     this.isTwelveHourNotation = !!this.format.find(e => e === 'hh');
     this.showDate = this.format.findIndex(e => e === 'day' || e === 'year' || e === 'month') !== -1;
-  }
-
-  private getEditableControlValue() {
-    const controlValue = this.getControlValue();
-    if (controlValue == null) return controlValue;
-    const timestamp = controlValue.getTime?.();
-    if (timestamp != null && !isNaN(timestamp)) {
-      // changing reference in order to avoid picker setting value on same date instance
-      return new Date(timestamp);
-    }
-    return controlValue;
   }
 
   /**
@@ -1063,26 +1008,15 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Creates picker binding
    */
   private bindPicker() {
-    if (this.getControlValue()) {
-      const selectedDate: IMyDate = {
+    if (this.getModelValue()) {
+      this._datePicker.selectedDate = {
         day: this.day,
         month: this.month + 1,
         year: this.year
       };
-      const selectedMonth: IMyMonth = {
-        monthNbr: selectedDate.month,
-        year: selectedDate.year,
-      };
-      this._datePicker.selectedDate = selectedDate;
-      this._datePicker.selectedMonth = selectedMonth;
-      this._datePicker.setCalendarVisibleMonth();
+      this._datePicker.setVisibleMonth();
     }
     this._datePicker.onCellKeyDown = this.onPickerKeyDown.bind(this);
-    // Give the (library-owned) calendar overlay a stable id so the toggle's aria-controls resolves.
-    const calendarEl = this._datePickerElement;
-    if (calendarEl && calendarEl.length && !calendarEl.attr('id')) {
-      calendarEl.attr('id', this.internalOptions.id + '-calendar');
-    }
     this.focusDayCell();
   }
 
@@ -1158,7 +1092,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param nextWeek Specifies if it must jump a week
    */
   private getNextCell(cell: HTMLTableCellElement, row: HTMLTableRowElement, rows: HTMLCollectionOf<HTMLTableRowElement>, nextWeek = false) {
-    let nextCell: HTMLTableCellElement;
+    let nextCell: HTMLTableDataCellElement;
     const cellIndex = cell.cellIndex;
     const rowIndex = row.rowIndex - 1;
     const cells = row.cells;
@@ -1183,7 +1117,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * @param nextWeek Specifies if it must jump a week
    */
   private getPrevCell(cell: HTMLTableCellElement, row: HTMLTableRowElement, rows: HTMLCollectionOf<HTMLTableRowElement>, prevWeek = false) {
-    let prevCell: HTMLTableCellElement;
+    let prevCell: HTMLTableDataCellElement;
     const cellIndex = cell.cellIndex;
     const rowIndex = row.rowIndex - 1;
     if (prevWeek && rowIndex > 0) {
@@ -1227,23 +1161,17 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
    * Configures picker
    */
   private async setupPickerOptions() {
-    const dayLabels = await lastValueFrom(this.translateService.get('day-labels'));
-    const monthLabels = await lastValueFrom(this.translateService.get('month-labels'));
-    const todayBtnTxt = await lastValueFrom(this.translateService.get('today'));
+    const dayLabels = await this.translateService.get('day-labels').toPromise();
+    const monthLabels = await this.translateService.get('month-labels').toPromise();
+    const todayBtnTxt = await this.translateService.get('today').toPromise();
     this.pickerOptions = {
-      stylesData: {
-        selector: 'sh-date-picker',
-        styles:''
-      },
       focusInputOnDateSelect: true,
       markCurrentDay: true,
       markCurrentMonth: true,
       disableDateRanges: this.internalOptions.disableDateRanges,
       disableDates: this.internalOptions.disableDates,
       maxYear: this.internalOptions.maxYear,
-      minYear: this.internalOptions.minYear,
-      showFooterToday: true,
-      todayTxt: ''
+      minYear: this.internalOptions.minYear
     };
     if (dayLabels) {
       this.pickerOptions.dayLabels = dayLabels;
@@ -1252,7 +1180,7 @@ export class ShDateComponent extends ShBaseInputComponent<Date, IShDateOptions> 
       this.pickerOptions.monthLabels = monthLabels;
     }
     if (todayBtnTxt) {
-      this.pickerOptions.todayTxt = todayBtnTxt;
+      this.pickerOptions.todayBtnTxt = todayBtnTxt;
     }
   }
 

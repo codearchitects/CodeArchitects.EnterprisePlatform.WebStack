@@ -2,13 +2,13 @@ name: CI
 
 # Validates every pull request and pushes to the default branch by building all
 # workspace packages and running their test suites. Browser (karma) tests run
-# against the Chromium that puppeteer installs, in headless no-sandbox mode.
+# against ChromeHeadless in no-sandbox mode.
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, "version/8.x.x"]
   pull_request:
-    branches: [main, master]
+    branches: [main, master, "version/8.x.x"]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 16
           cache: npm
 
       - name: Install (single workspace install)
@@ -33,15 +33,8 @@ jobs:
 
       - name: Test all packages
         run: npm run test
-
-      - name: Install Playwright (chromium) for the a11y gate
-        run: npx playwright install --with-deps chromium
-
-      - name: Accessibility gate (Storybook + axe, WCAG 2.2 AA)
-        run: npm run test:a11y
-
-      - name: Keyboard-interaction gate (Storybook + Playwright)
-        run: npm run test:keyboard
+        env:
+          CI: "true"
 
   security:
     name: Security & SBOM
@@ -51,7 +44,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 16
           cache: npm
 
       - name: Install (single workspace install)

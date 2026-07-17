@@ -1,7 +1,7 @@
 import { Component, Injector, OnChanges, SimpleChanges } from '@angular/core';
 import { AspectHelper, ContextService } from '@ca-webstack/ng-aspects';
 import { Mstring } from '@ca-webstack/ng-i18n';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 import { IShBaseOptions, ShBaseModelComponent } from '../base/index';
 
 /**
@@ -14,9 +14,8 @@ export interface IShLabelOptions
 }
 
 @Component({
-    selector: 'sh-label',
-    templateUrl: './label.component.html',
-    standalone: false
+  selector: 'sh-label',
+  templateUrl: './label.component.html'
 })
 /**
  * Base Label component
@@ -27,11 +26,11 @@ export class ShLabelComponent<T, O extends IShLabelOptions>
   /**
    * Aspect Helpers
    */
-  /*protected*/ public aspectHelper: AspectHelper;
+  protected aspectHelper: AspectHelper;
   /**
    * Label to show
    */
-  /*protected*/ public label: string | boolean | Mstring;
+  public label: string | boolean | Mstring;
   /**
    * Context Service
    */
@@ -54,7 +53,7 @@ export class ShLabelComponent<T, O extends IShLabelOptions>
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShLabelOptions {
+  protected getDefaultOptions(): IShLabelOptions {
     return _.merge(super.getDefaultOptions(), {
       labelClass: []
     });

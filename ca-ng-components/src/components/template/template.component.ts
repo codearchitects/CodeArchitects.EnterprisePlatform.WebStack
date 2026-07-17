@@ -1,12 +1,11 @@
-import { Component, ComponentRef, Injector, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef, ElementRef } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Injector, OnChanges, OnInit, SimpleChanges, ViewChild, ViewContainerRef, ElementRef } from '@angular/core';
 import { AspectHelper, ContextService } from '@ca-webstack/ng-aspects';
 import { TemplateMapperService } from '../../services/template-mapper.service';
 import { IShBaseInputOptions, IShBaseOptions, ShBaseInputComponent, ShBaseModelComponent } from '../base/index';
 
 @Component({
-    selector: 'sh-template',
-    template: '<div #target></div>',
-    standalone: false
+  selector: 'sh-template',
+  template: '<div #target></div>'
 })
 /**
  * Component which reads aspect decorator and applies
@@ -23,6 +22,10 @@ export class ShTemplateComponent<T, C extends ShBaseInputComponent<T, IShBaseInp
    * Aspect Helpers
    */
   private _aspectHelper: AspectHelper;
+  /**
+   * Component factory resolver
+   */
+  private _resolver: ComponentFactoryResolver;
   /**
    * Template mapper service
    */
@@ -48,6 +51,7 @@ export class ShTemplateComponent<T, C extends ShBaseInputComponent<T, IShBaseInp
   constructor(injector: Injector) {
     super(injector);
     this._aspectHelper = injector.get(AspectHelper);
+    this._resolver = injector.get(ComponentFactoryResolver);
     this._templateMapper = injector.get(TemplateMapperService);
     this._contextService = injector.get(ContextService);
     this._element = injector.get(ElementRef);
@@ -66,12 +70,9 @@ export class ShTemplateComponent<T, C extends ShBaseInputComponent<T, IShBaseInp
     const templateName = this._aspectHelper.getTemplate(this.model, this.prop, this._contextService.context);
     const template = this._templateMapper.findTemplateByName(templateName);
     this.markContainer(templateName);
-    this._componentRef = this._target.createComponent(template);
+    const componentFactory = this._resolver.resolveComponentFactory(template);
+    this._componentRef = this._target.createComponent(componentFactory);
     this.updateParams();
-  }
-
-  public giveFocus() {
-    this._componentRef.instance.giveFocus();
   }
 
   /**
@@ -84,6 +85,7 @@ export class ShTemplateComponent<T, C extends ShBaseInputComponent<T, IShBaseInp
     this._componentRef.instance.show = this.show;
     this._componentRef.instance.valueChanges = this.valueChanges;
     this._componentRef.instance.options = this.internalOptions;
+    this._componentRef.instance.helpId = this.helpId;
   }
 
   /**

@@ -1,11 +1,5 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "cli": {
-    "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
-  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -15,35 +9,53 @@
       "projectType": "application",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "project": "ng-package.json"
+            "outputPath": "dist/ng-policy-engine",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "./polyfills.ts",
+            "tsConfig": "./tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [],
+            "scripts": []
           },
           "configurations": {
             "production": {
-              "tsConfig": "tsconfig.prod.json"
-            },
-            "development": {
-              "tsConfig": "tsconfig.json"
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             }
-          },
-          "defaultConfiguration": "production"
+          }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "ng-policy-engine:build"
+            "browserTarget": "ng-policy-engine:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "ng-policy-engine:build:production"
+              "browserTarget": "ng-policy-engine:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ng-policy-engine:build"
+            "browserTarget": "ng-policy-engine:build"
           }
         },
         "test": {
@@ -59,42 +71,48 @@
           }
         },
         "lint": {
-          "builder": "@angular-eslint/builder:lint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+            "tsConfig": [
+              "./tsconfig.app.json",
+              "./tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-policy-engine-e2e": {
+      "root": "tests/integration/e2e",
+      "sourceRoot": "tests/integration/e2e",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "ng-policy-engine:serve"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
             ]
           }
         }
       }
     }
   },
+  "defaultProject": "ng-policy-engine",
   "schematics": {
     "@schematics/angular:component": {
-      "style": "scss",
-      "type": "component"
+      "styleext": "scss"
     },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
-    }
+    "@schematics/angular:directive": {}
   }
 }

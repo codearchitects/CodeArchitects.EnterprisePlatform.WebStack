@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "dist/types"
+  },
+  "include": [
+    "public_api.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "tests",
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"
+  ]
+}

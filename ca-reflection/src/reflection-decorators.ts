@@ -225,9 +225,3 @@ export function getJsonObject<T>(target: any, inherit: boolean = false) {
 export function getJsonProperty<T>(target: any, targetKey: string, inherit: boolean = false) {
   return MetadataHelpers.getMetadata<IJsonPropertyArgs<T>>(JsonObjectMetadataKey, target, targetKey, { inheritParentMetadata: inherit });
 }
-
-export function Enumerable(value:boolean = true) {
-  return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-    descriptor.enumerable = value;
-  };
-}

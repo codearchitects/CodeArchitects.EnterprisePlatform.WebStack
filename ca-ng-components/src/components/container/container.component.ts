@@ -1,16 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IShBreadcrumbActivity } from '../index';
-import { yieldFunc, isNoU, CAEP_SIDEBAR_SEARCH_DEFAULT_ICON, CAEP_SIDEBAR_DEFAULT_TOGGLER_ICON } from '../../utilities';
+import { yieldFunc, isNoU } from 'src/utilities';
 import { SidebarCommand } from '../../models/sidebar';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 
 @Component({
-    selector: 'sh-container',
-    templateUrl: './container.component.html',
-    styleUrls: ['./container.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-container',
+  templateUrl: './container.component.html',
+  styleUrls: ['./container.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Master Page Component
  */
@@ -41,11 +40,6 @@ export class ShContainerComponent {
    */
   @Input() public showSearchbar = true;
   /**
-   * Search bar's icon name
-   * @default 'search'
-   */
-  @Input() public searchBarIcon: string = CAEP_SIDEBAR_SEARCH_DEFAULT_ICON;
-  /**
    * Specifies whether toolbar can show languages control
    * @default true
    */
@@ -59,11 +53,6 @@ export class ShContainerComponent {
    */
   @Input() public activity: IShBreadcrumbActivity;
   /**
-   * Sidebar's toggler icon name
-   * @default 'hamburger'
-   */
-  @Input() public togglerIcon: string = CAEP_SIDEBAR_DEFAULT_TOGGLER_ICON;
-  /**
    * Promise which must return sidebar commands.
    * If not specified, sidebar commands are retrieved from sidebar.json (assets)
    * @default undefined
@@ -76,7 +65,7 @@ export class ShContainerComponent {
   /**
    * Specifies if sidebar is expanded
    */
-  /*protected*/ public isSidebarExpanded = false;
+  public isSidebarExpanded = false;
 
   /**
    * Scroll the container context to the specified element

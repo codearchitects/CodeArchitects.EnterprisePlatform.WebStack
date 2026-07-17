@@ -1,19 +1,8 @@
-@if (formControl && show) {
-  <div class="checkbox" [class.disabled]="formControl.disabled || !enable"
-    #controlRef [class.checked]="!!formControl.value" pointer (click)="toggle()"
-    tabindex="-1" (keydown)="onKey($event)">
-    <input [formControl]="formControl" type="checkbox" [attr.id]="internalOptions.id"
-      [attr.tabindex]="internalOptions.tabindex" [attr.autofocus]="internalOptions.autofocus || null"
-      (keydown)="onKey($event)"
-      [attr.aria-labelledby]="internalOptions.label ? (internalOptions.id + '-label') : ariaLabelledBy"
-      [attr.aria-label]="!internalOptions.label && !ariaLabelledBy ? ariaLabel : null"
-      [attr.aria-describedby]="ariaDescribedBy"
-      [attr.aria-readonly]="internalOptions.isReadonly ? true : null"
-      [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
-    <label [attr.for]="internalOptions.id" untouchable></label>
-  </div>
-}
-@if (internalOptions.label && show) {
-  <span [attr.id]="internalOptions.id + '-label'" translate (click)="toggle()"
-    tabindex="-1" (keydown)="onKey($event)">{{internalOptions.label?.key ? (internalOptions.label | i18n) : (internalOptions.label | translate)}}</span>
-}
+<div class="checkbox" *ngIf="formControl && show" [class.disabled]="formControl.disabled || !enable"
+  [attr.tabindex]="internalOptions.tabindex" #controlRef [attr.autofocus]="internalOptions.autofocus || null"
+  (keydown)="onKey($event)" [class.checked]="!!formControl.value" pointer (click)="toggle()">
+  <input [formControl]="formControl" type="checkbox" [attr.id]="internalOptions.id"
+    [attr.readonly]="internalOptions.isReadonly ? true : null" [disabled]="formControl.disabled || !enable">
+  <label [attr.for]="internalOptions.id" untouchable></label>
+</div>
+<span *ngIf="internalOptions.label" translate (click)="toggle()">{{internalOptions.label}}</span>

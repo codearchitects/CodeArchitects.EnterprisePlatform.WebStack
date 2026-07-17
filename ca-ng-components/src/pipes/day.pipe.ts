@@ -3,8 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { isNoU } from '../utilities/common.utility';
 
 @Pipe({
-    name: 'day',
-    standalone: false
+  name: 'day'
 })
 export class ShDayPipe implements PipeTransform {
 

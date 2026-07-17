@@ -1,6 +1,4 @@
-@if (show) {
-  <label [attr.for]="internalOptions.id" translate title="{{(model[prop] || '') | translate}}">
-    {{ model[prop] }}
-    <ng-content></ng-content>
-  </label>
-}
+<label *ngIf="show" [attr.for]="internalOptions.id" translate title="{{(model[prop] || '') | translate}}">
+  {{ model[prop] }}
+  <ng-content></ng-content>
+</label>

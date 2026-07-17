@@ -4,9 +4,8 @@ import { IShBaseOptions } from './../base/base.component';
 import { Component, OnInit, ContentChild, TemplateRef, Injector } from '@angular/core';
 
 @Component({
-    selector: 'sh-form-array',
-    templateUrl: './form-array.component.html',
-    standalone: false
+  selector: 'sh-form-array',
+  templateUrl: './form-array.component.html'
 })
 /**
  * Represents listed templated controls
@@ -16,8 +15,8 @@ export class ShFormArrayComponent<T, O extends IShBaseOptions>
   /**
    * References to ng-content contents
    */
-  @ContentChild(TemplateRef)
-  template: TemplateRef<FormGroup<any>>;
+  @ContentChild(TemplateRef, { static: false })
+  template: TemplateRef<FormGroup>;
   /**
    * Represents listed templated controls
    */

@@ -1,16 +1,14 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { SidebarCommand } from '../../models/sidebar';
 import { AssetsService } from '../../services/index';
 import { IShBaseOptions, ShBaseAuthComponent } from '../base/index';
-import { CAEP_SIDEBAR_DEFAULT_TOGGLER_ICON } from '../../utilities/common.utility';
 
 @Component({
-    selector: 'sh-sidebar',
-    templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 export class ShSidebarComponent extends ShBaseAuthComponent<IShBaseOptions> implements OnInit {
   /**
@@ -31,26 +29,21 @@ export class ShSidebarComponent extends ShBaseAuthComponent<IShBaseOptions> impl
    */
   @Input() public onGetData: () => Promise<SidebarCommand[]>;
   /**
-   * Toggler icon name
-   * @default 'hamburger'
-   */
-  @Input() public togglerIcon: string = CAEP_SIDEBAR_DEFAULT_TOGGLER_ICON;
-  /**
    * Emits an event when sidebar collapses/expands itself
    */
   @Output() public isExpandedChange = new EventEmitter<boolean>();
   /**
    * Identifier of command with expanded children
    */
-  /*protected*/ public expandedCommandId: string;
+  protected expandedCommandId: string;
   /**
    * List of navigation commands to be shown in the sidebar
    */
-  /*protected*/ public commands: SidebarCommand[];
+  public commands: SidebarCommand[];
   /**
    * Change detector references
    */
-  /*protected*/ public changeDetection: ChangeDetectorRef;
+  protected changeDetection: ChangeDetectorRef;
   /**
    * Assets service
    */
@@ -70,7 +63,7 @@ export class ShSidebarComponent extends ShBaseAuthComponent<IShBaseOptions> impl
     this.commands = this.onGetData
       ? await this.onGetData()
       : await this._assetsService.get<SidebarCommand[]>('sidebar.json');
-    if (shChangeDetectorStrategy() === ChangeDetectionStrategy.OnPush) {
+    if (SH_CHANGE_DETECTOR.STRATEGY === ChangeDetectionStrategy.OnPush) {
       this.changeDetection.markForCheck();
     }
   }
@@ -79,7 +72,7 @@ export class ShSidebarComponent extends ShBaseAuthComponent<IShBaseOptions> impl
    * Toggles command children
    * @param id Identifier of the command to be toggled
    */
-  /*protected*/ public toggle(id: string) {
+  protected toggle(id: string) {
     if (this.expandedCommandId === id) {
       delete this.expandedCommandId;
     } else {

@@ -1,8 +1,14 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { I18nPipe } from './i18n.pipe';
+import { TranslateModule, TranslateModuleConfig } from '@ngx-translate/core';
+
+import { LocaleService } from './locale.service';
 import { I18nService } from './i18n.service';
+import { I18nPipe } from './i18n.pipe';
 
 @NgModule({
+  imports: [
+    TranslateModule
+  ],
   declarations: [
     I18nPipe
   ],
@@ -11,20 +17,4 @@ import { I18nService } from './i18n.service';
   ],
   providers: []
 })
-export class I18nModule { 
-
-  static forRoot(): ModuleWithProviders<I18nModule> {
-    return {
-      ngModule: I18nModule,
-      providers: [ I18nService ]
-    };
-  }
-
-  static forChild(): ModuleWithProviders<I18nModule> {
-    return {
-      ngModule: I18nModule,
-      providers: [ I18nService ]
-    };
-  }
-
-}
+export class I18nModule { }

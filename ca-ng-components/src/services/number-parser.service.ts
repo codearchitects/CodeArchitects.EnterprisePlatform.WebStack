@@ -2,16 +2,16 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import numeral from 'numeral';
+import * as numeral from 'numeral';
 @Injectable()
 export class NumberParserService implements OnDestroy {
   /**
    * Subject which notifies subscribers when service destroy itself
    */
-  /*protected*/ public destroy$ = new Subject<void>();
+  protected destroy$ = new Subject();
 
-  /*protected*/ public decimalSeparator = '.'; // (1.1).toLocaleString().replace(/\d/g, '');
-  /*protected*/ public groupSeparator = ','; // (1000).toLocaleString().replace(/\d/g, '');
+  protected decimalSeparator = '.'; // (1.1).toLocaleString().replace(/\d/g, '');
+  protected groupSeparator = ','; // (1000).toLocaleString().replace(/\d/g, '');
 
   constructor(private translate: TranslateService) {
     this.setupSeparators(this.translate.currentLang);
@@ -52,7 +52,7 @@ export class NumberParserService implements OnDestroy {
     return parseFloat(`${integerPart}.${decimalPart}`);
   }
 
-  /*protected*/ public tolerantRegex(allowNegative: boolean, decimalPlaces: number) {
+  protected tolerantRegex(allowNegative: boolean, decimalPlaces: number) {
     const regexBuilder = '^'
       + '(' + this.negativeNumberRegex(allowNegative) + '\\d*)'
       + this.decimalSeparatorRegex(decimalPlaces, true)
@@ -62,7 +62,7 @@ export class NumberParserService implements OnDestroy {
     return new RegExp(regexBuilder);
   }
 
-  /*protected*/ public strictRegex(allowNegative: boolean, decimalPlaces: number) {
+  protected strictRegex(allowNegative: boolean, decimalPlaces: number) {
     const regexBuilder = '^'
       + '(' + this.negativeNumberRegex(allowNegative) + '\\d+)'
       + '('
@@ -74,11 +74,11 @@ export class NumberParserService implements OnDestroy {
     return new RegExp(regexBuilder);
   }
 
-  /*protected*/ public negativeNumberRegex(allowNegative: boolean) {
+  protected negativeNumberRegex(allowNegative: boolean) {
     return allowNegative ? '\\-?' : '';
   }
 
-  /*protected*/ public decimalSeparatorRegex(decimalPlaces: number, tolerant = false) {
+  protected decimalSeparatorRegex(decimalPlaces: number, tolerant = false) {
     let result = '';
     if (decimalPlaces > 0) {
       result += `\\${this.decimalSeparator}`;
@@ -89,11 +89,11 @@ export class NumberParserService implements OnDestroy {
     return result;
   }
 
-  /*protected*/ public groupSeparatorRegex() {
+  protected groupSeparatorRegex() {
     return `\\${this.groupSeparator}`;
   }
 
-  /*protected*/ public decimalPlacesRegex(decimalPlaces: number, tolerant = false) {
+  protected decimalPlacesRegex(decimalPlaces: number, tolerant = false) {
     let result = '';
     if (decimalPlaces > 0) {
       result += tolerant ? '\\d{0' : '\\d{1';

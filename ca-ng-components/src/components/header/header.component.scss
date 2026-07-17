@@ -1,10 +1,7 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/common' as *;
+@import '../../styles/colors';
+@import '../../styles/common';
 
-$header-logo-height: var(--header-logo-height, 30px);
-$header-background: var(--header-background, $sh-lush-black);
-$header-leeway-left-recess: var(--header-leeway-left-recess, $bar-recess);
-$header-content-right-recess: var(--header-content-right-recess, $bar-recess);
+$header-logo-height: 30px;
 
 @media (max-width: $bars-width-breakpoint) {
   sh-sidebar-search {
@@ -18,9 +15,7 @@ $header-content-right-recess: var(--header-content-right-recess, $bar-recess);
   left: $sidebar-collapsed-width;
   right: 0;
   height: $header-height;
-  background: $header-background;
-  // Dark header bar → light default text for projected content (WCAG 1.4.3).
-  color: var(--header-color, #{$sh-mist});
+  background: $sh-lush-black;
   transition: $bars-transition-speed left;
   z-index: 999;
 
@@ -30,7 +25,7 @@ $header-content-right-recess: var(--header-content-right-recess, $bar-recess);
     position: relative;
     display: flex;
     align-items: center;
-    padding-left: $header-leeway-left-recess;
+    padding-left: $bar-recess;
 
     .logo {
       height: $header-logo-height;
@@ -47,6 +42,6 @@ $header-content-right-recess: var(--header-content-right-recess, $bar-recess);
     position: relative;
     display: flex;
     align-items: center;
-    padding-right: $header-content-right-recess;
+    padding-right: $bar-recess;
   }
 }

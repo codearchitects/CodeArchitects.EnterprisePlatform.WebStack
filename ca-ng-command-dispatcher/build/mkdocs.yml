@@ -1,0 +1,52 @@
+site_name: ca-bakery
+site_url: https://github.com/codearchitects/ca-bakery.git
+site_description: A build tool based on cake build.
+site_author: Code Architects Team
+
+repo_url: https://github.com/codearchitects/ca-bakery.git
+edit_uri: ""
+
+pages:
+    - Overview: index.md
+    - Guides: 
+        - Getting started: guides/getting-started.md
+        - Concepts: 
+            - Overview: guides/concepts/concepts-overview.md
+            - Pipeline: guides/concepts/pipeline.md
+            - Developer Flow: guides/concepts/developer-flow.md
+            - DevOps: guides/concepts/devops-flow.md
+        - Configuration: 
+            - Overview: guides/configuration/configuration-overview.md
+        - Secrets And Credentials: 
+            - Secrets: guides/secret-and-credentials/secret-and-credentials.md
+        - Deployment: 
+            - Overview: guides/deployment/deployment-overview.md
+        - Samples:
+            - .NET project: guides/samples/dotnet-project-sample.md
+            - NetCore project: guides/samples/netcore-project-sample.md
+            - NodeJs project: guides/samples/node-js-project-sample.md
+    - Reference: 
+        - Recipe Reference: references/recipe-yml.md
+        - Environment Variables: references/environment-variables.md
+    - Plugin Reference: 
+        - Overview: plugin-reference/plugin-overview.md
+    - CLI Reference: 
+        - Overview: cli-reference/cli-overview.md
+    - FAQ: faq/index.md
+    - Contributor Guide:
+        - Sample doc: contributor/sample-page.md
+
+extra_css:
+    - css/extra.css
+
+markdown_extensions:
+    - toc:
+        permalink: 
+    - admonition
+    - def_list
+
+copyright: Copyright &copy; 2017 <a href="http://www.codearchitects.uk">Code Architects</a>.<br /><br /><img src="http://www.codearchitects.uk/img/logo.png"/>
+google_analytics:
+
+plugins:
+    - search

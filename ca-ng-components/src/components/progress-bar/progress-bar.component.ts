@@ -3,10 +3,9 @@ import { Component, Injector, Input, OnChanges } from '@angular/core';
 import { IShBaseFormattedOptions, ShBaseAuthComponent } from '../base/index';
 
 @Component({
-    selector: 'sh-progress-bar',
-    templateUrl: './progress-bar.component.html',
-    styleUrls: ['./progress-bar.component.scss'],
-    standalone: false
+  selector: 'sh-progress-bar',
+  templateUrl: './progress-bar.component.html',
+  styleUrls: ['./progress-bar.component.scss']
 })
 /**
  * Progress bar component

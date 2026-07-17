@@ -3,11 +3,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "declaration": false,
-    "experimentalDecorators": true,
     "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
-    "module": "ES2022",
-    "moduleResolution": "bundler",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "noEmitHelpers": true,
     "noEmitOnError": true,
@@ -18,25 +23,23 @@
     "sourceMap": true,
     "strictNullChecks": false,
     "stripInternal": true,
-    "target": "ES2022",
-    "typeRoots": [      "node_modules/@types",
-      "node_modules",
-      "../node_modules/@types",
-      "../node_modules"
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules"
     ],
     "types": [
       "core-js",
       "node",
       "jasmine"
-    ],
-    "useDefineForClassFields": false
+    ]
   },
-  "exclude": [".tmp", "dist", "node_modules", "tests", "demo", "**/**.spec.ts"],
-  "angularCompilerOptions": {
-    "compilationMode": "partial",
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true,
-  }
+  "exclude": [
+    ".tmp",
+    "dist",
+    "node_modules",
+    "tests",
+    "demo",
+    "**/**.spec.ts"
+  ]
 }

@@ -1,19 +1,13 @@
 <div class="modal-overlay">
-  <div class="modal" tabindex="-1" #controlRef role="dialog" aria-modal="true"
-    cdkTrapFocus [cdkTrapFocusAutoCapture]="true"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabel ? null : id + '-title'"
-    [attr.aria-describedby]="body ? id + '-body' : null"
+  <div class="modal" tabindex="0" #controlRef
     (keyup.esc)="onCancel(); $event.preventDefault(); $event.stopPropagation()" [style.minWidth]="width"
     [style.maxWidth]="width" (clickOutside)="onClickOutside()">
-    <div class="modal-header" [id]="id + '-title'">
-      @if (icon) {
-        <sh-icon class="modal-header-icon" [name]="icon"></sh-icon>
-      }
+    <div class="modal-header">
+      <sh-icon class="modal-header-icon" *ngIf="icon" [name]="icon"></sh-icon>
       {{title | translate}}
       <ng-content select="[header]"></ng-content>
     </div>
-    <div class="modal-body" [id]="id + '-body'">
+    <div class="modal-body">
       {{body | translate}}
       <ng-content select="[body]"></ng-content>
     </div>
@@ -21,15 +15,11 @@
       <div #footer>
         <ng-content select="[footer]"></ng-content>
       </div>
-      @if (footer?.children?.length === 0) {
-        @if (hasCancelButton) {
-          <sh-button (clicked)="onCancel()">{{cancelText}}</sh-button>
-        }
-        @if (hasConfirmButton) {
-          <sh-button [primary]="true" [enable]="!formGroup?.invalid" (clicked)="onConfirm()">
+      <ng-container *ngIf="footer?.children?.length === 0">
+        <sh-button *ngIf="hasCancelButton" (clicked)="onCancel()">{{cancelText}}</sh-button>
+        <sh-button *ngIf="hasConfirmButton" [primary]="true" [enable]="!formGroup?.invalid" (clicked)="onConfirm()">
           {{confirmText}}</sh-button>
-        }
-      }
+      </ng-container>
     </div>
   </div>
 </div>

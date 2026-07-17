@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/ng-i18n"
+    path: .
+    type: npm-package

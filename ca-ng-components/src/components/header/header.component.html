@@ -1,13 +1,9 @@
 <div class="leeway">
-  @if (logo) {
-    <div class="logo">
-      <img src="assets/{{logo}}" [attr.alt]="applicationName || 'logo'">
-    </div>
-  }
+  <div *ngIf="logo" class="logo">
+    <img src="assets/{{logo}}">
+  </div>
 </div>
 <div class="content">
-  @if (showSearchbar) {
-    <sh-sidebar-search [applicationName]="applicationName" [icon]="searchBarIcon"></sh-sidebar-search>
-  }
+  <sh-sidebar-search *ngIf="showSearchbar" [applicationName]="applicationName"></sh-sidebar-search>
   <ng-content></ng-content>
 </div>

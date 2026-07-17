@@ -1,20 +1,13 @@
 <div class="leeway">
-  @if (showBackButton) {
-    <sh-button class="back-button" icon="back" [negative]="true"
-      [options]="{ ariaLabel: ('back' | translate) }"
-      [enable]="activity?.CurrentPayload?.stack.length > 1" (clicked)="return.emit()">
-    </sh-button>
-  }
-  @if (showBreadcrumb) {
-    <sh-breadcrumb [activity]="activity"></sh-breadcrumb>
-  }
+  <sh-button *ngIf="showBackButton" class="back-button" icon="back" title="{{'back' | translate}}" [negative]="true"
+    [enable]="activity?.CurrentPayload?.stack.length > 1" (clicked)="return.emit()">
+  </sh-button>
+  <sh-breadcrumb *ngIf="showBreadcrumb" [activity]="activity"></sh-breadcrumb>
 </div>
 <div class="content">
   <ng-content></ng-content>
-  @if (showLangControl && currentLang) {
-    <sh-select class="lang-control"
-      [model]="this" prop="currentLang" (valueChanges)="onLangChanges($event)"
-      [options]="{values: langs, valuesPipe: upperCasePipe, ariaLabel: ('change-language' | translate)}">
-    </sh-select>
-  }
+  <sh-select *ngIf="showLangControl && currentLang" class="lang-control" title="{{'change-language' | translate}}"
+    [model]="this" prop="currentLang" (valueChanges)="onLangChanges($event)"
+    [options]="{values: langs, valuesPipe: upperCasePipe, width: 25}">
+  </sh-select>
 </div>

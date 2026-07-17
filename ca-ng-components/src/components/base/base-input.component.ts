@@ -1,13 +1,12 @@
-import { DoCheck, Injector, OnChanges, OnDestroy, OnInit, SimpleChanges, Input, Directive, inject } from '@angular/core';
+import { DoCheck, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { AspectHelper, ContextService } from '@ca-webstack/ng-aspects';
 import { Mstring } from '@ca-webstack/ng-i18n';
-import * as _ from 'lodash-es';
-import { from, merge } from 'rxjs';
+import * as _ from 'lodash';
+import { from } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ShFormControl } from '../../utilities/form-control.utility';
 import { ShBaseModelComponent } from './base-model.component';
 import { IShBaseOptions } from './base.component';
-import { ShControlValueAccessorDirective } from '../../directives';
 
 /**
  * Base Input Component options contract
@@ -36,7 +35,6 @@ export interface IShBaseInputOptions<T> extends IShBaseOptions {
 /**
  * Base Component which introduces the form control
  */
-@Directive()
 export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   extends ShBaseModelComponent<T, O>
   implements OnChanges, OnInit, DoCheck, OnDestroy {
@@ -60,22 +58,18 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   /**
    * Generated Form Control related to model property value
    */
-  /*protected*/ public formControl: ShFormControl<any>;
+  public formControl: ShFormControl;
   /**
    * Event fired when model value changes
    * @param oldValue Form control value
    * @param value Model property value
    */
-  /*protected*/ public onModelValueChanges: (oldValue: T, value: T) => void;
+  protected onModelValueChanges: (oldValue: T, value: T) => void;
   /**
    * Input placeholder. If not specified in options, control tries to
    * assign to it a possible label obtained by value metadata (model[prop])
    */
-  /*protected*/ public placeholder: string | Mstring;
-  /**
- * Angular form control associated with this directive.
- */
-  protected _controlValueAccessor? = inject(ShControlValueAccessorDirective<T>, { optional: true });
+  protected placeholder: string | Mstring;
   /**
    * Aspect Helper service
    */
@@ -92,9 +86,6 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
     super(injector);
     this._aspectHelper = injector.get(AspectHelper);
     this._contextService = injector.get(ContextService);
-    if (this._controlValueAccessor) {
-      this._controlValueAccessor.host = this;
-    }
   }
 
   public ngOnInit() {
@@ -107,14 +98,6 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
 
   public ngOnChanges(changes: SimpleChanges) {
     super.ngOnChanges(changes);
-    if (this.formControl) {
-      if (changes.id) {
-        this.formControl.id = this.id;
-      }
-      if (changes.resource) {
-        this.formControl.resource = this.resource;
-      }
-    }
     if (changes['model'] && !this.isChangeEqual(changes['model'])) {
       this.formHandler.removeControl(changes['model'].previousValue, this.prop);
       delete this.formControl;
@@ -132,49 +115,28 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   public ngOnDestroy() {
     super.ngOnDestroy();
     this.destroyFormControl();
-    if (this._controlValueAccessor) {
-      this._controlValueAccessor.host = undefined;
-    }
   }
 
   /**
    * Creates a form control related to model property value
    */
-  /*protected*/ public createFormControl() {
-    if (this.model) {
-      this.formControl = this.formHandler.getControl(this.model, this.prop);
-      if (this.formControl) {
-        this.initializeFormControl();
-      }
+  protected createFormControl() {
+    this.formControl = this.formHandler.getControl(this.model, this.prop);
+    if (this.formControl) {
+      from(this.formControl.valueChanges)
+        .pipe(takeUntil(this.destroy$), distinctUntilChanged())
+        .subscribe(this.onControlValueChanges.bind(this));
     }
-  }
-
-  /**
-   * Initializes form control additional properties
-   */
-  public initializeFormControl() {
-    from(this.formControl.valueChanges)
-      .pipe(takeUntil(this.destroy$), distinctUntilChanged())
-      .subscribe(() => {
-        if (this.internalOptions) {
-          this.onControlValueChanges();
-        }
-      });
-    this.formControl.id = this.id;
-    this.formControl.resource = this.resource;
-    this.formControl.focus$?.pipe(takeUntil(merge(this.destroy$, this.modelChange$))).subscribe(() => this.giveFocus());
   }
 
   /**
    * Removes the form control from the tree
    */
-  /*protected*/ public destroyFormControl() {
-    if (this.model) {
-      this.formHandler.removeControl(this.model, this.prop);
-    }
+  protected destroyFormControl() {
+    this.formHandler.removeControl(this.model, this.prop);
   }
 
-  /*protected*/ public getDefaultOptions(): IShBaseInputOptions<T> {
+  protected getDefaultOptions(): IShBaseInputOptions<T> {
     return _.merge(super.getDefaultOptions(), {
       placeholder: '',
       inputClass: [],
@@ -185,7 +147,7 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   /**
    * Event fired when form control value changes
    */
-  /*protected*/ public onControlValueChanges() {
+  protected onControlValueChanges() {
     const value = this.getControlValue();
     if (!_.isEqual(this.getModelValue(), value)) {
       this.setModelValue(value);
@@ -195,23 +157,21 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   /**
    * Handles the model value changes for each change detection cycle
    */
-  /*protected*/ public modelValueChangesHandler() {
-    if (this.model) {
-      const value = this.getModelValue();
-      const controlValue = this.getControlValue();
-      if (!_.isEqual(controlValue, value)) {
-        if (this.onModelValueChanges) {
-          this.onModelValueChanges(controlValue, value);
-        }
-        this.setControlValue(value);
+  protected modelValueChangesHandler() {
+    const value = this.getModelValue();
+    const controlValue = this.getControlValue();
+    if (!_.isEqual(controlValue, value)) {
+      if (this.onModelValueChanges) {
+        this.onModelValueChanges(controlValue, value);
       }
+      this.setControlValue(value);
     }
   }
 
   /**
    * Enables/Disables control according to the action value
    */
-  /*protected*/ public checkDisabling() {
+  protected checkDisabling() {
     if (this.formControl) {
       if (this.enable) {
         if (this.formControl.disabled) {
@@ -228,7 +188,7 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   /**
    * Provides the value of the form control
    */
-  /*protected*/ public getControlValue() {
+  protected getControlValue() {
     if (this.formControl) {
       return this.formControl.value;
     }
@@ -238,7 +198,7 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
    * Sets the value of the form control
    * @param value New value
    */
-  /*protected*/ public setControlValue(value: any) {
+  protected setControlValue(value: any) {
     if (this.formControl) {
       this.formControl.setValue(value);
     }
@@ -247,9 +207,10 @@ export abstract class ShBaseInputComponent<T, O extends IShBaseInputOptions<T>>
   /**
    * Marks form control as dirty
    */
-  /*protected*/ public markAsDirty() {
+  protected markAsDirty() {
     if (!this.formControl.dirty) {
       this.formControl.markAsDirty();
     }
   }
+
 }

@@ -1,4 +1,4 @@
 /**
  * Export public API
  */
-export * from './src/public-api';
+export * from './src/index';

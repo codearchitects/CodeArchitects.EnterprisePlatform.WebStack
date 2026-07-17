@@ -9,11 +9,10 @@ import { ShCheckboxComponent } from './../components/checkbox/checkbox.component
 import { ShComboComponent } from './../components/combo/combo.component';
 import { ShDateTimeComponent } from './../components/date-time/date-time.component';
 import { ShDateComponent } from './../components/date/date.component';
-import { ShMaskComponent } from './../components/mask/mask.component';
 import { ShMultiSelectComponent } from './../components/multiselect/multiselect.component';
 import { ShRadioComponent } from './../components/radio/radio.component';
 import { ShSelectComponent } from './../components/select/select.component';
-import { ShSliderComponent } from '../components/slider/slider.component';
+import { ShSliderComponent } from 'src/components/slider/slider.component';
 import { ShTextComponent } from './../components/text/text.component';
 import { ShTimeComponent } from './../components/time/time.component';
 import { ShToggleComponent } from './../components/toggle/toggle.component';
@@ -30,7 +29,6 @@ export const ShTemplate: TemplateDictionary = {
   CURRENCY: ShCurrencyComponent,
   DATE: ShDateComponent,
   DATETIME: ShDateTimeComponent,
-  MASK: ShMaskComponent,
   MULTISELECT: ShMultiSelectComponent,
   NUMBER: ShNumberComponent,
   PERCENT: ShPercentComponent,

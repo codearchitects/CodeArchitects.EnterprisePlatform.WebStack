@@ -1,4 +1,3 @@
-import { City } from './models.2';
 import { Entity } from '../../decorators';
 
 @Entity({
@@ -65,6 +64,18 @@ export class BasketTeam {
 }
 
 @Entity({
+  name: 'myCity',
+  keys: 'id'
+})
+export class City {
+  constructor(
+    public id: string,
+    public name: string,
+    public major?: Major
+  ) { }
+}
+
+@Entity({
   name: 'myMajor',
   keys: 'id'
 })
@@ -76,7 +87,6 @@ export class Major {
     public partner?: Person
   ) { }
 }
-
 //Value Object
 export class MajorCity {
   constructor(

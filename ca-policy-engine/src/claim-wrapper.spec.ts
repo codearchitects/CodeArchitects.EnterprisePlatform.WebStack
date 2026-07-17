@@ -1,23 +1,32 @@
+import { expect } from 'chai';
+
 import { ClaimWrapper, IJsonClaim, IJsonClaimProperty } from './claim-wrapper';
 import { IClaim } from './core';
 import { ClaimType } from './claim-type';
 
 describe('ClaimWrapper', () => {
 
-  it('should exist', () => {
-    expect(ClaimWrapper).toBeDefined();
+  it('should exists', () => {
+    // Assert
+    expect(ClaimWrapper).to.exist;
   });
 
   it('should wrap an empty claim array', () => {
-    const fixture = JsonClaimBuilder.start().build();
+    // Arrange
+    const fixture = JsonClaimBuilder.start()
+      .build();
 
+    // Act
     const actual: IClaim[] = ClaimWrapper.wrapJsonClaims(fixture);
-    const expected: IClaim[] = ClaimBuilder.start().build();
+    const expected: IClaim[] = ClaimBuilder.start()
+      .build();
 
-    expect(actual).toEqual(expected);
+    // Assert
+    expect(actual).to.deep.equal(expected);
   });
 
   it('should wrap a claim array', () => {
+    // Arrange
     const claim1 = {
       type: ClaimType.emailAddress,
       value: 'jhon.doe@some-company.com'
@@ -27,12 +36,18 @@ describe('ClaimWrapper', () => {
       value: 'jane.doe@some-company.com'
     };
 
-    const fixture = JsonClaimBuilder.start().addClaims(claim1, claim2).build();
+    const fixture = JsonClaimBuilder.start()
+      .addClaims(claim1, claim2)
+      .build();
 
+    // Act
     const actual: IClaim[] = ClaimWrapper.wrapJsonClaims(fixture);
-    const expected: IClaim[] = ClaimBuilder.start().addClaims(claim1, claim2).build();
+    const expected: IClaim[] = ClaimBuilder.start()
+      .addClaims(claim1, claim2)
+      .build();
 
-    expect(actual).toEqual(expected);
+    // Assert
+    expect(actual).to.deep.equal(expected);
   });
 });
 
@@ -82,7 +97,7 @@ class ClaimBuilder {
   }
 
   addClaims(...fixtures: IFixtureClaim[]) {
-    const claims = fixtures.map(this.getClaim);
+    const claims = fixtures.map(this.getJsonClaim);
     this.claims.push(...claims);
     return this;
   }
@@ -91,7 +106,7 @@ class ClaimBuilder {
     return this.claims;
   }
 
-  private getClaim(fixture: IFixtureClaim): IClaim {
+  private getJsonClaim(fixture: IFixtureClaim): IClaim {
     return {
       type: fixture.type,
       value: fixture.value

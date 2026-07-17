@@ -195,7 +195,7 @@ export function main() {
       });
 
       afterEach(() => {
-        testFinish$.next();
+        testFinish$.next(null);
       });
 
       it('should check truthy authorization', () => {
@@ -204,7 +204,7 @@ export function main() {
 
         authorization
           .pipe(takeUntil(testFinish$))
-          .subscribe({ next: onNext, error: onError, complete: onComplete });
+          .subscribe(onNext, onError, onComplete);
 
         // Assert
         function onNext(actual: IAuthorization) {
@@ -219,7 +219,7 @@ export function main() {
 
         authorization
           .pipe(takeUntil(testFinish$))
-          .subscribe({ next: onNext, error: onError, complete: onComplete });
+          .subscribe(onNext, onError, onComplete);
 
         // Assert
         function onNext(actual: IAuthorization) {
@@ -234,7 +234,7 @@ export function main() {
 
         authorization
           .pipe(takeUntil(testFinish$))
-          .subscribe({ next: onNext, error: onError, complete: onComplete });
+          .subscribe(onNext, onError, onComplete);
 
         // Assert
         function onNext(actual: IAuthorization) {
@@ -249,7 +249,7 @@ export function main() {
 
         authorization
           .pipe(takeUntil(testFinish$))
-          .subscribe({ next: onNext, error: onError, complete: onComplete });
+          .subscribe(onNext, onError, onComplete);
 
         // Assert
         function onNext(actual: IAuthorization) {
@@ -418,7 +418,7 @@ export class PolicyBuilder {
   addPolicyRuleLeaf(options: { resourceRegex: RegExp, selector?: string, type: PolicyType, fixture: IFixtureClaim }) {
     const policy: IPolicy = {
       resource: options.resourceRegex,
-      selector: options.selector ?? '',
+      selector: options.selector,
       type: options.type,
       condition: this.getRuleLeaf(options.fixture)
     };
@@ -430,7 +430,7 @@ export class PolicyBuilder {
   addPolicyRuleOrNode(options: { resourceRegex: RegExp, selector?: string, type: PolicyType, fixtures: IFixtureClaim[] }) {
     const policy: IPolicy = {
       resource: options.resourceRegex,
-      selector: options.selector ?? '',
+      selector: options.selector,
       type: options.type,
       condition: this.getRuleOrNode(...options.fixtures)
     };
@@ -443,7 +443,7 @@ export class PolicyBuilder {
   addPolicyRuleAndNode(options: { resourceRegex: RegExp, selector?: string, type: string, fixtures: IFixtureClaim[] }) {
     const policy: IPolicy = {
       resource: options.resourceRegex,
-      selector: options.selector ?? '',
+      selector: options.selector,
       type: options.type,
       condition: this.getRuleAndNode(...options.fixtures)
     };
@@ -489,7 +489,7 @@ export class PolicyBuilder {
 
 
 interface IAuthorization {
-  [key: string]: boolean | undefined;
+  [key: string]: boolean;
 }
 
 main();

@@ -1,14 +1,11 @@
-@use '../../../styles/common' as *;
-
-$container-right-recess: var(--container-right-recess, 0);
-$container-bottom-recess: var(--container-bottom-recess, 0);
+@import '../../styles/common';
 
 :host {
   ::ng-deep #container {
     position: absolute;
     top: $bars-height;
-    bottom: $container-bottom-recess;
-    right: $container-right-recess;
+    bottom: 0;
+    right: 0;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 0;

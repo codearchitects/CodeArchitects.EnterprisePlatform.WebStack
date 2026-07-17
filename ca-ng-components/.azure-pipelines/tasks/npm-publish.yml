@@ -1,0 +1,19 @@
+parameters:
+- name: workDir
+  type: string
+  default: $(System.DefaultWorkingDirectory)
+- name: organization
+  type: string
+- name: feed
+  type: string
+
+steps:
+- task: PowerShell@2
+  displayName: npm publish
+  inputs:
+    targetType: inline
+    workingDirectory: ${{ parameters.workDir }}
+    script: |
+      npm version $(Build.BuildNumber)
+      $registry = "--registry=https://${{ parameters.organization }}/_packaging/${{ parameters.feed }}/npm/registry/"
+      npm publish --verbose $registry

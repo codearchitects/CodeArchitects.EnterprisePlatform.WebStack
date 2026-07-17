@@ -1,6 +1,9 @@
+import { expect } from 'chai';
+
 import { PolicyWrapper, IJsonPolicies, IJsonPolicyClaimRoot, IJsonPolicyOrRoot, IJsonPolicyAndRoot, IJsonPolicyClaim, IJsonPolicyConditionNode, PolicyWrapperHelper } from './policy-wrapper';
 import { IPolicyCondition, IPolicyRuleLeaf, IPolicyRuleOrNode, IPolicyRuleAndNode, IPolicy, PolicyType } from './core';
 import { ClaimType } from './claim-type';
+
 import { RegisterAllHandlers } from './register';
 
 describe('PolicyWrapper', () => {
@@ -9,9 +12,9 @@ describe('PolicyWrapper', () => {
     RegisterAllHandlers();
   });
 
-  it('should exist', () => {
+  it('should exists', () => {
     // Assert
-    expect(PolicyWrapper).toBeDefined();
+    expect(PolicyWrapper).to.exist;
   });
 
   it('should wrap empty policy', () => {
@@ -20,12 +23,12 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
   it('should wrap claim root policy', () => {
@@ -44,17 +47,17 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
 
-    const expected = PolicyBuilder.start()
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleLeaf({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixture: claim })
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
-  it('should wrap policy with "?" wildcard in resource name', () => {
+  it('should wrap policy with "?" windcard in resource name', () => {
     // Arrange
     const resource = 'command://application1/domain1/task1/command?';
     const resourceRegex = /^command:\/\/application1\/domain1\/task1\/command.$/;
@@ -69,16 +72,16 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleLeaf({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixture: claim })
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
-  it('should wrap policy with "*" wildcard in resource name', () => {
+  it('should wrap policy with "*" windcard in resource name', () => {
     // Arrange
     const resource = 'command://application1/domain1/task1/*';
     const resourceRegex = /^command:\/\/application1\/domain1\/task1\/.*$/;
@@ -93,13 +96,13 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleLeaf({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixture: claim })
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
   it('should wrap "or" root policy', () => {
@@ -121,13 +124,13 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleOrNode({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixtures: [claim1, claim2] })
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
   it('should wrap "and" root policy', () => {
@@ -149,13 +152,13 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleAndNode({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixtures: [claim1, claim2] })
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
   it('should wrap "or" child policy', () => {
@@ -182,14 +185,14 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleAndNode({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixtures: [claim1] })
       .appendPolicyRuleOrNode(claim2, claim3)
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 
   it('should wrap "and" child policy', () => {
@@ -216,14 +219,14 @@ describe('PolicyWrapper', () => {
       .build();
 
     // Act
-    const actual = PolicyWrapperHelper.wrapJsonPolicies(fixture);
-    const expected = PolicyBuilder.start()
+    const actual: IPolicy[] = PolicyWrapperHelper.wrapJsonPolicies(fixture);
+    const expected: IPolicy[] = PolicyBuilder.start()
       .addPolicyRuleOrNode({ resourceRegex: resourceRegex, selector: selector, type: 'authorization', fixtures: [claim1] })
       .appendPolicyRuleAndNode(claim2, claim3)
       .build();
 
     // Assert
-    expect(actual).toEqual(expected);
+    expect(actual).to.deep.equal(expected);
   });
 });
 
@@ -374,8 +377,8 @@ export class PolicyBuilder {
 
   private getRuleLeaf(fixture: IFixtureClaim): IPolicyRuleLeaf {
     return {
-      claimType: fixture.type,
-      claimValue: fixture.value
+      claimType: fixture['type'],
+      claimValue: fixture['value']
     };
   }
 

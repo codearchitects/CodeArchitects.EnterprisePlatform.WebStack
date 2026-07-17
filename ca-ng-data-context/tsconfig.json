@@ -2,34 +2,45 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": ".",
-    "strictPropertyInitialization": false,
-    "forceConsistentCasingInFileNames": true,
-    "strict": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
     "downlevelIteration": true,
-    "strictNullChecks": false,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "inlineSources": true,
-    "types": [],
-    "useDefineForClassFields": false
-  },
-  "angularCompilerOptions": {
-    "compilationMode": "partial",
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noEmitHelpers": true,
+    "noEmitOnError": true,
+    "noLib": false,
+    "removeComments": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "stripInternal": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types",
+      "node_modules"
+    ],
+    "types": [
+      "core-js",
+      "node",
+      "jasmine"
+    ]
   },
   "exclude": [
-    "src/test.ts",
-    "**/*.spec.ts"
+    ".tmp",
+    "dist",
+    "node_modules",
+    "tests",
+    "demo",
+    "**/**.spec.ts",
+    "./test.ts"
   ]
 }

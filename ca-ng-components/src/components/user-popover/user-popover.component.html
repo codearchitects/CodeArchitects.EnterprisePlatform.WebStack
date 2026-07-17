@@ -1,0 +1,63 @@
+<div id="user-popover">
+  <div class="master">
+    <div *ngIf="showCompany" class="company">
+      {{model.company}}
+    </div>
+    <button class="user-icon" [ngStyle]="avatarIconStyle"
+      (click)="toggleDetailPanel()">{{!showImage ? (model.name | initials) : ''}}</button>
+  </div>
+  <div *ngIf="isDetailShown" class="detail">
+    <div class="user-icon" [ngStyle]="avatarIconStyle">
+      {{!showImage ? (model.name | initials) : ''}}
+      <button *ngIf="canChangeImage" (click)="showFileChooser($event)">
+        <input type="file" (change)="onImageChange($event.target.files)" accept="image/*" />
+        <div>{{'Change profile image' | translate}}</div>
+        <sh-icon class="change-image-icon" name="decorator"></sh-icon>
+      </button>
+    </div>
+    <div class="user-name">
+      <button (click)="onProfileClick($event)" class="profile-link" *ngIf="showProfileLink; else showName">
+        <div>
+          {{'Edit user profile' | translate}}
+        </div>
+        <span>
+          {{model.name}}
+        </span>
+      </button>
+      <ng-template #showName>
+        {{model.name}}
+      </ng-template>
+    </div>
+    <div class="user-email">{{model.email}}</div>
+    <div class="separator rainbow"></div>
+    <div *ngIf="showCompany" class="company">
+      {{model.company}}
+    </div>
+    <div *ngIf="showRole" class="role">
+      <span *ngIf="!canChangeRole; else showRoleOptions">{{model.role}}</span>
+      <ng-template #showRoleOptions>
+        <sh-select [model]='model' prop='role' (valueChanges)="onRoleChange($event)"
+          [options]="{values: changeRoleOptions, valuesPipe: changeRoleOptionsPipe, valuesPipeArgs: changeRoleOptionsPipeArgs, containerClass:['role-select']}">
+        </sh-select>
+      </ng-template>
+    </div>
+    <div *ngIf="canChangeCompany || canChangeLanguage" class="constrained">
+      <div class="change-company" *ngIf="canChangeCompany">
+        <button (click)="onCompanyChange($event)">
+          <sh-icon class="company-icon" name="no-icon"></sh-icon>
+          <span>{{'Change company' | translate}}</span>
+        </button>
+      </div>
+      <div class="language-switch" *ngIf="canChangeLanguage">
+        <sh-popover-country-select class="language-selector" [model]="this" prop="currentLang"
+          (valueChanges)="onLangChanges($event)" [options]="{values: langs, containerClass:['lang-select']}">
+        </sh-popover-country-select>
+      </div>
+    </div>
+    <sh-commands-bar class="commands" family="user-popover">
+      <ng-template #commandsTemplate let-command="$implicit">
+        <button (click)="command.handler()">{{command.label | translate}}</button>
+      </ng-template>
+    </sh-commands-bar>
+  </div>
+</div>

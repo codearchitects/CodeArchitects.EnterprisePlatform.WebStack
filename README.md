@@ -1,8 +1,12 @@
 # CodeArchitects Enterprise Platform — WebStack
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Node.js >= 22](https://img.shields.io/badge/node-%3E%3D22-brightgreen.svg)](https://nodejs.org/)
+[![Node.js >= 12](https://img.shields.io/badge/node-%3E%3D12-brightgreen.svg)](https://nodejs.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+> **Branch `version/8.x.x`** — this branch tracks the v8 generation of the
+> `@ca-webstack/*` libraries (Angular 8 / Node 12 era), organised as an
+> npm-workspaces monorepo orchestrated with [Turborepo](https://turbo.build/).
 
 An npm-workspaces monorepo of the `@ca-webstack/*` libraries,
 orchestrated with [Turborepo](https://turbo.build/). One install links every
@@ -10,8 +14,8 @@ internal library; one command builds them all in the correct order.
 
 ## Requirements
 
-- Node.js >= 22
-- npm >= 10
+- Node.js >= 12 (Node 12 recommended for full compatibility)
+- npm >= 6
 
 ## Getting started
 
@@ -54,8 +58,7 @@ npx turbo run build --filter=@ca-webstack/ng-shell   # build one package + its d
 | `npm run setup` | Install the whole workspace (single lockfile). |
 | `npm run build` | Build every package in topological order (cached). |
 | `npm run build.watch` | Rebuild affected packages on change. |
-| `npm run test` | Run every package's tests (after building deps). |
-| `npm run lint` | Lint every package. |
+| `npm run test` | Run every package's unit tests (after building deps). |
 | `npm run clean` | Remove all `node_modules`, build artifacts and turbo cache. |
 | `npm run version:set X.Y.Z` | Set one shared version across all packages and pin internal deps to it. |
 

@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Injector, Input, Output, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { SidebarCommand } from '../../models/sidebar';
 import { AssetsService } from '../../services/assets.service';
 import { IShBaseOptions, ShBaseAuthComponent } from '../base';
 import { IShComboOptions } from '../combo/combo.component';
-import { CAEP_SIDEBAR_SEARCH_DEFAULT_ICON } from '../../utilities/common.utility';
 
 /**
  * Sidebar Search Pipe
@@ -17,12 +16,11 @@ class ShSidebarSearchPipe implements PipeTransform {
 }
 
 @Component({
-    selector: 'sh-sidebar-search',
-    templateUrl: './sidebar-search.component.html',
-    styleUrls: ['./sidebar-search.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-sidebar-search',
+  templateUrl: './sidebar-search.component.html',
+  styleUrls: ['./sidebar-search.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Sidebar Search Component
  */
@@ -40,14 +38,9 @@ export class ShSidebarSearchComponent extends ShBaseAuthComponent<IShBaseOptions
    */
   @Input() public applicationName: string;
   /**
-   * The icon name
-   * @default 'search'
-   */
-  @Input() public icon: string = CAEP_SIDEBAR_SEARCH_DEFAULT_ICON;
-  /**
    * Combo Configuration
    */
-  /*protected*/ public combo: IShComboOptions<SidebarCommand>;
+  public combo: IShComboOptions<SidebarCommand>;
   /**
    * Angular Router Service
    */
@@ -81,7 +74,7 @@ export class ShSidebarSearchComponent extends ShBaseAuthComponent<IShBaseOptions
    * Event fired on command changes
    * @param value New selected command
    */
-  /*protected*/ public onChange(value: SidebarCommand) {
+  protected onChange(value: SidebarCommand) {
     this.modelChange.emit(this.model = value);
     if (value) {
       if (this.applicationName) {

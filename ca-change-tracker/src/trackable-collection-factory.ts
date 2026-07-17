@@ -17,7 +17,7 @@ export class TrackableCollectionFactory {
         return target[property];
       },
       set: (target, property, value, receiver) => {
-        if (!isNaN(<number><unknown>property)) {
+        if (!isNaN(<number>property)) {
           TrackableCollectionFactory.addToTarget(target, '$$newItems', value);
           TrackableCollectionFactory.addToTarget(target, '$$oldItems', target[property]);
         }
@@ -26,7 +26,7 @@ export class TrackableCollectionFactory {
         return true;
       },
       deleteProperty: (target, property) => {
-        if (!isNaN(<number><unknown>property)) {
+        if (!isNaN(<number>property)) {
           TrackableCollectionFactory.addToTarget(target, '$$oldItems', target[property]);
         }
         TrackableCollectionFactory.commit(tc, target, property);

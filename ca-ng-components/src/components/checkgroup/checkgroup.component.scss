@@ -1,7 +1,6 @@
-@use '../checkbox/checkbox.component.scss';
-@use '../../../styles/a11y' as *;
+@import '../checkbox/checkbox.component.scss';
 
-$checkbox-distance: var(--checkgroup-checkbox-distance, 15px);
+$checkbox-distance: 15px;
 
 .checkgroup>div {
   margin-bottom: $checkbox-distance;
@@ -9,13 +8,4 @@ $checkbox-distance: var(--checkgroup-checkbox-distance, 15px);
   &[inline] {
     margin-right: $checkbox-distance;
   }
-}
-
-// The focusable control here is the `.checkbox` <div role="checkbox">, not the
-// native <input> (which is aria-hidden / tabindex=-1 in this component). The
-// shared `input:focus-visible + label` ring therefore never fires, and the
-// shared `.checkbox { outline: none }` suppresses the default outline, so a
-// keyboard focus indicator must be provided explicitly here (WCAG 2.4.7 / 2.4.11).
-.checkgroup .checkbox:focus-visible {
-  @include sh-focus-ring;
 }

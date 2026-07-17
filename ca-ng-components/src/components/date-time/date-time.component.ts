@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { ShDateComponent, ShDateFormat } from '../date/date.component';
 
 
@@ -9,12 +9,11 @@ import { ShDateComponent, ShDateFormat } from '../date/date.component';
   shortDescription: 'Date-Time Control'
 })
 @Component({
-    selector: 'sh-date-time',
-    templateUrl: '../date/date.component.html',
-    styleUrls: ['../date/date.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-date-time',
+  templateUrl: '../date/date.component.html',
+  styleUrls: ['../date/date.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Time Component
  */
@@ -27,7 +26,7 @@ export class ShDateTimeComponent extends ShDateComponent implements OnInit {
     super(injector);
   }
 
-  /*protected*/ public setupFormat() {
+  protected setupFormat() {
     const lang = this.translateService.currentLang;
     if (!(this.internalOptions.format && this.internalOptions.format.length)) {
       switch (lang) {

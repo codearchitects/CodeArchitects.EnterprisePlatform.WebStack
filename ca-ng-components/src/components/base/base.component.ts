@@ -1,11 +1,11 @@
-import { ElementRef, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild, Directive } from '@angular/core';
-import * as _ from 'lodash-es';
+import { HelpManager } from './../../utilities/help.manager';
+import { ElementRef, Injector, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import * as _ from 'lodash';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { isNoU, yieldFunc } from '../../utilities/common.utility';
-import { IdSequenceService } from '../../services/id-sequence.service';
-import { Mstring } from '@ca-webstack/ng-i18n';
+import { isNoU, yieldFunc } from 'src/utilities/common.utility';
 import { FormHandlerService } from '../../services/form-handler.service';
+import { IdSequenceService } from '../../services/id-sequence.service';
 
 /**
  * Base Component options contract
@@ -42,30 +42,6 @@ export interface IShBaseOptions {
    */
   height?: string | number | BehaviorSubject<string | number>;
   /**
-   * label of the control
-   * @default auto
-   */
-   label?:string | boolean | Mstring;
-  /**
-   * Accessible name exposed as `aria-label` when no visible label is
-   * associated with the control (WCAG 4.1.2). Prefer a visible, associated
-   * label where possible.
-   * @default undefined
-   */
-  ariaLabel?: string;
-  /**
-   * Space-separated id(s) of the element(s) that label this control, exposed
-   * as `aria-labelledby` (WCAG 1.3.1 / 4.1.2).
-   * @default undefined
-   */
-  ariaLabelledBy?: string;
-  /**
-   * Space-separated id(s) of the element(s) that describe this control (hint,
-   * validation message, …), exposed as `aria-describedby` (WCAG 1.3.1).
-   * @default undefined
-   */
-  ariaDescribedBy?: string;
-  /**
    * Event fired just before the value changes.
    * Asks if it's possible to change the value.
    * Returning false, the value will not vary
@@ -79,13 +55,16 @@ export interface IShBaseOptions {
 /**
  * Base Component with base functions of a CA-Component
  */
-@Directive()
 export class ShBaseComponent<TOptions extends IShBaseOptions>
   implements OnChanges, OnInit, OnDestroy {
   /**
    * Base component configuration
    */
   @Input() public options: TOptions;
+  /**
+   * The help id to require info
+   */
+  @Input() public helpId: string;
   /**
    * Width of the control
    * @default auto
@@ -117,27 +96,6 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
    */
   public get containerClass() {
     return this.internalOptions.containerClass.join(' ');
-  }
-  /**
-   * Accessible name for the control (`aria-label`). `null` when unset so the
-   * bound attribute is not rendered. (WCAG 4.1.2)
-   */
-  public get ariaLabel(): string | null {
-    return this.internalOptions?.ariaLabel ?? null;
-  }
-  /**
-   * Id(s) of the element(s) labelling the control (`aria-labelledby`). `null`
-   * when unset. (WCAG 1.3.1 / 4.1.2)
-   */
-  public get ariaLabelledBy(): string | null {
-    return this.internalOptions?.ariaLabelledBy ?? null;
-  }
-  /**
-   * Id(s) of the element(s) describing the control (`aria-describedby`).
-   * `null` when unset. (WCAG 1.3.1)
-   */
-  public get ariaDescribedBy(): string | null {
-    return this.internalOptions?.ariaDescribedBy ?? null;
   }
   /**
    * Registered handler for control keypress event
@@ -218,32 +176,36 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
   /**
    * Identifier generator service
    */
-  /*protected*/ public idSequence: IdSequenceService;
+  protected idSequence: IdSequenceService;
   /**
    * Form Handler Service
    */
-  /*protected*/ public formHandler: FormHandlerService;
+  protected formHandler: FormHandlerService;
   /**
    * Mapping of user options and default component options
    */
-  /*protected*/ public internalOptions: TOptions;
+  public internalOptions: TOptions;
   /**
    * Control identifier
    */
-  /*protected*/ public id: string;
+  protected id: string;
   /**
    * Control tabindex
    */
-  /*protected*/ public tabIndex = 0;
+  protected tabIndex = 0;
   /**
    * Subject which notifies subscribers when component destroy itself
    */
-  /*protected*/ public destroy$ = new Subject<void>();
+  protected destroy$ = new Subject();
   /**
    * References to control HTML element
    */
-  @ViewChild('controlRef')
-  /*protected*/ public controlRef: ElementRef;
+  @ViewChild('controlRef', { static: false })
+  protected controlRef: ElementRef;
+  /**
+   * Specifies whether the helper is active
+   */
+  protected isHelperActive: boolean;
 
   /**
    * Base Component with base functions of a CA-Component
@@ -255,6 +217,10 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
   }
 
   public ngOnInit() {
+    HelpManager.isHelperActive$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(isHelperActive => this.isHelperActive = isHelperActive);
+    
     this.onOptionsChanges();
     this.setupSize();
     yieldFunc(() => this.focusControl());
@@ -280,9 +246,18 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
   }
 
   /**
+   * Fired on helper button clicked
+   */
+  public async onHelp(e?: PointerEvent, helpId?: string) {
+    e && e.stopPropagation();
+    const helpRequired = helpId || this.helpId;
+    !isNoU(helpRequired) && await HelpManager.getHelp(helpRequired);
+  }
+
+  /**
    * Applies focus to control if autofocus is setted to true
    */
-  /*protected*/ public focusControl() {
+  protected focusControl() {
     if (this.internalOptions.autofocus) {
       this.giveFocus();
     }
@@ -291,7 +266,7 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
   /**
    * Event fired when user options changes
    */
-  /*protected*/ public onOptionsChanges() {
+  protected onOptionsChanges() {
     this.mergeOptions();
   }
 
@@ -299,7 +274,7 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
    * Defines default component options which will be combined with user options
    * to create the internalOptions object
    */
-  /*protected*/ public getDefaultOptions(): IShBaseOptions {
+  protected getDefaultOptions(): IShBaseOptions {
     return {
       id: this.id,
       tabindex: this.tabIndex,
@@ -313,7 +288,7 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
    * Checks if an angular simple change bring effectively changes
    * @param change SimpleChange object of angular
    */
-  /*protected*/ public isChangeEqual(change: SimpleChange) {
+  protected isChangeEqual(change: SimpleChange) {
     return _.isEqualWith(change.previousValue, change.currentValue, this.equalCustomizer);
   }
 
@@ -321,7 +296,7 @@ export class ShBaseComponent<TOptions extends IShBaseOptions>
    * Checks if a value is a simple object or a BehaviorSubject
    * @param value The value for which performs the check
    */
-  /*protected*/ public isAsync<TValue>(value: TValue | BehaviorSubject<TValue>): value is BehaviorSubject<TValue> {
+  protected isAsync<TValue>(value: TValue | BehaviorSubject<TValue>): value is BehaviorSubject<TValue> {
     return value instanceof BehaviorSubject;
   }
 

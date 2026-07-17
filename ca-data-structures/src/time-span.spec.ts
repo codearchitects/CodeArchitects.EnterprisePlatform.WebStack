@@ -1,4 +1,5 @@
-import { TimeSpan } from './time-span';
+import {TimeSpan} from './time-span';
+import {expect} from 'chai';
 
 describe('TimeSpan', () => {
 
@@ -7,9 +8,9 @@ describe('TimeSpan', () => {
     let timeSpan = new TimeSpan();
 
     // Assert
-    expect(TimeSpan).toBeDefined();
-    expect(timeSpan).toBeDefined();
-    expect(timeSpan instanceof TimeSpan).toBe(true);
+    expect(TimeSpan).to.exist;
+    expect(timeSpan).to.exist;
+    expect(timeSpan instanceof TimeSpan).to.be.true;
   });
 
   it('should return min value', () => {
@@ -61,8 +62,8 @@ describe('TimeSpan', () => {
 
   it('should throw argument out of range error if call hours_minutes_seconds construct with invalid params', () => {
     // Assert
-    expect(() => newTimeSpan3(Math.floor(TimeSpan.MinValue.totalHours) - 1, 0, 0)).toThrow('Argument out of range');
-    expect(() => newTimeSpan3(Math.ceil(TimeSpan.MaxValue.totalHours) + 1, 0, 0)).toThrow('Argument out of range');
+    expect(() => newTimeSpan3(Math.floor(TimeSpan.MinValue.totalHours) - 1, 0, 0)).to.throw('Argument out of range');
+    expect(() => newTimeSpan3(Math.ceil(TimeSpan.MaxValue.totalHours) + 1, 0, 0)).to.throw('Argument out of range');
   });
 
   it('should permit days_hours_minutes_seconds_milliseconds construct', () => {
@@ -79,17 +80,17 @@ describe('TimeSpan', () => {
     let max = TimeSpan.MaxValue;
 
     // Assert
-    expect(() => newTimeSpan5(min.days - 1, min.hours, min.minutes, min.seconds, min.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(min.days, min.hours - 1, min.minutes, min.seconds, min.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(min.days, min.hours, min.minutes - 1, min.seconds, min.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(min.days, min.hours, min.minutes, min.seconds - 1, min.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(min.days, min.hours, min.minutes, min.seconds, min.milliseconds - 1)).toThrow('Argument out of range');
+    expect(() => newTimeSpan5(min.days - 1, min.hours, min.minutes, min.seconds, min.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(min.days, min.hours - 1, min.minutes, min.seconds, min.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(min.days, min.hours, min.minutes - 1, min.seconds, min.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(min.days, min.hours, min.minutes, min.seconds - 1, min.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(min.days, min.hours, min.minutes, min.seconds, min.milliseconds - 1)).to.throw('Argument out of range');
 
-    expect(() => newTimeSpan5(max.days + 1, max.hours, max.minutes, max.seconds, max.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(max.days, max.hours + 1, max.minutes, max.seconds, max.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(max.days, max.hours, max.minutes + 1, max.seconds, max.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(max.days, max.hours, max.minutes, max.seconds + 1, max.milliseconds)).toThrow('Argument out of range');
-    expect(() => newTimeSpan5(max.days, max.hours, max.minutes, max.seconds, max.milliseconds + 1)).toThrow('Argument out of range');
+    expect(() => newTimeSpan5(max.days + 1, max.hours, max.minutes, max.seconds, max.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(max.days, max.hours + 1, max.minutes, max.seconds, max.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(max.days, max.hours, max.minutes + 1, max.seconds, max.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(max.days, max.hours, max.minutes, max.seconds + 1, max.milliseconds)).to.throw('Argument out of range');
+    expect(() => newTimeSpan5(max.days, max.hours, max.minutes, max.seconds, max.milliseconds + 1)).to.throw('Argument out of range');
   });
 
   it('should return totals', () => {
@@ -103,12 +104,12 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual, expected }) => {
-      expect(expected.days).toBe(actual.totalDays);
-      expect(expected.hours).toBe(actual.totalHours);
-      expect(expected.minutes).toBe(actual.totalMinutes);
-      expect(expected.seconds).toBe(actual.totalSeconds);
-      expect(expected.milliseconds).toBe(actual.totalMilliseconds);
+    data.forEach(({actual, expected}) => {
+      expect(expected.days).to.equal(actual.totalDays);
+      expect(expected.hours).to.equal(actual.totalHours);
+      expect(expected.minutes).to.equal(actual.totalMinutes);
+      expect(expected.seconds).to.equal(actual.totalSeconds);
+      expect(expected.milliseconds).to.equal(actual.totalMilliseconds);
     });
   });
 
@@ -126,15 +127,15 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual1, actual2, expected }) => {
-      expect(actual1.add(actual2)).toEqual(expected);
+    data.forEach(({actual1, actual2, expected}) => {
+      expect(actual1.add(actual2)).to.deep.equal(expected);
     });
   });
 
   it('should throw overflow error if total is beyond limits', () => {
     // Assert
-    expect(() => TimeSpan.MinValue.add(newTimeSpan1(-1))).toThrow('Overflow error');
-    expect(() => TimeSpan.MaxValue.add(newTimeSpan1(1))).toThrow('Overflow error');
+    expect(() => TimeSpan.MinValue.add(newTimeSpan1(-1))).to.throw('Overflow error');
+    expect(() => TimeSpan.MaxValue.add(newTimeSpan1(1))).to.throw('Overflow error');
   });
 
   it('should permit comparations', () => {
@@ -178,8 +179,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual1, actual2, expected }) => {
-      expect(actual1.compareTo(actual2!)).toBe(expected);
+    data.forEach(({actual1, actual2, expected}) => {
+      expect(actual1.compareTo(actual2)).to.equal(expected);
     });
   });
 
@@ -195,8 +196,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual, expected }) => {
-      expect(actual.duration()).toEqual(expected);
+    data.forEach(({actual, expected}) => {
+      expect(actual.duration()).to.deep.equal(expected);
     });
   });
 
@@ -234,8 +235,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual1, actual2, expected }) => {
-      expect(actual1.equal(actual2!)).toBe(expected);
+    data.forEach(({actual1, actual2, expected}) => {
+      expect(actual1.equal(actual2)).to.deep.equal(expected);
     });
   });
 
@@ -252,8 +253,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ days, expected }) => {
-      expect(TimeSpan.fromDays(days)).toEqual(expected);
+    data.forEach(({days, expected}) => {
+      expect(TimeSpan.fromDays(days)).to.deep.equal(expected);
     });
   });
 
@@ -262,13 +263,13 @@ describe('TimeSpan', () => {
     let maxDays = Number.MAX_VALUE / (TimeSpan.TicksPerMillisecond / 1000.0 / 60.0 / 60.0 / 24.0);
 
     // Assert
-    expect(() => TimeSpan.fromDays(Infinity)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromDays(-Infinity)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromDays(Infinity)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromDays(-Infinity)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromDays(maxDays)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromDays(maxDays)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromDays(maxDays)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromDays(maxDays)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromDays(NaN)).toThrow('Argument error');
+    expect(() => TimeSpan.fromDays(NaN)).to.throw('Argument error');
   });
 
   it('should create TimeSpan from hours', () => {
@@ -284,8 +285,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ hours, expected }) => {
-      expect(TimeSpan.fromHours(hours)).toEqual(expected);
+    data.forEach(({hours, expected}) => {
+      expect(TimeSpan.fromHours(hours)).to.deep.equal(expected);
     });
   });
 
@@ -294,13 +295,13 @@ describe('TimeSpan', () => {
     let maxHours = Number.MAX_VALUE / (TimeSpan.TicksPerMillisecond / 1000.0 / 60.0 / 60.0);
 
     // Assert
-    expect(() => TimeSpan.fromHours(Infinity)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromHours(-Infinity)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromHours(Infinity)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromHours(-Infinity)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromHours(maxHours)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromHours(maxHours)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromHours(maxHours)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromHours(maxHours)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromHours(NaN)).toThrow('Argument error');
+    expect(() => TimeSpan.fromHours(NaN)).to.throw('Argument error');
   });
 
   it('should create TimeSpan from minutes', () => {
@@ -316,8 +317,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ minutes, expected }) => {
-      expect(TimeSpan.fromMinutes(minutes)).toEqual(expected);
+    data.forEach(({minutes, expected}) => {
+      expect(TimeSpan.fromMinutes(minutes)).to.deep.equal(expected);
     });
   });
 
@@ -326,13 +327,13 @@ describe('TimeSpan', () => {
     let maxMinutes = Number.MAX_VALUE / (TimeSpan.TicksPerMillisecond / 1000.0 / 60.0);
 
     // Assert
-    expect(() => TimeSpan.fromMinutes(Infinity)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromMinutes(-Infinity)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromMinutes(Infinity)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromMinutes(-Infinity)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromMinutes(maxMinutes)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromMinutes(maxMinutes)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromMinutes(maxMinutes)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromMinutes(maxMinutes)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromMinutes(NaN)).toThrow('Argument error');
+    expect(() => TimeSpan.fromMinutes(NaN)).to.throw('Argument error');
   });
 
   it('should create TimeSpan from seconds', () => {
@@ -348,8 +349,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ seconds, expected }) => {
-      expect(TimeSpan.fromSeconds(seconds)).toEqual(expected);
+    data.forEach(({seconds, expected}) => {
+      expect(TimeSpan.fromSeconds(seconds)).to.deep.equal(expected);
     });
   });
 
@@ -358,13 +359,13 @@ describe('TimeSpan', () => {
     let maxSeconds = Number.MAX_VALUE / (TimeSpan.TicksPerMillisecond / 1000.0);
 
     // Assert
-    expect(() => TimeSpan.fromSeconds(Infinity)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromSeconds(-Infinity)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromSeconds(Infinity)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromSeconds(-Infinity)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromSeconds(maxSeconds)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromSeconds(maxSeconds)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromSeconds(maxSeconds)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromSeconds(maxSeconds)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromSeconds(NaN)).toThrow('Argument error');
+    expect(() => TimeSpan.fromSeconds(NaN)).to.throw('Argument error');
   });
 
   it('should create TimeSpan from milliseconds', () => {
@@ -380,8 +381,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ milliseconds, expected }) => {
-      expect(TimeSpan.fromMilliseconds(milliseconds)).toEqual(expected);
+    data.forEach(({milliseconds, expected}) => {
+      expect(TimeSpan.fromMilliseconds(milliseconds)).to.deep.equal(expected);
     });
   });
 
@@ -390,13 +391,13 @@ describe('TimeSpan', () => {
     let maxMilliseconds = Number.MAX_VALUE / (TimeSpan.TicksPerMillisecond);
 
     // Assert
-    expect(() => TimeSpan.fromMilliseconds(Infinity)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromMilliseconds(-Infinity)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromMilliseconds(Infinity)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromMilliseconds(-Infinity)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromMilliseconds(maxMilliseconds)).toThrow('Overflow error');
-    expect(() => TimeSpan.fromMilliseconds(maxMilliseconds)).toThrow('Overflow error');
+    expect(() => TimeSpan.fromMilliseconds(maxMilliseconds)).to.throw('Overflow error');
+    expect(() => TimeSpan.fromMilliseconds(maxMilliseconds)).to.throw('Overflow error');
 
-    expect(() => TimeSpan.fromMilliseconds(NaN)).toThrow('Argument error');
+    expect(() => TimeSpan.fromMilliseconds(NaN)).to.throw('Argument error');
   });
 
   it('should create TimeSpan from ticks', () => {
@@ -420,8 +421,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ ticks, expected }) => {
-      expect(TimeSpan.fromTicks(ticks)).toEqual(expected);
+    data.forEach(({ticks, expected}) => {
+      expect(TimeSpan.fromTicks(ticks)).to.deep.equal(expected);
     });
   });
 
@@ -436,8 +437,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual, expected }) => {
-      expect(actual.negate()).toEqual(expected);
+    data.forEach(({actual, expected}) => {
+      expect(actual.negate()).to.deep.equal(expected);
     });
   });
 
@@ -454,8 +455,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ value, expected }) => {
-      expect(TimeSpan.parse(value)).toEqual(expected);
+    data.forEach(({value, expected}) => {
+      expect(TimeSpan.parse(value)).to.deep.equal(expected);
     });
   });
 
@@ -469,8 +470,8 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ value }) => {
-      expect(() => TimeSpan.parse(value)).toThrow('Format error');
+    data.forEach(({value}) => {
+      expect(() => TimeSpan.parse(value)).to.throw('Format error');
     });
   });
 
@@ -486,15 +487,15 @@ describe('TimeSpan', () => {
     ];
 
     // Assert
-    data.forEach(({ actual1, actual2, expected }) => {
-      expect(actual1.subtract(actual2)).toEqual(expected);
+    data.forEach(({actual1, actual2, expected}) => {
+      expect(actual1.subtract(actual2)).to.deep.equal(expected);
     });
   });
 
   it('should throw overflow error if difference is beyond limits', () => {
     // Assert
-    expect(() => TimeSpan.MinValue.subtract(newTimeSpan1(1))).toThrow('Overflow error');
-    expect(() => TimeSpan.MaxValue.subtract(newTimeSpan1(-1))).toThrow('Overflow error');
+    expect(() => TimeSpan.MinValue.subtract(newTimeSpan1(1))).to.throw('Overflow error');
+    expect(() => TimeSpan.MaxValue.subtract(newTimeSpan1(-1))).to.throw('Overflow error');
   });
 
   it('should return a string representation', () => {
@@ -508,17 +509,17 @@ describe('TimeSpan', () => {
       { actual: newTimeSpan5(-1, -2, -3, -4, -5), expected: '-1.02:03:04.005' }
     ];
 
-    data.forEach(({ actual, expected }) => {
-      expect(actual.toString()).toBe(expected);
+    data.forEach(({actual, expected}) => {
+      expect(actual.toString()).to.equal(expected);
     });
   });
 
   function verifyTimeSpan(timeSpan: TimeSpan, days: number, hours: number, minutes: number, seconds: number, milliseconds: number) {
-    expect(timeSpan.days).toBe(days);
-    expect(timeSpan.hours).toBe(hours);
-    expect(timeSpan.minutes).toBe(minutes);
-    expect(timeSpan.seconds).toBe(seconds);
-    expect(timeSpan.milliseconds).toBe(milliseconds);
+    expect(timeSpan.days).to.equal(days);
+    expect(timeSpan.hours).to.equal(hours);
+    expect(timeSpan.minutes).to.equal(minutes);
+    expect(timeSpan.seconds).to.equal(seconds);
+    expect(timeSpan.milliseconds).to.equal(milliseconds);
   }
 
   function getTimeSpanParams(days: number, hours: number, minutes: number, seconds: number, milliseconds: number) {

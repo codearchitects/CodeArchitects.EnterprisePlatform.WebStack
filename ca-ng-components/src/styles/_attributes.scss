@@ -1,0 +1,220 @@
+@import "./common";
+
+@for $i from 1 through 10 {
+  [grow="#{$i}"] {
+    flex-grow: $i;
+  }
+
+  [shrink="#{$i}"] {
+    flex-shrink: $i;
+  }
+
+  [flex="#{$i}"] {
+    flex: $i;
+  }
+}
+
+@for $i from -200 through 200 {
+  [right="#{$i}"] {
+    right: #{$i}px !important;
+  }
+
+  [left="#{$i}"] {
+    left: #{$i}px !important;
+  }
+
+  [top="#{$i}"] {
+    top: #{$i}px !important;
+  }
+
+  [bottom="#{$i}"] {
+    bottom: #{$i}px !important;
+  }
+}
+
+[relative] {
+  position: relative;
+}
+
+[flex-stretched] {
+  display: flex;
+  align-items: stretch;
+}
+
+[full-centered] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+[full-size] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+[vertical-centered] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+[horizontal-centered] {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+[pointer] {
+  cursor: pointer;
+}
+
+[untouchable] {
+  pointer-events: none;
+}
+
+[inline] {
+  display: inline-block;
+}
+
+[fling-right] {
+  position: absolute;
+  right: 0;
+}
+
+[fling-left] {
+  position: absolute;
+  left: 0;
+}
+
+[scrollable] {
+  overflow-y: auto !important;
+}
+
+[no-overflow] {
+  overflow: hidden;
+}
+
+[text-align="left"] {
+  text-align: left;
+}
+
+[text-align="center"] {
+  text-align: center;
+}
+
+[text-align="right"] {
+  text-align: right;
+}
+
+[button-group] {
+  button {
+    margin: $component-group-base-distance !important;
+  }
+}
+
+[input-group-h] {
+  & > * {
+    margin-right: $component-group-base-distance * 2;
+    margin-top: $component-group-base-distance * 2;
+    display: inline-block;
+  }
+
+  & > span {
+    vertical-align: super;
+  }
+
+  sh-radio,
+  sh-checkgroup,
+  sh-textarea {
+    display: inline-block !important;
+  }
+
+  sh-radio {
+    margin-right: $component-group-base-distance;
+  }
+
+  sh-form-control > div {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
+[input-group-v] {
+  & > * {
+    display: block !important;
+
+    &:not(:first-child) {
+      margin-top: $component-group-base-distance * 2;
+    }
+  }
+}
+
+[component="text"],
+[component="textarea"],
+[component="select"],
+[component="combo"],
+[component="multiselect"],
+[component="number"],
+[component="percent"],
+[component*="date"],
+[component="time"],
+[component="currency"] {
+  & > sh-label {
+    display: none;
+  }
+}
+
+[component="checkbox"] {
+  & > sh-label {
+    vertical-align: middle;
+
+    & + sh-template {
+      float: left;
+      margin-right: $inline-control-label-distance;
+    }
+  }
+}
+
+[component="checkgroup"] {
+  & > sh-label {
+    display: block;
+    margin-bottom: $inline-control-label-distance;
+  }
+}
+
+[flexible-cards] {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: inline-flex;
+
+  sh-card {
+    &,
+    & > sh-form,
+    & > sh-form > div {
+      display: contents;
+    }
+
+    .card {
+      position: relative !important;
+      height: 100%;
+      flex-shrink: 1;
+    }
+
+    &:first-of-type .card {
+      flex-grow: 2;
+      width: 70%;
+    }
+
+    &:last-of-type .card {
+      flex-grow: 0;
+      width: 30%;
+    }
+  }
+}

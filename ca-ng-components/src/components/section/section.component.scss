@@ -1,60 +1,47 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/a11y' as *;
+@import '../../styles/colors';
 
+$header-recess: 16px;
 $header-border-size: 1px;
 $button-height: 50px;
-$section-background: var(--section-background, $sh-white);
-$section-box-shadow: var(--section-box-shadow, $sh-gray 0 0 10px 0);
-$section-header-recess: var(--section-header-recess, 20px);
-$section-body-top-distance: var(--section-body-top-distance, calc(#{$section-header-recess} * 2));
-$section-body-locked-top-distance: var(--section-body-locked-top-distance, 0);
-$section-border-radius: var(--section-border-radius, 5px);
-$section-bottom-distance: var(--section-bottom-distance, 40px);
-$section-header-color: var(--section-header-color, $sh-iron-gray);
-$section-body-disabled-opacity: var(--section-body-disabled-opacity, .5);
+$header-recess: 20px;
+$body-recess: $header-recess*2;
+$section-radius: 5px;
+$section-distance: 40px;
 
 :host {
   position: relative;
-  margin-bottom: $section-bottom-distance;
-  background: $section-background;
-  box-shadow: $section-box-shadow;
-  padding: $section-header-recess;
-  border-radius: $section-border-radius;
-  min-height: $section-header-recess;
+  margin-bottom: $section-distance;
+  background: $sh-white;
+  box-shadow: $sh-gray 0 0 10px 0;
+  padding: $header-recess;
+  border-radius: $section-radius;
+  min-height: $header-recess;
 
   &:not([inline]) {
     display: block;
   }
 
   .section-header {
-    color: $section-header-color;
+    color: $sh-iron-gray;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: calc($section-body-top-distance + $section-header-recess);
+    height: $body-recess+$header-recess;
     z-index: 2;
     cursor: pointer;
     user-select: none;
 
     span {
       position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      padding: $section-header-recess;
-      cursor: pointer;
-
-      // Visible keyboard focus for the disclosure toggle (WCAG 2.4.7 / 2.4.11).
-      // Negative offset keeps the ring inside the header so it is not clipped.
-      &:focus-visible {
-        @include sh-focus-ring(-2px);
-      }
+      top: 50%;
+      transform: translateY(-50%);
+      padding: $header-recess;
     }
   }
 
   .section-body {
-    padding-top: $section-body-top-distance;
+    padding-top: $body-recess;
     position: relative;
     opacity: 1;
     max-height: 10000px;
@@ -68,12 +55,12 @@ $section-body-disabled-opacity: var(--section-body-disabled-opacity, .5);
     }
 
     &.content-disabled {
-      opacity: $section-body-disabled-opacity;
+      opacity: .5;
       pointer-events: none;
     }
 
     ::ng-deep [shdropdown] {
-      position: absolute;
+      position: absolute !important;
     }
   }
 
@@ -82,7 +69,7 @@ $section-body-disabled-opacity: var(--section-body-disabled-opacity, .5);
       display: none;
 
       &+.section-body {
-        padding-top: $section-body-locked-top-distance;
+        padding-top: 0;
       }
     }
   }

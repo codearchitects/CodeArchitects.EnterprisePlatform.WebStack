@@ -1,80 +1,180 @@
-import { Injectable, Inject, Optional } from '@angular/core';
+import * as $ from 'jquery';
+(window as any)['jQuery'] = $;
+import { Injectable, Inject } from '@angular/core';
+import { Subject, Observable, Observer } from 'rxjs';
 import { HOST_URL } from './host-url.token';
+import { HUB_NAMES } from './hub-names.token';
+import { take } from 'rxjs/operators';
+import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from '@microsoft/signalr';
 import { CONNECTION_RETRY_COUNT } from './connection-retry-count.token';
-import { DISABLE_DATA_CONTEXT } from './disable-data-context.token';
-import { DISABLE_SERIALIZATION } from './disable-serialization.token';
-import { SignalRManager } from './signalr.manager';
-import { SIGNALR_HTTP_CLIENT } from './http-client.token';
-import { HttpClient } from '@microsoft/signalr';
-import { SerializerService } from '@ca-webstack/ng-serializer';
-import { DataContextService } from '@ca-webstack/ng-data-context';
-import { SIGNALR_ACCESS_TOKEN_FACTORY } from './access-token-factory.token';
 
 /**
- * SignalR service
+ * Represents a connection to a SignalR Hub.
+ */
+interface IShHubConnection extends HubConnection {
+  /**
+   * Handler invoked on connection re-estabilished
+   */
+  _reconnectedHandler: (connectionId?: string) => void;
+}
+
+/**
+ * Helper class that permits to use SignalR features.
+ *
+ * ### Example
+ * ```
+ * import {SignalRService} from 'ca-ng-signalr'
+ *
+ * class MyChat {
+ *   constructor (
+ *     private signalR: SignalRService
+ *   ) {
+ *     signalR.subscribe('chatHub', 'messageSent', (chatMessage) => { // show chatMessage });
+ *   }
+ *
+ *   sendMessage(chatMessage: string) {
+ *     signalR.invoke('chatHub', 'sendMessage', chatMessage);
+ *   }
+ * }
+ * ```
  */
 @Injectable()
 export class SignalRService {
-  /**
-   * SignalR service
-   * @param hostUrl Host url
-   * @param retryCount The number of times the browser will attempt to estabilish connection
-   */
+
+  start$ = new Subject<void>();
+  private proxies = new Map<string, HubConnection>();
+
   constructor(
     @Inject(HOST_URL) hostUrl: string,
-    @Inject(CONNECTION_RETRY_COUNT) retryCount: number,
-    @Optional() @Inject(SIGNALR_HTTP_CLIENT) httpClient?: HttpClient,
-    @Optional() @Inject(DISABLE_SERIALIZATION) disableSerialization = false,
-    @Optional() @Inject(DISABLE_DATA_CONTEXT) disableDataContext = false,
-    @Optional() _serializer?: SerializerService,
-    @Optional() _dataContext?: DataContextService,
-    @Optional() @Inject(SIGNALR_ACCESS_TOKEN_FACTORY) accessTokenFactory = undefined,
+    @Inject(HUB_NAMES) hubNames: Array<string>,
+    @Inject(CONNECTION_RETRY_COUNT) private _retryCount: number
   ) {
-    if (disableSerialization) {
-      _serializer = undefined;
-      _dataContext = undefined;
-    } else if (disableDataContext) {
-      _dataContext = undefined;
+    try {
+      hubNames.forEach(hubName => {
+        const connection = new HubConnectionBuilder()
+          .withUrl(`${hostUrl}/${hubName}`)
+          .configureLogging(LogLevel.Debug)
+          .build() as IShHubConnection;
+        connection.onreconnected = callback => connection._reconnectedHandler = callback;
+        this.proxies.set(hubName, connection);
+      });
+    } catch (e) {
+      throw e;
     }
-    SignalRManager.init(hostUrl, retryCount, httpClient, _serializer, _dataContext, accessTokenFactory);
   }
 
   /**
-   * Estabilish connection with context involved hubs and
-   * subscribes to decorated methods
-   * @param context Context for which to estabilish connections
+   * Subscribe to a SignalR RPC
+   *
+   * @param hubName - name of the hub to subscribe
+   * @param eventName - name of the event to subscribe
+   *
+   * ### Example
+   * signalRService.on('chatHub', 'messageSent')
+   *  .subscribe((chatMessage) => { // show chatMessage });
    */
-  public async connect<TContext = any>(context: TContext) {
-    await SignalRManager.connect(context);
+  on<T>(hubName: string, eventName: string): Observable<T[]> {
+    const proxy = this.getProxy(hubName);
+    return Observable.create(async (observer: Observer<T>) => {
+      await this.startConnection(proxy);
+      const callback = (arg: T) => observer.next(arg);
+      proxy.on(eventName, callback);
+      return () => proxy.off(eventName, callback);
+    });
   }
 
   /**
-   * Closes connection with context involved hubs and
-   * unsubscribe from decorated methods
-   * @param context Context for which to close connections
+   * Invoke a SignalR RPC
+   *
+   * @param hubName - name of the hub of the method
+   * @param methodName - name of the method to invoke
+   * @param args - argument of the method to invoke
+   * @return connection
+   * 
+   * ### Example
+   * signalRService.invoke('chatHub', 'sendMessage', chatAuthor, chatMessage);
    */
-  public disconnect<TContext = any>(context: TContext) {
-    SignalRManager.disconnect(context);
+  async invoke(hubName: string, methodName: string, ...args: Array<any>) {
+    const proxy = this.getProxy(hubName);
+    await this.startConnection(proxy);
+    if (proxy.state === HubConnectionState.Connected) {
+      proxy.invoke(methodName, ...args);
+    } else {
+      this.start$
+        .pipe(take(1))
+        .subscribe(() => proxy.invoke(methodName, ...args));
+    }
+    return proxy;
   }
 
-  /**
-   * Invokes a SignalR RPC
-   * @param hubName Hub name
-   * @param methodName Hub method name
-   * @param params Hub method parameters
-   */
-  public async invoke<THub = any, THubMethodParams = any>(hubName: string, methodName: keyof THub, params: THubMethodParams) {
-    await SignalRManager.invoke(hubName, <string>methodName, params);
+  private getProxy(hubName: string) {
+    if (!this.proxies.has(hubName)) {
+      throw new Error(`Unable to find Hub: ${hubName}. Please, consider to register it on CA SignaR Module initialization.`);
+    }
+    return this.proxies.get(hubName);
   }
 
-  /**
-   * Subscribes to a hub method
-   * @param hubName Hub name
-   * @param methodName Hub method name
-   * @param callback Subscription callback
-   */
-  public async subscribe<TParams = any>(hubName: string, methodName: string, callback: (args: TParams) => any) {
-    return await SignalRManager.subscribe(hubName, methodName, callback);
+  private async startConnection(connection: HubConnection): Promise<any> {
+    try {
+      if (connection.state === HubConnectionState.Disconnected) {
+        this.stateChanged(connection, HubConnectionState.Connecting);
+        await connection.start();
+        this.stateChanged(connection, HubConnectionState.Connected);
+        connection.onclose(() => this.reconnect(connection as IShHubConnection));
+        this.log('start connection done');
+        this.start$.next();
+      }
+    } catch (error) {
+      this.stateChanged(connection, HubConnectionState.Disconnected);
+    }
+  }
+
+  private stateChanged(connection: HubConnection, state: HubConnectionState) {
+    switch (state) {
+      case HubConnectionState.Connected:
+        this.log('state changed to connected');
+        break;
+      case HubConnectionState.Connecting:
+        this.log('state changed to connecting');
+        break;
+      case HubConnectionState.Reconnecting:
+        this.log('state changed to reconnecting');
+        break;
+      case HubConnectionState.Disconnected:
+        this.log('state changed to disconnected');
+        break;
+    }
+  }
+
+  private reconnect(connection: IShHubConnection) {
+    this.log('disconnected event raised');
+    this.stateChanged(connection, HubConnectionState.Disconnected);
+    let retryCount = this._retryCount;
+    if (retryCount) {
+      const interval = setInterval(() => {
+        if (retryCount > 0) {
+          this.stateChanged(connection, HubConnectionState.Reconnecting);
+          this.log('try to reconnect');
+          this.startConnection(connection)
+            .then(() => {
+              if (connection.state === HubConnectionState.Connected) {
+                clearInterval(interval);
+                connection._reconnectedHandler && connection._reconnectedHandler(connection.connectionId);
+              } else {
+                this.log('start connection failed; retrying in next 3 seconds');
+              }
+            })
+          retryCount--;
+        } else {
+          clearInterval(interval);
+          this.log('connection lost');
+        }
+      }, 3000);
+    }
+  }
+
+  private log(message: string) {
+    console.log(`== ca-signalr: ${message}`);
   }
 
 }

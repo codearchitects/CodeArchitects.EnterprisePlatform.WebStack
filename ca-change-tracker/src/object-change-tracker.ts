@@ -1,6 +1,7 @@
-import { Serializer, JsonObject, JsonProperty, JsonIgnore, Enumerable } from '@ca-webstack/reflection';
+import { Serializer, JsonObject, JsonProperty, JsonIgnore, getJsonObject } from '@ca-webstack/reflection';
 import { Subject } from 'rxjs';
 import { List, Dictionary } from '@ca-webstack/data-structures';
+import * as _ from 'lodash';
 import { ObjectStateChangingEventArgs } from './object-state-changing-event-args';
 import { ObjectState } from './object-state';
 import { OriginalValuesDictionary } from './original-values-dictionary';
@@ -40,15 +41,11 @@ export class ObjectChangeTracker {
     return this._objectStateChanging;
   }
 
-  //#region Events
-
-  @JsonIgnore() public objectStateChangingFn: (args: ObjectStateChangingEventArgs) => any;
-
   //#endregion
 
   //#region Fields
 
-  @JsonIgnore() private _objectState: ObjectState = ObjectState.unchanged;
+  @JsonIgnore() private _objectState: ObjectState = ObjectState.added;
   @JsonIgnore() private _changeTrackingEnabled: boolean = false;
   @JsonIgnore() private _originalValues: OriginalValuesDictionary;
   @JsonIgnore() private _extendedProperties: ExtendedPropertiesDictionary;
@@ -58,9 +55,6 @@ export class ObjectChangeTracker {
   //#endregion
 
   protected onObjectStateChanging(newState: ObjectState) {
-    if (this.objectStateChangingFn) {
-      this.objectStateChangingFn({ newState });
-    }
     if (!this.objectStateChanging) {
       this.objectStateChanging.next({ newState: newState });
     }
@@ -71,7 +65,6 @@ export class ObjectChangeTracker {
    *
    * @return Object state.
    */
-  @Enumerable()
   public get state(): ObjectState { return this._objectState; }
   /**
    * Set the object state on SelfTracking Entities.
@@ -90,7 +83,6 @@ export class ObjectChangeTracker {
    *
    * @return Change tracking enabled flag.
    */
-  @Enumerable()
   public get changeTrackingEnabled(): boolean { return this._changeTrackingEnabled; }
   /**
    * Set the change tracking enabled flag on SelfTracking Entities.
@@ -111,7 +103,6 @@ export class ObjectChangeTracker {
       convertFrom: (obj) => DictionaryUtils.convertObjToDic(OriginalValuesDictionary, obj)
     }
   })
-  @Enumerable()
   public get originalValues(): OriginalValuesDictionary {
     if (!this._originalValues) {
       this._originalValues = new OriginalValuesDictionary();
@@ -126,6 +117,9 @@ export class ObjectChangeTracker {
     }
   }
 
+  /**
+   * FIXME: describe this property.
+   */
   @JsonProperty({
     transformation: {
       name: 'extendedProperties',
@@ -133,7 +127,6 @@ export class ObjectChangeTracker {
       convertFrom: (obj) => DictionaryUtils.convertObjToDic(ExtendedPropertiesDictionary, obj)
     }
   })
-  @Enumerable()
   public get extendedProperties(): ExtendedPropertiesDictionary {
     if (!this._extendedProperties) {
       this._extendedProperties = new ExtendedPropertiesDictionary();
@@ -160,7 +153,6 @@ export class ObjectChangeTracker {
       convertFrom: (obj) => DictionaryUtils.convertObjToDic(ObjectsAddedToCollectionProperties, obj)
     }
   })
-  @Enumerable()
   public get objectsAddedToCollectionProperties(): ObjectsAddedToCollectionProperties {
     if (!this._objectsAddedToCollectionProperties) {
       this._objectsAddedToCollectionProperties = new ObjectsAddedToCollectionProperties();
@@ -179,7 +171,7 @@ export class ObjectChangeTracker {
           return i;
         });
       }
-      this._objectsAddedToCollectionProperties = value;
+      this._objectsAddedToCollectionProperties = new ObjectsAddedToCollectionProperties();
     } else {
       throw new TypeError('Cannot set property objectsAddedToCollectionProperties of #<ObjectChangeTracker> which has only a getter');
     }
@@ -197,7 +189,6 @@ export class ObjectChangeTracker {
       convertFrom: (obj) => DictionaryUtils.convertObjToDic(ObjectsRemovedFromCollectionProperties, obj)
     }
   })
-  @Enumerable()
   public get objectsRemovedFromCollectionProperties(): ObjectsRemovedFromCollectionProperties {
     if (!this._objectsRemovedFromCollectionProperties) {
       this._objectsRemovedFromCollectionProperties = new ObjectsRemovedFromCollectionProperties();
@@ -229,7 +220,7 @@ export class ObjectChangeTracker {
    * clears the original values as well as the record of changes
    * to collection properties.
    */
-  public acceptChanges(entity?: any) {
+  public acceptChanges() {
     // if (this.changeTrackingEnabled) {
     this.onObjectStateChanging(ObjectState.unchanged);
     this.originalValues.clear();
@@ -237,21 +228,6 @@ export class ObjectChangeTracker {
     this.objectsRemovedFromCollectionProperties.clear();
     this.changeTrackingEnabled = true;
     this._objectState = ObjectState.unchanged;
-    if (entity) {
-      for (const key in entity) {
-        const field = entity[key];
-        if (Array.isArray(field)) {
-          field.forEach(f => {
-            if (typeof f === 'object' && !!f?.changeTracker) {
-              f.changeTracker.acceptChanges(f);
-            }
-          })
-        }
-        if (typeof field === 'object' && !!field?.changeTracker) {
-          field.changeTracker.acceptChanges(field);
-        }
-      }
-    }
     // }
   }
 

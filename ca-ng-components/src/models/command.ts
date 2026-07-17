@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { isNoU } from '../utilities/common.utility';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 
 /**
  * Base command interface

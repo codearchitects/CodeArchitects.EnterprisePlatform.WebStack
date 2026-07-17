@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { dictionary } from '../utilities';
-import { share } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { dictionary } from 'src/utilities';
+import { publishReplay, refCount } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,14 +19,14 @@ export class AssetsService {
         if (this._cache[filePath]) {
           resolve(this._cache[filePath]);
         } else {
-          request.pipe(share({ connector: () => new ReplaySubject(1), resetOnError: false, resetOnComplete: false, resetOnRefCountZero: false }))
-            .subscribe({ next: (r: TType) => {
+          request.pipe(publishReplay(1), refCount())
+            .subscribe((r: TType) => {
               this._cache[filePath] = r;
               resolve(r);
-            }, error: e => reject(e)});
+            });
         }
       } else {
-        request.subscribe({ next: r => resolve(r as TType), error: e => reject(e)});
+        request.subscribe(r => resolve(r as TType));
       }
     });
   }

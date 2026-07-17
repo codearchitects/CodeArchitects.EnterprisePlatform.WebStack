@@ -1,15 +1,14 @@
 import { Component, ElementRef, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { isNoU, yieldFunc } from '../../utilities/common.utility';
 import { IShBaseOptions, ShBaseAuthComponent } from './../base/index';
 
 @Component({
-    selector: 'sh-modal',
-    templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-modal',
+  templateUrl: './modal.component.html',
+  styleUrls: ['./modal.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 export class ShModalComponent<TValue = any> extends ShBaseAuthComponent<IShBaseOptions> implements OnInit {
   /**
@@ -87,7 +86,7 @@ export class ShModalComponent<TValue = any> extends ShBaseAuthComponent<IShBaseO
   /**
    * Form Group linked to a possible value
    */
-  /*protected*/ public formGroup: FormGroup<any>;
+  protected formGroup: FormGroup;
   /**
    * References to component element
    */
@@ -117,15 +116,12 @@ export class ShModalComponent<TValue = any> extends ShBaseAuthComponent<IShBaseO
   public ngOnDestroy() {
     super.ngOnDestroy();
     $(this._element.nativeElement).remove();
-    if (this.formGroup) {
-      this.formHandler.removeGroup(this.value);
-    }
   }
 
   /**
    * Event fired when cancel button is pressed
    */
-  /*protected*/ public onCancel() {
+  public onCancel() {
     if (this.closeOnCancel) {
       this.close();
     }
@@ -135,7 +131,7 @@ export class ShModalComponent<TValue = any> extends ShBaseAuthComponent<IShBaseO
   /**
    * Event fired when confirm button is pressed
    */
-  /*protected*/ public onConfirm() {
+  protected onConfirm() {
     if (this.closeOnConfirm) {
       this.close();
     }
@@ -145,7 +141,7 @@ export class ShModalComponent<TValue = any> extends ShBaseAuthComponent<IShBaseO
   /**
    * Event fired when user clicks outside the modal
    */
-  /*protected*/ public onClickOutside() {
+  public onClickOutside() {
     if (this._isInitialized && this.closeOnClickOutside) {
       this.close();
     }

@@ -1,11 +1,9 @@
-import { Directive } from '@angular/core';
 import * as React from 'react';
 import { Subject } from 'rxjs';
 
 /**
  * Base React Component
  */
-@Directive()
 export abstract class ShBaseReactComponent<TProps = {}, TState = {}> extends React.Component<TProps, TState> {
   /**
    * Observable of state changes
@@ -21,7 +19,7 @@ export abstract class ShBaseReactComponent<TProps = {}, TState = {}> extends Rea
   /**
    * Subject which notifies subscribers when component destroy itself
    */
-  protected destroy$ = new Subject<void>();
+  protected destroy$ = new Subject();
 
   /**
    * Base React Component

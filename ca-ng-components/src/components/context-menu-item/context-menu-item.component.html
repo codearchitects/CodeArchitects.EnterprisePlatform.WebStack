@@ -1,19 +1,11 @@
-@if (show) {
-  <div class="command" [class.disabled]="!enable" [attr.aria-disabled]="!enable ? 'true' : null">
-    @if (command.routerLink) {
-      <div class="routed-command">
-        <ng-container *ngTemplateOutlet="commandDescriptor"></ng-container>
-      </div>
-    } @else {
-      <ng-container *ngTemplateOutlet="commandDescriptor"></ng-container>
-    }
-    <ng-template #commandDescriptor>
-      @if (command.icon) {
-        <sh-icon [name]="command.icon" aria-hidden="true"></sh-icon>
-      }
-      <div translate>
-        {{command?.name}}
-      </div>
-    </ng-template>
+<div *ngIf="show" class="command" (click)="handle()" [class.disabled]="!enable">
+  <div *ngIf="command.routerLink; else commandDescriptor" class="routed-command" [routerLink]="command.routerLink">
+    <ng-container *ngTemplateOutlet="commandDescriptor"></ng-container>
   </div>
-}
+  <ng-template #commandDescriptor>
+    <sh-icon *ngIf="command.icon" [name]="command.icon"></sh-icon>
+    <div translate>
+      {{command?.name}}
+    </div>
+  </ng-template>
+</div>

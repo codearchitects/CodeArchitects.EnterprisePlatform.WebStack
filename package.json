@@ -1,8 +1,8 @@
 {
   "name": "@ca-webstack/monorepo",
-  "version": "21.2.0",
+  "version": "8.0.0",
   "private": true,
-  "description": "CodeArchitects Enterprise Platform WebStack - monorepo",
+  "description": "CodeArchitects Enterprise Platform WebStack - monorepo (v8 branch)",
   "license": "Apache-2.0",
   "author": "Code Architects S.r.l. (https://www.codearchitects.com/)",
   "homepage": "https://github.com/codearchitects/CodeArchitects.EnterprisePlatform.WebStack#readme",
@@ -17,11 +17,10 @@
     "ca-*"
   ],
   "scripts": {
-    "setup": "npm install",
+    "setup": "npm install --legacy-peer-deps",
     "build": "turbo run build",
     "build.watch": "turbo watch build",
     "test": "cross-env TZ=Europe/Rome turbo run test",
-    "lint": "turbo run lint",
     "typedoc": "turbo run typedoc",
     "clean": "node scripts/clean.mjs",
     "version:set": "node scripts/set-version.mjs",
@@ -29,32 +28,19 @@
     "audit:all": "npm audit",
     "audit:ci": "node scripts/check-vulnerabilities.mjs",
     "sbom": "npx --yes @cyclonedx/cyclonedx-npm@latest --omit dev --output-format JSON --output-file sbom.json",
-    "report:security": "node scripts/generate-security-report.mjs",
-    "storybook": "ng run storybook-host:storybook",
-    "build-storybook": "ng run storybook-host:build-storybook",
-    "test:a11y": "npm run build-storybook && node .storybook/a11y.mjs",
-    "test:keyboard": "npm run build-storybook && node .storybook/keyboard.mjs"
+    "report:security": "node scripts/generate-security-report.mjs"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.12.1",
-    "@jest/globals": "^30.4.1",
-    "@storybook/addon-a11y": "^10.5.0",
-    "@storybook/addon-docs": "^10.5.0",
-    "@storybook/angular": "^10.5.0",
     "cross-env": "^7.0.3",
-    "http-server": "^14.1.1",
-    "jest-util": "^30.4.1",
-    "playwright": "^1.61.1",
-    "puppeteer": "^24.0.0",
-    "storybook": "^10.5.0",
     "turbo": "^2.3.3"
   },
   "overrides": {
-    "jest": "29.7.0"
+    "@types/node": "10.12.18",
+    "@types/jquery": "3.3.38"
   },
   "engines": {
-    "node": ">=22",
-    "npm": ">=10"
+    "node": ">=16",
+    "npm": ">=8"
   },
-  "packageManager": "npm@10.9.8"
+  "packageManager": "npm@8.19.4"
 }

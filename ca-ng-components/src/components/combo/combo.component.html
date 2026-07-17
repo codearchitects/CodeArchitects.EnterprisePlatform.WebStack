@@ -1,53 +1,31 @@
-@if (show && formControl) {
-  <div shDropdownContainer [class]="containerClass" [class.combo-container]="true"
-    (clickOutside)="onClickOutside()">
-    <input #input [attr.autofocus]="internalOptions.autofocus || null" type="text" [id]="internalOptions.id"
-      [class]="inputClass" placeholder="{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}"
-      autocomplete="off" [attr.tabindex]="internalOptions.tabindex" [style.minWidth]="width" [style.maxWidth]="width"
-      (click)="touch()" [style.minHeight]="height" [style.maxHeight]="height" [class.with-icon]="true"
-      [attr.disabled]="!enable || null" [(ngModel)]="text" [class.invalid]="formControl.invalid"
-      [class.sh-populated]="!!formControl.value" [attr.readonly]="internalOptions.isReadonly ? true : null"
-      [attr.maxlength]="internalOptions.maxLength || null"
-      [class.floating-placeholder]="placeholder && (formControl.value === undefined || formControl.value === null || formControl.value === '') && !input.value"
-      [class.opened]="isOpened" role="combobox" aria-autocomplete="list" aria-haspopup="listbox"
-      [attr.aria-expanded]="(isOpened && !internalOptions.isReadonly) ? 'true' : 'false'"
-      [attr.aria-controls]="(isOpened && !internalOptions.isReadonly) ? (id + '-listbox') : null"
-      [attr.aria-activedescendant]="activeDescendantId"
-      [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy"
-      [attr.aria-describedby]="ariaDescribedBy"
-      [attr.aria-invalid]="formControl.invalid ? 'true' : null">
-    @if (placeholder) {
-      <label [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
-    }
-    <sh-icon vertical-centered pointer aria-hidden="true" name="{{ isOpened ? internalOptions.caretUpIcon : internalOptions.caretDownIcon }}"
-      (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)">
-    </sh-icon>
-    @if (isOpened && !internalOptions.isReadonly) {
-      <div shDropdown #dropdown class="results"
-        [style.width]="dropdownWidth" [style.maxHeight]="internalOptions.dropdownHeight">
-        <ul #results role="listbox" [id]="id + '-listbox'" [attr.aria-label]="ariaLabel">
-          @if (internalOptions.showTextAsResult && text && !values.length) {
-            <!-- APG combobox: options are not individually focusable; keyboard is handled on the input via aria-activedescendant -->
-            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
-            <li class="result" [class.current-item]="activeResultIndex === -1" (click)="onSelectText(text)"
-              role="option" [id]="id + '-opt-text'"
-              [attr.aria-selected]="activeResultIndex === -1 ? 'true' : 'false'">
-              <span>{{text}}</span>
-            </li>
-          }
-          @for (value of values; track value.id; let i = $index) {
-            <!-- APG combobox: options are not individually focusable; keyboard is handled on the input via aria-activedescendant -->
-            <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
-            <li class="result" [class.current-item]="activeResultIndex === i"
-              [class.selected]="value.ref === formControl.value" (click)="onSelectValue(value.ref)"
-              role="option" [id]="id + '-opt-' + i"
-              [attr.aria-selected]="value.ref === formControl.value ? 'true' : 'false'">
-              <span [id]="value.id" translate>{{value.label}}</span>
-            </li>
-          }
-          <ng-content select="[footer]"></ng-content>
-        </ul>
-      </div>
-    }
+<div *ngIf="show && formControl" shDropdownContainer [class]="containerClass" [class.combo-container]="true"
+  (clickOutside)="onClickOutside()">
+  <input #input [attr.autofocus]="internalOptions.autofocus || null" type="text" [id]="internalOptions.id"
+    [class]="inputClass" placeholder="{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}"
+    autocomplete="off" [attr.tabindex]="internalOptions.tabindex" [style.minWidth]="width" [style.maxWidth]="width"
+    (click)="touch()" [style.minHeight]="height" [style.maxHeight]="height" [class.with-icon]="true"
+    [attr.disabled]="!enable || null" [(ngModel)]="text" [class.invalid]="formControl.invalid"
+    [class.sh-populated]="!!formControl.value" [attr.readonly]="internalOptions.isReadonly ? true : null"
+    [attr.maxlength]="internalOptions.maxLength || null"
+    [class.floating-placeholder]="placeholder && (formControl.value === undefined || formControl.value === null || formControl.value === '') && !input.value"
+    [class.opened]="isOpened">
+  <label *ngIf="placeholder"
+    [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | i18n) : (placeholder | translate)}}</label>
+  <sh-icon vertical-centered pointer name="select-{{isOpened ? 'on' : 'off'}}"
+    (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)">
+  </sh-icon>
+  <div *ngIf="isOpened && !internalOptions.isReadonly" shDropdown #dropdown class="results"
+    [style.width]="dropdownWidth" [style.maxHeight]="internalOptions.dropdownHeight">
+    <ul #results>
+      <li class="result" *ngIf="internalOptions.showTextAsResult && text && !values.length"
+        [class.current-item]="activeResultIndex === -1" (click)="onSelectText(text)">
+        <span>{{text}}</span>
+      </li>
+      <li class="result" *ngFor="let value of values; let i = index" [class.current-item]="activeResultIndex === i"
+        [class.selected]="value.ref === formControl.value" (click)="onSelectValue(value.ref)">
+        <span [id]="value.id" translate>{{value.label}}</span>
+      </li>
+      <ng-content select="[footer]"></ng-content>
+    </ul>
   </div>
-}
+</div>

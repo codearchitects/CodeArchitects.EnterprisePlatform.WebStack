@@ -1,0 +1,29 @@
+site_name: ca-authorization
+site_url: https://tfs.codearchitects.com:8088/tfs/Code%20Architects/CA-WebStack/_git/ca-authorization
+site_description: Authorization utility.
+site_author: Code Architects
+
+repo_url: https://tfs.codearchitects.com:8088/tfs/Code%20Architects/CA-WebStack/_git/ca-authorization
+edit_uri: ""
+
+pages:
+    - Overview: index.md
+    - FAQs: faqs/index.md
+    - Contributors: contributors/index.md
+
+theme: readthedocs
+
+extra_css:
+    - css/extra.css
+
+markdown_extensions:
+    - toc:
+        permalink: 
+    - admonition
+    - def_list
+
+copyright: Copyright &copy; 2017 <a href="http://www.codearchitects.uk">Code Architects</a>.<br /><br /><img src="http://www.codearchitects.uk/img/logo.png"/>
+google_analytics:
+
+plugins:
+    - search

@@ -1,3 +1,4 @@
+import { SerializerOptions } from './reflection';
 // 31 jul 2016: added support for "System.Byte[], mscorlib"
 // 12 jul 2016: convertFrom and convertTo added to JsonObject decorator
 // 18 nov 2015: unicode character decode support
@@ -29,7 +30,6 @@
 // import * as ko from 'knockout';
 import * as reflectionDecorators from './reflection-decorators';
 import * as Base64 from './base64';
-import { DateOnly, DateTimeOffset } from '@ca-webstack/data-structures';
 
 // declare let $hh: any;
 const $hh: any = undefined;
@@ -41,6 +41,7 @@ const $hh: any = undefined;
 // }
 
 export function isFunction(obj) {
+  /// TODO: implementation of isFunction here (MARCO LABARILE)
   return typeof obj === 'function';
 }
 
@@ -113,14 +114,7 @@ export function ConvertFrom<TSource, TTarget>(transformation: ITransformation<TS
     return new FieldContainer(transformation.originalName || transformation.name, value);
 }
 
-export type SerializerOptions = {
-  typeRemapper?: { [source: string]: string; };
-  replacer?: any;
-  serializeObservables?: boolean;
-  serializeFunctions?: boolean;
-  disableMetadata?: boolean;
-  enableDateTimeOffset?: boolean;
-};
+export type SerializerOptions = { typeRemapper?: { [source: string]: string; }, replacer?: any, serializeObservables?: boolean, serializeFunctions?: boolean, disableMetadata?: boolean };
 
 export class Activator {
   // public static _registrations: Map<string, string> = new Map<string, string>();
@@ -149,7 +143,7 @@ export class Activator {
       }
       if (prototype) {
         result = Object.create(prototype);
-        result = new result.constructor(result);
+        result.constructor.apply(result);
         result.$type = name;
         return <T>result;
       }
@@ -235,7 +229,7 @@ export class Type {
 
   private static _cacheTypes(ns?: string, node?) {
     if (ns && !node) {
-      if ((<number>ns.length) > 1 && ns.slice(-1) === '.') {
+      if ((<Number>ns.length) > 1 && ns.slice(-1) === '.') {
         node = evaluate(ns.substring(0, ns.length - 1));
       } else {
         node = evaluate(ns);
@@ -277,14 +271,9 @@ export class Type {
 export class Serializer {
   private static __serializingCounter: number = 0;
   private static __deserializingCounter: number = 0;
-  /**
-   * Whether serializer automatically deserializes yyyy-mm-dd strings into DateOnly data structure or not
-   */
-  public static useDateOnly = true;
   public serializeObservables: boolean = false;
   public serializeFunctions: boolean = false;
   public disableMetadata: boolean = false;
-  protected enableDateTimeOffset = true;
   private _property: any = '';
   private _holder = new Object;
   private _objectStack = [];
@@ -312,7 +301,6 @@ export class Serializer {
     this.disableMetadata = options && options.disableMetadata;
     this.serializeFunctions = options && options.serializeFunctions;
     this._replacer = options && options.replacer;
-    this.enableDateTimeOffset = options?.enableDateTimeOffset !== undefined ? options.enableDateTimeOffset : this.enableDateTimeOffset;
   }
 
   public static get isSerializing(): boolean {
@@ -344,14 +332,8 @@ export class Serializer {
       const parseValue = (value) => {
         // check if ISO Date
         const isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)(?:([\+-])(\d{2})\:(\d{2}))?Z?$/;
-        const isoDateOnlyRegex = /^(\d{4})-(\d{2})-(\d{2})$/;
-        const isoDateTimeOffsetRegex = /^(?:(?:19|20)\d\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])T([01]\d|2[0-3]):([0-5]\d):([0-5]\d)(\.\d+)?([+-](0[0-9]|1[0-4]):[0-5]\d)$/;
-        if (this.enableDateTimeOffset && isoDateTimeOffsetRegex.test(value)) {
-          return DateTimeOffset.fromISO8601String(value);
-        } else if (isoDateRegex.test(value)) {
+        if (isoDateRegex.test(value)) {
           return new Date(value);
-        } else if (Serializer.useDateOnly && isoDateOnlyRegex.test(value)) {
-          return new DateOnly(value);
         } else {
           return value;
         }
@@ -380,7 +362,6 @@ export class Serializer {
             if (typeName) {
               switch (typeName) {
                 case 'System.Byte[], mscorlib':
-                case 'System.Byte[], System.Private.CoreLib':
                   const raw = Base64.atob(value.$value);
                   const rawLength = raw.length;
                   current = new Uint8Array(rawLength);
@@ -395,16 +376,6 @@ export class Serializer {
                     const temp = visit(null, null, i.v);
                     if (i.v.$id) references[i.v.$id] = temp;
                     current.set(i.k, temp);
-                  }
-                  skip = true;
-                  break;
-                case typeName.includes('System.Collections.Generic.Dictionary') ? typeName : null:
-                  current = references[value.$id] = new Map<any, any>();
-                  for (let k = 0; k < Object.keys(value).length; k++) {
-                    const i = Object.keys(value)[k];
-                    const temp = visit(null, null, Object.values(value)[k]);
-                    if (i) references[i] = temp;
-                    current.set(Object.keys(value)[k], temp);
                   }
                   skip = true;
                   break;
@@ -553,12 +524,7 @@ export class Serializer {
     // v = koUnwrap(v);
     if (!v.$id) {
       try {
-        const $id = (++this._id).toString();
-        if (Object.isFrozen(v)) {
-          v = { ...v, $id };
-        } else {
-          v.$id = $id // assign unique id
-        }
+        v.$id = (++this._id).toString(); // assign unique id
       } catch (e) {
         console.error(e);
       }
@@ -716,7 +682,7 @@ export class Serializer {
   private serializeUint8Array(array: Uint8Array, context: Serializer) {
     let value: string = '';
     array.forEach(i => value += String.fromCharCode(i));
-    return `{'$type': 'System.Byte[], System.Private.CoreLib', '$value':'${Base64.btoa(value)}'}`;
+    return `{'$type': 'System.Byte[], mscorlib', '$value':'${Base64.btoa(value)}'}`;
   }
 
   private serializeArray(v, context: Serializer) {
@@ -746,9 +712,9 @@ export class Serializer {
   private serializeMap(v: Map<any, any> | any, context: Serializer): string {
     const values: any = [];
     v.forEach((value, index, map) => {
-      values.push(`${this._serialize(index)}:${this._serialize(value)}`);
+      values.push('{"k":' + this._serialize(index) + ',"v":' + this._serialize(value) + '}');
     });
-    return '{"$id":"' + (v.$id || this.checkId(v)) + '",' + values.join(',') + '}';
+    return '{"$id":"' + (v.$id || this.checkId(v)) + '","$type": "Map","values":[' + values.join(',') + ']}';
   }
 
   private serializeSet(v: Set<any> | any, context: Serializer): string {
@@ -758,27 +724,13 @@ export class Serializer {
     });
     return '{"$id":"' + (v.$id || this.checkId(v)) + '","$type": "Set","values":[' + values.join(',') + ']}';
   }
-  /**
-   * Serializes provided value in a date only format. Time is considered as UTC one, so timezone offset will be removed.
-   * @param v Value to be serialized
-   * @returns Serializable ISO Date
-   */
-  private serializeDateOnly(v: DateOnly, context: Serializer): string {
-    return `"${v.toISOString().split('T')[0]}"`;
+
+  private serializeDate(v, context: Serializer) {
+    return '"' + v.toISOString() + '"';
   }
 
-  private serializeDateTimeOffset(v: DateTimeOffset, context: Serializer): string {
-    return  `"${v.toISO8601String()}"`;
-  }
-
-  private serializeDate(v: Date, context: Serializer) {
-    return `"${v.toISOString()}"`;
-  }
   private serializeNumber(v, context: Serializer) {
     return v.toString();
-  }
-  private serializeBigInt(v, context: Serializer) {
-    return v.toString() + 'n';
   }
 
   private serializeBoolean(v, context: Serializer) {
@@ -808,14 +760,11 @@ export class Serializer {
     if (typeof tempValue === 'object') {
       if (tempValue === null) return 'null';
       if (tempValue.constructor === Date) return this.serializeDate(tempValue, this);
-      if (tempValue.constructor === DateOnly) return this.serializeDateOnly(tempValue, this);
-      if (tempValue.constructor === DateTimeOffset) return this.serializeDateTimeOffset(tempValue, this);
       if (tempValue.constructor === Map) return this.serializeMap(tempValue, this);
       if (tempValue.constructor === Set) return this.serializeSet(tempValue, this);
       if (tempValue.toJSON) return /*this._serialize(*/tempValue.toJSON(this)/*)*/;
       if (tempValue.constructor === Number) return this.serializeNumber(tempValue, this);
-      if (tempValue.constructor === BigInt) return this.serializeBigInt(tempValue, this);
-      if (tempValue.constructor === String) return this.serializeString(tempValue as any, this);
+      if (tempValue.constructor === String) return this.serializeString(tempValue, this);
       if (tempValue.constructor === Boolean) return this.serializeBoolean(tempValue, this);
       if (tempValue.constructor === Array) return this.serializeArray(tempValue, this);
       if (tempValue.constructor === Uint8Array) return this.serializeUint8Array(tempValue, this);
@@ -826,7 +775,6 @@ export class Serializer {
         'function': this.serializeFunction,
         'string': this.serializeString,
         'number': this.serializeNumber,
-        'bigint': this.serializeBigInt,
         'boolean': this.serializeBoolean,
         'undefined': this.serializeUndefined
       }[typeof tempValue](tempValue, this);

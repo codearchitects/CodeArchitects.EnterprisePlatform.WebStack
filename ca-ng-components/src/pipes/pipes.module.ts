@@ -1,21 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ShTranslateModule } from '../i18n/translate.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { ShBreadcrumbPipe } from './breadcrumb.pipe';
 import { ShDayPipe } from './day.pipe';
+import { ExtendedCountryPipe } from './extended-country.pipe';
 import { ShHourPipe } from './hour.pipe';
+import { InitialsPipe } from './initials.pipe';
 import { ShInterpretPipe } from './interpret.pipe';
+import { ISOCountryPipe } from './iso-country.pipe';
 import { ShMinutesPipe } from './minutes.pipe';
 import { ShMonthPipe } from './month.pipe';
 import { ShYearPipe } from './year.pipe';
-import { NumeralPipe } from './numeral.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
-    ShTranslateModule
+    TranslateModule
   ],
-  declarations: [ShBreadcrumbPipe, ShInterpretPipe, ShDayPipe, ShMinutesPipe, ShHourPipe, ShMonthPipe, ShYearPipe, NumeralPipe],
-  exports: [ShBreadcrumbPipe, ShInterpretPipe, ShDayPipe, ShMinutesPipe, ShHourPipe, ShMonthPipe, ShYearPipe, NumeralPipe]
+  declarations: [ShBreadcrumbPipe, ShInterpretPipe, ShDayPipe, ShMinutesPipe, ShHourPipe, ShMonthPipe, ShYearPipe, InitialsPipe, ISOCountryPipe, ExtendedCountryPipe],
+  exports: [ShBreadcrumbPipe, ShInterpretPipe, ShDayPipe, ShMinutesPipe, ShHourPipe, ShMonthPipe, ShYearPipe, InitialsPipe, ISOCountryPipe, ExtendedCountryPipe]
 })
 export class ShPipesModule { }

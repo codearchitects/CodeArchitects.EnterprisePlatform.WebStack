@@ -4,9 +4,8 @@ import { Mstring } from './i18n.model';
 import { I18nService } from './i18n.service';
 
 @Pipe({
-    name: 'i18n',
-    pure: false,
-    standalone: false
+  name: 'i18n',
+  pure: false
 })
 export class I18nPipe implements PipeTransform {
 

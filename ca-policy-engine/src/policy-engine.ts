@@ -18,7 +18,7 @@ export class PolicyEngine {
   private policies$ = new BehaviorSubject<IPolicy[]>(this._policies);
   private args: Context;
 
-  private rules$ = combineLatest([this.claims$, this.policies$]);
+  private rules$ = combineLatest(this.claims$, this.policies$);
 
   constructor(args?: any) {
     this.args = args || { context: {} };
@@ -53,7 +53,7 @@ export class PolicyEngine {
 
   observePolicies<T>(resource: string, ...selectors: string[]) {
     return this.rules$
-      .pipe(map(([claims, policies]) => this.runPolicyHandler<T>(resource, selectors, claims as any, policies as any)), distinct());
+      .pipe(map(([claims, policies]) => this.runPolicyHandler<T>(resource, selectors, claims as any, policies as any), distinct()));
   }
 
   runPoliciesWithContext<T>(context: any, resource: string, ...selectors: string[]) {
@@ -99,6 +99,7 @@ export class PolicyEngine {
     const selectedPolicies: IPolicy[] = (PolicyEngine.EnableCaching && PolicyEngine._resourcePoliciesBySelectorCache[selector])
       || (PolicyEngine._resourcePoliciesBySelectorCache[selector] = resourcePolicies.filter(policy => policy.selector === selector));
 
+    // TODO: =DG= forse la some non è corretta:
     const result = selectedPolicies.length > 0 ? selectedPolicies.forEach((policy: IPolicy) => {
       retval = retval || false;
       if (this.checkCondition(policy.condition, claims)) {

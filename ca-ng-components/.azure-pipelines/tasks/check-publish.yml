@@ -1,0 +1,43 @@
+parameters:
+- name: workDir
+  type: string
+  default: $(System.DefaultWorkingDirectory)
+- name: organization
+  type: string
+- name: feedList
+  type: string
+
+steps:
+- task: PowerShell@2
+  displayName: Check package availability
+  inputs:
+    targetType: inline
+    workingDirectory: ${{ parameters.workDir }}
+    script: |
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+      $user = "$(USERNAME)"
+      $token = "$(STORM-NPM-PASSWORD-ENC)"
+      $base64auth = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $user, $token )))
+      $header = @{"Accept" = "*/*"; Authorization = ("Basic {0}" -f $base64auth) }
+      $password = ConvertTo-SecureString $token -AsPlainText -Force
+      $credential = New-Object System.Management.Automation.PSCredential($user, $password)
+
+      $json = (Get-Content package.json | ConvertFrom-Json).name
+      $pkgName = $json
+      $pkgName = $pkgName.Replace('@', '%40').Replace('/', '%2F')
+      $pkgDest = "${{ parameters.feedList }}"
+      $pkgDest = $pkgDest.Split(',')
+      $version = "$(Build.BuildNumber)"
+      $methods = @( "Head", "Get" )
+      $domain = "https://${{ parameters.organization }}/_apis/packaging/feeds"
+
+      foreach ( $feed in $pkgDest ){
+        Write-Host "Checking for $feed registry..."
+        $uri = "$domain/$feed/npm/packages/$pkgName/versions/$(Build.BuildNumber)/content?api-version=5.0-preview.1"
+        Write-Host "Uri: $uri"
+        foreach ( $method in $methods ) {
+          $response = $(Invoke-WebRequest -Method $method -Headers $header -Credential $credential -Uri $uri)
+          Write-Host "response for $feed with $method : $($response.StatusCode) $($response.StatusDescription)"
+        }
+      }

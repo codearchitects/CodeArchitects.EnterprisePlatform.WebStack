@@ -1,0 +1,190 @@
+@import "colors";
+@import "functions";
+
+$input-recess: v(input-recess, 10px);
+$input-font-size: v(input-font-size, 18px);
+$input-border: v(input-border, 1px solid $sh-wood-gray);
+$input-border-radius: v(input-border-radius, 5px);
+$placeholder-transition-speed: v(placeholder-transition-speed, 0.3s);
+$label-font-size: v(label-font-size, 14px);
+$icon-font-size: v(icon-font-size, 14px);
+$input-with-icon-ellipsis: v(input-with-icon-ellipsis, 20px);
+$icon-recess: v(icon-recess, 3px);
+$input-top-distance: v(input-top-distance, 0px);
+$input-min-width: v(input-min-width, 205px);
+$input-min-height: v(input-min-height, 22px);
+
+// TODO: utilizzare le variabili per i colori :
+$input-color: v(input-color, $sh-iron-gray);
+
+@mixin input($input-label-offset: 0px) {
+  border: $input-border;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: $input-border-radius;
+  font-size: $input-font-size;
+  padding: $input-recess;
+  background: transparent;
+  outline: none;
+  font-family: RobotoLight;
+  color: $input-color;
+  min-width: $input-min-width;
+  min-height: $input-min-height;
+
+  &:read-only {
+    color: $sh-light-gray;
+  }
+
+  &:disabled,
+  &.disabled {
+    border-bottom-style: dashed;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $sh-sea-black;
+    border-color: $sh-light-gray;
+  }
+
+  &+label {
+    color: $sh-light-gray;
+    position: absolute;
+    box-sizing: content-box;
+    width: 94%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    transition: top $placeholder-transition-speed, font-size $placeholder-transition-speed;
+    top: calc(-1 * calc(#{$input-recess} + #{$input-label-offset}));
+    font-size: $label-font-size;
+    left: $input-recess;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &.ng-invalid,
+  &.invalid {
+    &.ng-touched {
+      border-color: $sh-red;
+
+      &,
+      &+label {
+        color: $sh-red;
+      }
+
+      &:hover,
+      &:focus {
+        border-color: $sh-flash-red !important;
+
+        &,
+        &+label {
+          color: $sh-flash-red !important;
+        }
+      }
+    }
+  }
+
+  &.floating-placeholder {
+    &::placeholder {
+      color: transparent;
+    }
+
+    &+label {
+      top: calc(#{$input-recess} + #{$input-label-offset});
+      left: $input-recess;
+      font-size: $input-font-size;
+    }
+
+    &:focus+label:not(.no-float-on-empty) {
+      top: calc(-1 * calc(#{$input-recess} + #{$input-label-offset}));
+      font-size: $label-font-size;
+      left: $input-recess;
+    }
+  }
+
+  &.with-icon {
+    padding-right: $input-with-icon-ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &~label {
+      width: 87%;
+    }
+
+    &~sh-icon {
+      right: $icon-recess;
+      font-size: $icon-font-size;
+    }
+  }
+}
+
+@mixin select() {
+  position: relative;
+  display: inline-block;
+
+  .results {
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 999999;
+    background: $sh-ghost-white;
+    border: none;
+    border-bottom-left-radius: $input-border-radius;
+    border-bottom-right-radius: $input-border-radius;
+    font-size: calc(#{$input-font-size} - 2px);
+
+    &,
+    li {
+      border-bottom: $input-border;
+      user-select: none;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+
+      li {
+        height: auto;
+        padding: $input-recess;
+        cursor: pointer;
+        color: $sh-light-gray;
+
+        &>* {
+          text-decoration: none !important;
+        }
+
+        &:hover,
+        &.current-item {
+          color: $sh-sea-black;
+        }
+
+        &.selected {
+          color: $sh-azure;
+        }
+      }
+    }
+  }
+
+  input,
+  .input {
+    @include input();
+
+    &.opened {
+      border-radius: 0;
+    }
+
+    &.disabled,
+    &:disabled {
+      &~[shDropdown] {
+        display: none !important;
+      }
+    }
+  }
+}

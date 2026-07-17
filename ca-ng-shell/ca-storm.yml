@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/ng-shell"
+    path: .
+    type: npm-package

@@ -6,9 +6,8 @@ import { debounceTime, takeUntil, throttleTime } from 'rxjs/operators';
 import { ShBaseReactComponent } from '../base/base.component';
 
 @Component({
-    selector: 'sh-react-component',
-    template: '',
-    standalone: false
+  selector: 'sh-react-component',
+  template: ''
 })
 /**
  * React Host Component
@@ -37,7 +36,7 @@ export class ShReactHostComponent<TProps = {}, TState = TProps> implements OnCha
   /**
    * Subject which notifies subscribers when component destroy itself
    */
-  protected destroy$ = new Subject<void>();
+  protected destroy$ = new Subject();
   /**
    * Observable of state changes
    */

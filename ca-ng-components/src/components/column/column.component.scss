@@ -3,8 +3,7 @@ $media-sm: 768px;
 $media-md: 992px;
 $media-lg: 1200px;
 $media-xl: 1690px;
-$break-distance: var(--column-break-distance, 20px);
-$column-bottom-margin: var(--column-bottom-margin, 50px);
+$break-distance: 20px;
 
 @mixin break-config($max-width) {
   @media (max-width: $max-width - 1) {
@@ -19,7 +18,6 @@ $column-bottom-margin: var(--column-bottom-margin, 50px);
 }
 
 :host {
-  margin-bottom: $column-bottom-margin;
   &.break-xs {
     @include break-config($media-xs);
   }

@@ -1,5 +1,4 @@
-import { ActiveToast } from 'ngx-toastr';
-import { ɵunwrapSafeValue } from '@angular/core';
+import { Toast, BodyOutputType } from 'angular2-toaster';
 
 /**
  * Toast available types
@@ -31,7 +30,7 @@ export interface IShToastOptions {
   /**
    * Toast identifier
    */
-  //id?: string;
+  id?: string;
   /**
    * Toast title
    */
@@ -47,7 +46,7 @@ export interface IShToastOptions {
   /**
    * Toast click handler
    */
-  onClick?: (toast: ShToast) => void;
+  onClick?: (toast: ShToast, isCloseButton: boolean) => boolean;
   /**
    * Toast show event
    */
@@ -73,25 +72,36 @@ export interface IShToastOptions {
 /**
  * Shell Toast
  */
-export class ShToast {
+export class ShToast implements Toast {
   readonly type: string;
-  title: string;
+  title?: string;
   body?: string;
-  //bodyOutputType = BodyOutputType.TrustedHtml;
-  toastId: number;
+  bodyOutputType = BodyOutputType.TrustedHtml;
+  toastId?: string;
   showCloseButton = true;
   onShowCallback?: (toast: ShToast) => void;
   onHideCallback?: (toast: ShToast) => void;
   timeout?: number;
-  onClickCallback?: (toast: ShToast) => void;
-
-  constructor(options: IShToastOptions, toastDescriptor: ActiveToast<any>) {
-    this.toastId = toastDescriptor.toastId;
-    this.title = toastDescriptor.title;
+  clickHandler?: (toast: ShToast, isCloseButton: boolean) => boolean;
+  constructor(options: IShToastOptions) {
+    this.toastId = options.id;
+    this.title = options.title;
     this.timeout = options.timeout;
-    this.body = typeof toastDescriptor.message === 'string' ? toastDescriptor.message : ɵunwrapSafeValue(toastDescriptor.message);
-    this.type = options.type || 'default';
-    this.onClickCallback = options.onClick;
+    this.body = `
+    <div class="toast-body-message">${options.body}</div>
+    <div class="toast-attribution">${options.attribution}</div>
+    `;
+    if (options.avatar) {
+      this.body = `${this.body}
+      <div class="toast-avatar" style="background:${options.avatar.color};">
+          <i class="icon icon-${options.avatar.icon}" style="color:${options.avatar.iconColor}"></i>
+      </div>
+      `;
+      this.type = 'wait';
+    } else {
+      this.type = options.type || this.type;
+    }
+    this.clickHandler = options.onClick;
     this.onShowCallback = options.onShow;
     this.onHideCallback = options.onHide;
   }

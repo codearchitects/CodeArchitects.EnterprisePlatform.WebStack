@@ -1,30 +1,24 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { of, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Mstring } from './i18n.model';
 import { LocaleService } from './locale.service';
 
-@Injectable()
-export class I18nService implements OnDestroy {
-
-  private _destroy = new Subject<void>();
+@Injectable({
+  providedIn: 'root'
+})
+export class I18nService {
 
   constructor(
     private locale: LocaleService,
     private translate: TranslateService
   ) {
     if (!translate.currentLang) {
-      //translate.setDefaultLang('en');
+      translate.setDefaultLang('en');
       locale.getLocale()
-        .pipe(takeUntil(this._destroy))
         .subscribe(locale => translate.use(locale));
     }
-  }
-
-  ngOnDestroy(): void {
-    this._destroy.next();
-    this._destroy.complete();
   }
 
   get(query: string | Mstring, interpolateParams?: Object) {

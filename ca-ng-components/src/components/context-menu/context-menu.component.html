@@ -1,21 +1,22 @@
 <context-menu #contextMenu>
-  @for (command of commands; track command; let i = $index) {
-    @if (!command.children?.length) {
-      <ng-template contextMenuItem [visible]="command.show" [disabled]="!command.enable" (execute)="onExecute(command)">
+  <ng-container *ngFor="let command of commands">
+
+    <ng-container *ngIf="!command.children?.length; else parentCommand">
+      <ng-template contextMenuItem>
         <div class="context-menu-item">
           <sh-context-menu-item [command]="command" [resource]="command.resource" [enable]="command.enable" [show]="command.show"></sh-context-menu-item>
         </div>
       </ng-template>
-    } @else {
-      <ng-template contextMenuItem [subMenu]="subContextMenu.context" [visible]="command.show" [disabled]="!command.enable">
+    </ng-container>
+
+    <ng-template #parentCommand>
+      <ng-template contextMenuItem [subMenu]="subContextMenu.context">
         <div class="context-menu-item">
           <sh-context-menu-item [command]="command" [resource]="command.resource" [enable]="command.enable" [show]="command.show"></sh-context-menu-item>
         </div>
       </ng-template>
       <sh-context-menu #subContextMenu [commands]="command.children"></sh-context-menu>
-    }
-    @if (i < commands.length - 1) {
-      <ng-template contextMenuItem [divider]="true"></ng-template>
-    }
-  }
+    </ng-template>
+
+  </ng-container>
 </context-menu>

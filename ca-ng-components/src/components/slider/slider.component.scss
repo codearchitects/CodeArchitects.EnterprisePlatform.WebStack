@@ -1,6 +1,6 @@
-@use '../../../styles/input' as *;
-@use '../../../styles/functions' as *;
-@use '../../../styles/colors' as *;
+@import '../../styles/input';
+@import '../../styles/functions';
+@import '../../styles/colors';
 
 $thumb-color: v($sh-pale-blue, $sh-azure);
 $maxWidth: v(maxWidth, 27.78vh);
@@ -107,7 +107,7 @@ div {
       user-select: none;
       z-index: 2;
       background: $sh-azure;
-      color: $sh-primary-text;
+      color: $sh-azure;
     }
 
     &::-ms-thumb:active {

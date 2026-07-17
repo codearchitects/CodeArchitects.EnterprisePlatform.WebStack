@@ -4,8 +4,16 @@
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine",
-      "node"
-    ]
+      "node",
+      "reflect-metadata"
+    ],
+    "typeRoots": [
+      "../node_modules/@types",
+      "../node_modules"
+    ],
+    "module": "commonjs",
+    "preserveSymlinks": true,
+    "skipLibCheck": true
   },
   "files": [
     "./src/test.ts"
@@ -14,5 +22,7 @@
     "./src/**/*.spec.ts",
     "./src/**/*.d.ts"
   ],
-  "exclude": []
+  "exclude": [
+    "./src/tests/fixtures"
+  ]
 }

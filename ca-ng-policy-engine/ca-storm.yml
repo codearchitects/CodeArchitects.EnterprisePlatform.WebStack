@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/ng-policy-engine"
+    path: .
+    type: npm-package

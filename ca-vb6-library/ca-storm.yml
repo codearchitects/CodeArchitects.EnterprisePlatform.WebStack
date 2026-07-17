@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/vb6-library"
+    path: .
+    type: npm-package

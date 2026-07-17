@@ -1,14 +1,14 @@
-import { EventEmitter, Injector, Input, OnInit, Output, Directive, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { EventEmitter, Injector, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { HelpManager } from '../../utilities/help.manager';
+import { isNoU } from './../../utilities/common.utility';
 import { ShBaseAuthComponent } from './base-auth.component';
 import { IShBaseOptions } from './base.component';
-import { Subject } from 'rxjs';
 
 /**
  * Base Component which introduces the binding to a property of a model
  */
-@Directive()
-export abstract class ShBaseModelComponent<T, O extends IShBaseOptions> extends ShBaseAuthComponent<O> implements OnInit, OnChanges, OnDestroy {
+export abstract class ShBaseModelComponent<T, O extends IShBaseOptions> extends ShBaseAuthComponent<O> implements OnInit, OnChanges {
   /**
    * The object for which binds a property
    */
@@ -31,11 +31,6 @@ export abstract class ShBaseModelComponent<T, O extends IShBaseOptions> extends 
   }
 
   /**
-   * Observable which emits when model property changes
-   */
-  protected modelChange$ = new Subject<void>();
-
-  /**
    * Base Component which introduces the binding to a property of a model
    */
   constructor(injector: Injector) {
@@ -45,24 +40,44 @@ export abstract class ShBaseModelComponent<T, O extends IShBaseOptions> extends 
   public ngOnInit() {
     this.resource = this.getResource();
     super.ngOnInit();
+
+    HelpManager.refresh$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(refreshInfo => {
+        if (refreshInfo) {
+          const { classInstance, propertyName } = refreshInfo;
+          if (classInstance === this.model && propertyName === this.prop) {
+            this.helpId = HelpManager.get(this.model, this.prop);
+          }
+        }
+      });
+
+    this.helpId = this.helpId || HelpManager.get(this.model, this.prop);
   }
 
   public ngOnChanges(changes: SimpleChanges) {
     super.ngOnChanges(changes);
-    if (changes['model'] && !this.isChangeEqual(changes['model'])) {
-      this.modelChange$.next();
+    const isModelChanged = changes && changes.model && changes.model.currentValue;
+    const isPropChanged = changes && changes.prop && changes.prop.currentValue;
+    if (isModelChanged || isPropChanged) {
+      this.helpId = this.helpId || HelpManager.get(this.model, this.prop);
     }
   }
 
-  public ngOnDestroy() {
-    super.ngOnDestroy();
-    this.modelChange$.complete();
+  /**
+   * Fired on key down
+   */
+  protected onKeyDown(e: KeyboardEvent, compareKeyForHelp?: string, helpId?: string) {
+    if (e.key === compareKeyForHelp && !isNoU(helpId || this.helpId)) {
+      e.preventDefault();
+      this.onHelp(undefined, helpId);
+    }
   }
 
   /**
    * Provides the value of the model property
    */
-  /*protected*/ public getModelValue() {
+  protected getModelValue() {
     if (this.model) {
       return this.model[this.prop];
     }
@@ -72,7 +87,7 @@ export abstract class ShBaseModelComponent<T, O extends IShBaseOptions> extends 
    * Sets the value of the model property
    * @param value New value
    */
-  /*protected*/ public setModelValue(value: T) {
+  protected setModelValue(value: T) {
     if (this.model) {
       if (this.internalOptions.onCanValueChanges(this.model[this.prop], value)) {
         this.model[this.prop] = value;
@@ -84,7 +99,7 @@ export abstract class ShBaseModelComponent<T, O extends IShBaseOptions> extends 
   /**
    * Provides the resource related to model property
    */
-  /*protected*/ public getResource() {
+  protected getResource() {
     if (this.resource) {
       return this.resource;
     }

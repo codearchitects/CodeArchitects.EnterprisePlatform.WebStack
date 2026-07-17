@@ -1,0 +1,105 @@
+@import '~angular2-toaster/toaster.css';
+@import './colors';
+
+$toast-recess: 20px;
+$toast-width: 360px;
+$toast-avatar-size: 50px;
+$toast-title-bottom-distance: 2px;
+$toast-message-bottom-distance: 10px;
+$toast-close-button-recess: 4px;
+$toast-opacity: .8;
+$toast-title-font-size: 15px;
+
+
+.toast {
+  border-radius: 0 !important;
+  border-top-left-radius: 10px !important;
+  background-color: $sh-chinese-black;
+  padding: $toast-recess !important;
+  width: $toast-width !important;
+  opacity: $toast-opacity !important;
+  box-shadow: none !important;
+
+  &,
+  * {
+    font-family: RobotoLight;
+  }
+
+  &:hover {
+    box-shadow: none !important;
+    opacity: 1 !important;
+  }
+
+  .toaster-icon {
+    display: none;
+  }
+
+  &.toast-success {
+    background-color: $sh-azure !important;
+  }
+
+  &.toast-error {
+    background-color: $sh-red !important;
+  }
+
+  &.toast-info {
+    background-color: $sh-white !important;
+
+    * {
+      color: $sh-sea-black !important;
+    }
+  }
+
+  &.toast-wait {
+    .toast-content {
+      padding-left: $toast-avatar-size + ($toast-recess/2);
+    }
+  }
+}
+
+.toast-title {
+  font-size: $toast-title-font-size;
+  font-weight: bold;
+  color: $sh-white;
+  margin-bottom: $toast-title-bottom-distance;
+}
+
+.toast-body-message {
+  font-size: $toast-title-font-size - 1;
+  color: color-opacity($sh-white, .6);
+  margin-bottom: $toast-message-bottom-distance;
+}
+
+.toast-attribution {
+  font-size: $toast-title-font-size - 3;
+  color: color-opacity($sh-white, .6);
+}
+
+.toast-avatar {
+  width: $toast-avatar-size;
+  height: $toast-avatar-size;
+  border-radius: 50%;
+  top: $toast-recess;
+  left: $toast-recess;
+  position: absolute;
+
+  i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    font-weight: bold;
+    color: $sh-white;
+  }
+}
+
+.toast-close-button {
+  color: $sh-white !important;
+  opacity: $toast-opacity !important;
+  top: -($toast-close-button-recess * 2);
+
+  button {
+    font-weight: 100;
+    right: $toast-close-button-recess;
+  }
+}

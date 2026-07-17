@@ -1,6 +1,10 @@
 {
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "dest": "dist",
+  "whitelistedNonPeerDependencies": [
+    "@ngx-translate/core",
+    "@ngx-translate/http-loader"
+  ],
   "lib": {
     "entryFile": "public_api.ts"
   }

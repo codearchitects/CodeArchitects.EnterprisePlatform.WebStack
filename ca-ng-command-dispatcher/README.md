@@ -1,44 +1,15 @@
 # ca-ng-command-dispatcher
 
-> `@ca-webstack/ng-command-dispatcher` — Decorator-driven command dispatching for Angular.
-
 ## Overview
 
-Provides a `@Command` decorator to annotate component methods as dispatchable commands, a `ShCommandComponent` base directive for automatic registration/unregistration, and a `CommandDispatcherService` that aggregates and executes commands across the application.
+## Status
 
-## Installation
-
-```bash
-npm install @ca-webstack/ng-command-dispatcher
-```
-
-### Peer Dependencies
-
-- `@ca-webstack/reflection` ~21.1.0
-- `core-js` ^3.41.0
-
-## Quick Start
-
-```typescript
-import { ShCommandComponent, Command, ICommand } from '@ca-webstack/ng-command-dispatcher';
-
-@Component({ selector: 'my-comp', template: '...' })
-class MyComponent extends ShCommandComponent {
-  @Command({ name: 'save', label: 'Save', iconClassName: 'fa-save' })
-  onSave() { /* ... */ }
-}
-```
-
-## Key Exports
-
-| Symbol | Description |
-|---|---|
-| `CommandDispatcherModule` | NgModule providing `CommandDispatcherService`. |
-| `CommandDispatcherService` | Aggregates commands, emits changes, runs commands by name. |
-| `ShCommandComponent` | Abstract base directive — auto-registers/unregisters on init/destroy. |
-| `@Command` | Method decorator to define a dispatchable command. |
-| `ICommand` | Command interface (name, label, caption, icon, visible, enabled, handler, etc.). |
+|         | Build & Test                                                                                                                                            |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Win](docs/images/os/win_med.png) **Windows** | *not configured yet* |
+| ![macOS](docs/images/os/apple_med.png) **macOS**   | *not configured yet*                                                                                         |
+| ![Linux](docs/images/os/linux_med.png) **Linux**   | *not configured yet*                                                                                         |
 
 ## More Documentation
 
-[Full API documentation](docs/index.md)
+[Documentation Here](docs/index.md)

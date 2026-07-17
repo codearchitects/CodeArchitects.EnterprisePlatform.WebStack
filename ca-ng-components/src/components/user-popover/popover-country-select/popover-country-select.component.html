@@ -1,0 +1,33 @@
+<div *ngIf="show && formControl" shDropdownContainer [class]="containerClass" [class.select-container]="true"
+  (clickOutside)="isOpened = false">
+  <div #input [id]="internalOptions.id" [class]="inputClass" [class.input]="true"
+    [class.ng-invalid]="formControl.invalid" [class.ng-touched]="formControl.touched"
+    [class.ng-dirty]="formControl.dirty" [class.sh-populated]="!!formControl.value"
+    [attr.tabindex]="internalOptions.tabindex" [attr.autofocus]="internalOptions.autofocus || null"
+    (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)" [class.disabled]="!enable"
+    [class.readonly]="internalOptions.isReadonly" [style.minWidth]="width" [style.height]="height"
+    [class.with-icon]="true" (focusout)="!formControl.touched && formControl.markAsTouched()"
+    [class.floating-placeholder]="placeholder && (formControl.value === undefined || formControl.value === null || formControl.value === '')"
+    [class.opened]="isOpened">
+    <div class="text-input" *ngIf="formControl.value !== undefined">
+      <span class="{{'flag-icon flag-icon-'+(getLabel(formControl.value) | isoCountry)}}"></span><span
+        translate>{{getLabel(formControl.value) | extendedCountry}}</span>
+    </div>
+  </div>
+  <label *ngIf="placeholder" class="no-float-on-empty"
+    [attr.for]="internalOptions.id">{{placeholder?.key ? (placeholder | translate) : (placeholder | translate)}}</label>
+  <sh-icon class="dropdown-indicator" vertical-centered pointer name="select-{{isOpened ? 'on' : 'off'}}"
+    (click)="enable && !internalOptions.isReadonly && (isOpened = !isOpened)">
+  </sh-icon>
+  <div *ngIf="isOpened" shDropdown #dropdown class="results" [style.width]="dropdownWidth"
+    [style.maxHeight]="internalOptions.dropdownHeight">
+    <ul #results>
+      <li class="result" *ngFor="let value of values; let i = index" [class.current-item]="activeResultIndex === i"
+        [class.selected]="value.ref === formControl.value" (click)="onSelectValue(value.ref)">
+        <span class="{{'flag-icon flag-icon-'+(value.label | isoCountry)}}"></span><span [id]="value.id"
+          translate>{{value.label | extendedCountry}}</span>
+      </li>
+      <ng-content select="[footer]"></ng-content>
+    </ul>
+  </div>
+</div>

@@ -2,33 +2,39 @@ import { ObjectState } from '@ca-webstack/change-tracker';
 import { OverwriteIfNotChangedStrategy } from './overwrite-if-not-changed-strategy';
 import { IMergeStrategy } from '../merge-strategy';
 import { TrackedPerson } from '../fixtures/models';
+import { expect } from 'chai';
+
 
 describe('OverwriteIfNotChangedStrategy', () => {
 
-  let mergeStrategy: IMergeStrategy;
-
   beforeEach(() => {
-    mergeStrategy = new OverwriteIfNotChangedStrategy();
+    // Arrange
+    this.mergeStrategy = new OverwriteIfNotChangedStrategy();
   });
 
   it('should be defined', () => {
-    expect(OverwriteIfNotChangedStrategy).toBeDefined();
-    expect(mergeStrategy).toBeDefined();
-    expect(mergeStrategy instanceof OverwriteIfNotChangedStrategy).toBeTruthy();
+    // Assert
+    expect(OverwriteIfNotChangedStrategy).to.exist;
+    expect(this.mergeStrategy).to.exist;
+    expect(this.mergeStrategy instanceof OverwriteIfNotChangedStrategy).to.be.true;
   });
 
   it('should return the attached object', () => {
+    //Arrange
     let attachedObject = new TrackedPerson();
     attachedObject.name = 'John';
     let newObject = new TrackedPerson();
     newObject.name = 'Jack';
 
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    expect(actual).toBe(attachedObject);
+    //Assert
+    expect(actual).to.be.equal(attachedObject);
   });
 
   it('should not overwrite the old object values if changeTracker state is added', () => {
+    //Arrange
     let attachedObject = new TrackedPerson();
     attachedObject.name = 'John';
     let newObject = new TrackedPerson();
@@ -37,12 +43,15 @@ describe('OverwriteIfNotChangedStrategy', () => {
     attachedObject.changeTracker.changeTrackingEnabled = true;
     attachedObject.changeTracker.state = ObjectState.added;
 
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    expect(actual.name).toBe('John');
+    //Assert
+    expect(actual.name).to.be.equal('John');
   });
 
   it('should not overwrite the old object values if changeTracker state is modified', () => {
+    //Arrange
     let attachedObject = new TrackedPerson();
     attachedObject.name = 'John';
     let newObject = new TrackedPerson();
@@ -51,12 +60,15 @@ describe('OverwriteIfNotChangedStrategy', () => {
     attachedObject.changeTracker.changeTrackingEnabled = true;
     attachedObject.changeTracker.state = ObjectState.modified;
 
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    expect(actual.name).toBe('John');
+    //Assert
+    expect(actual.name).to.be.equal('John');
   });
 
   it('should not overwrite the old object values if changeTracker state is deleted', () => {
+    //Arrange
     let attachedObject = new TrackedPerson();
     attachedObject.name = 'John';
     let newObject = new TrackedPerson();
@@ -65,12 +77,15 @@ describe('OverwriteIfNotChangedStrategy', () => {
     attachedObject.changeTracker.changeTrackingEnabled = true;
     attachedObject.changeTracker.state = ObjectState.deleted;
 
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    expect(actual.name).toBe('John');
+    //Assert
+    expect(actual.name).to.be.equal('John');
   });
 
   it('should overwrite the old object values if changeTracker state is unchanged', () => {
+    //Arrange
     let attachedObject = new TrackedPerson();
     attachedObject.name = 'John';
     let newObject = new TrackedPerson();
@@ -79,12 +94,15 @@ describe('OverwriteIfNotChangedStrategy', () => {
     attachedObject.changeTracker.changeTrackingEnabled = true;
     attachedObject.changeTracker.state = ObjectState.unchanged;
 
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    expect(actual.name).toBe('Jack');
+    //Assert
+    expect(actual.name).to.be.equal('Jack');
   });
 
   it('should unset an object property if missing in the new object', () => {
+    //Arrange
     let attachedObject = new TrackedPerson();
     attachedObject.name = 'John';
     let newObject = new TrackedPerson();
@@ -92,9 +110,11 @@ describe('OverwriteIfNotChangedStrategy', () => {
     attachedObject.changeTracker.changeTrackingEnabled = true;
     attachedObject.changeTracker.state = ObjectState.unchanged;
 
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    expect(actual.name).toBeUndefined();
+    //Assert
+    expect(actual.name).to.be.undefined;
   });
 
 });

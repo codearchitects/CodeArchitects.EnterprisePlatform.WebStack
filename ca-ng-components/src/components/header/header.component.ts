@@ -1,21 +1,13 @@
 import { Component, Injector, Input } from '@angular/core';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { IShBaseOptions, ShBaseAuthComponent } from '../base';
-import { CAEP_SIDEBAR_SEARCH_DEFAULT_ICON } from '../../utilities/common.utility';
 
 @Component({
-    selector: 'sh-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false,
-    host: {
-        'role': 'banner',
-        '[attr.aria-label]': 'ariaLabel',
-        '[attr.aria-labelledby]': 'ariaLabelledBy',
-        '[attr.aria-describedby]': 'ariaDescribedBy'
-    }
-})
+  selector: 'sh-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 export class ShHeaderComponent extends ShBaseAuthComponent<IShBaseOptions> {
   /**
    * Logo assets path (e.g.: "logo_app.png")
@@ -27,11 +19,6 @@ export class ShHeaderComponent extends ShBaseAuthComponent<IShBaseOptions> {
    * @default true
    */
   @Input() showSearchbar = true;
-  /**
-   * Search bar's icon name
-   * @default 'search'
-   */
-  @Input() public searchBarIcon: string = CAEP_SIDEBAR_SEARCH_DEFAULT_ICON;
   /**
    * The application name
    */

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Injector, Input } from '@angular/core';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { IShBaseOptions, ShBaseAuthComponent } from './../base/index';
 
 @FormDesignerControl({
@@ -8,12 +8,11 @@ import { IShBaseOptions, ShBaseAuthComponent } from './../base/index';
   shortDescription: 'Spinner Control'
 })
 @Component({
-    selector: 'sh-spinner',
-    templateUrl: './spinner.component.html',
-    styleUrls: ['./spinner.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-spinner',
+  templateUrl: './spinner.component.html',
+  styleUrls: ['./spinner.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 export class ShSpinnerComponent extends ShBaseAuthComponent<IShBaseOptions> implements AfterViewInit {
   /**
    * Specifies if spinner must be placed in front of all the other controls (with an overlay)

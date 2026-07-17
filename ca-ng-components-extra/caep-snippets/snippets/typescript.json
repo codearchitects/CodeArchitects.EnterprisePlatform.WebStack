@@ -1,9 +1,0 @@
-{
-    "CaepOption": {
-        "prefix": ["@CaepOption", "caep-option"],
-        "body": [
-          "@CaepOption({ defaultValue: $0, coercionType: ${1|CaepCoercionType.Boolean,CaepCoercionType.CssPixel,CaepCoercionType.Number,CaepCoercionType.ArrayToString|}})"
-        ],
-        "description": "Decorator useful to describe options"
-      }
-}

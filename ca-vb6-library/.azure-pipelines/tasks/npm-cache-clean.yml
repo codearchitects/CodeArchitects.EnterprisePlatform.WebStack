@@ -1,0 +1,14 @@
+parameters:
+- name: workDir
+  displayName: workDir
+  type: string
+  default: $(System.DefaultWorkingDirectory)
+
+steps:
+- task: PowerShell@2
+  displayName: npm cache clean
+  inputs:
+    targetType: inline
+    workingDirectory: ${{ parameters.workDir }}
+    script: |
+      npm cache clean --force

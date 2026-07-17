@@ -1,6 +1,7 @@
-import { DateRange } from './date-range';
+import {DateRange} from './date-range';
+import {expect} from 'chai';
 
-describe('DateRange', () => {
+describe('DataRange', () => {
 
   let dateRange: DateRange;
 
@@ -11,19 +12,19 @@ describe('DateRange', () => {
 
   it('should be defined', () => {
     // Assert
-    expect(DateRange).toBeDefined();
-    expect(dateRange).toBeDefined();
-    expect(dateRange).toBeInstanceOf(DateRange);
+    expect(DateRange).to.exist;
+    expect(dateRange).to.exist;
+    expect(dateRange instanceof DateRange).to.be.true;
   });
 
   it('should return start date', () => {
     // Assert
-    expect(dateRange.start).toEqual(new Date('2016-01-01'));
+    expect(dateRange.start).to.deep.equal(new Date('2016-01-01'));
   });
 
   it('should return end date', () => {
     // Assert
-    expect(dateRange.end).toEqual(new Date('2016-01-30'));
+    expect(dateRange.end).to.deep.equal(new Date('2016-01-30'));
   });
 
 });

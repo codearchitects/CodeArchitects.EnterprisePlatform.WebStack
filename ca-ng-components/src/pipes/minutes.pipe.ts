@@ -1,9 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { isNoU } from '../utilities/common.utility';
+import { isNoU } from 'src/utilities';
 
 @Pipe({
-    name: 'minutes',
-    standalone: false
+  name: 'minutes'
 })
 export class ShMinutesPipe implements PipeTransform {
 

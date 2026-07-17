@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
-import * as _ from 'lodash-es';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import * as _ from 'lodash';
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { IShBaseInputOptions, ShBaseInputComponent } from '../base';
 
 /**
@@ -19,16 +19,15 @@ export interface IShTextComponentOptions extends IShBaseInputOptions<string> {
   shortDescription: 'Text Control'
 })
 @Component({
-    selector: 'sh-text',
-    templateUrl: './text.component.html',
-    styleUrls: ['text.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-text',
+  templateUrl: './text.component.html',
+  styleUrls: ['text.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 /**
  * Base Text Component
  */
-export class ShTextComponent<O extends IShTextComponentOptions = IShTextComponentOptions> extends ShBaseInputComponent<string, O> {
+export class ShTextComponent extends ShBaseInputComponent<string, IShTextComponentOptions> {
   /**
    * Base Text Component
    */
@@ -36,9 +35,9 @@ export class ShTextComponent<O extends IShTextComponentOptions = IShTextComponen
     super(injector);
   }
 
-  /*protected*/ public getDefaultOptions(): IShTextComponentOptions {
+  protected getDefaultOptions(): IShTextComponentOptions {
     return _.merge(super.getDefaultOptions(), {
-      type: 'text' as 'text' | 'password' | 'email'
+      type: 'text'
     });
   }
 

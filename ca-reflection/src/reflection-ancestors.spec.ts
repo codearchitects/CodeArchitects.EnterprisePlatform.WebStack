@@ -1,4 +1,5 @@
 import 'core-js';
+// import { expect } from 'chai';
 import { JsonIgnore, JsonObject } from './reflection-decorators';
 import * as reflectionDecorators from './reflection-decorators';
 import { MetadataHelpers } from './metadata-helpers';
@@ -269,19 +270,18 @@ export class DepositoFattura extends TrackableEntity {
 }
 
 describe('ancestor bug', () => {
-  it('deserialization is OK', () => {
-    // console.log('----------------------------------------------------');
+  context('ancestor bug', () => {
+    it('deserialization is OK', () => {
+      // console.log('----------------------------------------------------');
 
-    let a = reflectionDecorators.getJsonObject(DepositoLookup, true);
-    console.log(a);
-    expect(a).toBeTruthy();
+      let a = reflectionDecorators.getJsonObject(DepositoLookup, true);
+      console.log(a);
 
-    const b = reflectionDecorators.getJsonObject(DepositoFattura, true);
-    console.log(b);
-    expect(b).toBeTruthy();
+      const b = reflectionDecorators.getJsonObject(DepositoFattura, true);
+      console.log(b);
 
-    a = reflectionDecorators.getJsonObject(DepositoLookup, true);
-    console.log(a);
-    expect(a).toBeTruthy();
+      a = reflectionDecorators.getJsonObject(DepositoLookup, true);
+      console.log(a);
+    });
   });
 });

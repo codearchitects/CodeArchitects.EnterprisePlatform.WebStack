@@ -1,11 +1,9 @@
-@use "../../../styles/colors" as *;
-@use "../../../styles/functions" as *;
+@import "../../styles/colors";
+@import "../../styles/functions";
 
 $progress-bar-height: v(progress-bar-height, 4px);
-$progress-bar-width: v(progress-bar-width, 100%);
-$progress-bar-label-left-recess: v(progress-bar-label-left-recess, 4px);
-$sh-progress-background: v(sh-progress-background, var(--sh-quaternary));
-$sh-progress-bar-fill-color: v(sh-progress-bar-fill-color, var(--sh-first));
+$sh-progress-background: v(sh-progress-background, $sh-clean-glass);
+$sh-progress-bar-fill-color: v(sh-progress-bar-fill-color, $sh-azure);
 $incoherent-color: v(incoherent-color, $sh-red);
 
 
@@ -23,7 +21,7 @@ $is-indeterminate-translate-step-3: v(is-indeterminate-translate-step-3, cubic-b
     overflow: hidden;
     position: relative;
     transition: opacity 250ms linear;
-    width: $progress-bar-width;
+    width: 100%;
     background-color: $sh-progress-background;
 
     .sh-progress-bar-fill {
@@ -55,9 +53,9 @@ $is-indeterminate-translate-step-3: v(is-indeterminate-translate-step-3, cubic-b
   }
 
   .label {
-    margin-left: $progress-bar-label-left-recess;
+    margin-left: 4px;
     &.incoherent{
-      color: $incoherent-color;
+      color:$incoherent-color;
     }
   }
 }

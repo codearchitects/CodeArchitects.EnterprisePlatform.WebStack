@@ -1,12 +1,10 @@
-import { ShFormComponent } from './../form/form.component';
+import { Component, Injector, Input } from '@angular/core';
 import { IShBaseOptions } from './../base/base.component';
-import { Component, Injector } from '@angular/core';
-import { isNoU } from '../../utilities/common.utility';
+import { ShFormComponent } from './../form/form.component';
 
 @Component({
-    selector: 'sh-form-group',
-    templateUrl: './form-group.component.html',
-    standalone: false
+  selector: 'sh-form-group',
+  templateUrl: './form-group.component.html'
 })
 /**
  * Component which applies validations to a group
@@ -14,30 +12,24 @@ import { isNoU } from '../../utilities/common.utility';
  */
 export class ShFormGroupComponent<T, O extends IShBaseOptions>
   extends ShFormComponent<T, O> {
+  /**
+   * The object for which binds model
+   */
+  @Input() public parent: any;
 
   constructor(injector: Injector) {
     super(injector);
   }
 
-  /*protected*/ public createFormGroup() {
+  protected createFormGroup() {
     if (!this.formGroup) {
-      if (isNoU(this.prop)) {
-        this.formGroup = this.formHandler.getGroup(this.model, this.parent);
-      } else if (this.parent && this.prop in this.parent) {
-        this.formGroup = this.formHandler.getGroup(this.prop, this.parent);
-      } else {
-        console.warn('Parent or prop is invalid. Unable to create form group.');
-      }
+      this.formGroup = this.formHandler.getGroup(this.model, this.parent);
     }
   }
 
-  /*protected*/ public destroyFormGroup() {
-    if (isNoU(this.prop)) {
-      this.formHandler.removeGroup(this.model, this.parent);
-    } else {
-      // undefined parent[prop] not supported, should throw error?
-      this.formHandler.removeGroup(this.formGroup);
-    }
+  protected destroyFormGroup() {
+    this.formHandler.removeGroup(this.model, this.parent);
+    this.formHandler.removeGroup(this.parent);
   }
 
 }

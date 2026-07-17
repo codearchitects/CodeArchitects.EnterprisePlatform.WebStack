@@ -1,62 +1,50 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/a11y' as *;
+@import '../../styles/colors';
 
-$tabs-tab-height: var(--tabs-tab-height, 42px);
+$tab-height: 42px;
 $tab-vertical-recess: 6px;
 $tab-horizontal-recess: 12px;
 $tab-recess: $tab-vertical-recess $tab-horizontal-recess;
 $tabs-distance: 40px;
-$tabs-tab-border-bottom-size: var(--tabs-tab-border-bottom-size, 5px);
-$tabs-tab-border-bottom-style: var(--tabs-tab-border-bottom-style, solid);
-$tabs-tab-border-bottom-color: var(--tabs-tab-border-bottom-color, $sh-metallic-gray);
-$tabs-current-tab-color: var(--tabs-current-tab-color, var(--sh-first-text));
-$tabs-current-tab-border-bottom-color: var(--tabs-current-tab-border-bottom-color, $tabs-current-tab-color);
-$tabs-current-tab-font-weight: var(--tabs-current-tab-font-weight, bold);
-$tabs-tab-disabled-opacity: var(--tabs-tab-disabled-opacity, .5);
-$tabs-tab-title-hover-text-decoration: var(--tabs-tab-title-hover-text-decoration, underline);
-$tabs-tab-content-recess: var(--tabs-tab-content-recess, 20px);
-$tabs-left-aligned-top-recess: var(--tabs-left-aligned-top-recess, 5px);
+$tab-current-border-size: 5px;
+$tab-content-recess: 20px;
+$tabs-alignment-left-top-recess: 5px;
 $tabs-alignment-left-left-recess: 10px;
-$tabs-tab-min-width: var(--tabs-tab-min-width, 300px);
-$tabs-tab-font-size: var(--tabs-tab-font-size, 20px);
+$tab-min-width: 300px;
+$tab-font-size:20px;
 
 .tabs {
-  border-bottom: $tabs-tab-border-bottom-size $tabs-tab-border-bottom-style $tabs-tab-border-bottom-color;
+  border-bottom: $tab-current-border-size solid $sh-metallic-gray;
   text-align: center;
 
   &.left-aligned {
     text-align: left;
-    padding-top: $tabs-left-aligned-top-recess;
+    padding-top: $tabs-alignment-left-top-recess;
     display: inline-block;
 
     .tab {
-      min-width: $tabs-tab-min-width;
+      min-width: $tab-min-width;
     }
   }
 
   .tab {
     display: inline-block;
-    height: calc(#{$tabs-tab-height} - #{$tabs-tab-border-bottom-size});
+    height: $tab-height - $tab-current-border-size;
     position: relative;
-    line-height: calc(#{$tabs-tab-height} - #{$tabs-tab-border-bottom-size});
-    border-bottom: $tabs-tab-border-bottom-size $tabs-tab-border-bottom-style transparent;
+    line-height: $tab-height - $tab-current-border-size;
+    border-bottom: $tab-current-border-size solid transparent;
     transition: .4s ease border;
     cursor: pointer;
-    margin-bottom: calc(-1 * #{$tabs-tab-border-bottom-size});
-    font-size: $tabs-tab-font-size;
-
-    &:focus-visible {
-      @include sh-focus-ring;
-    }
+    margin-bottom: - $tab-current-border-size;
+    font-size: $tab-font-size;
 
     &.current {
-      border-bottom-color: $tabs-current-tab-border-bottom-color;
-      color: $tabs-current-tab-color;
-      font-weight: $tabs-current-tab-font-weight;
+      border-bottom-color: $sh-azure;
+      color: $sh-azure;
+      font-weight: bold;
     }
 
     &.disabled {
-      opacity: $tabs-tab-disabled-opacity;
+      opacity: .5;
       pointer-events: none;
       cursor: not-allowed;
     }
@@ -68,7 +56,7 @@ $tabs-tab-font-size: var(--tabs-tab-font-size, 20px);
 
     &:hover {
       .tab-title {
-        text-decoration: $tabs-tab-title-hover-text-decoration;
+        text-decoration: underline;
       }
     }
   }
@@ -77,18 +65,14 @@ $tabs-tab-font-size: var(--tabs-tab-font-size, 20px);
 .tab-content {
   width: 100%;
   height: 100%;
-  padding: $tabs-tab-content-recess;
-
-  &:focus-visible {
-    @include sh-focus-ring(calc(-1 * #{$sh-focus-ring-width}));
-  }
+  padding: $tab-content-recess;
 
   &.absolute-content {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    top: calc(#{$tabs-tab-height} + #{$tab-vertical-recess});
+    top: $tab-height + $tab-vertical-recess;
     overflow: auto;
     width: auto;
     height: auto;

@@ -1,0 +1,30 @@
+{
+    "configurations": [{
+            "name": "Unit tests",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "test.unit"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
+            "name": "Integration tests",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "test.integration"
+            ],
+            "cwd": "${workspaceFolder}/tests",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        }
+    ]
+}

@@ -1,57 +1,35 @@
-@if (isReady) {
-  <sh-form [model]="model" [parent]="parent" [prop]="prop">
-    <div class="card" title="{{title | translate}}" [style.width]="width" [style.height]="height"
-      [id]="internalOptions.id" role="group"
-      [attr.aria-labelledby]="title ? internalOptions.id + '-title' : null"
-      [attr.aria-label]="!title ? ariaLabel : null"
-      [attr.aria-describedby]="ariaDescribedBy">
-      <div class="card-toolbar">
-        <div class="title" [id]="internalOptions.id + '-title'" translate>{{title}}</div>
-        <ng-content select="[toolbar]"></ng-content>
-        <div class="commands">
-          <ng-content select="[command]"></ng-content>
-          @for (command of commands; track command) {
-            @if (command.isShown) {
-              <sh-icon pointer name="{{command.icon}}" [class.disabled]="!command.isEnabled"
-                (click)="command.isEnabled && command.handler(command)" title="{{command.name | translate}}"
-                role="button" [attr.tabindex]="0"
-                [attr.aria-label]="command.name | translate"
-                [attr.aria-disabled]="!command.isEnabled || null"
-                (keydown.enter)="command.isEnabled && command.handler(command)"
-                (keydown.space)="$event.preventDefault(); command.isEnabled && command.handler(command)">
-              </sh-icon>
-            }
-          }
-          <sh-commands-bar [family]="commandsFamily">
-            <ng-template #commandsTemplate let-command="$implicit">
-              @if (command.visible !== false) {
-                <sh-icon pointer name="{{command.iconClassName}}"
-                  [class.disabled]="command.enabled === false"
-                  (click)="command.enabled !== false && command.handler(command)"
-                  title="{{(command.caption || command.label) | translate}}"
-                  role="button" [attr.tabindex]="0"
-                  [attr.aria-label]="(command.caption || command.label) | translate"
-                  [attr.aria-disabled]="command.enabled === false || null"
-                  (keydown.enter)="command.enabled !== false && command.handler(command)"
-                  (keydown.space)="$event.preventDefault(); command.enabled !== false && command.handler(command)">
-                </sh-icon>
-              }
-            </ng-template>
-          </sh-commands-bar>
-        </div>
-      </div>
-      <div class="card-body" title="" [class.indented]="hasIndentedContent" [attr.scrollable]="isScrollable || null">
-        <ng-content></ng-content>
-      </div>
-      <div class="card-footer">
-        @if (hasCancelButton) {
-          <sh-button (clicked)="cancel.emit()">{{cancelText}}</sh-button>
-        }
-        <ng-content select="[footer]"></ng-content>
-        @if (hasConfirmButton) {
-          <sh-button [primary]="true" [enable]="isValid" (clicked)="confirm.emit()">{{confirmText}}</sh-button>
-        }
+<sh-form *ngIf="isReady" [model]="model">
+  <div class="card" title="{{title | translate}}" [style.width]="width" [style.height]="height"
+    [id]="internalOptions.id">
+    <div class="card-toolbar">
+      <div class="title" translate>{{title}}</div>
+      <ng-content select="[toolbar]"></ng-content>
+      <div class="commands">
+        <ng-content select="[command]"></ng-content>
+        <ng-container *ngFor="let command of commands">
+          <sh-icon *ngIf="command.isShown" pointer name="{{command.icon}}" [class.disabled]="!command.isEnabled"
+            (click)="command.isEnabled && command.handler(command)" title="{{command.name | translate}}">
+          </sh-icon>
+        </ng-container>
+        <sh-commands-bar [family]="commandsFamily">
+          <ng-template #commandsTemplate let-command="$implicit">
+            <sh-icon *ngIf="command.visible !== false" pointer name="{{command.iconClassName}}"
+              [class.disabled]="command.enabled === false"
+              (click)="command.enabled !== false && command.handler(command)"
+              title="{{(command.caption || command.label) | translate}}">
+            </sh-icon>
+          </ng-template>
+        </sh-commands-bar>
       </div>
     </div>
-  </sh-form>
-}
+    <div class="card-body" title="" [class.indented]="hasIndentedContent" [attr.scrollable]="isScrollable || null">
+      <ng-content></ng-content>
+    </div>
+    <div class="card-footer">
+      <sh-button *ngIf="hasCancelButton" (clicked)="cancel.emit()">{{cancelText}}</sh-button>
+      <ng-content select="[footer]"></ng-content>
+      <sh-button *ngIf="hasConfirmButton" [primary]="true" [enable]="isValid" (clicked)="confirm.emit()">
+        {{confirmText}}</sh-button>
+    </div>
+  </div>
+</sh-form>

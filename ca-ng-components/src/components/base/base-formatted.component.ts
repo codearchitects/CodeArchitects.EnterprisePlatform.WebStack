@@ -1,12 +1,8 @@
-import { Injector, Directive, inject, OnInit } from '@angular/core';
-import * as _ from 'lodash-es';
+import { Injector } from '@angular/core';
+import * as _ from 'lodash';
 import 'jquery';
 import { IShBaseInputOptions, ShBaseInputComponent } from './base-input.component';
 import { ShFormControlMode } from '../../utilities/form-control.utility';
-import { ShFormattedControlValueAccessorDirective } from '../../directives/formatted-control-value-accessor.directive';
-import { takeUntil } from 'rxjs';
-import { TouchedChangeEvent } from '@angular/forms';
-import { FORMATTED_CVA_MODEL_PROPERTY_NAME } from '../../utilities/common.utility';
 
 /**
  * Base Input Formatted Component options contract
@@ -22,8 +18,8 @@ export interface IShBaseFormattedOptions<T>
 /**
  * Base Component which introduces the text formatting
  */
-@Directive()
-export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOptions<T>> extends ShBaseInputComponent<T, O> implements OnInit {
+export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOptions<T>>
+  extends ShBaseInputComponent<T, O> {
   /**
    * Context mode: Browse or Edit
    */
@@ -31,49 +27,29 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
   /**
    * Stores the old value to allow rollback
    */
-  /*protected*/ public oldValue = '';
+  protected oldValue = '';
   /**
    * Performs a tolerant check which if returns true
    * allows the commit
    */
-  /*protected*/ public abstract tolerantCheck(): boolean;
+  protected abstract tolerantCheck(): boolean;
   /**
    * Parses control value to retrieves a new model value
    */
-  /*protected*/ public abstract parseControlValue(): T;
+  protected abstract parseControlValue(): T;
   /**
    * Parses model property value to retrieves a new form control value
    */
-  /*protected*/ public abstract formatModelValue(): string;
-
-  protected override _controlValueAccessor? = inject(ShFormattedControlValueAccessorDirective<T>, { optional: true });
+  protected abstract formatModelValue(): string;
 
   /**
    * Base Component which introduces the text formatting
    */
   constructor(injector: Injector) {
     super(injector);
-    if (this._controlValueAccessor) {
-      this._controlValueAccessor.host = this;
-    }
   }
 
-  public ngOnInit(): void {
-    if (this._controlValueAccessor && !this.model) {
-      this.model = {};
-      this.prop = FORMATTED_CVA_MODEL_PROPERTY_NAME;
-      super.ngOnInit();
-      this.formControl.events.pipe(takeUntil(this.destroy$)).subscribe(event => {
-        if (event instanceof TouchedChangeEvent && event.touched) {
-          this._controlValueAccessor.onTouchedFn();
-        }
-      });
-    } else {
-      super.ngOnInit();
-    }
-  }
-
-  /*protected*/ public onControlValueChanges() {
+  protected onControlValueChanges() {
     if (this.mode === ShFormControlMode.Edit) {
       if (this.tolerantCheck()) {
         this.commit();
@@ -83,7 +59,7 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
     }
   }
 
-  /*protected*/ public modelValueChangesHandler() {
+  protected modelValueChangesHandler() {
     if (this.mode === ShFormControlMode.Browse) {
       this.updateControlValue();
     }
@@ -92,7 +68,7 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
   /**
    * Applies the changes to the model property value
    */
-  /*protected*/ public commit() {
+  protected commit() {
     this.oldValue = this.getControlValue();
     this.updateModelValue();
   }
@@ -100,7 +76,7 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
   /**
    * Rollbacks the changes and restore the old value
    */
-  /*protected*/ public rollback() {
+  protected rollback() {
     if (!_.isEqual(this.getControlValue(), this.oldValue)) {
       this.setControlValue(this.oldValue);
     }
@@ -110,7 +86,7 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
    * Updates control value
    * @param value new value
    */
-  /*protected*/ public updateControlValue(value = this.formatModelValue()) {
+  protected updateControlValue(value = this.formatModelValue()) {
     if (!_.isEqual(this.getControlValue(), value)) {
       this.setControlValue(value);
     }
@@ -120,10 +96,9 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
    * Updates model property value
    * @param value new value
    */
-  /*protected*/ public updateModelValue(value = this.parseControlValue()) {
+  protected updateModelValue(value = this.parseControlValue()) {
     if (!_.isEqual(this.getModelValue(), value)) {
       this.setModelValue(value);
-      this._controlValueAccessor?.onChangeFn?.(value);
     }
   }
 
@@ -131,10 +106,9 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
    * Event fired when input control takes the focus
    * @param event HTML5 event
    */
-  /*protected*/ public onFocusIn(event?: FocusEvent) {
+  protected onFocusIn(event?: FocusEvent) {
     this.formControl.mode = ShFormControlMode.Edit;
     this.updateControlValue();
-    this.oldValue = this.getControlValue();
     if (event) {
       $(event.target).select();
     }
@@ -144,7 +118,7 @@ export abstract class ShBaseFormattedComponent<T, O extends IShBaseFormattedOpti
    * Event fired when input control loses the focus
    * @param event HTML5 event
    */
-  /*protected*/ public onFocusOut(event?: FocusEvent) {
+  protected onFocusOut(event?: FocusEvent) {
     this.formControl.mode = ShFormControlMode.Browse;
     this.updateControlValue();
   }

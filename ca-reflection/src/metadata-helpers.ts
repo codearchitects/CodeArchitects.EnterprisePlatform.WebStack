@@ -1,7 +1,7 @@
 /**
  * Helper class for extracting metadata from decorators
  */
-export type defineMetadataRetval = (target: any, key?: string, descriptor?: PropertyDescriptor) => void;
+export type defineMetadataRetval = (target: any, key?: string) => void;
 
 /**
  * metadata options used for setting and reading meta data informations
@@ -300,10 +300,10 @@ export class MetadataHelpers {
    * // metadata === true;
    * ```
    */
-  public static defineMetadata<TParams>(key: any, metadata: TParams, callback?: (target: any, targetKey: string, descriptor?: PropertyDescriptor) => TParams): defineMetadataRetval {
-    return (target: any, targetKey: string, descriptor?: PropertyDescriptor) => {
+  public static defineMetadata<TParams>(key: any, metadata: TParams, callback?: (target: any, targetKey: string) => TParams): defineMetadataRetval {
+    return (target: any, targetKey: string) => {
       if (callback) {
-        metadata = callback(target, targetKey, descriptor);
+        metadata = callback(target, targetKey);
       }
       let tempKey = MetadataHelpers.getClassName(target) + '::' + key;
       Reflect['defineMetadata'](tempKey, metadata, target, targetKey);

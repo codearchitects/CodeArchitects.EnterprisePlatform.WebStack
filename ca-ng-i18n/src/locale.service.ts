@@ -11,7 +11,7 @@ export class LocaleService {
   constructor(
     @Inject(LOCALE_ID) locale: string
   ) {
-    this.locale$ = new BehaviorSubject<string>(locale.substring(0, 2));
+    this.locale$ = new BehaviorSubject<string>(locale.substr(0, 2));
   }
 
   getLocale(): Observable<string> {
@@ -19,8 +19,7 @@ export class LocaleService {
   }
 
   setLocale(locale: string) {
-    if(this.locale$.value !== locale)
-      this.locale$.next(locale);
+    this.locale$.next(locale);
   }
 
 }

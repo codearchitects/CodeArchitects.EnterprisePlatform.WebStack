@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { I18nService, Mstring, I18nPipe } from '@ca-webstack/ng-i18n';
 import { TranslateService, TranslatePipe } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
 
 /**
  * Pipe which apply translation using i18n service or translate service
@@ -9,8 +8,7 @@ import { lastValueFrom } from 'rxjs';
  * The pipe must be used with async pipe (value | interpret | async)
  */
 @Pipe({
-    name: 'interpret',
-    standalone: false
+  name: 'interpret'
 })
 export class ShInterpretPipe implements PipeTransform {
 
@@ -20,9 +18,9 @@ export class ShInterpretPipe implements PipeTransform {
     let translation: string;
     if (value) {
       if ((value as Mstring).key) {
-        translation = await lastValueFrom(this._i18nService.get(value as Mstring));
+        translation = await this._i18nService.get(value as Mstring).toPromise();
       } else {
-        translation = await lastValueFrom(this._translateService.get(value as string));
+        translation = await this._translateService.get(value as string).toPromise();
       }
     }
     return translation;

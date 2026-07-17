@@ -1,48 +1,15 @@
 # ca-ng-data-context
 
-> `@ca-webstack/ng-data-context` — Angular wrapper for the DataContext identity-map service.
-
 ## Overview
 
-A thin Angular wrapper around `@ca-webstack/data-context`, providing `DataContextService` as an injectable Angular service with `attach()` and `detach()` methods.
+## Status
 
-## Installation
-
-```bash
-npm install @ca-webstack/ng-data-context
-```
-
-### Peer Dependencies
-
-- `@ca-webstack/change-tracker` ~21.1.0
-- `@ca-webstack/data-context` ~21.1.0
-- `@ca-webstack/data-structures` ~21.1.0
-- `@ca-webstack/reflection` ~21.1.0
-
-## Quick Start
-
-```typescript
-import { DataContextModule, DataContextService } from '@ca-webstack/ng-data-context';
-
-// In your module:
-@NgModule({ imports: [DataContextModule] })
-export class AppModule { }
-
-// In your component/service:
-constructor(private dataContext: DataContextService) { }
-
-load(data: Customer) {
-  const entity = this.dataContext.attach(data);
-}
-```
-
-## Key Exports
-
-| Symbol | Description |
-|---|---|
-| `DataContextModule` | NgModule providing `DataContextService`. |
-| `DataContextService` | Injectable service wrapping `DataContext.attach()` and `detach()`. |
+|         | Build & Test                                                                                                                                            |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![Win](docs/images/os/win_med.png) **Windows** | *not configured yet* |
+| ![macOS](docs/images/os/apple_med.png) **macOS**   | *not configured yet*                                                                                         |
+| ![Linux](docs/images/os/linux_med.png) **Linux**   | *not configured yet*                                                                                         |
 
 ## More Documentation
 
-[Full API documentation](docs/index.md)
+[Documentation Here](docs/index.md)

@@ -1,24 +1,12 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/common' as *;
+@import '../../styles/colors';
+@import '../../styles/common';
 
-// This control's real habitat is always a dark bar (sidebar/header,
-// $sh-lush-black) — $sh-metallic-gray already clears 4.5:1 there (4.56:1).
-// $sh-text-gray (the light-context text token) was tried here in error: it
-// only works on light backgrounds and drops to 2.16:1 on the dark bar.
-$sidebar-search-color: var(--sidebar-search-color, $sh-metallic-gray);
-$sidebar-search-font-size: var(--sidebar-search-font-size, 16px);
-$sidebar-search-icon-distance: var(--sidebar-search-icon-distance, 25px);
-$sidebar-search-icon-color: var(--sidebar-search-icon-color, $sidebar-search-color);
-$sidebar-search-border: var(--sidebar-search-border, none);
-$sidebar-search-results-background: var(--sidebar-search-results-background, $sh-lush-black);
-$sidebar-search-results-scrollbar-track-color: var(--sidebar-search-results-scrollbar-track-color, transparent);
-$sidebar-search-result-border-bottom-color: var(--sidebar-search-result-border-bottom-color, $sh-light-gray);
-$sidebar-search-current-result-color: var(--sidebar-search-current-result-color, $sh-silver);
-$sidebar-search-selected-result-color: var(--sidebar-search-selected-result-color, $sh-white);
+$sidebar-search-font-size: 16px;
+$sidebar-search-icon-distance: 25px;
 
 :host {
   sh-icon {
-    color: $sidebar-search-icon-color;
+    color: $sh-metallic-gray;
     top: 50%;
     position: absolute;
     left: 0;
@@ -27,57 +15,41 @@ $sidebar-search-selected-result-color: var(--sidebar-search-selected-result-colo
 
   ::ng-deep sh-combo {
     input {
-      border: $sidebar-search-border !important;
+      border: none !important;
       padding-right: 0 !important;
-      color: $sidebar-search-color !important;
+      color: $sh-metallic-gray !important;
       vertical-align: top;
       padding-left: $sidebar-search-icon-distance !important;
       font-size: $sidebar-search-font-size !important;
 
       &::placeholder {
-        color: $sidebar-search-color !important;
+        color: $sh-metallic-gray !important;
       }
     }
 
     .results {
-      background: $sidebar-search-results-background !important;
+      background: $sh-lush-black !important;
 
       &::-webkit-scrollbar {
-        background: $sidebar-search-results-scrollbar-track-color;
+        background: transparent;
       }
 
       li {
-        border-bottom-color: $sidebar-search-result-border-bottom-color !important;
+        border-bottom-color: $sh-light-gray !important;
 
         &.current-item {
-          color: $sidebar-search-current-result-color !important;
+          color: $sh-silver !important;
         }
 
         &.selected {
-          color: $sidebar-search-selected-result-color !important;
+          color: $sh-white !important;
         }
       }
     }
 
+    label[for],
     sh-icon {
       display: none;
-    }
-
-    // The combo renders an associated <label for> that is the search input's
-    // accessible name (WCAG 4.1.2). The design shows only the in-field
-    // placeholder + the search glyph, so the label is hidden visually — but it
-    // must stay in the accessibility tree, so hide it visually instead of with
-    // `display: none` (which would strip the accessible name).
-    label[for] {
-      position: absolute !important;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
     }
   }
 }

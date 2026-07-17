@@ -3,8 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { isNoU } from '../utilities/common.utility';
 
 @Pipe({
-    name: 'year',
-    standalone: false
+  name: 'year'
 })
 export class ShYearPipe implements PipeTransform {
 

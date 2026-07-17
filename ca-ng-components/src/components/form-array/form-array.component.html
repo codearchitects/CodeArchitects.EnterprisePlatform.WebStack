@@ -1,6 +1,4 @@
-@if (show && formGroup) {
-  <div [formGroup]="formGroup">
-    <ng-template ngFor [ngForOf]="model" [ngForTemplate]="template"></ng-template>
-    <sh-validation-message [model]="model" [options]="internalOptions" [enable]="enable" [show]="show"></sh-validation-message>
-  </div>
-}
+<div *ngIf="show && formGroup" [formGroup]="formGroup">
+  <ng-template ngFor [ngForOf]="model" [ngForTemplate]="template"></ng-template>
+  <sh-validation-message [model]="model" [options]="internalOptions" [enable]="enable" [show]="show"></sh-validation-message>
+</div>

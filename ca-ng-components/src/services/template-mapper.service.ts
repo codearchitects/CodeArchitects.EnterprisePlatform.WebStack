@@ -5,7 +5,7 @@ import { TemplateDictionary } from '../utilities/template-dictionary.utility';
 export class TemplateMapperService {
 
   constructor(
-    /*protected*/ public templates: TemplateDictionary
+    protected templates: TemplateDictionary
   ) { }
 
   findTemplateByName(templateName = 'TEXT'): Type<any> {

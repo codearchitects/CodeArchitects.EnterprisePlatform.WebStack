@@ -1,0 +1,20 @@
+parameters:
+- name: workDir
+  type: string
+  default: $(System.DefaultWorkingDirectory)
+- name: feed
+  type: string
+- name: organization
+  type: string
+
+steps:
+- task: PowerShell@2
+  displayName: npm logout from ${{ parameters.feed }}
+  condition: succeededOrFailed()
+  inputs:
+    targetType: inline
+    workingDirectory: ${{ parameters.workDir }}
+    script: |
+      npm config delete "//${{ parameters.organization }}/_packaging/${{ parameters.feed }}/npm/registry/:username"
+      npm config delete "//${{ parameters.organization }}/_packaging/${{ parameters.feed }}/npm/registry/:_password"
+      npm config get

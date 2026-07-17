@@ -2,8 +2,7 @@ import { Directive, ElementRef } from '@angular/core';
 import { yieldFunc } from '../utilities/common.utility';
 
 @Directive({
-    selector: '[shDropdown]',
-    standalone: false
+  selector: '[shDropdown]'
 })
 export class ShDropdownDirective {
   constructor(element: ElementRef) {

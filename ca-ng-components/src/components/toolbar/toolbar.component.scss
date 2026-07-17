@@ -1,17 +1,8 @@
-@use '../../../styles/colors' as *;
-@use '../../../styles/common' as *;
+@import '../../styles/colors';
+@import '../../styles/common';
 
-$toolbar-background: var(--toolbar-background, var(--sh-first-text));
-$toolbar-leeway-left-recess: var(--toolbar-leeway-left-recess, $bar-recess);
-$toolbar-back-button-font-size: var(--toolbar-back-button-font-size, 20px);
-$toolbar-back-button-left-recess: var(--toolbar-back-button-left-recess, 8px);
-$toolbar-content-right-recess: var(--toolbar-content-right-recess, $bar-recess);
-$toolbar-lang-control-width: var(--toolbar-lang-control-width, 55px);
-$toolbar-lang-control-color: var(--toolbar-lang-control-color, $sh-white);
-$toolbar-lang-control-results-background: var(--toolbar-lang-control-results-background, $toolbar-background);
-$toolbar-lang-control-result-color: var(--toolbar-lang-control-result-color, color-opacity($sh-white, .5));
-$toolbar-lang-control-current-result-color: var(--toolbar-lang-control-current-result-color, color-opacity($sh-white, .7));
-$toolbar-lang-control-selected-result-color: var(--toolbar-lang-control-selected-result-color, $sh-white);
+$back-button-size: 20px;
+$back-button-left-recess: 8px;
 
 @media (max-width: $bars-width-breakpoint) {
   sh-breadcrumb {
@@ -25,7 +16,7 @@ $toolbar-lang-control-selected-result-color: var(--toolbar-lang-control-selected
   left: $sidebar-collapsed-width;
   right: 0;
   height: $toolbar-height;
-  background: $toolbar-background;
+  background: $sh-azure;
   transition: $bars-transition-speed left;
   z-index: 998;
 
@@ -35,16 +26,16 @@ $toolbar-lang-control-selected-result-color: var(--toolbar-lang-control-selected
     position: relative;
     display: flex;
     align-items: center;
-    padding-left: $toolbar-leeway-left-recess;
+    padding-left: $bar-recess;
 
     ::ng-deep.back-button {
 
       button {
-        padding-left: $toolbar-back-button-left-recess;
+        padding-left: $back-button-left-recess;
       }
 
       i:before {
-        font-size: $toolbar-back-button-font-size;
+        font-size: $back-button-size;
         vertical-align: text-top;
       }
     }
@@ -56,16 +47,13 @@ $toolbar-lang-control-selected-result-color: var(--toolbar-lang-control-selected
     position: relative;
     display: flex;
     align-items: center;
-    padding-right: $toolbar-content-right-recess;
+    padding-right: $bar-recess;
 
     ::ng-deep.lang-control {
-      .select-container {
-        width: $toolbar-lang-control-width;
-      }
 
       sh-icon,
       .input {
-        color: $toolbar-lang-control-color !important;
+        color: $sh-white !important;
       }
 
       .input {
@@ -73,17 +61,17 @@ $toolbar-lang-control-selected-result-color: var(--toolbar-lang-control-selected
       }
 
       .results {
-        background: $toolbar-lang-control-results-background !important;
+        background: $sh-azure !important;
 
         .result {
-          color: $toolbar-lang-control-result-color !important;
+          color: color-opacity($sh-white, .5) !important;
 
           &.current-item {
-            color: $toolbar-lang-control-current-result-color !important;
+            color: color-opacity($sh-white, .7) !important;
           }
 
           &.selected {
-            color: $toolbar-lang-control-selected-result-color !important;
+            color: $sh-white !important;
           }
         }
       }

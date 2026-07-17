@@ -137,6 +137,7 @@ export class OtherClassWithSameFieldsWithoutDecorators extends CommonBase {
   public x: number;
   public y: number;
 
+  // TODO: =DG= this must work without the following empty JsonProperty
   // @JsonProperty()
   public angleDeg: number;
 
@@ -251,6 +252,8 @@ export class ObjectWithDateTime extends CommonBase {
   static converToHasBeenCalled = false;
   static converFromHasBeenCalled = false;
 
+  private _startDateTime: DateTime;
+
   @JsonProperty({
     transformation: {
       name: 'dataInizio',
@@ -258,10 +261,8 @@ export class ObjectWithDateTime extends CommonBase {
       convertFrom: (str) => {debugger; ObjectWithDateTime.converFromHasBeenCalled = true; return new DateTime(str); }
     }
   })
-  public startDateTime: DateTime;
-
-  //public get startDateTime(): DateTime { return this._startDateTime; }
-  //public set startDateTime(value: DateTime) { this._startDateTime = value; }
+  public get startDateTime(): DateTime { return this._startDateTime; }
+  public set startDateTime(value: DateTime) { this._startDateTime = value; }
 
   constructor() {
     super();
@@ -278,6 +279,8 @@ export class ObjectWithDateTimeBis {
 
 @JsonObject()
 export class ObjectWithDateTimeBis2 {
+  private _startDateTime: DateTime;
+
   @JsonProperty({
     transformation: {
       name: 'dataInizio',
@@ -285,10 +288,8 @@ export class ObjectWithDateTimeBis2 {
       convertFrom: (str) => {debugger; ObjectWithDateTime.converFromHasBeenCalled = true; return new DateTime(str); }
     }
   })
-  public startDateTime: DateTime;
-
-  //public get startDateTime(): DateTime { return this._startDateTime; }
-  //public set startDateTime(value: DateTime) { this._startDateTime = value; }
+  public get startDateTime(): DateTime { return this._startDateTime; }
+  public set startDateTime(value: DateTime) { this._startDateTime = value; }
 }
 
 

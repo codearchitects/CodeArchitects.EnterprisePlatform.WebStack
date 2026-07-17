@@ -1,19 +1,16 @@
-@use "../../../styles/colors" as *;
-@use "../../../styles/input" as *;
-@use "../../../styles/functions" as *;
+@import "../../styles/colors";
+@import "../../styles/input";
+@import "../../styles/functions";
 
 $validation-message-font-size: v(validation-message-font-size, 12px);
-$validation-message-font-family: var(--validation-message-font-family, RobotoBold);
-$validation-message-error-color: var(--validation-message-error-color, $sh-red);
-$validation-message-warning-color: var(--validation-message-warning-color, $sh-warning-text);
 
 p {
-  font-family: $validation-message-font-family;
+  font-family: RobotoBold;
   font-size: $validation-message-font-size;
   margin: calc(#{$input-recess}/ 2) $input-recess;
-  color: $validation-message-error-color;
+  color: $sh-red;
 
   &.warning {
-    color: $validation-message-warning-color;
+    color: $sh-mandarin;
   }
 }

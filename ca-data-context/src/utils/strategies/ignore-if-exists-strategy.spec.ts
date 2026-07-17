@@ -1,63 +1,63 @@
 import { IgnoreIfExistsStrategy } from './ignore-if-exists-strategy';
 import { IMergeStrategy } from '../merge-strategy';
 import { Person } from '../fixtures/models';
+import { expect } from 'chai';
 
 describe('IgnoreIfExistsStrategy', () => {
 
-  let mergeStrategy: IMergeStrategy;
-
   beforeEach(() => {
     // Arrange
-    mergeStrategy = new IgnoreIfExistsStrategy();
+    this.mergeStrategy = new IgnoreIfExistsStrategy();
   });
 
   it('should be defined', () => {
     // Assert
-    expect(IgnoreIfExistsStrategy).toBeDefined();
-    expect(mergeStrategy).toBeDefined();
-    expect(mergeStrategy instanceof IgnoreIfExistsStrategy).toBe(true);
+    expect(IgnoreIfExistsStrategy).to.exist;
+    expect(this.mergeStrategy).to.exist;
+    expect(this.mergeStrategy instanceof IgnoreIfExistsStrategy).to.be.true;
   });
 
   it('should return the attached object', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new Person();
     attachedObject.name = 'Jhon';
     let newObject = new Person();
     newObject.name = 'Jack';
 
-    // Act
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toBe(attachedObject);
+    //Assert
+    expect(actual).to.be.equal(attachedObject);
   });
 
   it('should return the new object if attached object is undefined', () => {
-    // Arrange
+    //Arrange
     let attachedObject = undefined;
     let newObject = new Person();
     newObject.name = 'Jack';
 
-    // Act
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    //Act
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toBe(newObject);
+    //Assert
+    expect(actual).to.be.equal(newObject);
   });
 
   it('should return the attached object with old values', () => {
-    // Arrange
+    //Arrange
     let attachedObject = new Person();
     attachedObject.name = 'Jhon';
     let newObject = new Person();
     newObject.name = 'Jack';
 
-    // Act
+    //Act
     let expected = new Person();
     expected.name = 'Jhon';
-    let actual = mergeStrategy.merge(newObject, attachedObject);
+    let actual = (<IMergeStrategy>this.mergeStrategy).merge(newObject, attachedObject);
 
-    // Assert
-    expect(actual).toEqual(expected);
+    //Assert
+    expect(actual).to.be.deep.equal(expected);
   });
 });
+

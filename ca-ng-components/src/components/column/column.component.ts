@@ -2,8 +2,8 @@ import { Subject } from 'rxjs';
 import { Component, Input, SimpleChanges, OnChanges, ElementRef, Injector, OnInit } from '@angular/core';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 import { ShBaseComponent } from '../base/index';
-import { isNoU } from '../../utilities';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { isNoU } from 'src/utilities';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 
 /**
  * Columns available resolutions keys
@@ -11,12 +11,12 @@ import { shChangeDetectorStrategy } from '../../environments/change-detection-st
 export type ColumnResolution = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'all';
 
 @Component({
-    selector: 'column',
-    templateUrl: './column.component.html',
-    styleUrls: ['./column.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  // tslint:disable-next-line:component-selector
+  selector: 'column',
+  templateUrl: './column.component.html',
+  styleUrls: ['./column.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Layout grid column component
  */
@@ -94,7 +94,7 @@ export class ShColumnComponent extends ShBaseComponent<any> implements OnInit, O
   /**
    * Computed style
    */
-  /*protected*/ public style: string;
+  protected style: string;
   /**
    * Component Element
    */
@@ -102,7 +102,7 @@ export class ShColumnComponent extends ShBaseComponent<any> implements OnInit, O
   /**
    * Setup observable
    */
-  private _setup$ = new Subject<void>();
+  private _setup$ = new Subject();
 
   /**
    * Layout grid column component

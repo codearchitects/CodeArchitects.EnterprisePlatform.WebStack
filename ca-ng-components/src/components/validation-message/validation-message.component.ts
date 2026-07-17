@@ -1,11 +1,11 @@
-import { ShFormControl } from './../../utilities/form-control.utility';
-import { Component, Injector, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Injector, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import * as _ from 'lodash-es';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import * as _ from 'lodash';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { ComplexTypeList } from '../../utilities/complex-type.list';
 import { IShBaseOptions, ShBaseModelComponent } from '../base/index';
 import { IShMessages } from '../pipes/index';
+import { ShFormControl } from './../../utilities/form-control.utility';
 
 export interface IShValidatorMessageOptions
   extends IShBaseOptions {
@@ -14,33 +14,27 @@ export interface IShValidatorMessageOptions
 }
 
 @Component({
-    selector: 'sh-validation-message',
-    templateUrl: './validation-message.component.html',
-    styleUrls: ['./validation-message.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-validation-message',
+  templateUrl: './validation-message.component.html',
+  styleUrls: ['./validation-message.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
-export class ShValidationMessageComponent<T, O extends IShValidatorMessageOptions, TValidationMessage = string>
+export class ShValidationMessageComponent<T, O extends IShValidatorMessageOptions>
   extends ShBaseModelComponent<T, O>
   implements OnChanges, OnInit {
 
-  /**
-   * The parent object which contains the model
-   */
-  @Input() public parent?: { [id: string]: any; };
-
   // Services
-  /*protected*/ public complexType: ComplexTypeList;
+  protected complexType: ComplexTypeList;
 
   // Internals
-  /*protected*/ public control: AbstractControl;
+  public control: AbstractControl;
 
-  get errors(): TValidationMessage[] {
-    return (this.control && this.control.errors ? Object.keys(this.control.errors) : []) as TValidationMessage[];
+  get errors() {
+    return this.control && this.control.errors ? Object.keys(this.control.errors) : [];
   }
 
-  get warnings(): TValidationMessage[] {
-    return (this.control && (<ShFormControl>this.control).warnings ? Object.keys((<ShFormControl>this.control).warnings) : []) as TValidationMessage[];
+  get warnings() {
+    return this.control && (<ShFormControl>this.control).warnings ? Object.keys((<ShFormControl>this.control).warnings) : [];
   }
 
   constructor(injector: Injector) {
@@ -50,8 +44,8 @@ export class ShValidationMessageComponent<T, O extends IShValidatorMessageOption
 
   ngOnChanges(changes: SimpleChanges) {
     super.ngOnChanges(changes);
-    if ((changes['model'] && !this.isChangeEqual(changes['model'])) || (changes['prop'] && !this.isChangeEqual(changes['prop'])) || (changes['parent'] && !this.isChangeEqual(changes['parent']))) {
-      //this.formHandler.removeGroup(changes['model'].previousValue);
+    if (changes['model'] && !this.isChangeEqual(changes['model'])) {
+      this.formHandler.removeGroup(changes['model'].previousValue);
       delete this.control;
     }
     this.getControl();
@@ -62,24 +56,21 @@ export class ShValidationMessageComponent<T, O extends IShValidatorMessageOption
     this.getControl();
   }
 
-  /*protected*/ public getControl() {
+  protected getControl() {
     if (!this.control) {
       if (this.prop) {
-        if (this.parent) {
-          // undefined parent[prop] not supported, should throw error?
-          this.control = this.formHandler.isFormArrayEnabled && this.parent[this.prop] instanceof Array ? this.formHandler.getArray(this.prop, this.parent) : this.formHandler.getGroup(this.prop, this.parent);
-        } else if (this.isComplexType(this.model[this.prop])) {
+        if (this.isComplexType(this.model[this.prop])) {
           this.control = this.formHandler.getGroup(this.model[this.prop], this.model);
         } else {
           this.control = this.formHandler.getControl(this.model, this.prop);
         }
       } else {
-        this.control = this.formHandler.isFormArrayEnabled && this.model instanceof Array ? this.formHandler.getArray(this.model) : this.formHandler.getGroup(this.model);
+        this.control = this.formHandler.getGroup(this.model);
       }
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShBaseOptions {
+  protected getDefaultOptions(): IShBaseOptions {
     return _.merge(super.getDefaultOptions(), {
       showValidationMessage: true,
       messages: {}

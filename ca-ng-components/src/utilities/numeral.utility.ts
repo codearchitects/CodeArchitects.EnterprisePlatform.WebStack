@@ -1,5 +1,5 @@
-import { NumeralPipe } from '../pipes/numeral.pipe';
-import numeral from 'numeral';
+import { NumeralPipe } from 'ngx-numeral';
+import * as numeral from 'numeral';
 
 class ShNumeral {
   private static _instance: NumeralPipe;

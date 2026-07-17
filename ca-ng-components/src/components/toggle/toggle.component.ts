@@ -1,8 +1,8 @@
 import { Component, Injector } from '@angular/core';
-import { FormDesignerControl } from '../../decorators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
-import { IN } from '../../utilities/common.utility';
-import { KeyCode } from "../../utilities/key-code.const";
+import { FormDesignerControl } from 'src/decorators';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
+import { IN } from 'src/utilities/common.utility';
+import { KeyCode } from 'src/utilities/key-code.const';
 import { IShBaseInputOptions, ShBaseInputComponent } from '../base/base-input.component';
 
 /**
@@ -20,16 +20,15 @@ export interface IShToggleOptions extends IShBaseInputOptions<boolean> {
   shortDescription: 'Toggle Control'
 })
 @Component({
-    selector: 'sh-toggle',
-    templateUrl: './toggle.component.html',
-    styleUrls: ['./toggle.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-toggle',
+  templateUrl: './toggle.component.html',
+  styleUrls: ['./toggle.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 /**
  * Toggle component
  */
-export class ShToggleComponent extends ShBaseInputComponent<boolean, IShBaseInputOptions<boolean>> {
+export class ShToggleComponent extends ShBaseInputComponent<boolean, IShToggleOptions> {
   /**
    * Toggle component
    */
@@ -41,8 +40,8 @@ export class ShToggleComponent extends ShBaseInputComponent<boolean, IShBaseInpu
    * Event fired on key
    * @param e Keyboard event
    */
-  /*protected*/ public onKey(e: KeyboardEvent) {
-    if (!this.internalOptions.isReadonly && this.enable !== false) {
+  protected onKey(e: KeyboardEvent) {
+    if (this.enable && !this.internalOptions.isReadonly) {
       const keycode = e.keyCode || e.which;
       if (IN(keycode, KeyCode.ENTER, KeyCode.SPACE)) {
         this.toggle();
@@ -55,17 +54,15 @@ export class ShToggleComponent extends ShBaseInputComponent<boolean, IShBaseInpu
   /**
    * Toggles control value
    */
-  /*protected*/ public toggle() {
-    if (!this.internalOptions.isReadonly && this.enable !== false) {
-      this.setControlValue(!this.getControlValue());
-      this.touch();
-    }
+  protected toggle() {
+    this.setControlValue(!this.getControlValue());
+    this.touch();
   }
 
   /**
    * Marks form control as touched
    */
-  /*protected*/ public touch() {
+  protected touch() {
     if (!this.formControl.touched) {
       this.formControl.markAsTouched();
     }

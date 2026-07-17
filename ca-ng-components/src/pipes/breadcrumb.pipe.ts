@@ -1,16 +1,17 @@
-import { IShBreadcrumbStackFrame } from "../components/breadcrumb/interface";
-import { Pipe, PipeTransform } from "@angular/core";
+import { IShBreadcrumbStackFrame } from './../index';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: "breadcrumb",
-    standalone: false
+  name: 'breadcrumb'
 })
 export class ShBreadcrumbPipe implements PipeTransform {
+
   transform(frame: IShBreadcrumbStackFrame): string[] {
     const routerLink = [];
     if (frame) {
-      routerLink.push('/', ...frame.application, ...frame.domain, ...frame.scenario, ...frame.action);
+      routerLink.push(...frame.domain, ...frame.scenario, ...frame.action);
     }
     return routerLink;
   }
+
 }

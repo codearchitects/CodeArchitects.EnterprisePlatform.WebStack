@@ -1,19 +1,17 @@
-import { ShMaskComponent } from './mask/mask.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { A11yModule } from '@angular/cdk/a11y';
 import { I18nModule } from '@ca-webstack/ng-i18n';
 import { PolicyEngineModule } from '@ca-webstack/ng-policy-engine';
-import { AngularMyDatePickerModule } from '@nodro7/angular-mydatepicker';
+import { TranslateModule } from '@ngx-translate/core';
 import { ClickOutsideModule } from 'ng-click-outside';
-import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
+import { ContextMenuModule } from 'ngx-contextmenu';
+import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
+import { NumeralModule } from 'ngx-numeral';
 import 'numeral/locales';
-import { DEFAULT_NUMERAL } from '../pipes/numeral.pipe';
 import { ShDirectivesModule } from '../directives/directives.module';
 import { ShPipesModule } from '../pipes/pipes.module';
-import { ShProgressBarPercentPipe } from '../pipes/progress-bar.pipe';
 import { ShServicesModule } from '../services/services.module';
 import {
   ShTemplate,
@@ -45,10 +43,8 @@ import { ShLabelComponent } from './label/label.component';
 import { ShModalComponent } from './modal/modal.component';
 import { ShMultiSelectComponent } from './multiselect/multiselect.component';
 import { ShNumberComponent } from './number/number.component';
-import { ShOptionComponent } from './option/option.component';
 import { ShPercentComponent } from './percent/percent.component';
 import { ErrorMessagePipe, WarningMessagePipe } from './pipes/error-message.pipe';
-import { ShProgressBarComponent } from './progress-bar/progress-bar.component';
 import { ShRadioComponent } from './radio/radio.component';
 import { ShRowComponent } from './row/row.component';
 import { ShSectionComponent } from './section/section.component';
@@ -63,13 +59,14 @@ import { ShTemplateComponent } from './template/template.component';
 import { ShTextComponent } from './text/text.component';
 import { ShTextareaComponent } from './textarea/textarea.component';
 import { ShTimeComponent } from './time/time.component';
-import { ShTimerComponent } from './timer/timer.component';
 import { ShToggleComponent } from './toggle/toggle.component';
 import { ShToolbarComponent } from './toolbar/toolbar.component';
 import { ShValidationMessageComponent } from './validation-message/validation-message.component';
-import { CountdownComponent } from 'ngx-countdown';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-import { ShTranslateModule } from '../i18n/translate.module';
+import { ShProgressBarComponent } from './progress-bar/progress-bar.component';
+import { ShProgressBarPercentPipe } from '../pipes/progress-bar.pipe';
+import { ShUserPopover } from './user-popover/user-popover.component';
+import { ShPopoverCountrySelect } from './user-popover/popover-country-select/popover-country-select.component';
+import { InitialsPipe } from '../pipes/initials.pipe';
 
 @NgModule({
   imports: [
@@ -77,24 +74,22 @@ import { ShTranslateModule } from '../i18n/translate.module';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    A11yModule,
     PolicyEngineModule,
     ClickOutsideModule,
     ShServicesModule,
     I18nModule,
-    ShTranslateModule,
+    NumeralModule,
+    TranslateModule,
     ContextMenuModule,
-    AngularMyDatePickerModule,
+    NgxMyDatePickerModule,
     ShDirectivesModule,
-    ShPipesModule,
-    NgxMaskDirective,
-    NgxMaskPipe,
-    CountdownComponent
+    ShPipesModule
   ],
   exports: [
     PolicyEngineModule,
     // ClickOutsideModule,
-    AngularMyDatePickerModule,
+    NgxMyDatePickerModule,
+    NumeralModule,
     ShServicesModule,
     ShPipesModule,
     ShTemplateComponent,
@@ -113,7 +108,6 @@ import { ShTranslateModule } from '../i18n/translate.module';
     ShFormArrayComponent,
     ShCheckboxComponent,
     ShCheckgroupComponent,
-    ShOptionComponent,
     ShNumberComponent,
     ShPercentComponent,
     ShCurrencyComponent,
@@ -145,10 +139,8 @@ import { ShTranslateModule } from '../i18n/translate.module';
     ShSectionComponent,
     ShCommandsBarComponent,
     ShProgressBarComponent,
-    ShMaskComponent,
-    ShTimerComponent,
-    NgxMaskDirective,
-    NgxMaskPipe
+    ShUserPopover,
+    ShPopoverCountrySelect
   ],
   declarations: [
     ShTemplateComponent,
@@ -169,7 +161,6 @@ import { ShTranslateModule } from '../i18n/translate.module';
     ShTimeComponent,
     ShModalComponent,
     ShNumberComponent,
-    ShOptionComponent,
     ShPercentComponent,
     ShCurrencyComponent,
     ShSelectComponent,
@@ -200,15 +191,43 @@ import { ShTranslateModule } from '../i18n/translate.module';
     ShCommandsBarComponent,
     ShProgressBarComponent,
     ShProgressBarPercentPipe,
-    ShMaskComponent,
-    ShTimerComponent
+    ShUserPopover,
+    ShPopoverCountrySelect
+  ],
+  entryComponents: [
+    ShTemplateComponent,
+    ShFormControlComponent,
+    ShLabelComponent,
+    ShValidationMessageComponent,
+    ShButtonComponent,
+    ShFormComponent,
+    ShFormGroupComponent,
+    ShFormArrayComponent,
+    ShCheckboxComponent,
+    ShCheckgroupComponent,
+    ShDateComponent,
+    ShDateTimeComponent,
+    ShTimeComponent,
+    ShModalComponent,
+    ShNumberComponent,
+    ShPercentComponent,
+    ShCurrencyComponent,
+    ShSelectComponent,
+    ShSliderComponent,
+    ShComboComponent,
+    ShContextMenuComponent,
+    ShContextMenuItemComponent,
+    ShSpinnerComponent,
+    ShRadioComponent,
+    ShMultiSelectComponent,
+    ShTabsComponent,
+    ShTextareaComponent,
+    ShTextComponent,
+    ShToggleComponent,
+    ShCaptionComponent
   ],
   providers: [
-    { provide: DEFAULT_NUMERAL, useValue: 0 },
-    { provide: TemplateDictionary, useValue: ShTemplate },
-    provideNgxMask({
-      validation: true
-    }),
+    { provide: TemplateDictionary, useValue: ShTemplate }
   ]
 })
 export class ShComponentsModule { }

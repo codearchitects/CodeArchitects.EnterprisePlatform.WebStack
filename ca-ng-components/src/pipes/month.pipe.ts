@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { isNoU } from '../utilities/common.utility';
 
 @Pipe({
-    name: 'month',
-    standalone: false
+  name: 'month'
 })
 export class ShMonthPipe implements PipeTransform {
   transform(value: number) {

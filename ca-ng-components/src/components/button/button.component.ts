@@ -1,9 +1,8 @@
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
-import { FormDesignerControl } from '../../decorators';
 import { Component, Injector, Input, Output, EventEmitter } from '@angular/core';
-import * as _ from 'lodash-es';
+import * as _ from 'lodash';
 import { IShBaseOptions, ShBaseAuthComponent } from '../base';
-
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
+import { FormDesignerControl } from 'src/decorators';
 
 /**
  * Base Button Component options contract
@@ -20,12 +19,11 @@ export interface IShButtonOptions
   shortDescription: 'Button Control'
 })
 @Component({
-    selector: 'sh-button',
-    templateUrl: './button.component.html',
-    styleUrls: ['./button.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  selector: 'sh-button',
+  templateUrl: './button.component.html',
+  styleUrls: ['./button.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Base Button Component
  */
@@ -70,7 +68,7 @@ export class ShButtonComponent
   /**
    * Event fired on click
    */
-  /*protected*/ public onClick(event: MouseEvent) {
+  protected onClick(event: MouseEvent) {
     event.stopPropagation();
     if (this.enable) {
       this.click.emit(event);
@@ -80,7 +78,7 @@ export class ShButtonComponent
     }
   }
 
-  /*protected*/ public getDefaultOptions(): IShButtonOptions {
+  protected getDefaultOptions(): IShButtonOptions {
     return _.merge(super.getDefaultOptions(), {
       type: 'button'
     });

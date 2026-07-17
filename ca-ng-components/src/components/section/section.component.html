@@ -1,20 +1,9 @@
-@if (show) {
+<ng-container *ngIf="show">
   <div class="section-header" [class.locked]="!(isCollapsible && title)" [class.body-collapsed]="collapsed"
-    title="{{title | translate}}"
-    [attr.role]="isToggle ? 'heading' : null" [attr.aria-level]="isToggle ? headingLevel : null">
-    <span [attr.id]="id + '-header'"
-      [attr.role]="isToggle ? 'button' : null"
-      [attr.tabindex]="isToggle ? 0 : null"
-      [attr.aria-expanded]="isToggle ? !collapsed : null"
-      [attr.aria-controls]="isToggle ? id + '-body' : null"
-      (click)="toggle()" (keydown)="onHeaderKeydown($event)">{{title | translate}}</span>
+    title="{{title | translate}}" (click)="toggle()">
+    <span>{{title | translate}}</span>
   </div>
-  @if (title && !isToggle) {
-    <span class="sh-visually-hidden" role="heading" [attr.aria-level]="headingLevel">{{title | translate}}</span>
-  }
-  <div class="section-body" [attr.id]="id + '-body'" title="" [class.collapsed]="collapsed" [class.content-disabled]="!enable"
-    [attr.inert]="isToggle && collapsed ? '' : null"
-    [attr.role]="isToggle ? 'region' : null" [attr.aria-labelledby]="isToggle ? id + '-header' : null">
+  <div class="section-body" title="" [class.collapsed]="collapsed" [class.content-disabled]="!enable">
     <ng-content></ng-content>
   </div>
-}
+</ng-container>

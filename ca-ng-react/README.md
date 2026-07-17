@@ -1,67 +1,27 @@
-# ca-ng-react
+# NgComponents
 
-> `@ca-webstack/ng-react` — Angular↔React bridge for embedding React components in Angular apps.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
-## Overview
+## Development server
 
-A lightweight bridge that lets you render React components inside Angular applications. Provides `ShReactHostComponent` (selector `sh-react-component`) that mounts any React component class into the DOM, forwards props, and propagates state changes back to Angular via an `EventEmitter`.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Installation
+## Code scaffolding
 
-```bash
-npm install @ca-webstack/ng-react
-```
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### Peer Dependencies
+## Build
 
-- `react` ^17.0.2
-- `react-dom` ^17.0.2
-- `@types/react` ^17.0.39
-- `@types/react-dom` ^17.0.11
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Quick Start
+## Running unit tests
 
-```typescript
-import { ShReactComponentsModule } from '@ca-webstack/ng-react';
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-@NgModule({ imports: [ShReactComponentsModule] })
-export class AppModule { }
-```
+## Running end-to-end tests
 
-```html
-<!-- In a template -->
-<sh-react-component
-  [component]="MyReactComponent"
-  [props]="{ title: 'Hello' }"
-  (changes)="onReactStateChange($event)">
-</sh-react-component>
-```
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Key Exports
+## Further help
 
-| Symbol | Description |
-|---|---|
-| `ShReactComponentsModule` | NgModule declaring and exporting `ShReactHostComponent`. |
-| `ShReactHostComponent` | Angular component (`sh-react-component`) that mounts a React component. Inputs: `component`, `props`, `debounceTime`, `throttleTime`. Output: `changes`. |
-| `ShBaseReactComponent` | Abstract base class extending `React.Component`, which should be extended by the custom React component. |
-
-## API
-
-### `ShReactHostComponent`
-
-| Input/Output | Type | Description |
-|---|---|---|
-| `@Input() component` | `any` | The React component class to render. |
-| `@Input() props` | `any` | Props to pass to the React component. |
-| `@Input() debounceTime` | `number` | Debounce time (ms) for state change emissions (default: 0). |
-| `@Input() throttleTime` | `number` | Throttle time (ms) for state change emissions (default: 0). |
-| `@Output() changes` | `EventEmitter` | Fires when the React component's state changes. |
-
-### `ShBaseReactComponent`
-
-Abstract class for React components that need to communicate state back to Angular.
-
-| Member | Description |
-|---|---|
-| `change$` | `Subject<TState>` — emits on every `setState` call. |
-| `element` | `ElementRef` — reference to the host DOM element. |
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

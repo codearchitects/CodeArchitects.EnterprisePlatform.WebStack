@@ -1,0 +1,54 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+# cake build version
+version: 1
+# name
+name: ca-data-context
+# environment variables
+environment:
+  CA_BAKERY_BUILD_NUMBER: 001
+#---------------------------------#
+#      build configuration        #
+#---------------------------------#
+build:
+  dist: build-dist
+  semantic_version_size: 3
+  release_notes: RELEASE_NOTES.md
+#---------------------------------#
+#    components configuration     #
+#---------------------------------#
+components:
+  - name: ca-data-context-component
+    path:
+    build:
+      type: npm
+      dist: dist
+#---------------------------------#
+#     bundlers configuration      #
+#---------------------------------#
+bundlers:
+  - name: ca-data-context-lib-bundler
+    imports:
+    steps:
+      - operation: copy
+        from:
+          component: ca-data-context-component
+          context: dist
+          path:
+        to:
+          path:
+          enable_compression: false
+      - operation: npm-version-patch
+#---------------------------------#
+#     artifacts configuration     #
+#---------------------------------#
+artifacts:
+  - name: ca-data-context-lib
+    path: ca-data-context
+    bundle:
+      name: ca-data-context-lib-bundler
+      enable_compression: true
+    deployment:
+      type: npm
+      script:

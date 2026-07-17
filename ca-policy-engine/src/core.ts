@@ -1,9 +1,10 @@
+import { IBusinessRulePolicy } from './business-policy';
 import { Context } from './policy-engine';
 import { IJsonPolicyWrapper } from './policy-wrapper';
 
-export type PolicyType = 'authorization';
+export type PolicyType = 'authorization' | 'business';
 
-export type IPolicy = IAuthorizationPolicy | IBasePolicy;
+export type IPolicy = IBusinessRulePolicy | IAuthorizationPolicy | IBasePolicy;
 
 export interface IPolicyHandler {
   // the policy type this handler can handle

@@ -1,0 +1,53 @@
+{
+  "name": "integration",
+  "version": "0.0.0",
+  "scripts": {
+    "clean": "node ../../rimraf.js node_modules && npm run clean.self.package",
+    "clean.self.package": "node ../../rimraf.js ../../dist/ca-webstack-ng-policy-engine-0.0.0.tgz",
+    "ng": "ng",
+    "start": "ng serve",
+    "setup": "cd ../../dist && npm pack && cd ../tests/integration && npm install --no-optional --loglevel=error",
+    "build": "ng build",
+    "test": "npm run clean && npm run setup && ng test --watch=false && npm run clean.self.package",
+    "test.watch": "npm run clean && npm run setup && ng test && npm run clean.self.package",
+    "lint": "ng lint",
+    "e2e": "npm run clean && npm run setup && ng e2e && npm run clean.self.package"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~8.1.2",
+    "@angular/common": "~8.1.2",
+    "@angular/compiler": "~8.1.2",
+    "@angular/core": "~8.1.2",
+    "@angular/forms": "~8.1.2",
+    "@angular/http": "^7.2.15",
+    "@angular/platform-browser": "~8.1.2",
+    "@angular/platform-browser-dynamic": "~8.1.2",
+    "@angular/router": "~8.1.2",
+    "@ca-webstack/ng-policy-engine": "file:../../dist/ca-webstack-ng-policy-engine-0.0.0.tgz",
+    "core-js": "^2.4.1",
+    "rxjs": "~6.4.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.801.2",
+    "@angular/cli": "~8.1.2",
+    "@angular/compiler-cli": "~8.1.2",
+    "@angular/language-service": "~8.1.2",
+    "@types/jasmine": "~3.3.8",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.1",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "protractor": "~5.1.2",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.9.1",
+    "typescript": "~3.4.3"
+  }
+}

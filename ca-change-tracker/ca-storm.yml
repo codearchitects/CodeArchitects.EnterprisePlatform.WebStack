@@ -1,0 +1,6 @@
+version: 1
+
+components:
+  - name: "@ca-webstack/change-tracker"
+    path: .
+    type: npm-package

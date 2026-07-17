@@ -1,7 +1,7 @@
 import { Component, ElementRef, Injector, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 import { ShBaseComponent } from '../base/index';
 
 /**
@@ -14,12 +14,12 @@ export type RowVerticalAlignment = 'start' | 'center' | 'end';
 export type RowHorizontalAlignment = 'start' | 'center' | 'end' | 'around' | 'between';
 
 @Component({
-    selector: 'row',
-    templateUrl: './row.component.html',
-    styleUrls: ['./row.component.scss'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
-})
+  // tslint:disable-next-line:component-selector
+  selector: 'row',
+  templateUrl: './row.component.html',
+  styleUrls: ['./row.component.scss'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
+ })
 /**
  * Layout grid row component
  */
@@ -39,7 +39,7 @@ export class ShRowComponent extends ShBaseComponent<any> implements OnInit, OnCh
   /**
    * Computed style
    */
-  /*protected*/ public style = 'row';
+  protected style = 'row';
   /**
    * Component Element
    */
@@ -47,7 +47,7 @@ export class ShRowComponent extends ShBaseComponent<any> implements OnInit, OnCh
   /**
    * Setup observable
    */
-  private _setup$ = new Subject<void>();
+  private _setup$ = new Subject();
 
   /**
    * Layout grid row component

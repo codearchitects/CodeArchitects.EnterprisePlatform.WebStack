@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["jquery", "reflect-metadata"],
+    "typeRoots": [
+      "../node_modules/@types",
+      "../node_modules"
+    ],
+    "skipLibCheck": true,
+    "preserveSymlinks": true
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": false,
+    "enableSummariesForJit": false
+  }
+}

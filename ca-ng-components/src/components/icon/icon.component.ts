@@ -1,34 +1,21 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
-import { shChangeDetectorStrategy } from '../../environments/change-detection-strategy';
-import { CAEP_ICON_PREFIX_TOKEN } from './tokens/icon-prefix.token';
-import { isNoU } from '../../utilities/common.utility';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { SH_CHANGE_DETECTOR } from 'src/environments/change-detection-strategy';
 
 @Component({
-    selector: 'sh-icon',
-    templateUrl: './icon.component.html',
-    styles: [':host.disabled{ opacity: .5; pointer-events: none }'],
-    changeDetection: shChangeDetectorStrategy(),
-    standalone: false
+  selector: 'sh-icon',
+  templateUrl: './icon.component.html',
+  styles: [':host.disabled{ opacity: .5; pointer-events: none }'],
+  changeDetection: SH_CHANGE_DETECTOR.STRATEGY
 })
 export class ShIconComponent implements OnChanges {
   /**
    * The name of the icon
    */
   @Input() public name: string;
-  /**
-   * Optional accessible label. When set, the icon is exposed to assistive
-   * technology as role="img" with this label; otherwise the icon is treated
-   * as decorative and hidden from assistive technology (aria-hidden).
-   */
-  @Input() public ariaLabel: string;
-  /**
-   * Icon prefix registered by token
-   */
-  protected iconPrefix: string = inject(CAEP_ICON_PREFIX_TOKEN, { optional: true });
 
   public ngOnChanges(changes: SimpleChanges) {
-    if (changes && changes['name'] && this.name != null) {
-      this.name = !isNoU(this.iconPrefix) ? `${this.iconPrefix}${this.name}` : (this.name.indexOf('icon icon-') !== -1 ? this.name :  `icon icon-${this.name}`);
+    if (changes && changes['name']) {
+      this.name = `icon icon-${this.name}`;
     }
   }
 }
