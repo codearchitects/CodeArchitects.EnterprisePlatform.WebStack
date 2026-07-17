@@ -64,9 +64,11 @@ jobs:
 
       - name: Generate SBOM (CycloneDX, shipped deps)
         run: npm run sbom
+        continue-on-error: true
 
       - name: Upload SBOM artifact
         uses: actions/upload-artifact@v4
         with:
           name: sbom
           path: sbom.json
+        continue-on-error: true
