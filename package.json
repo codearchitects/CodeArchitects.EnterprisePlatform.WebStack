@@ -38,16 +38,16 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.12.1",
     "@jest/globals": "^30.4.1",
-    "@storybook/addon-a11y": "^10.5.0",
-    "@storybook/addon-docs": "^10.5.0",
-    "@storybook/angular": "^10.5.0",
+    "@storybook/addon-a11y": "^10.5.3",
+    "@storybook/addon-docs": "^10.5.3",
+    "@storybook/angular": "^10.5.3",
     "cross-env": "^7.0.3",
     "http-server": "^14.1.1",
     "jest-util": "^30.4.1",
     "playwright": "^1.61.1",
     "puppeteer": "^24.0.0",
     "storybook": "^10.5.0",
-    "turbo": "^2.3.3"
+    "turbo": "^2.10.6"
   },
   "overrides": {
     "jest": "29.7.0"
